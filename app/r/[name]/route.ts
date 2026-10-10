@@ -20,14 +20,26 @@ const JSON_HEADERS = {
  * Add this to a components.json and the stock shadcn CLI can pull items:
  *   "registries": { "@blocksmith": "https://<host>/r/{name}.json" }
  */
+/**
+ * Every URL inside a manifest should point at the host that served it, so a
+ * consumer behind a proxy or on a preview domain gets links that work.
+ */
+function requestBase(req: Request) {
+  const fwdHost = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
+  const fwdProto = req.headers.get("x-forwarded-proto");
+  if (fwdHost) return `${fwdProto ?? (fwdHost.startsWith("localhost") ? "http" : "https")}://${fwdHost}`;
+  return new URL(req.url).origin;
+}
+
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ name: string }> }
 ) {
   const { name } = await params;
+  const base = requestBase(req);
 
   if (name === "index.json" || name === "index") {
-    return Response.json(registryIndex(), { headers: JSON_HEADERS });
+    return Response.json(registryIndex(base), { headers: JSON_HEADERS });
   }
 
   if (name === "schema.json" || name === "schema") {
@@ -56,6 +68,6 @@ export async function GET(
     );
   }
 
-  const item = await registryItemWithContent(slug);
+  const item = await registryItemWithContent(slug, base);
   return Response.json(item, { headers: JSON_HEADERS });
 }

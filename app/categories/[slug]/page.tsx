@@ -1,0 +1,187 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { COMPONENTS, componentsByCategory } from "@/lib/catalog";
+import { CATEGORIES, type CategorySlug } from "@/lib/types";
+import { ComponentCard } from "@/components/component-card";
+
+export function generateStaticParams() {
+  return CATEGORIES.map((c) => ({ slug: c.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const cat = CATEGORIES.find((c) => c.slug === slug);
+  if (!cat) return { title: "Category not found" };
+  return {
+    title: `${cat.name} components`,
+    description: cat.blurb,
+  };
+}
+
+/** What a category actually needs from Notion — the honest framing per group. */
+const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> = {
+  dashboards: {
+    problem:
+      "A dashboard's job is to answer a question in under two seconds. Notion's own Dashboard view can aggregate database numbers, but it cannot show a clock, a ring, a countdown or a strip of trend arrows — those need pixels Notion does not draw.",
+    answer:
+      "Every component here is a widget, not a recipe: a self-contained HTML document that renders numbers you pass in, and that you can resize by dragging the block edge.",
+  },
+  time: {
+    problem:
+      "Notion has dates and durations, but no sense of now. There is no timer, no elapsed counter, no live countdown — because a block cannot tick without JavaScript running inside the page.",
+    answer:
+      "Widgets run real JS in a sandboxed iframe, so they can use requestAnimationFrame, the Web Audio API and setInterval. State persists in localStorage per browser, which is right for a personal timer and wrong for a shared log.",
+  },
+  trackers: {
+    problem:
+      "Trackers split into two very different needs: something you tick off privately, and something your team can see. Notion does the second one natively and the first one badly.",
+    answer:
+      "Private trackers ship as widgets with localStorage. Shared trackers ship as native recipes with real databases, status properties and chart views — because a heatmap your colleague cannot see is not a tracker.",
+  },
+  planning: {
+    problem:
+      "Notion's Timeline and Board views are database-bound: they only work on rows, they only show properties, and you cannot drop a card onto a quarter that has no row.",
+    answer:
+      "Free-form planning components are widgets with their own drag model and their own persistence. Structured planning — sprints, content pipelines — is a recipe, because it needs relations and rollups to be useful at all.",
+  },
+  business: {
+    problem:
+      "This is the category where an iframe is actively the wrong answer. A pipeline, an invoice or an OKR tree needs relations, rollups, formulas and views that your whole team queries.",
+    answer:
+      "Most of these are native recipes that create real databases through the API. The exceptions are pure calculators — ROI, pricing, scenario modelling — where there is no data to store, only numbers to try.",
+  },
+  visuals: {
+    problem:
+      "Notion's visual vocabulary stops at emoji, icons, covers and callouts. There is no drawing surface, no diagram primitive, no way to render a hierarchy as boxes and lines.",
+    answer:
+      "These are canvas-backed widgets. They export — SVG, JSON or clipboard — so what you draw can leave the sandbox, because the sandbox itself cannot write back to Notion.",
+  },
+  docs: {
+    problem:
+      "Documentation systems are mostly structure: the right databases, the right relations, the right template bodies, repeated consistently for months.",
+    answer:
+      "Recipes build that structure with real block trees — headings, toggles, callouts, synced blocks, column lists — so the workspace arrives already written rather than empty and hopeful.",
+  },
+  automations: {
+    problem:
+      "Buttons and database automations are Notion's answer to workflow, and neither can be created through the API. There is no button block type in the public reference, and no automation endpoint at all.",
+    answer:
+      "The recipe installs every database, property and view the automations depend on, then gives you the exact click path for each button and each rule — with the reason it has to be manual, quoted from the API reference.",
+  },
+};
+
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const cat = CATEGORIES.find((c) => c.slug === slug);
+  if (!cat) notFound();
+
+  const items = componentsByCategory(cat.slug);
+  const widgets = items.filter((c) => c.kind === "widget");
+  const natives = items.filter((c) => c.kind === "native");
+  const note = CATEGORY_NOTES[cat.slug];
+
+  return (
+    <>
+      <section className="border-b border-border bg-raised">
+        <div className="mx-auto w-full max-w-[1200px] px-4 pb-9 pt-8 sm:px-6">
+          <div className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
+            <Link href="/components" className="hover:text-foreground">Components</Link>
+            <span aria-hidden>/</span>
+            <span className="text-foreground">{cat.name}</span>
+          </div>
+
+          <div className="mt-3 flex flex-wrap items-start gap-4">
+            <span className="grid size-12 shrink-0 place-items-center rounded-xl border border-border bg-background text-[26px] shadow-xs">
+              {cat.emoji}
+            </span>
+            <div className="min-w-0 flex-1">
+              <h1 className="text-balance text-[32px] font-semibold leading-[1.12] tracking-[-0.032em] sm:text-[40px]">
+                {cat.name}
+              </h1>
+              <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+                {cat.blurb}
+              </p>
+            </div>
+            <div className="flex shrink-0 gap-2">
+              {[
+                ["components", items.length],
+                ["widgets", widgets.length],
+                ["recipes", natives.length],
+              ].map(([label, n]) => (
+                <div key={String(label)} className="rounded-lg border border-border bg-card px-3 py-1.5 text-center">
+                  <div className="text-[18px] font-semibold leading-tight tabular-nums">{n}</div>
+                  <div className="text-[10.5px] uppercase tracking-wide text-muted-foreground">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto w-full max-w-[1200px] px-4 pb-20 pt-8 sm:px-6">
+        <div className="grid gap-4 rounded-xl border border-border bg-card p-4 sm:grid-cols-2">
+          <div>
+            <h2 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--notion-red)]">
+              Why Notion falls short here
+            </h2>
+            <p className="mt-2 text-[13.5px] leading-[1.7] text-muted-foreground">{note.problem}</p>
+          </div>
+          <div>
+            <h2 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--notion-green)]">
+              How we handle it
+            </h2>
+            <p className="mt-2 text-[13.5px] leading-[1.7] text-muted-foreground">{note.answer}</p>
+          </div>
+        </div>
+
+        {widgets.length > 0 && (
+          <>
+            <h2 className="mt-10 text-[17px] font-semibold tracking-[-0.02em]">
+              Widgets <span className="ml-1 font-mono text-[12px] font-normal text-muted-foreground">{widgets.length}</span>
+            </h2>
+            <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {widgets.map((c) => (
+                <ComponentCard key={c.slug} c={c} />
+              ))}
+            </div>
+          </>
+        )}
+
+        {natives.length > 0 && (
+          <>
+            <h2 className="mt-10 text-[17px] font-semibold tracking-[-0.02em]">
+              Native recipes <span className="ml-1 font-mono text-[12px] font-normal text-muted-foreground">{natives.length}</span>
+            </h2>
+            <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {natives.map((c) => (
+                <ComponentCard key={c.slug} c={c} />
+              ))}
+            </div>
+          </>
+        )}
+
+        <div className="mt-12 flex flex-wrap items-center gap-2 border-t border-border pt-6">
+          <span className="mr-1 text-[12.5px] text-muted-foreground">Other categories:</span>
+          {CATEGORIES.filter((c) => c.slug !== cat.slug).map((c) => (
+            <Link
+              key={c.slug}
+              href={`/categories/${c.slug}`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5 text-[12.5px] font-medium text-muted-foreground transition-all hover:-translate-y-px hover:border-border-strong hover:text-foreground"
+            >
+              <span aria-hidden>{c.emoji}</span>
+              {c.name}
+              <span className="font-mono text-[10.5px] opacity-60">
+                {COMPONENTS.filter((x) => x.category === c.slug).length}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}

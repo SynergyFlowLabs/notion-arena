@@ -10,7 +10,7 @@
 html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#202020;--border:#2f2f2f;--card:#252525;--line:#3a3a3a}
 @media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#202020;--border:#2f2f2f;--card:#252525;--line:#3a3a3a}}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
-body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:13px;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:13px;-webkit-font-smoothing:antialiased;overflow:hidden}
 .wrap{height:100%;display:flex;flex-direction:column;overflow:hidden}
 .bar{display:flex;gap:6px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap}
 .title{font-size:12.5px;font-weight:600;margin-right:auto}
@@ -43,6 +43,7 @@ color:var(--muted);font-size:10px;line-height:14px;text-align:center;cursor:poin
 .kids>.kid:only-child::after{display:none}
 .count{font-size:10px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:0 6px;font-weight:600}
 .zoom{font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:34px;text-align:center}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>

@@ -10,7 +10,7 @@
 html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#202020;--border:#2f2f2f;--card:#252525;--warn:#ff7369}
 @media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#202020;--border:#2f2f2f;--card:#252525;--warn:#ff7369}}
 *{box-sizing:border-box}html,body{margin:0;height:100%}
-body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:13px;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:13px;-webkit-font-smoothing:antialiased;overflow:hidden}
 .wrap{height:100%;display:flex;flex-direction:column;gap:8px;padding:11px 13px;overflow:hidden}
 .bar{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 input[type=text]{flex:1 1 150px;min-width:110px;font:inherit;font-size:12.5px;padding:5px 9px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--fg)}
@@ -40,6 +40,7 @@ background:color-mix(in oklab,var(--accent) 14%,transparent);color:var(--accent)
 .empty{color:var(--muted);font-size:11px;text-align:center;padding:10px 4px;opacity:.65}
 .foot{font-size:10.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
 kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9.5px;border:1px solid var(--border);border-radius:4px;padding:0 3px;background:var(--bg)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>

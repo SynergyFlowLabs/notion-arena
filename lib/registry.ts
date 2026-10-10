@@ -7,6 +7,19 @@ export const REGISTRY_NAME = "blocksmith";
 export const REGISTRY_HOMEPAGE = absoluteUrl("/");
 
 /**
+ * The base every URL inside a registry item is built from.
+ *
+ * Defaults to the configured site URL, but callers that have the live request
+ * can pass the real origin so the manifest a consumer downloads points at the
+ * host that actually served it.
+ */
+export function registryBase(reqBase?: string) {
+  return (reqBase ?? absoluteUrl("")).replace(/\/$/, "");
+}
+
+const at = (base: string | undefined, path: string) => `${registryBase(base)}${path}`;
+
+/**
  * A registry item in the shadcn/ui shape.
  *
  * shadcn items ship `files` with source code the CLI writes into your project.
@@ -38,7 +51,7 @@ export interface RegistryItem {
 const ITEM_SCHEMA = "https://ui.shadcn.com/schema/registry-item.json";
 const INDEX_SCHEMA = "https://ui.shadcn.com/schema/registry.json";
 
-export function buildRegistryItem(c: CatalogComponent): RegistryItem {
+export function buildRegistryItem(c: CatalogComponent, base?: string): RegistryItem {
   const widget = isWidget(c) ? c : null;
 
   const files: RegistryItem["files"] = [];
@@ -81,9 +94,9 @@ export function buildRegistryItem(c: CatalogComponent): RegistryItem {
       capabilities: c.capabilities,
       ...(widget
         ? {
-            embedUrl: absoluteUrl(`/embed/${widget.slug}`),
-            fileUrl: absoluteUrl(widget.file),
-            downloadUrl: absoluteUrl(`/api/widget/${widget.slug}`),
+            embedUrl: at(base, `/embed/${widget.slug}`),
+            fileUrl: at(base, widget.file),
+            downloadUrl: at(base, `/api/widget/${widget.slug}`),
             height: widget.height,
             minHeight: widget.minHeight,
             maxHeight: widget.maxHeight,
@@ -91,27 +104,27 @@ export function buildRegistryItem(c: CatalogComponent): RegistryItem {
           }
         : {
             recipe: (c as { recipe: string }).recipe,
-            installUrl: absoluteUrl("/api/install"),
+            installUrl: at(base, "/api/install"),
           }),
     },
     files,
   };
 }
 
-export function registryIndex() {
+export function registryIndex(base?: string) {
   return {
     $schema: INDEX_SCHEMA,
     name: REGISTRY_NAME,
-    homepage: REGISTRY_HOMEPAGE,
-    items: COMPONENTS.map((c) => buildRegistryItem(c)),
+    homepage: at(base, "/"),
+    items: COMPONENTS.map((c) => buildRegistryItem(c, base)),
   };
 }
 
 /** Full item, with file contents inlined — this is what `GET /r/<name>.json` returns. */
-export async function registryItemWithContent(slug: string) {
+export async function registryItemWithContent(slug: string, base?: string) {
   const c = getComponent(slug);
   if (!c) return null;
-  const item = buildRegistryItem(c);
+  const item = buildRegistryItem(c, base);
 
   if (isWidget(c)) {
     const { promises: fs } = await import("node:fs");
@@ -128,7 +141,7 @@ export async function registryItemWithContent(slug: string) {
             ...f,
             content: JSON.stringify(
               {
-                $schema: absoluteUrl("/r/schema.json"),
+                $schema: at(base, "/r/schema.json"),
                 notionVersion: "2026-03-11",
                 id: recipe.id,
                 summary: recipe.summary,
