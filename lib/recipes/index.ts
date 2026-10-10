@@ -160,15 +160,15 @@ export function planInstall(recipe: Recipe, parentPageId = "{parent_page_id}"): 
     });
   });
 
-  // Pass 3 — seed rows
+  // Pass 3 — seed rows. POST /v1/pages creates exactly one page per request;
+  // Notion has no bulk insert, so N rows is N requests and the plan must say so.
   recipe.databases.forEach((db) => {
     if (!db.seed?.length) return;
-    const perRequest = Math.min(db.seed.length, 100);
     calls.push({
       method: "POST",
       path: "/v1/pages",
-      note: `Seed ${db.seed.length} rows into ${db.title} so the views are not empty on first open`,
-      count: Math.ceil(db.seed.length / perRequest),
+      note: `Seed ${db.seed.length} rows into ${db.title} so the views are not empty on first open (one request per row — Notion has no bulk insert)`,
+      count: db.seed.length,
     });
   });
 

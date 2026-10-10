@@ -1,4 +1,8 @@
 import { cn } from "@/lib/utils";
+import { RECIPES, planInstall } from "@/lib/recipes";
+
+/** The real request count for the CRM recipe shown in the board pane below. */
+const CRM_REQUESTS = planInstall(RECIPES["crm-pipeline"]).totalRequests;
 
 /**
  * The hero visual: a Notion-shaped dashboard assembled from five real
@@ -96,7 +100,7 @@ export function HeroDashboard() {
         <span className="text-[var(--notion-green)]">●</span> live widget, not an image
       </div>
       <div className="pointer-events-none absolute -right-4 bottom-28 hidden rotate-[3deg] rounded-lg border border-border-strong bg-background px-2.5 py-1.5 text-[11.5px] font-medium shadow-lg lg:block">
-        <span className="text-[var(--notion-purple)]">●</span> installed with 41 API calls
+        <span className="text-[var(--notion-purple)]">●</span> board below: {CRM_REQUESTS} API calls
       </div>
     </div>
   );

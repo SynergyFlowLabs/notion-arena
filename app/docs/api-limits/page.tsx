@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table, YesNo, Cite } from "@/components/docs/prose";
-import { RECIPES } from "@/lib/recipes";
+import { RECIPES, planInstall } from "@/lib/recipes";
 
 export const metadata: Metadata = {
   title: "Notion API limits, cited",
@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 const recipeCount = Object.keys(RECIPES).length;
+/** Derived, so this page can never quote a request count the plan disagrees with. */
+const crmRequests = planInstall(RECIPES["crm-pipeline"]).totalRequests;
 
 export default function ApiLimitsPage() {
   return (
@@ -221,7 +223,7 @@ pass 5 · PATCH /v1/data_sources/{id}
           head={["Constraint", "Value", "Effect on an install"]}
           widths={["30%", "20%", undefined]}
           rows={[
-            ["Request rate", "~3 req/s average", "A 41-request CRM install takes well under a minute even paced conservatively. Our installer does not parallelise writes to the same parent."],
+            ["Request rate", "~3 req/s average", `A ${crmRequests}-request CRM install takes well under a minute even paced conservatively. Our installer does not parallelise writes to the same parent.`],
             ["Children per request", "100", "Long documentation pages are chunked; the chunk count is visible in the plan before you run it."],
             ["Nesting per request", "2 levels", "Deep trees need sequential appends against returned block ids."],
             ["Payload size", "500 KB per request", "Page bodies of a few hundred blocks are fine. Very large simple_tables may need splitting."],
