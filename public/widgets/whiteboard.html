@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mini Whiteboard</title>
+<style>
+:root{--bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#ad1a72;--canvas:#ffffff;--grid:#f0efed;
+--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#202020;--border:#2f2f2f;--canvas:#1f1f1f;--grid:#282828}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#202020;--border:#2f2f2f;--canvas:#1f1f1f;--grid:#282828}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:13px;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;display:flex;flex-direction:column}
+.bar{display:flex;gap:4px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap}
+.grp{display:flex;gap:2px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:2px}
+.tool{border:none;background:transparent;color:var(--muted);border-radius:6px;width:26px;height:24px;cursor:pointer;font-size:13px;
+display:flex;align-items:center;justify-content:center;padding:0;line-height:1}
+.tool:hover{color:var(--fg);background:var(--surface)}
+.tool.on{background:color-mix(in oklab,var(--accent) 16%,transparent);color:var(--accent)}
+.sep{width:1px;height:18px;background:var(--border);margin:0 4px}
+.swatches{display:flex;gap:3px;align-items:center}
+.sw{width:15px;height:15px;border-radius:50%;cursor:pointer;border:2px solid transparent}
+.sw.on{border-color:var(--fg)}
+.size{width:52px}
+input[type=range]{-webkit-appearance:none;height:3px;border-radius:99px;background:var(--border);width:52px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:var(--accent);cursor:pointer}
+button.act{font:inherit;font-size:11px;border:1px solid var(--border);background:var(--bg);color:var(--muted);border-radius:7px;padding:3px 8px;cursor:pointer}
+button.act:hover{color:var(--fg)}
+.spacer{margin-left:auto}
+.stage{flex:1;min-height:0;position:relative;overflow:hidden;background:var(--canvas)}
+.stage.grid{background-image:radial-gradient(circle at 1px 1px,var(--grid) 1px,transparent 0);background-size:22px 22px}
+canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-size:11px;color:var(--muted);
+background:color-mix(in oklab,var(--bg) 88%,transparent);border:1px solid var(--border);border-radius:99px;padding:3px 11px;pointer-events:none;
+opacity:1;transition:opacity .4s}
+.hint.gone{opacity:0}
+.note{position:absolute;min-width:96px;max-width:190px;padding:8px 9px;border-radius:3px;font-size:12px;line-height:1.35;
+background:#fdf3b8;color:#37352f;box-shadow:0 2px 6px rgba(15,15,15,.14);cursor:move;outline:none;transform:rotate(-.6deg)}
+.note:focus{box-shadow:0 0 0 2px var(--accent)}
+.note .rm{position:absolute;top:-7px;right:-7px;width:16px;height:16px;border-radius:50%;background:var(--fg);color:var(--bg);
+font-size:11px;line-height:16px;text-align:center;cursor:pointer;opacity:0}
+.note:hover .rm{opacity:.85}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <div class="grp" id="tools">
+      <button class="tool on" data-t="pen" title="Pen (P)">✎</button>
+      <button class="tool" data-t="line" title="Line (L)">╱</button>
+      <button class="tool" data-t="rect" title="Rectangle (R)">▭</button>
+      <button class="tool" data-t="ellipse" title="Ellipse (O)">◯</button>
+      <button class="tool" data-t="arrow" title="Arrow (A)">→</button>
+      <button class="tool" data-t="note" title="Sticky note (N)">▤</button>
+      <button class="tool" data-t="eraser" title="Eraser (E)">⌫</button>
+      <button class="tool" data-t="pan" title="Pan (H)">✥</button>
+    </div>
+    <div class="sep"></div>
+    <div class="swatches" id="swatches"></div>
+    <input type="range" id="size" class="size" min="1" max="16" value="2.5" title="Stroke width" />
+    <div class="sep"></div>
+    <button class="act" id="undo" title="Undo (⌘Z)">↶</button>
+    <button class="act" id="redo" title="Redo">↷</button>
+    <div class="spacer"></div>
+    <button class="act" id="png">PNG</button>
+    <button class="act" id="json">JSON</button>
+    <button class="act" id="clear">Clear</button>
+  </div>
+  <div class="stage grid" id="stage">
+    <canvas id="cv"></canvas>
+    <div class="hint" id="hint">Pick a tool and draw · strokes save to this browser only</div>
+  </div>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function bool(k,d){var v=c[k];return v===undefined?d:(v===true||v==='true'||v==='1');}
+
+  var ACCENT=c.accent||'#ad1a72';
+  if(c.theme)document.documentElement.setAttribute('data-theme',c.theme);
+  document.documentElement.style.setProperty('--accent',ACCENT);
+  if(!bool('grid',true))document.getElementById('stage').classList.remove('grid');
+
+  var COLORS=['#37352f','#e03e3e','#d9730d','#dfab01','#0f7b6c','#2383e2','#6940a5','#ad1a72'];
+  var dark=document.documentElement.getAttribute('data-theme')==='dark'||
+    (document.documentElement.getAttribute('data-theme')==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if(dark)COLORS[0]='#e6e6e4';
+
+  var sw=document.getElementById('swatches');
+  var color=COLORS[0];
+  COLORS.forEach(function(col,i){
+    var b=document.createElement('span');
+    b.className='sw'+(i===0?' on':'');b.style.background=col;b.title=col;
+    b.addEventListener('click',function(){
+      color=col;sw.querySelectorAll('.sw').forEach(function(n){n.classList.remove('on');});b.classList.add('on');
+    });
+    sw.appendChild(b);
+  });
+
+  var stage=document.getElementById('stage'),cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+  var tool='pen',size=2.5;
+  var shapes=[],redoStack=[],notes=[];
+  var drawing=false,last=null,preview=null,pan={x:0,y:0},panning=false,panStart=null;
+
+  var KEY='blocksmith.whiteboard.v1';
+  try{
+    var s=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(s&&typeof s==='object'){shapes=s.shapes||[];notes=s.notes||[];pan=s.pan||pan;}
+  }catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({shapes:shapes,notes:notes,pan:pan}));}catch(e){}}
+
+  function resize(){
+    var r=stage.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.max(1,Math.floor(r.width*dpr));cv.height=Math.max(1,Math.floor(r.height*dpr));
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    paint();
+  }
+  function arrowHead(x1,y1,x2,y2,col,w){
+    var a=Math.atan2(y2-y1,x2-x1),L=6+w*1.6;
+    ctx.beginPath();
+    ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-L*Math.cos(a-0.42),y2-L*Math.sin(a-0.42));
+    ctx.lineTo(x2-L*Math.cos(a+0.42),y2-L*Math.sin(a+0.42));
+    ctx.closePath();ctx.fillStyle=col;ctx.fill();
+  }
+  function drawShape(s){
+    ctx.save();
+    ctx.translate(pan.x,pan.y);
+    ctx.strokeStyle=s.color;ctx.fillStyle=s.color;ctx.lineWidth=s.w;ctx.lineCap='round';ctx.lineJoin='round';
+    if(s.t==='pen'){
+      ctx.beginPath();
+      var pts=s.p;if(!pts||pts.length<2){if(pts&&pts.length===1){ctx.arc(pts[0][0],pts[0][1],s.w/2,0,7);ctx.fill();}ctx.restore();return;}
+      ctx.moveTo(pts[0][0],pts[0][1]);
+      for(var i=1;i<pts.length-1;i++){
+        var mx=(pts[i][0]+pts[i+1][0])/2,my=(pts[i][1]+pts[i+1][1])/2;
+        ctx.quadraticCurveTo(pts[i][0],pts[i][1],mx,my);
+      }
+      ctx.lineTo(pts[pts.length-1][0],pts[pts.length-1][1]);
+      ctx.stroke();
+    }else if(s.t==='line'){
+      ctx.beginPath();ctx.moveTo(s.x1,s.y1);ctx.lineTo(s.x2,s.y2);ctx.stroke();
+    }else if(s.t==='arrow'){
+      ctx.beginPath();ctx.moveTo(s.x1,s.y1);ctx.lineTo(s.x2,s.y2);ctx.stroke();
+      arrowHead(s.x1,s.y1,s.x2,s.y2,s.color,s.w);
+    }else if(s.t==='rect'){
+      ctx.beginPath();ctx.rect(Math.min(s.x1,s.x2),Math.min(s.y1,s.y2),Math.abs(s.x2-s.x1),Math.abs(s.y2-s.y1));ctx.stroke();
+    }else if(s.t==='ellipse'){
+      var cx=(s.x1+s.x2)/2,cy=(s.y1+s.y2)/2,rx=Math.abs(s.x2-s.x1)/2,ry=Math.abs(s.y2-s.y1)/2;
+      ctx.beginPath();ctx.ellipse(cx,cy,Math.max(rx,.5),Math.max(ry,.5),0,0,Math.PI*2);ctx.stroke();
+    }else if(s.t==='eraser'){
+      ctx.save();ctx.globalCompositeOperation='destination-out';ctx.lineWidth=s.w*4;
+      ctx.beginPath();ctx.moveTo(s.x1,s.y1);ctx.lineTo(s.x2,s.y2);ctx.stroke();ctx.restore();
+    }
+    ctx.restore();
+  }
+  function paint(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    shapes.forEach(drawShape);
+    if(preview)drawShape(preview);
+  }
+  function renderNotes(){
+    stage.querySelectorAll('.note').forEach(function(n){n.remove();});
+    notes.forEach(function(n,i){
+      var el=document.createElement('div');
+      el.className='note';el.contentEditable='true';el.spellcheck=false;
+      el.style.left=(n.x+pan.x)+'px';el.style.top=(n.y+pan.y)+'px';
+      if(n.color)el.style.background=n.color;
+      el.textContent=n.text||'';
+      el.addEventListener('input',function(){notes[i].text=el.textContent;save();});
+      el.addEventListener('blur',function(){save();});
+      var rm=document.createElement('span');rm.className='rm';rm.textContent='×';
+      rm.addEventListener('click',function(e){e.stopPropagation();notes.splice(i,1);save();renderNotes();});
+      el.appendChild(rm);
+      var dragging=false,ox=0,oy=0;
+      el.addEventListener('pointerdown',function(e){
+        if(e.target===rm)return;
+        if(document.activeElement===el&&e.detail>1)return;
+        dragging=true;ox=e.clientX-el.offsetLeft;oy=e.clientY-el.offsetTop;
+        el.setPointerCapture(e.pointerId);el.blur();
+      });
+      el.addEventListener('pointermove',function(e){
+        if(!dragging)return;
+        el.style.left=(e.clientX-ox)+'px';el.style.top=(e.clientY-oy)+'px';
+        notes[i].x=e.clientX-ox-pan.x;notes[i].y=e.clientY-oy-pan.y;
+      });
+      el.addEventListener('pointerup',function(){dragging=false;save();});
+      stage.appendChild(el);
+    });
+  }
+  function pos(e){var r=cv.getBoundingClientRect();return [e.clientX-r.left-pan.x,e.clientY-r.top-pan.y];}
+
+  cv.addEventListener('pointerdown',function(e){
+    cv.setPointerCapture(e.pointerId);
+    var hint=document.getElementById('hint');hint.classList.add('gone');
+    var p=pos(e);
+    if(tool==='pan'||e.button===1||e.shiftKey){
+      panning=true;panStart=[e.clientX-pan.x,e.clientY-pan.y];cv.style.cursor='grabbing';return;
+    }
+    if(tool==='note'){
+      notes.push({x:p[0],y:p[1],text:'Note',color:dark?'#4a4433':'#fdf3b8'});
+      save();renderNotes();return;
+    }
+    drawing=true;redoStack=[];
+    if(tool==='pen')preview={t:'pen',p:[[p[0],p[1]]],color:color,w:size};
+    else preview={t:tool,x1:p[0],y1:p[1],x2:p[0],y2:p[1],color:color,w:size};
+    last=p;paint();
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(panning){pan.x=e.clientX-panStart[0];pan.y=e.clientY-panStart[1];paint();renderNotes();return;}
+    if(!drawing||!preview)return;
+    var p=pos(e);
+    if(preview.t==='pen'){
+      var lp=preview.p[preview.p.length-1];
+      if(Math.hypot(p[0]-lp[0],p[1]-lp[1])>1.2)preview.p.push([p[0],p[1]]);
+    }else{preview.x2=p[0];preview.y2=p[1];}
+    paint();
+  });
+  function end(){
+    if(panning){panning=false;cv.style.cursor=tool==='pan'?'grab':'crosshair';save();return;}
+    if(!drawing)return;
+    drawing=false;
+    if(preview){shapes.push(preview);preview=null;}
+    save();paint();
+  }
+  cv.addEventListener('pointerup',end);
+  cv.addEventListener('pointercancel',end);
+  cv.addEventListener('pointerleave',end);
+
+  document.getElementById('tools').addEventListener('click',function(e){
+    var b=e.target.closest('.tool');if(!b)return;
+    tool=b.dataset.t;
+    document.querySelectorAll('.tool').forEach(function(n){n.classList.toggle('on',n===b);});
+    cv.style.cursor=tool==='pan'?'grab':'crosshair';
+  });
+  document.getElementById('size').addEventListener('input',function(e){size=parseFloat(e.target.value)||2;});
+  function undo(){if(!shapes.length)return;redoStack.push(shapes.pop());save();paint();}
+  function redo(){if(!redoStack.length)return;shapes.push(redoStack.pop());save();paint();}
+  document.getElementById('undo').addEventListener('click',undo);
+  document.getElementById('redo').addEventListener('click',redo);
+  document.getElementById('clear').addEventListener('click',function(){
+    if(!confirm('Clear the whole board?'))return;
+    shapes=[];notes=[];redoStack=[];pan={x:0,y:0};save();paint();renderNotes();
+  });
+  document.getElementById('png').addEventListener('click',function(){
+    try{
+      var url=cv.toDataURL('image/png');
+      var a=document.createElement('a');a.href=url;a.download='whiteboard.png';a.click();
+    }catch(e){alert('Could not export PNG in this sandbox.');}
+  });
+  document.getElementById('json').addEventListener('click',function(e){
+    var b=e.currentTarget,txt=JSON.stringify({shapes:shapes,notes:notes},null,2);
+    function done(t){b.textContent=t;setTimeout(function(){b.textContent='JSON';},1400);}
+    try{navigator.clipboard.writeText(txt).then(function(){done('Copied ✓');},function(){done('See console');});}catch(err){done('See console');}
+    try{console.log(txt);}catch(err){}
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.target&&e.target.isContentEditable)return;
+    var k=e.key.toLowerCase();
+    if((e.metaKey||e.ctrlKey)&&k==='z'){e.preventDefault();e.shiftKey?redo():undo();return;}
+    var map={p:'pen',l:'line',r:'rect',o:'ellipse',a:'arrow',n:'note',e:'eraser',h:'pan'};
+    if(map[k]){var btn=document.querySelector('.tool[data-t="'+map[k]+'"]');if(btn)btn.click();}
+  });
+  window.addEventListener('resize',resize);
+  resize();renderNotes();
+  setTimeout(function(){document.getElementById('hint').classList.add('gone');},5200);
+})();
+</script>
+</body>
+</html>

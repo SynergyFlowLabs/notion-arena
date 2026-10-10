@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ROI Calculator</title>
+<style>
+:root{--bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#0f7b6c;--good:#0f7b6c;--bad:#e03e3e;
+--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--good:#4dab9a;--bad:#ff7369}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--good:#4dab9a;--bad:#ff7369}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:13px;-webkit-font-smoothing:antialiased}
+.wrap{height:100%;display:flex;flex-direction:column;gap:11px;padding:13px 15px;overflow:auto}
+.title{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:560px){.cols{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:flex;justify-content:space-between;gap:6px}
+.field .val{font-variant-numeric:tabular-nums;color:var(--fg);font-weight:600;text-transform:none;letter-spacing:0;font-size:11.5px}
+.srow{display:flex;align-items:center;gap:8px}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:4px;border-radius:99px;background:var(--border);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--accent);
+border:2px solid var(--bg);box-shadow:0 0 0 1px var(--accent);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);cursor:pointer}
+input[type=number],input[type=text]{font:inherit;font-size:12.5px;width:74px;padding:4px 7px;border:1px solid var(--border);
+border-radius:7px;background:var(--bg);color:var(--fg);font-variant-numeric:tabular-nums}
+input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in oklab,var(--accent) 20%,transparent)}
+.out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.o{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:9px 10px}
+.o span{display:block;font-size:10.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.o b{font-size:19px;font-weight:640;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.15}
+.o.hi b{color:var(--accent)}
+.chart{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:10px 11px 6px;position:relative}
+.chart .cap{font-size:10.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.chart svg{width:100%;height:88px;display:block}
+.bar{fill:color-mix(in oklab,var(--accent) 22%,transparent)}
+.bar.pos{fill:var(--accent)}
+.be{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
+.xlab{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}
+.actions{display:flex;gap:6px;justify-content:flex-end}
+button{font:inherit;font-size:11.5px;font-weight:500;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:7px;padding:4px 10px;cursor:pointer}
+button:hover{color:var(--fg);border-color:color-mix(in oklab,var(--fg) 20%,var(--border))}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title" id="title">What is this worth to you?</div>
+  <div class="cols">
+    <div style="display:flex;flex-direction:column;gap:10px" id="inputs"></div>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <div class="out">
+        <div class="o"><span>Cost / mo</span><b id="oCost">—</b></div>
+        <div class="o hi"><span>Saving / mo</span><b id="oSave">—</b></div>
+        <div class="o"><span>ROI</span><b id="oRoi">—</b></div>
+      </div>
+      <div class="chart">
+        <div class="cap">Cumulative value, 12 months</div>
+        <svg id="svg" viewBox="0 0 300 88" preserveAspectRatio="none"></svg>
+        <div class="xlab"><span>M0</span><span>M3</span><span>M6</span><span>M9</span><span>M12</span></div>
+      </div>
+      <div class="actions"><button id="copy">Copy summary</button></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function num(k,d){var v=parseFloat(c[k]);return isFinite(v)?v:d;}
+
+  var ACCENT=c.accent||'#0f7b6c',CUR=c.currency||'$';
+  if(c.theme)document.documentElement.setAttribute('data-theme',c.theme);
+  document.documentElement.style.setProperty('--accent',ACCENT);
+  document.getElementById('title').textContent=c.title||'What is this worth to you?';
+
+  var FIELDS=[
+    {k:'price',label:'Monthly price',def:num('price',99),min:0,max:2000,step:5},
+    {k:'hours',label:'Hours saved / month',def:num('hours',12),min:0,max:80,step:1},
+    {k:'rate',label:'Hourly rate',def:num('rate',65),min:0,max:500,step:5},
+    {k:'seats',label:'People affected',def:num('seats',1),min:1,max:50,step:1}
+  ];
+  var state={};
+  var host=document.getElementById('inputs');
+  FIELDS.forEach(function(f){
+    state[f.k]=f.def;
+    var d=document.createElement('div');d.className='field';
+    d.innerHTML='<label>'+f.label+' <span class="val" id="v_'+f.k+'"></span></label>'+
+      '<div class="srow"><input type="range" id="r_'+f.k+'" min="'+f.min+'" max="'+f.max+'" step="'+f.step+'" value="'+f.def+'">'+
+      '<input type="number" id="n_'+f.k+'" min="'+f.min+'" max="'+f.max+'" step="'+f.step+'" value="'+f.def+'"></div>';
+    host.appendChild(d);
+    var r=d.querySelector('#r_'+f.k),n=d.querySelector('#n_'+f.k);
+    function set(v,from){
+      v=Math.max(f.min,Math.min(f.max,isFinite(v)?v:f.def));
+      state[f.k]=v;r.value=v;n.value=v;paint();
+    }
+    r.addEventListener('input',function(){set(parseFloat(r.value));});
+    n.addEventListener('input',function(){set(parseFloat(n.value));});
+  });
+
+  function money(v){
+    var a=Math.abs(v),s=a>=10000?(v/1000).toFixed(a>=100000?0:1)+'k':a>=1000?Math.round(v).toLocaleString():Math.round(v).toString();
+    return CUR+s;
+  }
+  function compute(){
+    var cost=state.price*state.seats;
+    var value=state.hours*state.rate*state.seats;
+    var net=value-cost;
+    var roi=cost>0?value/cost:0;
+    var payback=net>0?cost/net:null;
+    var series=[];for(var m=0;m<=12;m++)series.push(net*m-cost*(m===0?1:0)-(m===0?0:0));
+    series=[];var cum=-cost;series.push(0);
+    for(var mm=1;mm<=12;mm++){cum+=net;series.push(cum);}
+    return {cost:cost,value:value,net:net,roi:roi,payback:payback,series:series};
+  }
+  var svg=document.getElementById('svg');
+  function paint(){
+    var r=compute();
+    document.getElementById('v_price').textContent=money(r.cost)+'/mo';
+    document.getElementById('v_hours').textContent=state.hours+'h';
+    document.getElementById('v_rate').textContent=money(state.rate)+'/h';
+    document.getElementById('v_seats').textContent=state.seats+(state.seats===1?' person':' people');
+    document.getElementById('oCost').textContent=money(r.cost);
+    document.getElementById('oSave').textContent=money(r.net);
+    document.getElementById('oSave').style.color=r.net>=0?'var(--good)':'var(--bad)';
+    document.getElementById('oRoi').textContent=r.roi?r.roi.toFixed(1)+'×':'—';
+    document.getElementById('oRoi').style.color=r.roi>=1?'var(--accent)':'var(--bad)';
+
+    var W=300,H=88,pad=6;
+    var s=r.series,max=Math.max.apply(null,s),min=Math.min.apply(null,s);
+    if(max===min){max=min+1;}
+    var span=max-min;
+    var bw=(W-pad*2)/s.length;
+    var zeroY=H-pad-((0-min)/span)*(H-pad*2);
+    var bars=s.map(function(v,i){
+      var y=H-pad-((v-min)/span)*(H-pad*2);
+      var top=Math.min(y,zeroY),h=Math.max(1.5,Math.abs(y-zeroY));
+      return '<rect class="bar'+(v>=0?' pos':'')+'" x="'+(pad+i*bw+bw*0.16).toFixed(1)+'" y="'+top.toFixed(1)+'" width="'+(bw*0.68).toFixed(1)+'" height="'+h.toFixed(1)+'" rx="1.5"></rect>';
+    }).join('');
+    var zl=(zeroY>pad&&zeroY<H-pad)?'<line class="be" x1="0" y1="'+zeroY.toFixed(1)+'" x2="'+W+'" y2="'+zeroY.toFixed(1)+'"></line>':'';
+    svg.innerHTML=zl+bars;
+    window.__roi=r;
+  }
+  document.getElementById('copy').addEventListener('click',function(e){
+    var r=window.__roi||compute(),b=e.currentTarget;
+    var txt='ROI estimate\n'
+      +'Cost: '+money(r.cost)+' / month ('+state.seats+' × '+money(state.price)+')\n'
+      +'Time saved: '+state.hours+'h / month at '+money(state.rate)+'/h = '+money(r.value)+'\n'
+      +'Net saving: '+money(r.net)+' / month\n'
+      +'ROI: '+(r.roi?r.roi.toFixed(1)+'×':'—')+'\n'
+      +(r.payback!==null?'Payback: month '+Math.max(1,Math.ceil(r.payback)):'Payback: not reached in 12 months');
+    function done(t){b.textContent=t;setTimeout(function(){b.textContent='Copy summary';},1400);}
+    try{navigator.clipboard.writeText(txt).then(function(){done('Copied ✓');},function(){done('Press ⌘C');});}catch(err){done('Press ⌘C');}
+    try{console.log(txt);}catch(err){}
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

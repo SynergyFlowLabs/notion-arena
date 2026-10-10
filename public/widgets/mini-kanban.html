@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mini Kanban</title>
+<style>
+:root{--bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#6940a5;--card:#ffffff;--warn:#e03e3e;
+--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#202020;--border:#2f2f2f;--card:#252525;--warn:#ff7369}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#202020;--border:#2f2f2f;--card:#252525;--warn:#ff7369}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:13px;-webkit-font-smoothing:antialiased}
+.wrap{height:100%;display:flex;flex-direction:column;gap:8px;padding:11px 13px;overflow:hidden}
+.bar{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+input[type=text]{flex:1 1 150px;min-width:110px;font:inherit;font-size:12.5px;padding:5px 9px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--fg)}
+input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in oklab,var(--accent) 18%,transparent)}
+select{font:inherit;font-size:11.5px;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:8px;padding:5px 7px}
+button{font:inherit;font-size:11.5px;font-weight:500;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:8px;padding:5px 10px;cursor:pointer;white-space:nowrap}
+button:hover{color:var(--fg)}
+.board{flex:1;min-height:0;display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.col{flex:1 1 0;min-width:150px;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:11px;background:var(--surface);overflow:hidden;transition:.12s}
+.col.over{border-color:var(--accent);background:color-mix(in oklab,var(--accent) 7%,var(--surface))}
+.ch{display:flex;align-items:center;gap:6px;padding:8px 9px 6px}
+.ch b{font-size:11.5px;font-weight:650;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch .n{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600;background:var(--bg);border:1px solid var(--border);border-radius:99px;padding:0 6px}
+.ch .n.over{color:var(--warn);border-color:color-mix(in oklab,var(--warn) 45%,var(--border));background:color-mix(in oklab,var(--warn) 10%,var(--bg))}
+.ch .plus{cursor:pointer;color:var(--muted);font-size:14px;line-height:1;padding:0 2px}
+.ch .plus:hover{color:var(--accent)}
+.cards{flex:1;min-height:0;overflow:auto;padding:2px 7px 8px;display:flex;flex-direction:column;gap:5px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 8px;font-size:12px;line-height:1.35;
+cursor:grab;display:flex;gap:6px;align-items:flex-start;box-shadow:0 1px 1px rgba(15,15,15,.03)}
+.card:active{cursor:grabbing}
+.card.dragging{opacity:.4}
+.card .t{flex:1;min-width:0;word-break:break-word}
+.card .x{color:var(--muted);opacity:0;cursor:pointer;font-size:12px;line-height:1.2}
+.card:hover .x{opacity:1}
+.card .tag{display:inline-block;font-size:9.5px;font-weight:600;padding:0 5px;border-radius:4px;margin-top:4px;
+background:color-mix(in oklab,var(--accent) 14%,transparent);color:var(--accent)}
+.empty{color:var(--muted);font-size:11px;text-align:center;padding:10px 4px;opacity:.65}
+.foot{font-size:10.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9.5px;border:1px solid var(--border);border-radius:4px;padding:0 3px;background:var(--bg)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <input type="text" id="add" placeholder="Add a card to the first column and press Enter…" />
+    <select id="target" title="Which column new cards go to"></select>
+    <button id="json">Copy JSON</button>
+    <button id="csv">Copy CSV</button>
+    <button id="reset">Reset</button>
+  </div>
+  <div class="board" id="board"></div>
+  <div class="foot">
+    <span>Drag cards between columns · <kbd>⌘/Ctrl</kbd> + <kbd>←</kbd><kbd>→</kbd> on a focused card</span>
+    <span id="counts"></span>
+  </div>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function num(k,d){var v=parseInt(c[k],10);return isFinite(v)?v:d;}
+
+  var ACCENT=c.accent||'#6940a5';
+  if(c.theme)document.documentElement.setAttribute('data-theme',c.theme);
+  document.documentElement.style.setProperty('--accent',ACCENT);
+
+  var COLS=(c.columns||'Backlog,Today,Doing,Done').split(',').map(function(s){return s.trim();}).filter(Boolean).slice(0,6);
+  if(!COLS.length)COLS=['Backlog','Doing','Done'];
+  var WIP=Math.max(0,num('wip',3));
+  var KEY='blocksmith.kanban.v1';
+
+  var DEFAULT={};
+  COLS.forEach(function(n){DEFAULT[n]=[];});
+  DEFAULT[COLS[0]]=[{t:'Draft the onboarding email',tag:'content'},{t:'Review pull request #482'},{t:'Book the offsite venue',tag:'ops'}];
+  if(COLS[2])DEFAULT[COLS[2]]=[{t:'Fix the embed height bug',tag:'eng'}];
+  if(COLS[3])DEFAULT[COLS[3]]=[{t:'Ship the pricing page'}];
+
+  var state=DEFAULT;
+  try{var s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object')state=s;}catch(e){}
+  COLS.forEach(function(n){if(!Array.isArray(state[n]))state[n]=[];});
+  if(c.cards){
+    try{
+      var parsed=JSON.parse(decodeURIComponent(String(c.cards)));
+      if(Array.isArray(parsed)){
+        state={};COLS.forEach(function(n){state[n]=[];});
+        parsed.forEach(function(item){
+          var col=COLS.indexOf(item.column)>-1?item.column:COLS[0];
+          state[col].push({t:String(item.title||item.t||''),tag:item.tag||''});
+        });
+      }
+    }catch(e){}
+  }
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+
+  var board=document.getElementById('board'),sel=document.getElementById('target'),addEl=document.getElementById('add');
+  sel.innerHTML=COLS.map(function(n,i){return '<option value="'+i+'">'+n.replace(/[<>&]/g,'')+'</option>';}).join('');
+  var drag=null;
+
+  function render(){
+    board.innerHTML='';
+    COLS.forEach(function(name,ci){
+      var cards=state[name]||[];
+      var over=WIP>0&&ci===COLS.length-2&&cards.length>WIP;
+      var col=document.createElement('div');col.className='col';col.dataset.col=name;
+      col.innerHTML='<div class="ch"><b>'+name.replace(/[<>&]/g,'')+'</b>'+
+        '<span class="n'+(over?' over':'')+'" title="'+(over?'Over the WIP limit of '+WIP:'Cards in column')+'">'+cards.length+(over?' / '+WIP:'')+'</span>'+
+        '<span class="plus" title="Add a card here">+</span></div>'+
+        '<div class="cards">'+(cards.length?cards.map(function(cd,i){
+          return '<div class="card" draggable="true" tabindex="0" data-i="'+i+'"><span class="t">'+String(cd.t||'').replace(/[<>&]/g,'')+
+            (cd.tag?'<br><span class="tag">'+String(cd.tag).replace(/[<>&]/g,'')+'</span>':'')+'</span><span class="x" title="Delete">×</span></div>';
+        }).join(''):'<div class="empty">No cards</div>')+'</div>';
+      board.appendChild(col);
+
+      col.addEventListener('dragover',function(e){e.preventDefault();col.classList.add('over');});
+      col.addEventListener('dragleave',function(){col.classList.remove('over');});
+      col.addEventListener('drop',function(e){
+        e.preventDefault();col.classList.remove('over');
+        if(!drag)return;
+        if(drag.col===name)return;
+        var moved=(state[drag.col]||[]).splice(drag.i,1)[0];
+        if(!moved)return;
+        state[name]=state[name]||[];
+        var at=drag.over!==undefined?drag.over:state[name].length;
+        state[name].splice(Math.max(0,Math.min(at,state[name].length)),0,moved);
+        drag=null;save();render();
+      });
+      col.querySelector('.plus').addEventListener('click',function(){
+        var t=prompt('New card in “'+name+'”:');
+        if(!t||!t.trim())return;
+        state[name]=state[name]||[];state[name].push({t:t.trim()});save();render();
+      });
+      var cardsEl=col.querySelector('.cards');
+      cardsEl.querySelectorAll('.card').forEach(function(node){
+        var i=parseInt(node.dataset.i,10);
+        node.addEventListener('dragstart',function(e){drag={col:name,i:i};node.classList.add('dragging');try{e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',i+'');}catch(err){}});
+        node.addEventListener('dragend',function(){node.classList.remove('dragging');drag=null;});
+        node.querySelector('.x').addEventListener('click',function(e){e.stopPropagation();state[name].splice(i,1);save();render();});
+        node.addEventListener('keydown',function(e){
+          if(!(e.metaKey||e.ctrlKey))return;
+          var d=e.key==='ArrowLeft'?-1:e.key==='ArrowRight'?1:0;
+          if(!d)return;
+          e.preventDefault();
+          var ni=COLS.indexOf(name)+d;
+          if(ni<0||ni>=COLS.length)return;
+          var moved=state[name].splice(i,1)[0];
+          var to=COLS[ni];state[to]=state[to]||[];state[to].push(moved);
+          save();render();
+        });
+      });
+    });
+    var total=COLS.reduce(function(a,n){return a+(state[n]||[]).length;},0);
+    document.getElementById('counts').textContent=total+' cards · '+(WIP>0?'WIP limit '+WIP+' on “'+COLS[COLS.length-2]+'”':'no WIP limit');
+  }
+
+  addEl.addEventListener('keydown',function(e){
+    if(e.key!=='Enter')return;
+    var v=addEl.value.trim();if(!v)return;
+    var tag='';var m=v.match(/\s#([\w-]+)$/);
+    if(m){tag=m[1];v=v.slice(0,m.index).trim();}
+    var col=COLS[parseInt(sel.value,10)]||COLS[0];
+    state[col]=state[col]||[];state[col].push({t:v,tag:tag});
+    addEl.value='';save();render();
+  });
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Clear every card on this board?'))return;
+    state={};COLS.forEach(function(n){state[n]=[];});save();render();
+  });
+  function copy(txt,label,btn){
+    function done(t){btn.textContent=t;setTimeout(function(){btn.textContent=label;},1400);}
+    try{navigator.clipboard.writeText(txt).then(function(){done('Copied ✓');},function(){done('See console');});}catch(err){done('See console');}
+    try{console.log(txt);}catch(err){}
+  }
+  document.getElementById('json').addEventListener('click',function(e){
+    var out=[];COLS.forEach(function(n){(state[n]||[]).forEach(function(cd){out.push({title:cd.t,column:n,tag:cd.tag||null});});});
+    copy(JSON.stringify(out,null,2),'Copy JSON',e.currentTarget);
+  });
+  document.getElementById('csv').addEventListener('click',function(e){
+    var rows=['Name,Status,Tags'];
+    COLS.forEach(function(n){(state[n]||[]).forEach(function(cd){
+      rows.push('"'+String(cd.t||'').replace(/"/g,'""')+'","'+n+'","'+(cd.tag||'')+'"');
+    });});
+    copy(rows.join('\n'),'Copy CSV',e.currentTarget);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
