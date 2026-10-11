@@ -3,8 +3,8 @@
 **The component registry for Notion.** shadcn/ui's model: browse, configure,
 copy, own, install from code, applied to Notion dashboards.
 
-95 components: **84 embeddable widgets** that run inside a Notion page, and
-**11 native database recipes** that install through the Notion API. 84 are free.
+107 components: **96 embeddable widgets** that run inside a Notion page, and
+**11 native database recipes** that install through the Notion API. 96 are free.
 
 > Notion is a trademark of Notion Labs Inc. This is an independent project and is
 > not affiliated with or endorsed by Notion.
@@ -70,8 +70,8 @@ host, falling back to `http://localhost:3000`.
 ## Layout
 
 ```
-public/widgets/*.html      the products: 84 self-contained HTML files
-lib/catalog.ts             source of truth for all 95 components
+public/widgets/*.html      the products: 96 self-contained HTML files
+lib/catalog.ts             source of truth for all 107 components
 lib/types.ts               component/param types + the 8 categories
 lib/widget.ts              config coercion, injection, HTML rendering  (server)
 lib/widget-url.ts          URL builders                                (browser-safe)
@@ -124,10 +124,11 @@ before authorising any write to your workspace.
 
 ## Two things worth knowing before you build on this
 
-**A widget cannot read your Notion data.** Notion's HTML block sandbox has no
-network access and no bridge to its parent page. If a component needs real
-numbers, it is a recipe: a database with views and rollups. Every shared tracker
-here exists in both forms for exactly this reason.
+**A widget cannot read or write your Notion data.** Notion's HTML block sandbox
+has no network access and no bridge to its parent page. Widgets may keep user-
+entered personal state in this browser, but that state is not Notion data and is
+not shared. If a workflow needs workspace records, collaboration, permissions,
+or an audit trail, use a native database or recipe.
 
 **Relations force a two-pass install.** Since Notion split databases from data
 sources, a `relation` property targets a `data_source_id` that does not exist

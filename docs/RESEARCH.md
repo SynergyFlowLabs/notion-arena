@@ -62,9 +62,10 @@ Two conclusions follow, and they shaped the whole product:
 
 1. **A widget must be a single self-contained HTML file with zero external
    requests.** Not a preference: the sandbox has no network.
-2. **Anything data-driven must be a native recipe, not a widget.** Every
-   "shared tracker" in this catalog therefore exists in two forms: a private
-   localStorage widget and a real database recipe.
+2. **Anything that must read or write workspace data, collaborate, or preserve
+   an audit trail needs a native database or recipe.** A personal widget may
+   keep manually entered state in localStorage, but that state is private to
+   this browser and is not a synchronized version of Notion data.
 
 ### The API path is not obvious
 
@@ -84,7 +85,7 @@ This is implemented in `lib/notion/installer.ts` as `installHtmlBlock()`.
 A sandboxed block has no `location.search`. So the same file needs two config
 sources: a baked-in `<script id="bk-config" type="application/json">` for the
 download path, and `URLSearchParams` for the `/embed` path. That contract is
-implemented identically in all 84 widgets and documented in
+implemented identically in all 96 widgets and documented in
 `app/docs/authoring/page.tsx`.
 
 ---
@@ -272,7 +273,7 @@ only two delivery mechanisms real:
 - **`native`**: a recipe of API calls plus documented manual steps. Channels:
   `api`, `duplicate`, `guide`. Creates real databases.
 
-Eight categories, 95 components: 84 widgets, 11 recipes, 84 free and 11 Pro.
+Eight categories, 107 components: 96 widgets, 11 recipes, 96 free and 11 Pro.
 
 ---
 

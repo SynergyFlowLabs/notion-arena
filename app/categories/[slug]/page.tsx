@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { COMPONENTS, componentsByCategory } from "@/lib/catalog";
 import { CATEGORIES, type CategorySlug } from "@/lib/types";
 import { ComponentCard } from "@/components/component-card";
+import { ThemedIllustration } from "@/components/illustrations";
 import { PageTransition } from "@/components/page-transition";
 
 export function generateStaticParams() {
@@ -48,13 +49,13 @@ const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> 
     problem:
       "Notion's Timeline and Board views are database-bound: they only work on rows, they only show properties, and you cannot drop a card onto a quarter that has no row.",
     answer:
-      "Free-form planning components are widgets with their own drag model and their own persistence. Structured planning (sprints, content pipelines) is a recipe, because it needs relations and rollups to be useful at all.",
+      "Personal planners, checklists, and manual roadmaps are offline widgets with browser-local state. Structured, collaborative planning (such as sprints and content pipelines) is a recipe when it needs shared records, relations, or rollups.",
   },
   business: {
     problem:
       "This is the category where an iframe is actively the wrong answer. A pipeline, an invoice or an OKR tree needs relations, rollups, formulas and views that your whole team queries.",
     answer:
-      "The native recipes here create real databases through the API. The exceptions are pure calculators (ROI, pricing, scenario modelling) where there is no data to store, only numbers to try.",
+      "Native recipes create real databases for workflows that need shared records, relations, and team views. Standalone widgets here are personal draft queues, planning aids, scorecards, and calculators only; they stay local and are not an approval, hiring, publishing, or accounting system.",
   },
   visuals: {
     problem:
@@ -108,6 +109,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 {cat.blurb}
               </p>
             </div>
+            {cat.slug === "planning" && (
+              <ThemedIllustration
+                name="planning"
+                alt="Paper-like planner, checklist, and milestone map in a Notion-inspired illustration"
+                className="hidden h-[120px] w-[180px] shrink-0 lg:block"
+              />
+            )}
             <div className="flex shrink-0 gap-2">
               {[
                 ["components", items.length],

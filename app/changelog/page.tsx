@@ -24,6 +24,19 @@ const ENTRIES: Entry[] = [
   {
     version: "1.0.0",
     date: "2026-10-11",
+    title: "Twelve offline widgets for planning, people, and operations",
+    kind: "release",
+    body: [
+      "Personal tools: Weekly Planner, Media Watchlist, and Family Calendar. Tasks, titles, and dates stay in this browser; there are no reminders, catalog lookups, playback, or calendar sync.",
+      "Team and project tools: Team Directory, Team Announcements, SOP Runbook, Product Roadmap, and Weekly Status Report. These are local references and drafts, not a team system of record, distribution service, validated procedure, or linked issue tracker.",
+      "Business tools: Request Queue, Campaign Planner, Interview Scorecard, and Quote Builder. Requests are not routed or approved; campaigns are not published or measured; scorecards calculate no overall score or recommendation; quote arithmetic is not tax or invoice advice.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 107 components: 96 widgets and 11 native recipes. Local storage is not encrypted; use a shared system when collaboration, permissions, audit history, or official records are required.",
+    ],
+    components: ["weekly-planner", "media-watchlist", "family-calendar", "team-directory", "team-announcements", "sop-runbook", "product-roadmap", "weekly-status-report", "request-queue", "campaign-planner", "interview-scorecard", "quote-builder"],
+  },
+  {
+    version: "1.0.0",
+    date: "2026-10-11",
     title: "First public catalog",
     kind: "release",
     body: [
