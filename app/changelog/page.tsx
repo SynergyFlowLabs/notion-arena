@@ -112,6 +112,20 @@ const ENTRIES: Entry[] = [
     components: ["mini-kanban", "gantt-timeline", "eisenhower-matrix"],
   },
   {
+    version: "1.0.0",
+    date: "2026-10-11",
+    title: "Ten more offline widgets for personal planning and everyday tools",
+    kind: "release",
+    body: [
+      "Personal tools: Ambient Noise Generator uses locally synthesized audio after a user gesture; Subscription Tracker stores a manual list in this browser and has no provider or cancellation integration.",
+      "Calculators: Bill Split Calculator applies the entered tax and tip percentages to the subtotal; Weighted Grade Calculator reports a weighted estimate for entered course components; Sleep Duration Calculator performs time arithmetic only.",
+      "Writing and home planning: Word Counter keeps draft text in memory only; Weekly Meal Planner and Grocery List save their entries locally without Notion sync or nutrition advice.",
+      "Travel and work: Trip Itinerary keeps date-and-time stops in this browser; Billable Time Tracker stores sessions locally and shows a rough rate estimate, not an audited timesheet or invoice.",
+      "All ten additions are free, self-contained, and offline, bringing the catalog to 59 components: 48 widgets and 11 native recipes. Use a Notion database or connected service when records need shared access, permissions, or a system of record.",
+    ],
+    components: ["white-noise", "subscription-tracker", "bill-splitter", "grade-calculator", "word-counter", "meal-planner", "grocery-list", "trip-itinerary", "billable-time-tracker", "sleep-duration"],
+  },
+  {
     version: "platform",
     date: "2026-03-11",
     title: "Notion ships HTML blocks and the Views API",

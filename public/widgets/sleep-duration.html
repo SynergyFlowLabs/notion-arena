@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sleep Duration Calculator</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#6940a5;--accent-ink:#fff;--accent-text:var(--accent)--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:220px;display:flex;flex-direction:column;gap:10px;padding:14px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:14px;font-weight:650;margin-top:2px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:7px}.field{display:flex;flex-direction:column;gap:4px}.field label{font-size:10px;color:var(--muted);font-weight:600}.field input{height:33px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);padding:5px 7px;font:inherit;font-size:12px}.field input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}.duration{display:flex;flex:1;min-height:78px;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid var(--border);border-radius:10px;background:var(--surface);text-align:center}.value{font-size:clamp(30px,9vw,43px);font-weight:700;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--accent-text)}.caption{font-size:10px;color:var(--muted)}.note{font-size:9px;color:var(--muted);text-align:center;line-height:1.4}
+@media(max-width:330px){.wrap{padding:10px}.fields{gap:5px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Time in bed</div><div class="title" id="title">Sleep duration</div></div></header>
+  <section class="fields"><div class="field"><label for="bed">Bedtime</label><input id="bed" type="time" value="23:00" /></div><div class="field"><label for="wake">Wake time</label><input id="wake" type="time" value="07:00" /></div><div class="field"><label for="awake">Awake during night (minutes)</label><input id="awake" type="number" min="0" max="720" step="5" value="0" /></div></section>
+  <section class="duration" aria-live="polite"><div class="value" id="duration">8h 00m</div><div class="caption" id="inBed">Time in bed: 8h 00m</div></section>
+  <div class="note">Simple time arithmetic only. It does not assess sleep quality or provide health advice. Nothing is saved or sent.</div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  function rgb(hex){var s=String(hex).slice(1);return [0,2,4].map(function(i){return parseInt(s.slice(i,i+2),16);});}
+  function luminance(values){return values.map(function(v){v/=255;return v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4);}).reduce(function(a,v,i){return a+v*[.2126,.7152,.0722][i];},0);}
+  function contrast(a,b){var x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
+  function accentInk(hex){var c=rgb(hex);return contrast(c,[255,255,255])>=contrast(c,[0,0,0])?'#fff':'#000';}
+  function accentText(hex){var dark=theme==='dark'||(theme==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches),bg=rgb(dark?'#252525':'#f7f7f5'),base=rgb(hex),target=dark?[255,255,255]:[0,0,0];if(contrast(base,bg)>=4.5)return hex;for(var t=.02;t<=1;t+=.02){var mix=base.map(function(v,i){return Math.round(v+(target[i]-v)*t);});if(contrast(mix,bg)>=4.5)return '#'+mix.map(function(v){return v.toString(16).padStart(2,'0');}).join('');}return dark?'#fff':'#191919';}
+  function setAccentText(){document.documentElement.style.setProperty('--accent-text',accentText(ACCENT));}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#6940a5'),LABEL=String(c.label||'Sleep duration').slice(0,48);
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.documentElement.style.setProperty('--accent-ink',accentInk(ACCENT));setAccentText();if(theme==='auto'&&window.matchMedia){var scheme=window.matchMedia('(prefers-color-scheme: dark)');if(scheme.addEventListener)scheme.addEventListener('change',setAccentText);else if(scheme.addListener)scheme.addListener(setAccentText);}document.getElementById('title').textContent=LABEL;document.title=LABEL;
+  var bed=document.getElementById('bed'),wake=document.getElementById('wake'),awake=document.getElementById('awake');if(/^\d{2}:\d{2}$/.test(String(c.bed||'')))bed.value=c.bed;if(/^\d{2}:\d{2}$/.test(String(c.wake||'')))wake.value=c.wake;var a=parseInt(c.awakeMinutes,10);if(isFinite(a))awake.value=String(Math.max(0,Math.min(720,a)));
+  function format(n){var h=Math.floor(n/60),m=n%60;return h+'h '+String(m).padStart(2,'0')+'m';}
+  function calc(){var b=bed.value.split(':').map(Number),w=wake.value.split(':').map(Number);if(b.length!==2||w.length!==2)return;var start=b[0]*60+b[1],end=w[0]*60+w[1],span=(end-start+1440)%1440;if(span===0){document.getElementById('duration').textContent='Choose two times';document.getElementById('inBed').textContent='Bedtime and wake time must differ';return;}var awakeM=Math.max(0,Math.min(span,parseInt(awake.value,10)||0)),sleep=span-awakeM;document.getElementById('duration').textContent=format(sleep);document.getElementById('inBed').textContent='Time in bed: '+format(span)+(awakeM?' · awake '+format(awakeM):'');}
+  [bed,wake,awake].forEach(function(input){input.addEventListener('input',calc);});calc();
+})();
+</script>
+</body>
+</html>
