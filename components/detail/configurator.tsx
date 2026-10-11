@@ -71,7 +71,7 @@ function Field({
         >
           <span
             className={cn(
-              "absolute top-[2px] size-[16px] rounded-full bg-white shadow-sm transition-all",
+              "absolute top-[2px] size-[16px] rounded-full bg-white shadow-sm transition-transform duration-150",
               value ? "left-[19px]" : "left-[2px]"
             )}
           />
@@ -408,7 +408,7 @@ ${embedHref}`;
                         ].map(([label, ok, note]) => (
                           <tr key={String(label)} className="border-b border-border last:border-0">
                             <td className="w-6 py-2 pl-3 align-top">
-                              <span className={ok ? "text-[var(--notion-green)]" : "text-[var(--notion-red)]"}>
+                              <span className={ok ? "text-[var(--tag-ink-green)]" : "text-[var(--tag-ink-red)]"}>
                                 {ok ? "✓" : "✕"}
                               </span>
                             </td>
@@ -458,7 +458,7 @@ ${embedHref}`;
         <div className="lg:sticky lg:top-20">
           <div className="rounded-xl border border-border bg-card">
             <div className="flex items-center justify-between gap-2 border-b border-border px-3.5 py-2.5">
-              <h2 className="text-[13px] font-semibold">Configure</h2>
+              <h2 className="text-h6 text-foreground">Configure</h2>
               <button
                 type="button"
                 onClick={() => {

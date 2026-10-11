@@ -2,21 +2,35 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/site/logo";
+import { IconClose, IconGithub, IconMenu } from "@/components/icons";
 
+/**
+ * Notion's marketing nav labels each section with a bracketed monospace
+ * shortcut — `[S] Syncs`. We keep that device, and make it honest: the
+ * shortcuts actually work, and are suppressed while typing or when a
+ * modifier is held.
+ */
 const NAV = [
-  { href: "/components", label: "Components" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/registry", label: "Registry" },
-  { href: "/docs", label: "Docs" },
-  { href: "/pricing", label: "Pricing" },
-];
+  { href: "/components", label: "Components", key: "c" },
+  { href: "/how-it-works", label: "How it works", key: "h" },
+  { href: "/registry", label: "Registry", key: "r" },
+  { href: "/docs", label: "Docs", key: "d" },
+  { href: "/pricing", label: "Pricing", key: "p" },
+] as const;
+
+function isTypingTarget(el: EventTarget | null) {
+  if (!(el instanceof HTMLElement)) return false;
+  const tag = el.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el.isContentEditable;
+}
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
 
@@ -29,91 +43,160 @@ export function SiteHeader() {
 
   React.useEffect(() => setOpen(false), [pathname]);
 
+  // Section shortcuts, advertised by the bracketed labels in the nav.
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+      if (isTypingTarget(e.target)) return;
+      const hit = NAV.find((n) => n.key === e.key.toLowerCase());
+      if (!hit) return;
+      e.preventDefault();
+      router.push(hit.href);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [router]);
+
+  // Lock scroll while the mobile sheet is open, and close on Escape.
+  React.useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const isActive = (href: string) =>
+    href === pathname || pathname.startsWith(`${href}/`);
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all",
+        "sticky top-0 z-50 w-full border-b transition-[background-color,border-color,box-shadow] duration-200",
         scrolled
-          ? "border-b border-border bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70"
-          : "border-b border-transparent bg-background"
+          ? "border-border bg-card/90 backdrop-blur-md supports-[backdrop-filter]:bg-card/75"
+          : "border-transparent bg-card"
       )}
     >
-      <div className="mx-auto flex h-14 w-full max-w-[1200px] items-center gap-2 px-4 sm:px-6">
-        <Link href="/" className="mr-2 flex items-center gap-2 rounded-lg pr-2" aria-label="Blocksmith home">
+      <div className="mx-auto flex h-14 w-full max-w-[1240px] items-center gap-3 px-4 sm:px-6">
+        <Link
+          href="/"
+          aria-label="Blocksmith home"
+          className="rounded-lg shrink-0 focus-visible:outline-offset-4"
+        >
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-0.5 md:flex">
-          {NAV.map((item) => {
-            const active =
-              pathname === item.href || pathname.startsWith(item.href + "/");
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
+        {/* desktop nav — Inter 15/500 for the label, mono for the shortcut */}
+        <nav aria-label="Main" className="ml-4 hidden items-center gap-0.5 lg:flex">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={cn(
+                "group flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[14.5px] font-medium transition-colors",
+                isActive(item.href)
+                  ? "text-foreground"
+                  : "text-ink-soft hover:bg-secondary hover:text-foreground"
+              )}
+            >
+              {item.label}
+              <kbd
                 className={cn(
-                  "rounded-md px-2.5 py-1.5 text-[13.5px] font-medium transition-colors",
-                  active
-                    ? "bg-secondary text-foreground"
-                    : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground"
+                  "hidden rounded-[4px] border px-1 font-mono text-[10px] font-medium leading-[15px] transition-colors xl:inline-block",
+                  isActive(item.href)
+                    ? "border-border-strong bg-secondary text-ink-faint"
+                    : "border-border bg-background text-ink-faint group-hover:border-border-strong"
                 )}
               >
-                {item.label}
-              </Link>
-            );
-          })}
+                {item.key.toUpperCase()}
+              </kbd>
+            </Link>
+          ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5">
-          <ThemeToggle />
+        <div className="ml-auto flex items-center gap-1">
           <a
             href="https://github.com/SynergyFlowLabs/notion-components"
             target="_blank"
             rel="noreferrer noopener"
-            className="hidden h-8 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground sm:inline-flex"
+            aria-label="Blocksmith on GitHub"
+            className="hidden size-8 place-items-center rounded-lg text-ink-soft transition-colors hover:bg-secondary hover:text-foreground sm:grid"
           >
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
-            </svg>
-            Star
+            <IconGithub size={17} />
           </a>
+
+          <ThemeToggle className="hidden sm:inline-flex" />
+
           <Link
             href="/components"
-            className="hidden h-8 items-center rounded-lg bg-[#37352f] px-3 text-[13px] font-medium text-white shadow-xs transition-all hover:bg-[#2f2d29] dark:bg-white dark:text-[#191919] dark:hover:bg-white/90 sm:inline-flex"
+            className="ml-1 hidden h-8 items-center rounded-lg bg-primary px-3 text-[14px] font-semibold text-primary-foreground transition-colors hover:bg-primary-deep sm:inline-flex"
           >
-            Browse components
+            Get started
           </Link>
+
           <button
             type="button"
-            aria-label="Menu"
-            aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-secondary hover:text-foreground md:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="grid size-8 place-items-center rounded-lg text-ink-soft transition-colors hover:bg-secondary hover:text-foreground lg:hidden"
           >
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              {open ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M3 6h18M3 12h18M3 18h18" />}
-            </svg>
+            {open ? <IconClose size={18} /> : <IconMenu size={18} />}
           </button>
         </div>
       </div>
 
+      {/* mobile sheet */}
       {open && (
-        <div className="border-t border-border bg-background px-4 py-2 md:hidden">
-          <nav className="flex flex-col">
+        <div
+          id="mobile-nav"
+          className="fixed inset-x-0 top-14 bottom-0 z-40 overflow-y-auto overscroll-contain bg-card lg:hidden"
+          style={{ boxShadow: "var(--shadow-pop)" }}
+        >
+          <nav aria-label="Mobile" className="mx-auto flex max-w-[1240px] flex-col gap-0.5 px-4 py-4 sm:px-6">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
-                  "rounded-md px-2 py-2.5 text-sm font-medium",
-                  pathname === item.href
+                  "flex items-center gap-3 rounded-xl px-3 py-3 text-[16px] font-medium transition-colors",
+                  isActive(item.href)
                     ? "bg-secondary text-foreground"
-                    : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground"
+                    : "text-ink-soft hover:bg-secondary hover:text-foreground"
                 )}
               >
-                {item.label}
+                <span className="flex-1">{item.label}</span>
+                <kbd className="rounded-[4px] border border-border bg-background px-1.5 font-mono text-[11px] text-ink-faint">
+                  {item.key.toUpperCase()}
+                </kbd>
               </Link>
             ))}
+            <div className="mt-3 flex items-center gap-2 border-t border-border pt-4">
+              <Link
+                href="/components"
+                className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-primary text-[15px] font-semibold text-primary-foreground"
+              >
+                Get started
+              </Link>
+              <a
+                href="https://github.com/SynergyFlowLabs/notion-components"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Blocksmith on GitHub"
+                className="grid size-10 place-items-center rounded-lg border border-border text-ink-soft"
+              >
+                <IconGithub size={18} />
+              </a>
+              <ThemeToggle className="size-10 border border-border" />
+            </div>
           </nav>
         </div>
       )}

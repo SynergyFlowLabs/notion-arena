@@ -37,13 +37,13 @@ export default function HowItWorks() {
     <>
       <section className="border-b border-border bg-raised">
         <div className="mx-auto w-full max-w-[900px] px-4 pb-12 pt-14 sm:px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.09em] text-primary">
+          <p className="label-mono text-primary">
             How it works
           </p>
-          <h1 className="mt-3 text-balance text-[38px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[50px]">
+          <h1 className="font-display mt-4 text-h1 text-foreground sm:text-hero sm:leading-[1.04] sm:tracking-[-0.025em]">
             Three ways a component gets into your page
           </h1>
-          <p className="mt-4 max-w-2xl text-pretty text-[16px] leading-[1.7] text-muted-foreground">
+          <p className="mt-5 max-w-2xl text-lede text-ink-soft">
             Notion does not have a plugin system, so there is no single install
             path. There are three, each with different powers and different
             failure modes. This page explains all three honestly — including the
@@ -52,9 +52,9 @@ export default function HowItWorks() {
           <nav className="mt-7 flex flex-wrap gap-2">
             {[
               ["#artifact", "The artifact"],
-              ["#embed", "1 · Embed URL"],
-              ["#html-block", "2 · HTML block"],
-              ["#recipe", "3 · Native recipe"],
+              ["#embed", "Embed URL"],
+              ["#html-block", "HTML block"],
+              ["#recipe", "Native recipe"],
               ["#config", "Configuration"],
               ["#limits", "Limits"],
               ["#choose", "Which one?"],
@@ -73,7 +73,7 @@ export default function HowItWorks() {
 
       <div className="mx-auto w-full max-w-[900px] px-4 sm:px-6">
         {/* ===================== ARTIFACT ===================== */}
-        <Section id="artifact" n="00" title="One artifact, deliberately">
+        <Section id="artifact" label="the artifact" title="One artifact, deliberately">
           <p>
             A widget is a single{" "}
             <code>.html</code> file: inline CSS, inline JavaScript, no
@@ -113,7 +113,7 @@ export default function HowItWorks() {
                 </svg>
               </div>
               <div className="bg-card p-4">
-                <div className="text-[12px] font-semibold text-[var(--notion-purple)]">Downloaded</div>
+                <div className="text-[12px] font-semibold text-[var(--tag-ink-purple)]">Downloaded</div>
                 <pre className="mt-2 overflow-x-auto font-mono text-[11.5px] leading-relaxed text-muted-foreground">
 {`GET /api/widget/pomodoro-timer
       ?work=25&short=5
@@ -132,7 +132,7 @@ export default function HowItWorks() {
         </Section>
 
         {/* ===================== EMBED ===================== */}
-        <Section id="embed" n="01" title="Embed URL" accent="var(--notion-blue)">
+        <Section id="embed" label="channel — embed" title="Embed URL" accent="var(--notion-blue)">
           <p>
             The oldest trick in the book, and still the fastest. Notion's{" "}
             <code>/embed</code> block iframes any URL that allows framing. We
@@ -174,7 +174,7 @@ export default function HowItWorks() {
         </Section>
 
         {/* ===================== HTML BLOCK ===================== */}
-        <Section id="html-block" n="02" title="Native HTML block" accent="var(--notion-purple)">
+        <Section id="html-block" label="channel — html block" title="Native HTML block" accent="var(--notion-purple)">
           <p>
             Notion 3.6 shipped a real HTML block. It is not an iframe of a URL —
             it is a file you upload, stored in Notion's own file storage and
@@ -234,8 +234,8 @@ export default function HowItWorks() {
                   className={cn(
                     "mt-px h-fit shrink-0 rounded border px-1.5 py-px font-mono text-[10.5px] font-bold",
                     r.m === "POST"
-                      ? "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--notion-green)]"
-                      : "border-[var(--notion-yellow)]/40 bg-[var(--notion-yellow)]/12 text-[var(--notion-yellow)]"
+                      ? "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--tag-ink-green)]"
+                      : "border-[var(--notion-yellow)]/40 bg-[var(--notion-yellow)]/12 text-[var(--tag-ink-yellow)]"
                   )}
                 >
                   {r.m}
@@ -296,9 +296,9 @@ curl -X PATCH \\
                 <span
                   className={cn(
                     "mt-px grid size-[16px] shrink-0 place-items-center rounded-full text-[9.5px] font-bold",
-                    ok === true && "bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--notion-green)]",
-                    ok === "partial" && "bg-[color-mix(in_oklab,var(--notion-yellow)_22%,transparent)] text-[var(--notion-yellow)]",
-                    ok === false && "bg-[color-mix(in_oklab,var(--notion-red)_14%,transparent)] text-[var(--notion-red)]"
+                    ok === true && "bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--tag-ink-green)]",
+                    ok === "partial" && "bg-[color-mix(in_oklab,var(--notion-yellow)_22%,transparent)] text-[var(--tag-ink-yellow)]",
+                    ok === false && "bg-[color-mix(in_oklab,var(--notion-red)_14%,transparent)] text-[var(--tag-ink-red)]"
                   )}
                 >
                   {ok === true ? "✓" : ok === "partial" ? "~" : "✕"}
@@ -313,7 +313,7 @@ curl -X PATCH \\
         </Section>
 
         {/* ===================== RECIPE ===================== */}
-        <Section id="recipe" n="03" title="Native recipe" accent="var(--notion-green)">
+        <Section id="recipe" label="channel — native recipe" title="Native recipe" accent="var(--notion-green)">
           <p>
             A CRM, an OKR tree or a meeting-notes system is not a widget. It is
             databases with relations between them, rollups that aggregate across
@@ -341,7 +341,7 @@ curl -X PATCH \\
               { n: 6, t: "Seed rows and append documentation", d: "POST /v1/pages for seed data, then PATCH /v1/blocks/{id}/children in chunks of 100 — the hard limit on children per request, and on nesting depth per request." },
             ].map((s) => (
               <div key={s.n} className="flex gap-3 rounded-xl border border-border bg-card p-3.5">
-                <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[color-mix(in_oklab,var(--notion-green)_14%,transparent)] font-mono text-[11.5px] font-bold text-[var(--notion-green)]">
+                <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[color-mix(in_oklab,var(--notion-green)_14%,transparent)] font-mono text-[11.5px] font-bold text-[var(--tag-ink-green)]">
                   {s.n}
                 </span>
                 <div className="min-w-0">
@@ -369,7 +369,7 @@ curl -X PATCH \\
         </Section>
 
         {/* ===================== CONFIG ===================== */}
-        <Section id="config" n="04" title="The configuration contract">
+        <Section id="config" label="the contract" title="The configuration contract">
           <p>
             Every widget implements the same four rules. If you are writing your
             own, copy them — they are what makes a widget configurable from a
@@ -378,14 +378,21 @@ curl -X PATCH \\
           </p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
-              ["1 · Read baked-in config first", 'If a <script id="bk-config" type="application/json"> tag exists, parse it. This is the download and API-install path, where there is no URL.'],
-              ["2 · Overlay the query string", "new URLSearchParams(location.search) wins over baked-in values. This is the /embed path, and it lets one file serve many configurations."],
-              ["3 · Whitelist declared parameters", "Unknown keys are dropped, never passed through. Values are coerced to the declared type — number, boolean, color, date, select, string."],
-              ["4 · Two universal parameters", 'theme (auto | light | dark) and accent (any CSS colour) exist on every widget, so a whole dashboard can be re-skinned from one place.'],
-            ].map(([t, d]) => (
-              <div key={String(t)} className="rounded-xl border border-border bg-card p-3.5">
-                <div className="text-[13px] font-semibold">{String(t)}</div>
-                <p className="mt-1 text-[12.5px] leading-relaxed text-muted-foreground">{String(d)}</p>
+              ["Read baked-in config first", 'If a <script id="bk-config" type="application/json"> tag exists, parse it. This is the download and API-install path, where there is no URL.'],
+              ["Overlay the query string", "new URLSearchParams(location.search) wins over baked-in values. This is the /embed path, and it lets one file serve many configurations."],
+              ["Whitelist declared parameters", "Unknown keys are dropped, never passed through. Values are coerced to the declared type — number, boolean, color, date, select, string."],
+              ["Two universal parameters", 'theme (auto | light | dark) and accent (any CSS colour) exist on every widget, so a whole dashboard can be re-skinned from one place.'],
+            ].map(([t, d], i) => (
+              <div key={String(t)} className="rounded-xl border border-border bg-card p-4">
+                <div className="flex items-baseline gap-2">
+                  <span className="font-mono text-[11px] font-semibold text-primary tnum">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[13.5px] font-semibold tracking-[-0.008em] text-foreground">
+                    {String(t)}
+                  </span>
+                </div>
+                <p className="mt-1.5 pl-[26px] text-[12.5px] leading-[1.65] text-ink-soft">{String(d)}</p>
               </div>
             ))}
           </div>
@@ -409,7 +416,7 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
         </Section>
 
         {/* ===================== LIMITS ===================== */}
-        <Section id="limits" n="05" title="Where each channel breaks">
+        <Section id="limits" label="constraints" title="Where each channel breaks">
           <p>
             The failure modes are the useful part. Everything below has been
             verified against the Notion API reference and the HTML block
@@ -420,9 +427,9 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
               <thead>
                 <tr className="border-b border-border bg-secondary/60 text-left">
                   <th className="px-3.5 py-2.5 font-semibold">Failure</th>
-                  <th className="px-3.5 py-2.5 font-semibold text-[var(--notion-blue)]">Embed URL</th>
-                  <th className="px-3.5 py-2.5 font-semibold text-[var(--notion-purple)]">HTML block</th>
-                  <th className="px-3.5 py-2.5 font-semibold text-[var(--notion-green)]">Native recipe</th>
+                  <th className="px-3.5 py-2.5 font-semibold text-[var(--tag-ink-blue)]">Embed URL</th>
+                  <th className="px-3.5 py-2.5 font-semibold text-[var(--tag-ink-purple)]">HTML block</th>
+                  <th className="px-3.5 py-2.5 font-semibold text-[var(--tag-ink-green)]">Native recipe</th>
                 </tr>
               </thead>
               <tbody>
@@ -445,7 +452,7 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
                         key={j}
                         className={cn(
                           "px-3.5 py-2 text-muted-foreground",
-                          /^No|^Fails|^blank/i.test(cell) && "text-[var(--notion-red)]/90",
+                          /^No|^Fails|^blank/i.test(cell) && "text-[var(--tag-ink-red)]/90",
                           /^Yes|^Works|^Unaffected/i.test(cell) && "text-foreground"
                         )}
                       >
@@ -460,7 +467,7 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
         </Section>
 
         {/* ===================== CHOOSE ===================== */}
-        <Section id="choose" n="06" title="Which one should I use?">
+        <Section id="choose" label="decision guide" title="Which one should I use?">
           <div className="mt-4 overflow-hidden rounded-xl border border-border">
             {DECISION_ROWS.map(([q, a, why], i) => (
               <div key={i} className={cn("grid gap-1 border-b border-border px-3.5 py-3 last:border-0 sm:grid-cols-[minmax(0,1fr)_150px] sm:gap-3", i % 2 === 1 && "bg-raised/50")}>
@@ -469,9 +476,9 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
                   <span
                     className={cn(
                       "inline-block rounded-full border px-2 py-px text-[11.5px] font-semibold",
-                      a === "Embed URL" && "border-[var(--notion-blue)]/40 bg-[var(--notion-blue)]/10 text-[var(--notion-blue)]",
-                      a === "HTML block" && "border-[var(--notion-purple)]/40 bg-[var(--notion-purple)]/10 text-[var(--notion-purple)]",
-                      a === "Native recipe" && "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--notion-green)]",
+                      a === "Embed URL" && "border-[var(--notion-blue)]/40 bg-[var(--notion-blue)]/10 text-[var(--tag-ink-blue)]",
+                      a === "HTML block" && "border-[var(--notion-purple)]/40 bg-[var(--notion-purple)]/10 text-[var(--tag-ink-purple)]",
+                      a === "Native recipe" && "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--tag-ink-green)]",
                       !["Embed URL", "HTML block", "Native recipe"].includes(a) && "border-border-strong bg-secondary text-foreground"
                     )}
                   >
@@ -511,30 +518,33 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
 
 function Section({
   id,
-  n,
+  label,
   title,
   accent,
   children,
 }: {
   id: string;
-  n: string;
+  /** What this section is, in Notion's mono label voice. */
+  label: string;
   title: string;
+  /** Colour-codes the three delivery channels; a graphic, so 3:1 applies. */
   accent?: string;
   children: ReactNode;
 }) {
+  const rule = accent ?? "var(--color-primary)";
   return (
     <section id={id} className="scroll-mt-20 border-b border-border py-14 last:border-0">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
         <span
-          className="font-mono text-[13px] font-bold"
-          style={{ color: accent ?? "var(--color-primary)" }}
-        >
-          {n}
+          aria-hidden
+          className="h-[18px] w-[3px] shrink-0 rounded-full"
+          style={{ background: rule }}
+        />
+        <span className="label-mono" style={{ color: rule }}>
+          {label}
         </span>
-        <h2 className="text-balance text-[26px] font-semibold leading-tight tracking-[-0.03em] sm:text-[30px]">
-          {title}
-        </h2>
       </div>
+      <h2 className="font-display mt-3 text-h3 text-foreground">{title}</h2>
       <div className="mt-4 flex flex-col gap-3.5 [&_p]:max-w-2xl [&_p]:text-pretty [&_p]:text-[15px] [&_p]:leading-[1.75] [&_p]:text-muted-foreground [&_code:not(pre_code)]:rounded [&_code:not(pre_code)]:bg-secondary [&_code:not(pre_code)]:px-1 [&_code:not(pre_code)]:py-px [&_code:not(pre_code)]:font-mono [&_code:not(pre_code)]:text-[13px] [&_code:not(pre_code)]:text-foreground">
         {children}
       </div>

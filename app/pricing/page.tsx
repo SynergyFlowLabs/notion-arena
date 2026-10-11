@@ -83,13 +83,13 @@ export default function PricingPage() {
     <>
       <section className="border-b border-border bg-raised">
         <div className="mx-auto w-full max-w-[1100px] px-4 pb-12 pt-14 text-center sm:px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.09em] text-primary">
+          <p className="label-mono text-primary">
             Pricing
           </p>
-          <h1 className="mt-3 text-balance text-[38px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[48px]">
+          <h1 className="font-display mt-4 text-h1 text-foreground sm:text-hero sm:leading-[1.04] sm:tracking-[-0.025em]">
             {STATS.free} components are free. They stay free.
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-pretty text-[16px] leading-[1.7] text-muted-foreground">
+          <p className="mx-auto mt-5 max-w-2xl text-lede text-ink-soft">
             No account to copy an embed URL. No account to download the HTML. No
             watermark, no attribution requirement, no “free trial that expires
             into a blank block”. Pro pays for the components that take real work
@@ -123,7 +123,7 @@ export default function PricingPage() {
                   {plan.badge}
                 </span>
               )}
-              <h2 className="text-[15px] font-semibold">{plan.name}</h2>
+              <h2 className="text-h6 text-foreground">{plan.name}</h2>
               <p className="mt-1 min-h-[38px] text-[12.5px] leading-snug text-muted-foreground">{plan.blurb}</p>
               <div className="mt-3 flex items-baseline gap-1.5">
                 <span className="text-[36px] font-semibold leading-none tracking-[-0.035em]">{plan.price}</span>
@@ -132,7 +132,7 @@ export default function PricingPage() {
               <Link
                 href={plan.href}
                 className={cn(
-                  "mt-5 inline-flex h-10 items-center justify-center rounded-xl text-[13.5px] font-semibold transition-all",
+                  "mt-5 inline-flex h-10 items-center justify-center rounded-xl text-[13.5px] font-semibold transition-colors duration-150",
                   plan.highlight
                     ? "bg-foreground text-background hover:opacity-88"
                     : "border border-border-strong bg-background hover:bg-secondary"
@@ -147,7 +147,7 @@ export default function PricingPage() {
                       className={cn(
                         "mt-px grid size-[15px] shrink-0 place-items-center rounded-full text-[9px] font-bold",
                         included
-                          ? "bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--notion-green)]"
+                          ? "bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--tag-ink-green)]"
                           : "bg-secondary text-muted-foreground/60"
                       )}
                     >
@@ -170,7 +170,7 @@ export default function PricingPage() {
 
         {/* what is in each tier */}
         <section className="mt-16">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">Exactly what is in each tier</h2>
+          <h2 className="font-display text-h4 text-foreground">Exactly what is in each tier</h2>
           <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-muted-foreground">
             No hidden gating. This list is generated from the catalog, so it
             cannot drift from what you actually see on the components page.
@@ -223,7 +223,7 @@ export default function PricingPage() {
 
         {/* why */}
         <section className="mt-16">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">Why the line falls there</h2>
+          <h2 className="font-display text-h4 text-foreground">Why the line falls there</h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
               {
@@ -253,7 +253,7 @@ export default function PricingPage() {
 
         {/* alternatives */}
         <section className="mt-16">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">Compared with the alternatives</h2>
+          <h2 className="font-display text-h4 text-foreground">Compared with the alternatives</h2>
           <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-muted-foreground">
             Not a claim that these are bad products — they solve different
             problems. This is what you are actually choosing between.
@@ -290,14 +290,14 @@ export default function PricingPage() {
 
         {/* faq */}
         <section className="mt-16">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">Questions</h2>
+          <h2 className="font-display text-h4 text-foreground">Questions</h2>
           <div className="mt-4">
             <Faq />
           </div>
         </section>
 
         <section className="mt-14 rounded-xl border border-border-strong bg-card p-5 text-center">
-          <h2 className="text-[20px] font-semibold tracking-[-0.02em]">Start with the free tier</h2>
+          <h2 className="font-display text-h4 text-foreground">Start with the free tier</h2>
           <p className="mx-auto mt-2 max-w-lg text-[14px] leading-relaxed text-muted-foreground">
             {STATS.free} components, no account, no card. If one of them solves
             your problem, that is the end of the transaction.

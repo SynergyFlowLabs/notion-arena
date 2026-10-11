@@ -33,18 +33,25 @@ export function WidgetPreview({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-xl border border-border bg-background",
-        chrome && "shadow-[0_1px_3px_rgba(15,15,15,0.06),0_8px_28px_-12px_rgba(15,15,15,0.18)]",
+        "overflow-hidden rounded-xl border border-border bg-card",
+        chrome && "shadow-pop",
         className
       )}
     >
       {chrome && (
-        <div className="flex items-center gap-1.5 border-b border-border bg-secondary/60 px-3 py-2">
-          <span className="size-2.5 rounded-full bg-[#e03e3e]/70" />
-          <span className="size-2.5 rounded-full bg-[#dfab01]/70" />
-          <span className="size-2.5 rounded-full bg-[#0f7b6c]/70" />
-          <span className="ml-2 truncate text-[11px] font-medium text-muted-foreground">
-            notion.so · your workspace
+        <div className="flex items-center gap-1.5 border-b border-border bg-raised px-3 py-2">
+          {/* Window dots are decoration standing in for Notion's chrome, not
+              status indicators, so they are hidden from assistive tech and are
+              exempt from the 3:1 graphic threshold. */}
+          <span aria-hidden className="flex items-center gap-1.5">
+            <span className="size-2.5 rounded-full bg-[#e03e3e]/70" />
+            <span className="size-2.5 rounded-full bg-[#dfab01]/70" />
+            <span className="size-2.5 rounded-full bg-[#0f7b6c]/70" />
+          </span>
+          <span className="ml-1.5 truncate font-mono text-[11px] text-ink-soft">
+            notion.so
+            <span aria-hidden className="px-1 text-ink-faint">/</span>
+            your workspace
           </span>
         </div>
       )}

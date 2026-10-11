@@ -11,6 +11,7 @@ import { RecipePanel } from "@/components/detail/recipe-panel";
 import { ComponentCard } from "@/components/component-card";
 import { getRecipe } from "@/lib/recipes";
 import { htmlBlockInstallSnippet } from "@/lib/widget";
+import { IconArrowRight } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -95,10 +96,10 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 {c.badge === "popular" && <Badge variant="primary">Popular</Badge>}
                 {c.badge === "staff-pick" && <Badge variant="pro">Staff pick</Badge>}
               </div>
-              <h1 className="mt-2 text-balance text-[30px] font-semibold leading-[1.14] tracking-[-0.03em] sm:text-[38px]">
+              <h1 className="font-display mt-2 text-h3 text-foreground sm:text-h2">
                 {c.name}
               </h1>
-              <p className="mt-1.5 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-2.5 max-w-2xl text-lede text-ink-soft">
                 {c.tagline}
               </p>
             </div>
@@ -148,7 +149,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         {/* description + features */}
         <section className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="min-w-0">
-            <h2 className="text-[19px] font-semibold tracking-[-0.02em]">About this component</h2>
+            <h2 className="text-h5 text-foreground">About this component</h2>
             <p className="mt-2 max-w-2xl text-pretty text-[14.5px] leading-[1.7] text-muted-foreground">
               {c.description}
             </p>
@@ -157,7 +158,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
             <ul className="mt-2.5 flex flex-col gap-2">
               {c.features.map((f) => (
                 <li key={f} className="flex gap-2.5 text-[13.5px] leading-relaxed">
-                  <span className="mt-[3px] grid size-[15px] shrink-0 place-items-center rounded-full bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--notion-green)]">
+                  <span className="mt-[3px] grid size-[15px] shrink-0 place-items-center rounded-full bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--tag-ink-green)]">
                     <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
@@ -198,7 +199,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                           className={cn(
                             "mt-px grid size-[16px] shrink-0 place-items-center rounded-full text-[10px] font-bold",
                             on
-                              ? "bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--notion-green)]"
+                              ? "bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--tag-ink-green)]"
                               : "bg-secondary text-muted-foreground"
                           )}
                         >
@@ -250,12 +251,16 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         {moreRelated.length > 0 && (
           <section className="mt-14">
             <div className="flex items-end justify-between gap-3">
-              <h2 className="text-[19px] font-semibold tracking-[-0.02em]">Pairs well with</h2>
+              <h2 className="text-h5 text-foreground">Pairs well with</h2>
               <Link
                 href={`/categories/${cat.slug}`}
-                className="text-[13px] font-medium text-primary hover:underline"
+                className="group inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-primary transition-colors hover:text-primary-deep"
               >
-                All in {cat.name} →
+                All in {cat.name}
+                <IconArrowRight
+                  size={14}
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                />
               </Link>
             </div>
             <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

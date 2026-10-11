@@ -359,7 +359,7 @@ curl -s -X POST localhost:3000/api/install \\
               <Link
                 key={r.id}
                 href={`/components/${r.id}`}
-                className="group rounded-xl border border-border bg-card px-3.5 py-3 transition-all hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md"
+                className="group rounded-xl border border-border bg-card px-3.5 py-3 transition-colors duration-150 hover:border-border-strong"
               >
                 <div className="flex items-center gap-2">
                   <span className="min-w-0 flex-1 truncate text-[13.5px] font-semibold group-hover:text-primary">
@@ -369,10 +369,23 @@ curl -s -X POST localhost:3000/api/install \\
                     {plan.totalRequests} req
                   </span>
                 </div>
-                <p className="mt-1 text-[12.5px] leading-relaxed text-muted-foreground">
-                  {r.databases.length} databases · {r.views.length} views ·{" "}
-                  {r.pages.length} pages · {r.manual.length} manual
-                </p>
+                <dl className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] text-ink-soft tnum">
+                  {[
+                    ["db", r.databases.length],
+                    ["views", r.views.length],
+                    ["pages", r.pages.length],
+                    ["manual", r.manual.length],
+                  ].map(([k, v], i) => (
+                    <span key={String(k)} className="flex items-center gap-2">
+                      {i > 0 && (
+                        <span aria-hidden className="h-3 w-px bg-border-strong" />
+                      )}
+                      <span>
+                        {String(v)} <span className="text-ink-faint">{String(k)}</span>
+                      </span>
+                    </span>
+                  ))}
+                </dl>
               </Link>
             );
           })}

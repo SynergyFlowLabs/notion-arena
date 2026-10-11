@@ -35,7 +35,7 @@ export default function ApiLimitsPage() {
             ["Children per append request", "100", "The installer chunks every page body into groups of 100 and issues one PATCH per chunk."],
             ["Nesting depth per request", "2 levels", "A column_list containing columns containing paragraphs is already at the ceiling. Deeper trees are split across requests, appended to the block id the previous request returned."],
             [<span>Block types available</span>, "See reference", "paragraph, heading_1–4, bulleted/numbered_list_item, to_do, toggle, quote, callout, divider, code, equation, embed, bookmark, column_list, synced_block, table, table_row, breadcrumb, table_of_contents, child_page, child_database."],
-            [<span><code>button</code> block type</span>, <span className="text-[var(--notion-red)]">does not exist</span>, "Buttons are the single most-requested thing a recipe cannot create. Every recipe that needs one ships the exact click path instead."],
+            [<span><code>button</code> block type</span>, <span className="text-[var(--tag-ink-red)]">does not exist</span>, "Buttons are the single most-requested thing a recipe cannot create. Every recipe that needs one ships the exact click path instead."],
             ["Insertion position", <><code>position</code></>, "Since 2026-03-11, <code>position</code> replaces the older <code>after</code> field for placing children."],
             ["Notifications on write", <><code>mode: "silent"</code></>, "Bulk installs should send this — otherwise every appended block can notify watchers of the page."],
           ]}

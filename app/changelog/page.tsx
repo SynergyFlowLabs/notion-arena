@@ -87,15 +87,15 @@ const ENTRIES: Entry[] = [
 const KIND_STYLE: Record<Entry["kind"], { label: string; className: string }> = {
   release: {
     label: "Release",
-    className: "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--notion-green)]",
+    className: "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--tag-ink-green)]",
   },
   platform: {
     label: "Notion platform",
-    className: "border-[var(--notion-blue)]/40 bg-[var(--notion-blue)]/10 text-[var(--notion-blue)]",
+    className: "border-[var(--notion-blue)]/40 bg-[var(--notion-blue)]/10 text-[var(--tag-ink-blue)]",
   },
   fix: {
     label: "Fix",
-    className: "border-[var(--notion-yellow)]/40 bg-[var(--notion-yellow)]/12 text-[var(--notion-yellow)]",
+    className: "border-[var(--notion-yellow)]/40 bg-[var(--notion-yellow)]/12 text-[var(--tag-ink-yellow)]",
   },
 };
 
@@ -108,13 +108,13 @@ export default function ChangelogPage() {
     <>
       <section className="border-b border-border bg-raised">
         <div className="mx-auto w-full max-w-[900px] px-4 pb-10 pt-14 sm:px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.09em] text-primary">
+          <p className="label-mono text-primary">
             Changelog
           </p>
-          <h1 className="mt-3 text-balance text-[36px] font-semibold leading-[1.1] tracking-[-0.035em] sm:text-[44px]">
+          <h1 className="font-display mt-4 text-h2 text-foreground sm:text-h1">
             What shipped, and what it depends on
           </h1>
-          <p className="mt-4 max-w-2xl text-pretty text-[15.5px] leading-[1.7] text-muted-foreground">
+          <p className="mt-5 max-w-2xl text-lede text-ink-soft">
             Two kinds of entry: things we changed, and things Notion changed that
             we build on. The second kind matters more — a component library for
             Notion is only as stable as the API version it pins.
@@ -136,7 +136,7 @@ export default function ChangelogPage() {
                     "mt-1.5 size-2.5 shrink-0 rounded-full border-2 border-background",
                     e.kind === "release" && "bg-[var(--notion-green)]",
                     e.kind === "platform" && "bg-[var(--notion-blue)]",
-                    e.kind === "fix" && "bg-[var(--notion-yellow)]"
+                    e.kind === "fix" && "bg-[var(--tag-ink-yellow)]"
                   )}
                 />
                 {i < ENTRIES.length - 1 && <span className="mt-1 w-px flex-1 bg-border" />}
@@ -152,7 +152,7 @@ export default function ChangelogPage() {
                     {e.date}
                   </time>
                 </div>
-                <h2 className="mt-1.5 text-[18px] font-semibold tracking-[-0.02em]">{e.title}</h2>
+                <h2 className="mt-1.5 text-h5 text-foreground">{e.title}</h2>
                 <ul className="mt-2.5 flex flex-col gap-2">
                   {e.body.map((b) => (
                     <li key={b} className="flex gap-2.5 text-[13.5px] leading-[1.7] text-muted-foreground">
@@ -190,7 +190,7 @@ export default function ChangelogPage() {
 
         <section className="mt-6 rounded-xl border border-border bg-card">
           <div className="border-b border-border px-4 py-3">
-            <h2 className="text-[15px] font-semibold">Recently updated components</h2>
+            <h2 className="text-h6 text-foreground">Recently updated components</h2>
             <p className="mt-0.5 text-[12.5px] text-muted-foreground">
               Generated from the catalog, so it cannot drift from what the
               components page shows.
@@ -215,7 +215,7 @@ export default function ChangelogPage() {
         </section>
 
         <section className="mt-8 rounded-xl border border-dashed border-border-strong bg-raised p-5 text-center">
-          <h2 className="text-[15px] font-semibold">Nothing here is fabricated</h2>
+          <h2 className="text-h6 text-foreground">Nothing here is fabricated</h2>
           <p className="mx-auto mt-1.5 max-w-lg text-[13px] leading-relaxed text-muted-foreground">
             There are no install counts, star counts or customer logos on this
             site, because there is nothing real to put there yet. When there is,

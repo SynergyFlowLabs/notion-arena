@@ -152,13 +152,13 @@ curl -s -X POST ${origin}/api/install \\
     <>
       <section className="border-b border-border bg-raised">
         <div className="mx-auto w-full max-w-[1000px] px-4 pb-12 pt-14 sm:px-6">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.09em] text-primary">
+          <p className="label-mono text-primary">
             Registry
           </p>
-          <h1 className="mt-3 text-balance text-[38px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[50px]">
+          <h1 className="font-display mt-4 text-h1 text-foreground sm:text-hero sm:leading-[1.04] sm:tracking-[-0.025em]">
             Not a gallery. A manifest.
           </h1>
-          <p className="mt-4 max-w-2xl text-pretty text-[16px] leading-[1.7] text-muted-foreground">
+          <p className="mt-5 max-w-2xl text-lede text-ink-soft">
             Every component is published in the shadcn/ui{" "}
             <code className="rounded bg-secondary px-1 py-px font-mono text-[14px]">registry-item</code>{" "}
             schema, with its source inlined rather than linked. A CLI, an MCP
@@ -188,7 +188,7 @@ curl -s -X POST ${origin}/api/install \\
       <div className="mx-auto w-full max-w-[1000px] px-4 pb-20 sm:px-6">
         {/* ============ live explorer ============ */}
         <section className="pt-12">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">Try it live</h2>
+          <h2 className="font-display text-h4 text-foreground">Try it live</h2>
           <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-muted-foreground">
             This panel is not a mock. It fetches{" "}
             <code className="rounded bg-secondary px-1 py-px font-mono text-[13px]">/r/index.json</code>{" "}
@@ -202,7 +202,7 @@ curl -s -X POST ${origin}/api/install \\
 
         {/* ============ endpoints ============ */}
         <section className="pt-14">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">Endpoints</h2>
+          <h2 className="font-display text-h4 text-foreground">Endpoints</h2>
           <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-muted-foreground">
             Reads are open and cacheable. The only endpoint that touches your
             workspace is the install one, and its{" "}
@@ -227,8 +227,8 @@ curl -s -X POST ${origin}/api/install \\
                         className={cn(
                           "rounded border px-1.5 py-px font-mono text-[10.5px] font-bold",
                           e.method === "GET"
-                            ? "border-[var(--notion-blue)]/40 bg-[var(--notion-blue)]/10 text-[var(--notion-blue)]"
-                            : "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--notion-green)]"
+                            ? "border-[var(--notion-blue)]/40 bg-[var(--notion-blue)]/10 text-[var(--tag-ink-blue)]"
+                            : "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--tag-ink-green)]"
                         )}
                       >
                         {e.method}
@@ -248,7 +248,7 @@ curl -s -X POST ${origin}/api/install \\
 
         {/* ============ consuming ============ */}
         <section className="pt-14">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">Consuming it</h2>
+          <h2 className="font-display text-h4 text-foreground">Consuming it</h2>
           <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-muted-foreground">
             Three ways in, from least to most code.
           </p>
@@ -287,7 +287,7 @@ curl -s -X POST ${origin}/api/install \\
 
         {/* ============ item schema ============ */}
         <section className="pt-14">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">The item schema</h2>
+          <h2 className="font-display text-h4 text-foreground">The item schema</h2>
           <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-muted-foreground">
             The envelope is shadcn's, because tooling already understands it. The{" "}
             <code className="rounded bg-secondary px-1 py-px font-mono text-[13px]">meta</code>{" "}
@@ -343,7 +343,7 @@ curl -s -X POST ${origin}/api/install \\
 
         {/* ============ catalog list ============ */}
         <section className="pt-14">
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em]">Everything published</h2>
+          <h2 className="font-display text-h4 text-foreground">Everything published</h2>
           <p className="mt-2 text-[14.5px] text-muted-foreground">
             {COMPONENTS.length} items. Click a name for the human page, or the
             code for the manifest.
@@ -368,8 +368,8 @@ curl -s -X POST ${origin}/api/install \\
                   className={cn(
                     "shrink-0 rounded px-1.5 py-px font-mono text-[9.5px] uppercase",
                     c.kind === "widget"
-                      ? "bg-[color-mix(in_oklab,var(--notion-purple)_14%,transparent)] text-[var(--notion-purple)]"
-                      : "bg-[color-mix(in_oklab,var(--notion-green)_14%,transparent)] text-[var(--notion-green)]"
+                      ? "bg-[color-mix(in_oklab,var(--notion-purple)_14%,transparent)] text-[var(--tag-ink-purple)]"
+                      : "bg-[color-mix(in_oklab,var(--notion-green)_14%,transparent)] text-[var(--tag-ink-green)]"
                   )}
                 >
                   {c.kind === "widget" ? "html" : "api"}

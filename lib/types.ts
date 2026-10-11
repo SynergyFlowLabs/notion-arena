@@ -54,6 +54,12 @@ export interface Category {
   emoji: string;
   blurb: string;
   color: NotionColor;
+  /**
+   * A Notion property pastel, as a CSS var reference. Cards and icons use the
+   * tint as background and `color` as ink, so the pairing stays legible in both
+   * themes without a second lookup table.
+   */
+  tint: string;
 }
 
 export type NotionColor =
@@ -131,6 +137,7 @@ export const CATEGORIES: Category[] = [
     emoji: "📊",
     blurb: "Glanceable numbers, clocks and status panels for the top of any page.",
     color: "blue",
+  tint: "var(--tag-bg-blue)",
   },
   {
     slug: "time",
@@ -138,6 +145,7 @@ export const CATEGORIES: Category[] = [
     emoji: "⏱️",
     blurb: "Pomodoro, countdowns and clocks. Notion shows the date — never the time.",
     color: "orange",
+  tint: "var(--tag-bg-orange)",
   },
   {
     slug: "trackers",
@@ -145,6 +153,7 @@ export const CATEGORIES: Category[] = [
     emoji: "🔥",
     blurb: "Habits, streaks, mood and counters with heatmaps that persist locally.",
     color: "green",
+  tint: "var(--tag-bg-green)",
   },
   {
     slug: "planning",
@@ -152,6 +161,7 @@ export const CATEGORIES: Category[] = [
     emoji: "🗂️",
     blurb: "Kanban, Gantt, prioritisation matrices and roadmap timelines.",
     color: "purple",
+  tint: "var(--tag-bg-purple)",
   },
   {
     slug: "business",
@@ -159,6 +169,7 @@ export const CATEGORIES: Category[] = [
     emoji: "💼",
     blurb: "Pipelines, sprints, OKRs, invoices and calculators for client work.",
     color: "brown",
+  tint: "var(--tag-bg-brown)",
   },
   {
     slug: "visuals",
@@ -166,6 +177,7 @@ export const CATEGORIES: Category[] = [
     emoji: "🎨",
     blurb: "Org charts, whiteboards and quote cards — things Notion can't draw.",
     color: "pink",
+  tint: "var(--tag-bg-pink)",
   },
   {
     slug: "docs",
@@ -173,6 +185,7 @@ export const CATEGORIES: Category[] = [
     emoji: "📚",
     blurb: "Native block recipes: meeting notes, PARA, portals and wikis.",
     color: "yellow",
+  tint: "var(--tag-bg-yellow)",
   },
   {
     slug: "automations",
@@ -180,6 +193,7 @@ export const CATEGORIES: Category[] = [
     emoji: "⚡",
     blurb: "Database automations, recurring templates and button chains.",
     color: "red",
+  tint: "var(--tag-bg-red)",
   },
 ];
 

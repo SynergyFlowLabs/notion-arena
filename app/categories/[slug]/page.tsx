@@ -100,10 +100,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               {cat.emoji}
             </span>
             <div className="min-w-0 flex-1">
-              <h1 className="text-balance text-[32px] font-semibold leading-[1.12] tracking-[-0.032em] sm:text-[40px]">
+              <h1 className="font-display text-h2 text-foreground sm:text-hero sm:leading-[1.04] sm:tracking-[-0.025em]">
                 {cat.name}
               </h1>
-              <p className="mt-2 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-4 max-w-2xl text-lede text-ink-soft">
                 {cat.blurb}
               </p>
             </div>
@@ -115,7 +115,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               ].map(([label, n]) => (
                 <div key={String(label)} className="rounded-lg border border-border bg-card px-3 py-1.5 text-center">
                   <div className="text-[18px] font-semibold leading-tight tabular-nums">{n}</div>
-                  <div className="text-[10.5px] uppercase tracking-wide text-muted-foreground">{label}</div>
+                  <div className="label-mono text-ink-faint">{label}</div>
                 </div>
               ))}
             </div>
@@ -126,13 +126,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       <div className="mx-auto w-full max-w-[1200px] px-4 pb-20 pt-8 sm:px-6">
         <div className="grid gap-4 rounded-xl border border-border bg-card p-4 sm:grid-cols-2">
           <div>
-            <h2 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--notion-red)]">
+            <h2 className="label-mono text-[var(--tag-ink-red)]">
               Why Notion falls short here
             </h2>
             <p className="mt-2 text-[13.5px] leading-[1.7] text-muted-foreground">{note.problem}</p>
           </div>
           <div>
-            <h2 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--notion-green)]">
+            <h2 className="label-mono text-[var(--tag-ink-green)]">
               How we handle it
             </h2>
             <p className="mt-2 text-[13.5px] leading-[1.7] text-muted-foreground">{note.answer}</p>
@@ -141,7 +141,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
         {widgets.length > 0 && (
           <>
-            <h2 className="mt-10 text-[17px] font-semibold tracking-[-0.02em]">
+            <h2 className="mt-10 text-h5 text-foreground">
               Widgets <span className="ml-1 font-mono text-[12px] font-normal text-muted-foreground">{widgets.length}</span>
             </h2>
             <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -154,7 +154,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
         {natives.length > 0 && (
           <>
-            <h2 className="mt-10 text-[17px] font-semibold tracking-[-0.02em]">
+            <h2 className="mt-10 text-h5 text-foreground">
               Native recipes <span className="ml-1 font-mono text-[12px] font-normal text-muted-foreground">{natives.length}</span>
             </h2>
             <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -171,7 +171,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             <Link
               key={c.slug}
               href={`/categories/${c.slug}`}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5 text-[12.5px] font-medium text-muted-foreground transition-all hover:-translate-y-px hover:border-border-strong hover:text-foreground"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5 text-[12.5px] font-medium text-muted-foreground transition-colors duration-150 hover:border-border-strong hover:text-foreground"
             >
               <span aria-hidden>{c.emoji}</span>
               {c.name}

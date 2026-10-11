@@ -107,7 +107,7 @@ export default function DocsPage() {
             <Link
               key={p.href}
               href={p.href}
-              className="group rounded-xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md"
+              className="group rounded-xl border border-border bg-card p-4 transition-colors duration-150 hover:border-border-strong"
             >
               <div className="flex items-center gap-2.5">
                 <span className="text-[19px]">{p.emoji}</span>

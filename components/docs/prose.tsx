@@ -18,11 +18,9 @@ export function DocPage({
   return (
     <article className="min-w-0">
       <header className="border-b border-border pb-6">
-        <p className="text-[11.5px] font-semibold uppercase tracking-[0.09em] text-primary">{eyebrow}</p>
-        <h1 className="mt-2 text-balance text-[30px] font-semibold leading-[1.12] tracking-[-0.032em] sm:text-[36px]">
-          {title}
-        </h1>
-        <div className="mt-3 max-w-2xl text-pretty text-[15px] leading-[1.7] text-muted-foreground">{lede}</div>
+        <p className="label-mono text-primary">{eyebrow}</p>
+        <h1 className="font-display mt-3 text-h3 text-foreground sm:text-h2">{title}</h1>
+        <div className="mt-4 max-w-2xl text-lede text-ink-soft">{lede}</div>
       </header>
       <div className="mt-8 flex flex-col gap-9">{children}</div>
     </article>
@@ -31,19 +29,24 @@ export function DocPage({
 
 export function H2({ id, children }: { id?: string; children: ReactNode }) {
   return (
-    <h2 id={id} className="scroll-mt-24 text-[21px] font-semibold tracking-[-0.025em]">
+    <h2
+      id={id}
+      className="font-display scroll-mt-24 text-h4 text-foreground"
+    >
       {children}
     </h2>
   );
 }
 
 export function H3({ children }: { children: ReactNode }) {
-  return <h3 className="text-[16px] font-semibold tracking-[-0.015em]">{children}</h3>;
+  return (
+    <h3 className="text-h5 scroll-mt-24 text-foreground">{children}</h3>
+  );
 }
 
 export function P({ children }: { children: ReactNode }) {
   return (
-    <p className="max-w-2xl text-pretty text-[14.5px] leading-[1.75] text-muted-foreground [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_code]:rounded [&_code]:bg-secondary [&_code]:px-1 [&_code]:py-px [&_code]:font-mono [&_code]:text-[13px] [&_code]:text-foreground [&_strong]:font-semibold [&_strong]:text-foreground">
+    <p className="max-w-2xl text-pretty text-[15px] leading-[1.75] text-ink-soft [&_a]:text-primary [&_a]:underline [&_a]:decoration-[color-mix(in_oklab,var(--primary)_35%,transparent)] [&_a]:underline-offset-2 [&_a]:transition-colors [&_a]:hover:text-primary-deep [&_a]:hover:decoration-primary-deep [&_code]:rounded [&_code]:bg-secondary [&_code]:px-1 [&_code]:py-px [&_code]:font-mono [&_code]:text-[13px] [&_code]:text-foreground [&_strong]:font-semibold [&_strong]:text-foreground">
       {children}
     </p>
   );
@@ -59,8 +62,11 @@ export function UL({ children }: { children: ReactNode }) {
 
 export function LI({ children }: { children: ReactNode }) {
   return (
-    <li className="flex gap-2.5 text-[14px] leading-[1.7] text-muted-foreground">
-      <span className="mt-[9px] size-1 shrink-0 rounded-full bg-border-strong" />
+    <li className="flex gap-2.5 text-[14.5px] leading-[1.7] text-ink-soft">
+      <span
+        aria-hidden
+        className="mt-[9px] size-1 shrink-0 rounded-full bg-border-strong"
+      />
       <span className="min-w-0">{children}</span>
     </li>
   );
@@ -75,27 +81,27 @@ export function Note({
   title: string;
   children: ReactNode;
 }) {
-  const color = {
-    blue: "var(--notion-blue)",
-    red: "var(--notion-red)",
-    yellow: "var(--notion-yellow)",
-    green: "var(--notion-green)",
-    gray: "var(--notion-gray)",
-  }[tone];
+  // Both values come from the audited tag pairs, so the note's ink always
+  // clears 4.5:1 on its own surface in either theme.
+  const color = `var(--tag-ink-${tone})`;
+  const surface = `var(--tag-bg-${tone})`;
   const emoji = { blue: "💡", red: "⚠️", yellow: "🔧", green: "✅", gray: "📎" }[tone];
   return (
     <div
-      className="max-w-2xl rounded-xl border p-3.5"
+      className="max-w-2xl rounded-xl border p-4"
       style={{
-        borderColor: `color-mix(in oklab, ${color} 32%, transparent)`,
-        background: `color-mix(in oklab, ${color} 5%, transparent)`,
+        borderColor: `color-mix(in oklab, ${color} 26%, transparent)`,
+        background: surface,
       }}
     >
-      <div className="flex items-center gap-2 text-[13.5px] font-semibold text-foreground">
+      <div
+        className="flex items-center gap-2 text-[13.5px] font-semibold"
+        style={{ color }}
+      >
         <span aria-hidden>{emoji}</span>
         {title}
       </div>
-      <div className="mt-1.5 text-[13.5px] leading-[1.7] text-muted-foreground [&_a]:text-primary [&_a]:underline [&_code]:rounded [&_code]:bg-background/70 [&_code]:px-1 [&_code]:py-px [&_code]:font-mono [&_code]:text-[12.5px] [&_code]:text-foreground">
+      <div className="mt-2 text-[13.5px] leading-[1.7] text-ink-soft [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_code]:rounded [&_code]:bg-card/70 [&_code]:px-1 [&_code]:py-px [&_code]:font-mono [&_code]:text-[12.5px] [&_code]:text-foreground">
         {children}
       </div>
     </div>
@@ -117,9 +123,11 @@ export function Code({
     <div className="overflow-hidden rounded-xl border border-border bg-card">
       {filename && (
         <div className="flex items-center gap-2 border-b border-border bg-raised px-3 py-1.5">
-          <span className="font-mono text-[11px] text-muted-foreground">{filename}</span>
+          <span translate="no" className="font-mono text-[11px] text-ink-soft">
+            {filename}
+          </span>
           <span className="ml-auto flex items-center gap-1.5">
-            <span className="rounded border border-border bg-background px-1.5 py-px font-mono text-[10px] text-muted-foreground">
+            <span className="rounded-[5px] border border-border bg-card px-1.5 py-px font-mono text-[10px] text-ink-faint">
               {lang}
             </span>
             <CopyButton compact value={code} />
@@ -128,7 +136,7 @@ export function Code({
       )}
       <div className="relative">
         {!filename && (
-          <div className="absolute right-2 top-2 z-10">
+          <div className="absolute top-2 right-2 z-10">
             <CopyButton compact value={code} />
           </div>
         )}
@@ -150,12 +158,22 @@ export function Table({
   widths?: (string | undefined)[];
 }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-border">
-      <table className="w-full min-w-[520px] text-[13px]">
+    <div
+      tabIndex={0}
+      role="region"
+      aria-label="Scrollable table"
+      className="overflow-x-auto rounded-xl border border-border focus-visible:outline-offset-2"
+    >
+      <table className="w-full min-w-[520px] border-collapse text-[13px]">
         <thead>
-          <tr className="border-b border-border bg-secondary/60 text-left">
+          <tr className="border-b border-border bg-raised text-left">
             {head.map((h, i) => (
-              <th key={i} className="px-3.5 py-2.5 font-semibold" style={{ width: widths?.[i] }}>
+              <th
+                key={i}
+                scope="col"
+                className="px-3.5 py-2.5 text-[12.5px] font-semibold text-foreground"
+                style={{ width: widths?.[i] }}
+              >
                 {h}
               </th>
             ))}
@@ -169,7 +187,7 @@ export function Table({
                   key={j}
                   className={cn(
                     "px-3.5 py-2.5 leading-relaxed",
-                    j === 0 ? "font-medium text-foreground" : "text-muted-foreground",
+                    j === 0 ? "font-medium text-foreground" : "text-ink-soft",
                     "[&_code]:rounded [&_code]:bg-secondary [&_code]:px-1 [&_code]:py-px [&_code]:font-mono [&_code]:text-[12px] [&_code]:text-foreground"
                   )}
                 >
@@ -188,10 +206,10 @@ export function YesNo({ v }: { v: boolean | "partial" }) {
   return (
     <span
       className={cn(
-        "inline-grid size-[17px] place-items-center rounded-full text-[9.5px] font-bold",
-        v === true && "bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--notion-green)]",
-        v === "partial" && "bg-[color-mix(in_oklab,var(--notion-yellow)_22%,transparent)] text-[var(--notion-yellow)]",
-        v === false && "bg-[color-mix(in_oklab,var(--notion-red)_14%,transparent)] text-[var(--notion-red)]"
+        "inline-grid size-[18px] place-items-center rounded-[5px] text-[10px] font-bold",
+        v === true && "bg-tag-bg-green text-tag-ink-green",
+        v === "partial" && "bg-tag-bg-yellow text-tag-ink-yellow",
+        v === false && "bg-tag-bg-red text-tag-ink-red"
       )}
       aria-label={v === true ? "supported" : v === "partial" ? "partially supported" : "not supported"}
     >
@@ -206,7 +224,7 @@ export function Cite({ href, children }: { href: string; children: ReactNode }) 
       href={href}
       target="_blank"
       rel="noreferrer noopener"
-      className="text-primary underline underline-offset-2 hover:opacity-80"
+      className="text-primary underline decoration-[color-mix(in_oklab,var(--primary)_35%,transparent)] underline-offset-2 transition-colors duration-150 hover:text-primary-deep hover:decoration-primary-deep"
     >
       {children}
     </a>

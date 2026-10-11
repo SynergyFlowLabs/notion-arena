@@ -2,37 +2,106 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ------------------------------------------------------------------
-   Blocksmith design tokens
-   Deliberately close to Notion's own palette so components feel
-   native once they are dropped into a workspace.
-------------------------------------------------------------------- */
-:root {
-  --background: #ffffff;
-  --foreground: #37352f;
-  --card: #ffffff;
-  --card-foreground: #37352f;
-  --popover: #ffffff;
-  --popover-foreground: #37352f;
-  --primary: #2383e2;
-  --primary-foreground: #ffffff;
-  --secondary: #f7f7f5;
-  --secondary-foreground: #37352f;
-  --muted: #f7f7f5;
-  --muted-foreground: #787774;
-  --accent: #eef4fb;
-  --accent-foreground: #1a5fa8;
-  --destructive: #e03e3e;
-  --destructive-foreground: #ffffff;
-  --border: #e9e9e7;
-  --border-strong: #dfdfdd;
-  --input: #e9e9e7;
-  --ring: #2383e2;
-  --surface-raised: #fbfbfa;
-  --code-bg: #f7f6f3;
-  --radius: 0.5rem;
+/* ==================================================================
+   Blocksmith design tokens — modelled on notion.com
 
-  /* Notion's own highlight colours, reused for tags */
+   Notion's marketing surface is a warm paper canvas, a near-black ink
+   that is rgba(0,0,0,.95) rather than pure black, one saturated action
+   blue (#0075de), 1px hairline structure instead of shadows, and a
+   pastel card palette lifted from its own database property colours.
+
+   Two radii only: 12px for cards and containers, 8px for controls.
+   Pills are reserved for badges and tags — Notion's buttons are
+   rectangular-sober, never pill-shaped.
+================================================================== */
+:root {
+  /* --- surfaces: warm, never cool -------------------------------- */
+  --background: #f6f5f4; /* paper — the default page canvas      */
+  --surface-raised: #fbfbfa; /* inset panels, table stripes       */
+  --card: #ffffff; /* elevated surfaces only                     */
+  --card-foreground: #0d0d0c;
+  --popover: #ffffff;
+  --popover-foreground: #0d0d0c;
+
+  /* --- ink ------------------------------------------------------- */
+  --foreground: #0d0d0c; /* rgba(0,0,0,.95) composited on white  */
+  --ink-soft: #5f5e5a; /* secondary text                        */
+  --ink-faint: #717069; /* metadata — 4.57 on paper, 4.97 on card */
+  --app-ink: #37352f; /* Notion's *app* text — used inside page mockups */
+
+  --muted: #efeeec;
+  --muted-foreground: #5f5e5a;
+  --secondary: #efeeec;
+  --secondary-foreground: #0d0d0c;
+
+  /* --- the single action colour --------------------------------- */
+  --primary: #006fd2; /* Signal Blue, darkened one step for AA   */
+  --primary-brand: #0075de; /* notion.com's exact blue — accents */
+  --primary-foreground: #ffffff;
+  --primary-deep: #005fad; /* hover / pressed                    */
+  --primary-wash: #e9f1fc; /* tinted background                  */
+  --ring: #0075de;
+
+  --accent: #e8f1fc;
+  --accent-foreground: #005fad;
+
+  /* --- campaign colours ------------------------------------------ */
+  --periwinkle: #455dd3; /* secondary brand, used sparingly      */
+  --navy: #213183;
+  --band: #191918; /* dark band that interrupts the canvas      */
+  --band-foreground: #f6f5f4;
+  --band-muted: #a8a7a2;
+  --midnight: #02093a; /* deep navy band                          */
+
+  /* --- structure -------------------------------------------------- */
+  --border: #e6e4df; /* 1px warm hairline                        */
+  --border-strong: #d8d5ce;
+  --input: #d8d5ce;
+  --destructive: #cb3939; /* notion red darkened to 4.61:1 on paper */
+  --destructive-foreground: #ffffff;
+  --code-bg: #f2f1ee;
+
+  /* --- pastel card tints, echoing Notion's property colours ------ */
+  --tint-peach: #fbf0ea;
+  --tint-peach-ink: #a3552a;
+  --tint-rose: #faeef2;
+  --tint-rose-ink: #a03072;
+  --tint-mint: #ebf5f0;
+  --tint-mint-ink: #14715f;
+  --tint-lavender: #f1eefb;
+  --tint-lavender-ink: #5f3d99;
+  --tint-sky: #eaf3fb;
+  --tint-sky-ink: #16659c;
+  --tint-butter: #fbf4e3;
+  --tint-butter-ink: #8a6510;
+  --tint-clay: #f6f1ec;
+  --tint-clay-ink: #8d6149;
+  --tint-stone: #f2f1ee;
+  --tint-stone-ink: #5f5e5a;
+  --tint-ember: #fbeeea;
+  --tint-ember-ink: #a83a22;
+
+  /* --- tested tag pairs: every ink clears 4.5:1 on its own tint --- */
+  --tag-bg-gray: #ebebea;
+  --tag-ink-gray: #6b6a68;
+  --tag-bg-brown: #f1e9e5;
+  --tag-ink-brown: #8c5f4a;
+  --tag-bg-orange: #f9eadb;
+  --tag-ink-orange: #a2570d;
+  --tag-bg-yellow: #faf2d9;
+  --tag-ink-yellow: #896a06;
+  --tag-bg-green: #dbebe9;
+  --tag-ink-green: #0f7466;
+  --tag-bg-blue: #dae9f0;
+  --tag-ink-blue: #0b6e99;
+  --tag-bg-purple: #e8e2f2;
+  --tag-ink-purple: #6940a5;
+  --tag-bg-pink: #f3ddea;
+  --tag-ink-pink: #ad1a72;
+  --tag-bg-red: #fae2e2;
+  --tag-ink-red: #be3636;
+
+  /* --- Notion's own property colours, for tags and status -------- */
   --notion-gray: #787774;
   --notion-brown: #9f6b53;
   --notion-orange: #d9730d;
@@ -42,31 +111,98 @@
   --notion-purple: #6940a5;
   --notion-pink: #ad1a72;
   --notion-red: #e03e3e;
+
+  /* --- shadows: Notion is flat. One deep shadow, for the mockup -- */
+  --shadow-mockup:
+    0 0 0 1px rgba(13, 13, 12, 0.05), 0 1px 2px rgba(13, 13, 12, 0.04),
+    0 8px 16px -4px rgba(13, 13, 12, 0.06), 0 24px 48px -12px rgba(13, 13, 12, 0.12),
+    0 48px 96px -24px rgba(13, 13, 12, 0.16);
+  --shadow-pop:
+    0 0 0 1px rgba(13, 13, 12, 0.06), 0 4px 8px rgba(13, 13, 12, 0.06),
+    0 12px 24px -8px rgba(13, 13, 12, 0.12);
+  --shadow-inset: inset 0 0 0 1px rgba(13, 13, 12, 0.04);
 }
 
 .dark {
+  color-scheme: dark;
+
   --background: #191919;
-  --foreground: #e6e6e4;
+  --surface-raised: #1f1f1f;
   --card: #202020;
   --card-foreground: #e6e6e4;
   --popover: #252525;
   --popover-foreground: #e6e6e4;
-  --primary: #529cca;
-  --primary-foreground: #ffffff;
+
+  --foreground: #e6e6e4;
+  --ink-soft: #b6b5b1;
+  --ink-faint: #8b8a86;
+  --app-ink: #e6e6e4;
+
+  --muted: #252525;
+  --muted-foreground: #b6b5b1;
   --secondary: #252525;
   --secondary-foreground: #e6e6e4;
-  --muted: #252525;
-  --muted-foreground: #9b9a97;
-  --accent: #24313f;
+
+  --primary: #529cca;
+  --primary-foreground: #191919;
+  --primary-deep: #6fb0dc;
+  --primary-wash: #1d2b38;
+  --ring: #529cca;
+
+  --accent: #1d2b38;
   --accent-foreground: #8ab8dd;
-  --destructive: #ff7369;
-  --destructive-foreground: #191919;
+
+  --periwinkle: #8ea0ee;
+  --navy: #a9bdf5;
+  --band: #101010;
+  --band-foreground: #f0efed;
+  --band-muted: #8b8a86;
+  --midnight: #050b26;
+
   --border: #2f2f2f;
   --border-strong: #3f3f3f;
-  --input: #2f2f2f;
-  --ring: #529cca;
-  --surface-raised: #1f1f1f;
+  --input: #3f3f3f;
+  --destructive: #ff7369;
+  --destructive-foreground: #191919;
   --code-bg: #252525;
+
+  --tint-peach: #2b211b;
+  --tint-peach-ink: #e0a179;
+  --tint-rose: #2a1c22;
+  --tint-rose-ink: #e79ac6;
+  --tint-mint: #16241f;
+  --tint-mint-ink: #6dc7b0;
+  --tint-lavender: #211d2e;
+  --tint-lavender-ink: #b7a2e8;
+  --tint-sky: #16222c;
+  --tint-sky-ink: #7fb9dd;
+  --tint-butter: #2a2418;
+  --tint-butter-ink: #dcb964;
+  --tint-clay: #241f1a;
+  --tint-clay-ink: #cfa285;
+  --tint-stone: #232323;
+  --tint-stone-ink: #b6b5b1;
+  --tint-ember: #2c1c18;
+  --tint-ember-ink: #e79a86;
+
+  --tag-bg-gray: #232323;
+  --tag-ink-gray: #9b9a97;
+  --tag-bg-brown: #241f1a;
+  --tag-ink-brown: #c77d48;
+  --tag-bg-orange: #2b211b;
+  --tag-ink-orange: #ff9f0a;
+  --tag-bg-yellow: #2a2418;
+  --tag-ink-yellow: #ffd60a;
+  --tag-bg-green: #16241f;
+  --tag-ink-green: #4dab9a;
+  --tag-bg-blue: #16222c;
+  --tag-ink-blue: #529cca;
+  --tag-bg-purple: #211d2e;
+  --tag-ink-purple: #ab86e0;
+  --tag-bg-pink: #2a1c22;
+  --tag-ink-pink: #e255a1;
+  --tag-bg-red: #2c1c18;
+  --tag-ink-red: #ff7369;
 
   --notion-gray: #9b9a97;
   --notion-brown: #c77d48;
@@ -77,8 +213,20 @@
   --notion-purple: #9a6dd7;
   --notion-pink: #e255a1;
   --notion-red: #ff7369;
+
+  --shadow-mockup:
+    0 0 0 1px rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 24px 48px -12px rgba(0, 0, 0, 0.6), 0 48px 96px -24px rgba(0, 0, 0, 0.7);
+  --shadow-pop:
+    0 0 0 1px rgba(255, 255, 255, 0.07), 0 12px 24px -8px rgba(0, 0, 0, 0.6);
+  --shadow-inset: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
+/* ==================================================================
+   Theme surface — Tailwind v4 reads these to build utilities.
+   The type scale is Notion's: tracking tightens as size grows, and
+   display sizes carry the ss01 alternates.
+================================================================== */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -88,6 +236,9 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-deep: var(--primary-deep);
+  --color-primary-brand: var(--primary-brand);
+  --color-primary-wash: var(--primary-wash);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -102,40 +253,222 @@
   --color-ring: var(--ring);
   --color-raised: var(--surface-raised);
   --color-code: var(--code-bg);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 10px);
-  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
-    "Segoe UI Symbol";
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "PT Mono", "Liberation Mono", monospace;
+
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-app-ink: var(--app-ink);
+  --color-periwinkle: var(--periwinkle);
+  --color-navy: var(--navy);
+  --color-band: var(--band);
+  --color-band-foreground: var(--band-foreground);
+  --color-band-muted: var(--band-muted);
+  --color-midnight: var(--midnight);
+
+  --color-tint-peach: var(--tint-peach);
+  --color-tint-peach-ink: var(--tint-peach-ink);
+  --color-tint-rose: var(--tint-rose);
+  --color-tint-rose-ink: var(--tint-rose-ink);
+  --color-tint-mint: var(--tint-mint);
+  --color-tint-mint-ink: var(--tint-mint-ink);
+  --color-tint-lavender: var(--tint-lavender);
+  --color-tint-lavender-ink: var(--tint-lavender-ink);
+  --color-tint-sky: var(--tint-sky);
+  --color-tint-sky-ink: var(--tint-sky-ink);
+  --color-tint-butter: var(--tint-butter);
+  --color-tint-butter-ink: var(--tint-butter-ink);
+  --color-tint-clay: var(--tint-clay);
+  --color-tint-clay-ink: var(--tint-clay-ink);
+  --color-tint-stone: var(--tint-stone);
+  --color-tint-stone-ink: var(--tint-stone-ink);
+  --color-tint-ember: var(--tint-ember);
+  --color-tint-ember-ink: var(--tint-ember-ink);
+
+  --color-tag-bg-gray: var(--tag-bg-gray);
+  --color-tag-ink-gray: var(--tag-ink-gray);
+  --color-tag-bg-brown: var(--tag-bg-brown);
+  --color-tag-ink-brown: var(--tag-ink-brown);
+  --color-tag-bg-orange: var(--tag-bg-orange);
+  --color-tag-ink-orange: var(--tag-ink-orange);
+  --color-tag-bg-yellow: var(--tag-bg-yellow);
+  --color-tag-ink-yellow: var(--tag-ink-yellow);
+  --color-tag-bg-green: var(--tag-bg-green);
+  --color-tag-ink-green: var(--tag-ink-green);
+  --color-tag-bg-blue: var(--tag-bg-blue);
+  --color-tag-ink-blue: var(--tag-ink-blue);
+  --color-tag-bg-purple: var(--tag-bg-purple);
+  --color-tag-ink-purple: var(--tag-ink-purple);
+  --color-tag-bg-pink: var(--tag-bg-pink);
+  --color-tag-ink-pink: var(--tag-ink-pink);
+  --color-tag-bg-red: var(--tag-bg-red);
+  --color-tag-ink-red: var(--tag-ink-red);
+  --color-notion-gray: var(--notion-gray);
+  --color-notion-brown: var(--notion-brown);
+  --color-notion-orange: var(--notion-orange);
+  --color-notion-yellow: var(--notion-yellow);
+  --color-notion-green: var(--notion-green);
+  --color-notion-blue: var(--notion-blue);
+  --color-notion-purple: var(--notion-purple);
+  --color-notion-pink: var(--notion-pink);
+  --color-notion-red: var(--notion-red);
+
+  /* --- radii: 12 for containers, 8 for controls, pill for badges - */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+
+  /* --- type ------------------------------------------------------ */
+  --font-sans: var(--font-notion-sans);
+  --font-mono: var(--font-notion-mono);
+  --font-serif: "Lyon Text", Lyon, Georgia, "Times New Roman", serif;
+
+  /* Display copy: Inter's ss01 alternates, lining + localised forms */
+  --text-display: 4rem;
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.0332em;
+  --text-display--font-weight: 700;
+
+  --text-hero: 3.375rem;
+  --text-hero--line-height: 1.04;
+  --text-hero--letter-spacing: -0.025em;
+  --text-hero--font-weight: 700;
+
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.022em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 2.5rem;
+  --text-h2--line-height: 1.12;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 2rem;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.015em;
+  --text-h3--font-weight: 700;
+
+  --text-h4: 1.5rem;
+  --text-h4--line-height: 1.3;
+  --text-h4--letter-spacing: -0.01em;
+  --text-h4--font-weight: 600;
+
+  --text-h5: 1.25rem;
+  --text-h5--line-height: 1.35;
+  --text-h5--letter-spacing: -0.005em;
+  --text-h5--font-weight: 600;
+
+  --text-h6: 1rem;
+  --text-h6--line-height: 1.5;
+  --text-h6--letter-spacing: 0;
+  --text-h6--font-weight: 600;
+
+  --text-lede: 1.125rem;
+  --text-lede--line-height: 1.55;
+  --text-lede--letter-spacing: 0;
+  --text-lede--font-weight: 400;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.45;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: 0.02em;
+  --text-caption--font-weight: 500;
+
+  --text-quote: 1.375rem;
+  --text-quote--line-height: 1.27;
+  --text-quote--letter-spacing: 0;
+  --text-quote--font-weight: 400;
+
+  /* Eyebrow / label text is monospace, per notion.com's nav */
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.06em;
+  --text-label--font-weight: 500;
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
   }
+
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
+
+  /* Suppress rubber-band on precise pointers only, so touch devices keep
+     pull-to-refresh and native swipe-back. */
+  @media (pointer: fine) {
+    html {
+      overscroll-behavior-y: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "cv11", "ss01";
+    font-size: 16px;
+    line-height: 1.5;
+    font-feature-settings: "cv11", "ss01", "lnum", "locl";
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    text-wrap: pretty;
   }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
   ::selection {
     background: color-mix(in oklab, var(--color-primary) 22%, transparent);
   }
+
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Native selects need explicit colours or Windows dark mode inverts them. */
+  select {
+    background-color: var(--color-card);
+    color: var(--color-foreground);
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  summary {
+    touch-action: manipulation;
   }
 }
 
@@ -146,11 +479,61 @@
   .text-pretty {
     text-wrap: pretty;
   }
-  /* Fine dotted grid, used behind hero sections */
+
+  /* Tabular figures on every data surface: pricing, stats, counters */
+  .tnum {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* Display copy gets Inter's curved-tail alternates */
+  .font-display {
+    font-feature-settings: "ss01", "lnum", "locl";
+  }
+
+  /* Notion's eyebrow: small monospace, mixed case, slight positive tracking */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  /* The one deep shadow in the system — reserved for product mockups */
+  .shadow-mockup {
+    box-shadow: var(--shadow-mockup);
+  }
+  .shadow-pop {
+    box-shadow: var(--shadow-pop);
+  }
+
+  /* Dark campaign band that interrupts the paper canvas */
+  .band {
+    background-color: var(--color-band);
+    color: var(--color-band-foreground);
+  }
+  .band-muted {
+    color: var(--color-band-muted);
+  }
+
+  /* Pastel feature-card tints, echoing database property colours */
+  .tint {
+    border: 1px solid color-mix(in oklab, currentColor 16%, transparent);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  /* Kept for the two places that still use a texture, but the redesign
+     defaults to flat colour and hairlines instead. */
   .bg-dotgrid {
     background-image: radial-gradient(
       circle at 1px 1px,
-      color-mix(in oklab, var(--color-foreground) 12%, transparent) 1px,
+      color-mix(in oklab, var(--color-foreground) 10%, transparent) 1px,
       transparent 0
     );
     background-size: 22px 22px;
@@ -162,21 +545,27 @@
       transparent 1px 8px
     );
   }
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+
+  /* The single orchestrated entrance. Applied to the hero only — not to
+     every section, which is the generic default. */
+  .reveal {
+    animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-  .no-scrollbar {
-    scrollbar-width: none;
+  .reveal-1 {
+    animation-delay: 0.06s;
   }
-  .animate-in-up {
-    animation: in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  .reveal-2 {
+    animation-delay: 0.14s;
+  }
+  .reveal-3 {
+    animation-delay: 0.22s;
   }
 }
 
-@keyframes in-up {
+@keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -197,14 +586,15 @@
   animation: marquee 42s linear infinite;
 }
 
-/* Code blocks in docs */
+/* Code blocks — iA Writer Mono sits at 14px/1.5 in Notion's system */
 pre.code-block {
   font-family: var(--font-mono);
-  font-size: 12.5px;
-  line-height: 1.65;
+  font-size: 13px;
+  line-height: 1.6;
   background: var(--color-code);
+  color: var(--color-foreground);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: 8px;
   padding: 14px 16px;
   overflow-x: auto;
   white-space: pre;

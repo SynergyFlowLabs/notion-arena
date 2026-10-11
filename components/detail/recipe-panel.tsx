@@ -4,26 +4,26 @@ import { CopyButton } from "@/components/copy-button";
 import { cn } from "@/lib/utils";
 
 const TYPE_COLORS: Record<string, string> = {
-  title: "text-[var(--notion-gray)]",
-  rich_text: "text-[var(--notion-gray)]",
-  select: "text-[var(--notion-blue)]",
-  multi_select: "text-[var(--notion-purple)]",
-  status: "text-[var(--notion-green)]",
-  number: "text-[var(--notion-orange)]",
-  date: "text-[var(--notion-pink)]",
-  checkbox: "text-[var(--notion-green)]",
-  people: "text-[var(--notion-blue)]",
-  relation: "text-[var(--notion-purple)]",
-  rollup: "text-[var(--notion-yellow)]",
-  formula: "text-[var(--notion-red)]",
-  url: "text-[var(--notion-blue)]",
-  email: "text-[var(--notion-blue)]",
-  phone_number: "text-[var(--notion-blue)]",
-  files: "text-[var(--notion-gray)]",
-  created_time: "text-[var(--notion-gray)]",
-  created_by: "text-[var(--notion-gray)]",
-  last_edited_time: "text-[var(--notion-gray)]",
-  unique_id: "text-[var(--notion-gray)]",
+  title: "text-[var(--tag-ink-gray)]",
+  rich_text: "text-[var(--tag-ink-gray)]",
+  select: "text-[var(--tag-ink-blue)]",
+  multi_select: "text-[var(--tag-ink-purple)]",
+  status: "text-[var(--tag-ink-green)]",
+  number: "text-[var(--tag-ink-orange)]",
+  date: "text-[var(--tag-ink-pink)]",
+  checkbox: "text-[var(--tag-ink-green)]",
+  people: "text-[var(--tag-ink-blue)]",
+  relation: "text-[var(--tag-ink-purple)]",
+  rollup: "text-[var(--tag-ink-yellow)]",
+  formula: "text-[var(--tag-ink-red)]",
+  url: "text-[var(--tag-ink-blue)]",
+  email: "text-[var(--tag-ink-blue)]",
+  phone_number: "text-[var(--tag-ink-blue)]",
+  files: "text-[var(--tag-ink-gray)]",
+  created_time: "text-[var(--tag-ink-gray)]",
+  created_by: "text-[var(--tag-ink-gray)]",
+  last_edited_time: "text-[var(--tag-ink-gray)]",
+  unique_id: "text-[var(--tag-ink-gray)]",
 };
 
 function propertyType(schema: any): string {
@@ -63,7 +63,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
       <section>
         <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
           <div>
-            <h2 className="text-[19px] font-semibold tracking-[-0.02em]">The install plan</h2>
+            <h2 className="text-h5 text-foreground">The install plan</h2>
             <p className="mt-1 max-w-2xl text-[13.5px] leading-relaxed text-muted-foreground">
               Exactly what Blocksmith sends to Notion, in order. Notion's
               data-source model forces two passes: relations, rollups and the
@@ -93,9 +93,9 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
               <span
                 className={cn(
                   "mt-px h-fit shrink-0 rounded border px-1.5 py-px font-mono text-[10.5px] font-bold",
-                  call.method === "POST" && "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--notion-green)]",
-                  call.method === "PATCH" && "border-[var(--notion-yellow)]/40 bg-[var(--notion-yellow)]/12 text-[var(--notion-yellow)]",
-                  call.method === "GET" && "border-[var(--notion-blue)]/40 bg-[var(--notion-blue)]/10 text-[var(--notion-blue)]"
+                  call.method === "POST" && "border-[var(--notion-green)]/40 bg-[var(--notion-green)]/10 text-[var(--tag-ink-green)]",
+                  call.method === "PATCH" && "border-[var(--notion-yellow)]/40 bg-[var(--notion-yellow)]/12 text-[var(--tag-ink-yellow)]",
+                  call.method === "GET" && "border-[var(--notion-blue)]/40 bg-[var(--notion-blue)]/10 text-[var(--tag-ink-blue)]"
                 )}
               >
                 {call.method}
@@ -155,7 +155,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
 
       {/* ---- schemas ---- */}
       <section>
-        <h2 className="text-[19px] font-semibold tracking-[-0.02em]">What gets created</h2>
+        <h2 className="text-h5 text-foreground">What gets created</h2>
         <p className="mt-1 text-[13.5px] leading-relaxed text-muted-foreground">
           The real property schemas, not a description of them. Every formula
           below is a Notion Formula 2.0 expression you can paste into a property
@@ -222,7 +222,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
       {/* ---- views ---- */}
       {recipe.views.length > 0 && (
         <section>
-          <h2 className="text-[19px] font-semibold tracking-[-0.02em]">Views</h2>
+          <h2 className="text-h5 text-foreground">Views</h2>
           <p className="mt-1 text-[13.5px] leading-relaxed text-muted-foreground">
             Created through <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">POST /v1/views</code>,
             which shipped in March 2026 and is the reason provisioning a
@@ -252,7 +252,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
       {/* ---- page bodies ---- */}
       {recipe.pages.length > 0 && (
         <section>
-          <h2 className="text-[19px] font-semibold tracking-[-0.02em]">Documentation pages</h2>
+          <h2 className="text-h5 text-foreground">Documentation pages</h2>
           <p className="mt-1 text-[13.5px] leading-relaxed text-muted-foreground">
             Appended with real block types — headings, toggles, callouts, to-dos,
             column lists — in chunks of 100, the Append block children limit.
@@ -282,7 +282,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
       {/* ---- manual steps ---- */}
       {recipe.manual.length > 0 && (
         <section>
-          <h2 className="text-[19px] font-semibold tracking-[-0.02em]">The parts the API cannot do</h2>
+          <h2 className="text-h5 text-foreground">The parts the API cannot do</h2>
           <p className="mt-1 max-w-2xl text-[13.5px] leading-relaxed text-muted-foreground">
             Every recipe ships with its manual steps written out, because
             pretending the API covers everything is how people end up with a
@@ -322,7 +322,7 @@ function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="rounded-lg border border-border bg-card px-3 py-1.5 text-center">
       <div className="text-[17px] font-semibold leading-tight tabular-nums">{value}</div>
-      <div className="text-[10.5px] uppercase tracking-wide text-muted-foreground">{label}</div>
+      <div className="label-mono text-ink-faint">{label}</div>
     </div>
   );
 }
@@ -437,7 +437,7 @@ function BlockPreview({ blocks, depth = 0 }: { blocks: any[]; depth?: number }) 
           case "synced_block":
             return (
               <div key={i} className="rounded-lg border border-dashed border-[var(--notion-purple)]/40 bg-[color-mix(in_oklab,var(--notion-purple)_5%,transparent)] p-2">
-                <div className="mb-1.5 flex items-center gap-1 font-mono text-[10px] uppercase tracking-wide text-[var(--notion-purple)]">
+                <div className="mb-1.5 flex items-center gap-1 label-mono text-[var(--tag-ink-purple)]">
                   🔁 synced block
                 </div>
                 <BlockPreview blocks={b.children ?? []} depth={depth + 1} />
@@ -456,7 +456,7 @@ function BlockPreview({ blocks, depth = 0 }: { blocks: any[]; depth?: number }) 
               </div>
             );
           case "table_of_contents":
-            return <div key={i} className="text-[11.5px] uppercase tracking-wide text-muted-foreground">≡ table of contents</div>;
+            return <div key={i} className="label-mono text-ink-faint">≡ table of contents</div>;
           default:
             return (
               <div key={i} className="font-mono text-[11.5px] text-muted-foreground/70">

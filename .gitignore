@@ -9,3 +9,8 @@ dist
 next-env.d.ts
 .DS_Store
 .vercel
+
+# Agent skill tooling, installed by `npx skills add`. Third-party content and
+# ~6 MB of bundled fonts; skills-lock.json is committed instead as provenance.
+.agents/
+.claude/

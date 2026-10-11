@@ -12,7 +12,7 @@ export default function PrivacyPage() {
   return (
     <article className="flex flex-col gap-8">
       <header>
-        <h1 className="text-[32px] font-semibold tracking-[-0.03em]">Privacy policy</h1>
+        <h1 className="font-display text-h2 text-foreground">Privacy policy</h1>
         <p className="mt-2 font-mono text-[12px] text-muted-foreground">Last updated 11 October 2026</p>
         <p className="mt-4 text-[14.5px] leading-[1.75] text-muted-foreground">
           The short version: browsing this site requires no account and sets no
@@ -181,7 +181,7 @@ function Section({
 }) {
   return (
     <section>
-      <h2 className="flex items-baseline gap-2.5 text-[17px] font-semibold tracking-[-0.02em]">
+      <h2 className="flex items-baseline gap-2.5 text-h5 text-foreground">
         <span className="font-mono text-[12.5px] font-normal text-muted-foreground">{n}</span>
         {title}
       </h2>

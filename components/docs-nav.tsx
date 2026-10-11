@@ -35,7 +35,7 @@ export function DocsNav() {
     <nav aria-label="Documentation" className="flex flex-col gap-6">
       {DOC_NAV.map((group) => (
         <div key={group.group}>
-          <h2 className="px-2.5 text-[11px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">
+          <h2 className="px-2.5 label-mono text-ink-faint">
             {group.group}
           </h2>
           <ul className="mt-1.5 flex flex-col gap-0.5">
@@ -48,10 +48,11 @@ export function DocsNav() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "block rounded-lg px-2.5 py-1.5 text-[13px] transition-colors",
+                      "block rounded-lg border-l-2 py-1.5 pl-2.5 pr-2 text-[13px]",
+                      "transition-[background-color,border-color,color] duration-150",
                       active
-                        ? "bg-secondary font-medium text-foreground"
-                        : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
+                        ? "border-primary bg-primary-wash font-semibold text-primary-deep"
+                        : "border-transparent text-ink-soft hover:border-border-strong hover:bg-secondary hover:text-foreground"
                     )}
                   >
                     {item.label}

@@ -8,13 +8,13 @@ export default function NotFound() {
       <div className="grid size-14 place-items-center rounded-xl border border-border bg-card text-[26px] shadow-xs">
         🔍
       </div>
-      <p className="mt-5 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-primary">
+      <p className="mt-5 label-mono text-primary">
         404 · object_not_found
       </p>
-      <h1 className="mt-2 text-balance text-[34px] font-semibold leading-[1.1] tracking-[-0.035em]">
+      <h1 className="font-display mt-3 text-h2 text-foreground sm:text-h1">
         This block does not exist
       </h1>
-      <p className="mt-3 max-w-md text-pretty text-[15px] leading-relaxed text-muted-foreground">
+      <p className="mt-4 max-w-md text-lede text-ink-soft">
         The Notion API returns{" "}
         <code className="rounded bg-secondary px-1 py-px font-mono text-[13px]">object_not_found</code>{" "}
         when you ask for something you cannot see — including things that exist
@@ -37,7 +37,7 @@ export default function NotFound() {
       </div>
 
       <div className="mt-10 w-full rounded-xl border border-border bg-raised p-4 text-left">
-        <h2 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+        <h2 className="label-mono text-ink-faint">
           Popular destinations
         </h2>
         <div className="mt-3 flex flex-wrap gap-1.5">

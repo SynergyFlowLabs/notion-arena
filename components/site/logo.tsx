@@ -1,18 +1,36 @@
 import Link from "next/link";
+import { LogoMark } from "@/components/icons";
+import { cn } from "@/lib/utils";
 
-export function Logo({ compact = false }: { compact?: boolean }) {
+export function Logo({
+  compact = false,
+  className,
+  inverted = false,
+}: {
+  compact?: boolean;
+  className?: string;
+  /** For use on a dark campaign band, where the mark reverses. */
+  inverted?: boolean;
+}) {
   return (
-    <span className="flex items-center gap-2">
-      <span className="relative grid size-[26px] place-items-center rounded-[7px] bg-[#37352f] text-white dark:bg-white dark:text-[#191919]">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <rect x="1.6" y="1.6" width="5.4" height="5.4" rx="1.3" stroke="currentColor" strokeWidth="1.5" />
-          <rect x="9" y="1.6" width="5.4" height="5.4" rx="1.3" stroke="currentColor" strokeWidth="1.5" opacity=".55" />
-          <rect x="1.6" y="9" width="5.4" height="5.4" rx="1.3" stroke="currentColor" strokeWidth="1.5" opacity=".55" />
-          <rect x="9" y="9" width="5.4" height="5.4" rx="1.3" fill="currentColor" />
-        </svg>
+    <span className={cn("flex items-center gap-2", className)}>
+      <span
+        className={cn(
+          "grid size-[26px] shrink-0 place-items-center rounded-[7px] transition-colors",
+          inverted
+            ? "bg-band-foreground text-band"
+            : "bg-foreground text-background"
+        )}
+      >
+        <LogoMark size={17} />
       </span>
       {!compact && (
-        <span className="text-[15px] font-semibold tracking-[-0.02em] text-foreground">
+        <span
+          className={cn(
+            "text-[16px] font-semibold tracking-[-0.021em]",
+            inverted ? "text-band-foreground" : "text-foreground"
+          )}
+        >
           Blocksmith
         </span>
       )}
@@ -20,10 +38,14 @@ export function Logo({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function WordmarkLink() {
+export function WordmarkLink({ inverted = false }: { inverted?: boolean }) {
   return (
-    <Link href="/" aria-label="Blocksmith home">
-      <Logo />
+    <Link
+      href="/"
+      aria-label="Blocksmith home"
+      className="rounded-lg focus-visible:outline-offset-4"
+    >
+      <Logo inverted={inverted} />
     </Link>
   );
 }
