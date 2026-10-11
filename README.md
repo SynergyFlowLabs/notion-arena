@@ -1,3 +1,7 @@
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SynergyFlowLabs/notion-components)
+[![MCP](https://img.shields.io/badge/MCP-notion--arena--mcp-blue)](./mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./app/legal/terms/page.tsx)
+
 # Notion Arena
 
 **The component registry for Notion.** shadcn/ui's model: browse, configure,
