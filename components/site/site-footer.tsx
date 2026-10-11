@@ -35,6 +35,8 @@ const COLS: { title: string; links: { href: string; label: string }[] }[] = [
       { href: "/docs/api-limits", label: "Notion API limits" },
       { href: "/docs/authoring", label: "Authoring a widget" },
       { href: "/docs/recipes", label: "Authoring a recipe" },
+      { href: "https://www.npmjs.com/package/notion-arena-mcp", label: "npm notion-arena-mcp" },
+      { href: "https://registry.modelcontextprotocol.io", label: "MCP Registry" },
     ],
   },
   {
@@ -81,15 +83,33 @@ export function SiteFooter() {
                 ))}
               </dl>
 
-              <a
-                href="https://github.com/SynergyFlowLabs/notion-components"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="mt-6 inline-flex h-9 items-center gap-2 rounded-lg border border-white/15 px-3 text-[13.5px] font-medium text-band-foreground transition-colors hover:border-white/30 hover:bg-white/5"
-              >
-                <IconGithub size={16} />
-                View source
-              </a>
+              <div className="mt-6 flex flex-wrap items-center gap-2">
+                <a
+                  href="https://github.com/SynergyFlowLabs/notion-arena"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex h-9 items-center gap-2 rounded-lg border border-white/15 px-3 text-[13.5px] font-medium text-band-foreground transition-colors hover:border-white/30 hover:bg-white/5"
+                >
+                  <IconGithub size={16} />
+                  GitHub
+                </a>
+                <a
+                  href="https://www.npmjs.com/package/notion-arena-mcp"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-white/15 px-3 text-[13.5px] font-medium text-band-foreground transition-colors hover:border-white/30 hover:bg-white/5"
+                >
+                  npm
+                </a>
+                <a
+                  href="https://registry.modelcontextprotocol.io"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-white/15 px-3 text-[13.5px] font-medium text-band-foreground transition-colors hover:border-white/30 hover:bg-white/5"
+                >
+                  MCP Registry
+                </a>
+              </div>
             </div>
 
             {/* link columns */}
@@ -99,12 +119,23 @@ export function SiteFooter() {
                 <ul className="mt-3.5 flex flex-col gap-2.5">
                   {col.links.map((l) => (
                     <li key={l.href + l.label}>
-                      <Link
-                        href={l.href}
-                        className="text-[13.5px] leading-snug text-band-foreground/80 transition-colors hover:text-band-foreground"
-                      >
-                        {l.label}
-                      </Link>
+                      {l.href.startsWith("http") ? (
+                        <a
+                          href={l.href}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="text-[13.5px] leading-snug text-band-foreground/80 transition-colors hover:text-band-foreground"
+                        >
+                          {l.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={l.href}
+                          className="text-[13.5px] leading-snug text-band-foreground/80 transition-colors hover:text-band-foreground"
+                        >
+                          {l.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

@@ -89,11 +89,22 @@ export default async function RegistryPage() {
   const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${proto}://${host}`;
 
+  const agentCommands = `# Add MCP server to Claude Code
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
+
+# Or run standalone via npx
+npx -y notion-arena-mcp@0.2.2
+
+# Install Agent Skill (cross-agent via skills.sh)
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena`;
+
   const mcpConfig = `{
   "mcpServers": {
     "notion-arena": {
-      "registries": {
-        "@notion-arena": "${origin}/r/{name}.json"
+      "command": "npx",
+      "args": ["-y", "notion-arena-mcp@0.2.2"],
+      "env": {
+        "NOTION_ARENA_SITE_URL": "${origin}"
       }
     }
   }
@@ -262,12 +273,12 @@ curl -s -X POST ${origin}/api/install \\
             <Snippet
               n="A"
               title="Point an agent at the registry"
-              body="Notion MCP servers and shadcn-compatible CLIs both read a namespaced registry map. Once it is there, “install the pomodoro timer as an HTML block” is a prompt, not a task."
-              lang="json"
-              filename="mcp config / components.json"
-              code={mcpConfig}
-              extra={componentsJson}
-              extraLabel="or, for a shadcn-style CLI"
+              body="Use the official Notion Arena MCP server or Agent Skill to give Claude Code, Cursor, or Claude Desktop tools to browse, configure, and install components directly."
+              lang="bash"
+              filename="CLI / skills.sh"
+              code={agentCommands}
+              extra={mcpConfig}
+              extraLabel="or MCP config in claude_desktop_config.json / .cursor/mcp.json"
             />
             <Snippet
               n="B"

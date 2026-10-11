@@ -16,9 +16,9 @@ Notion Arena is a Next.js 16 app (App Router, API routes, Turbopack). It needs *
 
 #### Deploy via Vercel Dashboard (no CLI, 2 minutes)
 
-1. Push your repo to GitHub (you already have `SynergyFlowLabs/notion-components`)
+1. Push your repo to GitHub (you already have `SynergyFlowLabs/notion-arena`)
 2. Go to https://vercel.com/new
-3. Import GitHub repo `SynergyFlowLabs/notion-components`
+3. Import GitHub repo `SynergyFlowLabs/notion-arena`
 4. Framework preset: **Next.js** (auto-detected)
 5. **Environment Variables** → Add:
    ```
@@ -252,22 +252,22 @@ sudo mv mcp-publisher /usr/local/bin/
 ```json
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.SynergyFlowLabs/notion-arena",
-  "description": "Notion Arena MCP — 143 components for Notion...",
-  "repository": { "url": "https://github.com/SynergyFlowLabs/notion-components", "source": "github" },
-  "version": "0.2.0",
+  "name": "io.github.imgul/notion-arena",
+  "description": "MCP server for Notion Arena — 143 Notion components: 132 widgets + 11 recipes",
+  "repository": { "url": "https://github.com/SynergyFlowLabs/notion-arena.git", "source": "github" },
+  "version": "0.2.2",
   "packages": [{
     "registryType": "npm",
     "identifier": "notion-arena-mcp",
-    "version": "0.2.0",
+    "version": "0.2.2",
     "transport": { "type": "stdio" }
   }]
 }
 ```
 
-- `name` must be namespaced: `io.github.<github-user>/<server-name>` → we use `io.github.SynergyFlowLabs/notion-arena`
-- Must match GitHub OAuth user that publishes
-- `identifier` must be exact npm package name
+- `name` must be namespaced: `io.github.<github-user>/<server-name>` → we use `io.github.imgul/notion-arena`
+- **Note on organization namespace**: Publishing under an org namespace like `io.github.SynergyFlowLabs/notion-arena` requires the publisher's GitHub account to have public organization membership in `SynergyFlowLabs`. For individual publishers, `io.github.<username>/notion-arena` (e.g. `io.github.imgul/notion-arena@0.2.2`) is used and verified.
+- `identifier` must be exact npm package name (`notion-arena-mcp@0.2.2`)
 
 3. **Login via GitHub OAuth**:
 ```bash
@@ -311,9 +311,9 @@ git push origin main
 skills.sh auto-discovers `**/SKILL.md` via GitHub API. Users install:
 
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent claude-code --yes
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent '*' --yes  # all agents
-npx skills add SynergyFlowLabs/notion-components --list  # list available
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent claude-code --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent '*' --yes  # all agents
+npx skills add SynergyFlowLabs/notion-arena --list  # list available
 ```
 
 **To appear higher in skills.sh leaderboard:** skills.sh ranks by anonymous install telemetry. More installs → higher rank. Share your install command in README, docs, Twitter.
@@ -339,7 +339,7 @@ We already ship:
 
 ```bash
 # In Claude Code:
-/plugin marketplace add SynergyFlowLabs/notion-components
+/plugin marketplace add SynergyFlowLabs/notion-arena
 /plugin install notion-arena@notion-arena-marketplace
 ```
 
@@ -382,11 +382,11 @@ Tell users to copy file:
 ```bash
 # Project (travels with repo)
 mkdir -p .claude/skills/notion-arena
-curl -o .claude/skills/notion-arena/SKILL.md https://raw.githubusercontent.com/SynergyFlowLabs/notion-components/main/skills/notion-arena/SKILL.md
+curl -o .claude/skills/notion-arena/SKILL.md https://raw.githubusercontent.com/SynergyFlowLabs/notion-arena/main/skills/notion-arena/SKILL.md
 
 # Personal (all projects)
 mkdir -p ~/.claude/skills/notion-arena
-curl -o ~/.claude/skills/notion-arena/SKILL.md https://raw.githubusercontent.com/SynergyFlowLabs/notion-components/main/skills/notion-arena/SKILL.md
+curl -o ~/.claude/skills/notion-arena/SKILL.md https://raw.githubusercontent.com/SynergyFlowLabs/notion-arena/main/skills/notion-arena/SKILL.md
 ```
 
 For Cursor/Windsurf: same, but path `.cursor/skills/notion-arena/` or use `npx skills add` with `--agent cursor`.
@@ -410,7 +410,7 @@ We already bundle both in `.claude-plugin/plugin.json`:
 Users get full agent-native experience in **one command**:
 
 ```bash
-/plugin marketplace add SynergyFlowLabs/notion-components
+/plugin marketplace add SynergyFlowLabs/notion-arena
 /plugin install notion-arena@notion-arena-marketplace
 # → installs skill + MCP server
 ```
@@ -499,28 +499,28 @@ Public repos get 2000 free Action minutes/month.
 
 ## Part 8 — What Users See (Final)
 
-**Site**: `https://your-project.vercel.app` (free)
+**Site**: `https://notionarena.vercel.app` (free)
 
 **MCP** (npm, free):
 ```bash
 claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
-# or scoped: npx -y @synergyflowlabs/notion-arena-mcp
+# or pinned: npx -y notion-arena-mcp@0.2.2
 ```
 
 **Skill** (skills.sh, free, cross-agent):
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent '*' --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent '*' --yes
 ```
 
 **Plugin** (Claude Code, free, one command for both):
 ```bash
-/plugin marketplace add SynergyFlowLabs/notion-components
+/plugin marketplace add SynergyFlowLabs/notion-arena
 /plugin install notion-arena@notion-arena-marketplace
 ```
 
 **Registry** (shadcn, free):
 ```json
-{ "registries": { "@notion-arena": "https://your-project.vercel.app/r/{name}.json" } }
+{ "registries": { "@notion-arena": "https://notionarena.vercel.app/r/{name}.json" } }
 ```
 
 All free, no server costs, no DB, no secrets in repo. Widgets are single HTML files with no dependencies, so bandwidth is tiny (5-22KB each).

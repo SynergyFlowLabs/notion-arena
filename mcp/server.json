@@ -3,7 +3,7 @@
   "name": "io.github.imgul/notion-arena",
   "description": "MCP server for Notion Arena — 143 Notion components: 132 widgets + 11 recipes",
   "repository": {
-    "url": "https://github.com/SynergyFlowLabs/notion-arena",
+    "url": "https://github.com/SynergyFlowLabs/notion-arena.git",
     "source": "github"
   },
   "version": "0.2.2",

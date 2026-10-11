@@ -60,7 +60,7 @@ for (const file of files) {
 
   // persistence contract
   if (/localStorage/.test(src)) {
-    need(/['"]blocksmith\.[a-z0-9.-]+['"]/, "state key not namespaced under blocksmith.");
+    need(/['"]notion-arena\.[a-z0-9.-]+['"]/, "state key not namespaced under notion-arena.");
   }
 
   // copy contract: the em/en-dash ban covers the widgets too

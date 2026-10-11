@@ -18,7 +18,7 @@ const DECISION_ROWS = [
   ["I am putting it in a template I sell", "HTML block", "Self-contained, offline, frozen at the version you took. Nothing can rot underneath your buyer."],
   ["It must show real database numbers", "Native recipe", "Widgets cannot read Notion. Relations, rollups and chart views can."],
   ["My whole team needs to see the same state", "Native recipe", "localStorage is per browser. A database is shared."],
-  ["An agent should build it from a prompt", "Registry + API", "/r/index.json for discovery, POST /api/install for execution."],
+  ["An agent should build it from a prompt", "MCP / Skill", "claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp@0.2.2"],
   ["The workspace is air-gapped or offline", "HTML block", "The only channel with zero network dependency at render time."],
   ["I need drag-and-drop inside the block", "Widget", "Notion cannot script its own blocks; a sandboxed iframe can script itself."],
   ["I need it to trigger something in Notion", "Neither. Read this", "No channel can write to Notion from inside a block. Buttons and automations are the answer, and they are manual."],
@@ -475,6 +475,45 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
                 ))}
               </tbody>
             </table>
+          </div>
+        </Section>
+
+        {/* ===================== AGENTS ===================== */}
+        <Section id="agents" label="channel: ai agents" title="AI Agents & Coding Assistants" accent="var(--notion-teal)">
+          <p>
+            You can give Claude Code, Cursor, Windsurf, or Claude Desktop native access to all 143 components via the official MCP server and Agent Skill.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-xl border border-border bg-card p-4">
+              <div className="text-[13.5px] font-semibold">MCP Server (Claude Code, Cursor, Desktop)</div>
+              <p className="mt-1 text-[12.5px] text-muted-foreground">
+                Gives your agent 10 tools to search, configure, build embed URLs, and plan installs.
+              </p>
+              <div className="mt-3 flex items-center gap-2 rounded-lg border border-border bg-raised px-2.5 py-1.5">
+                <code className="min-w-0 flex-1 truncate font-mono text-[11.5px] text-foreground">
+                  claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
+                </code>
+                <CopyButton compact value="claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp" />
+              </div>
+              <p className="mt-2 font-mono text-[11.5px] text-muted-foreground">
+                or pinned: npx -y notion-arena-mcp@0.2.2
+              </p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-4">
+              <div className="text-[13.5px] font-semibold">Agent Skill (skills.sh)</div>
+              <p className="mt-1 text-[12.5px] text-muted-foreground">
+                Teaches your agent the delivery channels, offline contract, and parameter schema.
+              </p>
+              <div className="mt-3 flex items-center gap-2 rounded-lg border border-border bg-raised px-2.5 py-1.5">
+                <code className="min-w-0 flex-1 truncate font-mono text-[11.5px] text-foreground">
+                  npx skills add SynergyFlowLabs/notion-arena --skill notion-arena
+                </code>
+                <CopyButton compact value="npx skills add SynergyFlowLabs/notion-arena --skill notion-arena" />
+              </div>
+              <p className="mt-2 font-mono text-[11.5px] text-muted-foreground">
+                marketplace: /plugin marketplace add SynergyFlowLabs/notion-arena
+              </p>
+            </div>
           </div>
         </Section>
 

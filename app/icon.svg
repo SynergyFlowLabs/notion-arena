@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
   <!--
-    Blocksmith favicon. The same mark as components/icons.tsx LogoMark, but
+    Notion Arena favicon. The same mark as components/icons.tsx LogoMark, but
     scaled to fill a 32px tile and with literal colours: a standalone SVG file
     is fetched outside the document, so it cannot inherit CSS custom
     properties. Ink #0d0d0c, paper #f6f5f4, the two ends of the site palette.

@@ -262,14 +262,14 @@ Env: `NOTION_ARENA_SITE_URL` (default `https://notionarena.vercel.app`), `NOTION
 
 **Via skills CLI (Vercel skills.sh)** — recommended:
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena
 # or all skills from repo
-npx skills add SynergyFlowLabs/notion-components --all
+npx skills add SynergyFlowLabs/notion-arena --all
 ```
 
 **Via Claude Code plugin marketplace** (if published as plugin):
 ```bash
-/plugin marketplace add SynergyFlowLabs/notion-components
+/plugin marketplace add SynergyFlowLabs/notion-arena
 ```
 
 **Manual** — copy this folder to:

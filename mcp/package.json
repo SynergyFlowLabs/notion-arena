@@ -2,7 +2,7 @@
   "name": "notion-arena-mcp",
   "version": "0.2.2",
   "mcpName": "io.github.imgul/notion-arena",
-  "description": "MCP server for Notion Arena — the component registry for Notion. Browse 143 components, configure widgets, and plan installs from your AI agent.",
+  "description": "MCP server for Notion Arena — 143 Notion components: 132 widgets + 11 recipes",
   "type": "module",
   "bin": {
     "notion-arena-mcp": "./dist/index.js",

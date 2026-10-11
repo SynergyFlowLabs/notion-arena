@@ -131,6 +131,27 @@ export default function DocsPage() {
       </section>
 
       <section className="flex flex-col gap-4">
+        <H2>For AI agents & coding assistants</H2>
+        <P>
+          Notion Arena publishes an official MCP server and Agent Skill so Claude Code, Cursor, Windsurf, or Claude Desktop can discover, configure, and install components directly:
+        </P>
+        <UL>
+          <LI>
+            <strong className="font-semibold text-foreground">Claude Code MCP</strong>:{" "}
+            <code>claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp</code>
+          </LI>
+          <LI>
+            <strong className="font-semibold text-foreground">Standalone MCP runner</strong>:{" "}
+            <code>npx -y notion-arena-mcp@0.2.2</code>
+          </LI>
+          <LI>
+            <strong className="font-semibold text-foreground">Agent Skill (skills.sh)</strong>:{" "}
+            <code>npx skills add SynergyFlowLabs/notion-arena --skill notion-arena</code>
+          </LI>
+        </UL>
+      </section>
+
+      <section className="flex flex-col gap-4">
         <H2>Conventions used in these docs</H2>
         <UL>
           <LI>

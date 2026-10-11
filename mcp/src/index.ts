@@ -107,7 +107,7 @@ function buildConfig(widget: any, inputConfig: Record<string, any>) {
 
 const server = new McpServer({
   name: "notion-arena",
-  version: "0.2.0",
+  version: "0.2.2",
 });
 
 // --- Tool: list_components ---

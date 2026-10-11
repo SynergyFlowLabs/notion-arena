@@ -1,6 +1,7 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SynergyFlowLabs/notion-components)
-[![MCP](https://img.shields.io/badge/MCP-notion--arena--mcp-blue)](./mcp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./app/legal/terms/page.tsx)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SynergyFlowLabs/notion-arena)
+[![npm version](https://img.shields.io/badge/npm-notion--arena--mcp%400.2.2-blue?logo=npm)](https://www.npmjs.com/package/notion-arena-mcp)
+[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-io.github.imgul%2Fnotion--arena%400.2.2-purple)](https://registry.modelcontextprotocol.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/SynergyFlowLabs/notion-arena/blob/main/LICENSE)
 
 # Notion Arena
 
@@ -61,6 +62,9 @@ You work from your AI agent most of the time. Plug Notion Arena directly into Cl
 # Claude Code (project scope)
 claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
 
+# Or pinned version
+npx -y notion-arena-mcp@0.2.2
+
 # Cursor — .cursor/mcp.json
 # Claude Desktop — claude_desktop_config.json
 # See docs/AGENT_SETUP.md for all clients
@@ -70,10 +74,10 @@ claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
 
 ```bash
 # Via skills.sh (Vercel) — cross-agent
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena
 
 # Via Claude Code plugin marketplace
-/plugin marketplace add SynergyFlowLabs/notion-components
+/plugin marketplace add SynergyFlowLabs/notion-arena
 /plugin install notion-arena@notion-arena-marketplace
 
 # Manual
@@ -117,9 +121,9 @@ npm run build:mcp             # build notion-arena-mcp
 npm run dev:mcp               # run MCP server with tsx (stdio)
 ```
 
-Set `NEXT_PUBLIC_SITE_URL` in production so registry manifests emit absolute URLs
+Set `NEXT_PUBLIC_SITE_URL` in production to `https://notionarena.vercel.app` so registry manifests emit absolute URLs
 for the right host. Without it, URLs are derived from the request's forwarded
-host, falling back to `http://localhost:3000`.
+host, falling back to `https://notionarena.vercel.app` (or `http://localhost:3000` in local dev).
 
 ---
 
@@ -157,7 +161,7 @@ GET /r/schema.json         JSON Schema of every widget's parameters
 
 ```jsonc
 // mcp config / components.json
-{ "registries": { "@notion-arena": "https://your-host/r/{name}.json" } }
+{ "registries": { "@notion-arena": "https://notionarena.vercel.app/r/{name}.json" } }
 ```
 
 ```bash

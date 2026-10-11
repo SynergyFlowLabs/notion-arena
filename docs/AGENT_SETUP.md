@@ -21,7 +21,7 @@ claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
 
 ```bash
 # Via skills.sh (Vercel) — recommended
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena
 
 # Manual
 cp -r skills/notion-arena .claude/skills/notion-arena
@@ -45,7 +45,8 @@ Your agent will use `search_components`, `get_component`, `build_embed_url`, `pl
 
 `notion-arena-mcp` is an MCP server (Model Context Protocol) that exposes Notion Arena's 143-component registry as tools your AI agent can call.
 
-- **Package**: `notion-arena-mcp` on npm (or local `mcp/` folder in this repo)
+- **Package**: `notion-arena-mcp@0.2.2` on npm (or local `mcp/` folder in this repo)
+- **MCP Registry**: Published as `io.github.imgul/notion-arena@0.2.2` on `registry.modelcontextprotocol.io`. Note: publishing under the org namespace `io.github.SynergyFlowLabs/notion-arena` requires public GitHub organization membership during publisher OAuth verification.
 - **Transport**: stdio (standard for MCP)
 - **Data**: Catalog baked in at build time from `lib/catalog.ts` — no network needed for list/search/get. For full HTML file contents, it returns URLs to fetch from live registry.
 
@@ -262,16 +263,16 @@ An Agent Skill is a `SKILL.md` file with YAML frontmatter that teaches Claude (a
 
 ```bash
 # List available skills in this repo
-npx skills add SynergyFlowLabs/notion-components --list
+npx skills add SynergyFlowLabs/notion-arena --list
 
 # Install just notion-arena skill to Claude Code
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent claude-code --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent claude-code --yes
 
 # Install to all supported agents (claude-code, cursor, windsurf, etc.)
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent '*' --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent '*' --yes
 
 # Install all skills from this repo (if we add more later)
-npx skills add SynergyFlowLabs/notion-components --all
+npx skills add SynergyFlowLabs/notion-arena --all
 ```
 
 This clones the repo temporarily and symlinks (or copies) `skills/notion-arena/SKILL.md` into your agent's skills directory.
@@ -279,13 +280,13 @@ This clones the repo temporarily and symlinks (or copies) `skills/notion-arena/S
 **For Cursor:**
 
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent cursor --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent cursor --yes
 ```
 
 **For Windsurf:**
 
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent windsurf --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent windsurf --yes
 ```
 
 ### Install — Via Claude Code Plugin Marketplace
@@ -310,7 +311,7 @@ We ship a Claude Code plugin that bundles both the skill and MCP server.
 
 ```bash
 # Add marketplace
-/plugin marketplace add SynergyFlowLabs/notion-components
+/plugin marketplace add SynergyFlowLabs/notion-arena
 
 # Install plugin
 /plugin install notion-arena@notion-arena-marketplace
@@ -376,7 +377,7 @@ For users who work from AI agents most of time, install both:
 claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
 
 # 2. Skill — gives workflow knowledge
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent claude-code --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent claude-code --yes
 
 # Verify
 claude mcp list
@@ -412,8 +413,8 @@ Now you can have conversations like:
 
 ```bash
 # Clone
-git clone https://github.com/SynergyFlowLabs/notion-components.git
-cd notion-components
+git clone https://github.com/SynergyFlowLabs/notion-arena.git
+cd notion-arena
 
 # Install deps
 npm install
@@ -492,7 +493,7 @@ git push origin main
 Users install via:
 
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena
 ```
 
 `skills.sh` will discover `skills/notion-arena/SKILL.md` and `.claude/skills/notion-arena/SKILL.md`.
@@ -504,7 +505,7 @@ We already have `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.jso
 To publish as official Claude Code plugin marketplace:
 
 1. Push repo to GitHub (public)
-2. Users add marketplace: `/plugin marketplace add SynergyFlowLabs/notion-components`
+2. Users add marketplace: `/plugin marketplace add SynergyFlowLabs/notion-arena`
 3. Users install: `/plugin install notion-arena@notion-arena-marketplace`
 
 For private/team marketplace, host marketplace.json in a private repo and add via same command.
@@ -547,16 +548,16 @@ Then `npx shadcn add @notion-arena/pomodoro-timer`. MCP and skill work alongside
 **Security?**
 - MCP server does not need Notion token for list/search/plan. Token only used when you explicitly call install with mode != plan.
 - Skill is plain Markdown — read it before installing.
-- Pin to Git tag/SHA rather than main if concerned: `npx skills add SynergyFlowLabs/notion-components#v0.1.0 --skill notion-arena`
+- Pin to Git tag/SHA rather than main if concerned: `npx skills add SynergyFlowLabs/notion-arena#v0.1.0 --skill notion-arena`
 
 ---
 
 ## 8. Links
 
-- Repo: https://github.com/SynergyFlowLabs/notion-components
+- Repo: https://github.com/SynergyFlowLabs/notion-arena
 - Site: https://notionarena.vercel.app (or your self-hosted URL)
 - Registry index: https://notionarena.vercel.app/r/index.json
-- MCP server: `mcp/` folder in repo, npm `notion-arena-mcp`
+- MCP server: `mcp/` folder in repo, npm `notion-arena-mcp@0.2.2`, MCP Registry `io.github.imgul/notion-arena@0.2.2`
 - Skill: `skills/notion-arena/SKILL.md`, `.claude/skills/notion-arena/SKILL.md`
 - Plugin: `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`
 - Docs: `/docs/RESEARCH.md`, `/docs/DESIGN.md`, `/docs/authoring`, `/docs/api-limits`

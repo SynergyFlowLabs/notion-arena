@@ -116,7 +116,7 @@ export function SiteHeader() {
 
         <div className="ml-auto flex items-center gap-1">
           <a
-            href="https://github.com/SynergyFlowLabs/notion-components"
+            href="https://github.com/SynergyFlowLabs/notion-arena"
             target="_blank"
             rel="noreferrer noopener"
             aria-label="Notion Arena on GitHub"
@@ -181,7 +181,7 @@ export function SiteHeader() {
                 Browse components
               </Link>
               <a
-                href="https://github.com/SynergyFlowLabs/notion-components"
+                href="https://github.com/SynergyFlowLabs/notion-arena"
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label="Notion Arena on GitHub"

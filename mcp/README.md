@@ -22,6 +22,9 @@ This MCP server lets AI coding agents (Claude Code, Cursor, Windsurf, etc.) brow
 # Project scope (recommended — travels with repo)
 claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
 
+# Or pinned version
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp@0.2.2
+
 # Or legacy name (still works)
 claude mcp add --scope project notion-arena -- npx -y blocksmith-mcp
 
@@ -44,7 +47,7 @@ Edit `claude_desktop_config.json`:
   "mcpServers": {
     "notion-arena": {
       "command": "npx",
-      "args": ["-y", "notion-arena-mcp"],
+      "args": ["-y", "notion-arena-mcp@0.2.2"],
       "env": {
         "NOTION_ARENA_SITE_URL": "https://notionarena.vercel.app"
       }
@@ -65,7 +68,7 @@ Edit `claude_desktop_config.json`:
   "mcpServers": {
     "notion-arena": {
       "command": "npx",
-      "args": ["-y", "notion-arena-mcp"],
+      "args": ["-y", "notion-arena-mcp@0.2.2"],
       "env": {
         "NOTION_ARENA_SITE_URL": "https://notionarena.vercel.app"
       }

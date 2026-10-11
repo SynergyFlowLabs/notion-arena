@@ -30,6 +30,8 @@ const PLANS = [
       ["Embed URLs, no account", true],
       ["Full HTML download of every free widget", true],
       ["Registry read access for agents", true],
+      ["MCP server (npx -y notion-arena-mcp@0.2.2)", true],
+      ["Agent Skill (npx skills add SynergyFlowLabs/notion-arena)", true],
       ["Install-plan viewer", true],
       ["Commercial use of what you download", true],
       ["Pro widgets", false],

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Contrast auditor for the Blocksmith token system.
+ * Contrast auditor for the Notion Arena token system.
  *
  * Parses app/globals.css directly, so it can never drift from the real values,
  * and checks every text/background pair the design system actually ships.

@@ -6,7 +6,7 @@
   "homepage": "https://notionarena.vercel.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SynergyFlowLabs/notion-components.git"
+    "url": "https://github.com/SynergyFlowLabs/notion-arena.git"
   },
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",

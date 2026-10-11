@@ -17,8 +17,8 @@
       "author": {
         "name": "SynergyFlowLabs"
       },
-      "homepage": "https://github.com/SynergyFlowLabs/notion-components",
-      "repository": "https://github.com/SynergyFlowLabs/notion-components",
+      "homepage": "https://github.com/SynergyFlowLabs/notion-arena",
+      "repository": "https://github.com/SynergyFlowLabs/notion-arena",
       "license": "MIT",
       "keywords": ["notion", "components", "widgets", "notion-arena", "mcp", "skill"]
     }
