@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { COMPONENTS, STATS } from "@/lib/catalog";
+import { COMPONENTS } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
 
@@ -27,13 +27,27 @@ const ENTRIES: Entry[] = [
     title: "First public catalog",
     kind: "release",
     body: [
-      `${STATS.widgets} widgets and ${STATS.native} native recipes published, ${STATS.free} of them free.`,
+      "Initial catalog: 39 components, including 28 widgets and 11 native recipes; 28 were free.",
       "Three delivery channels working end to end: hosted /embed URLs, downloadable HTML blocks, and API-driven recipe installation.",
       "shadcn/ui-compatible registry at /r/index.json, /r/{name}.json and /r/schema.json, with widget HTML inlined rather than linked.",
       "POST /api/install with a plan mode that requires no credentials and returns the full ordered request sequence before anything touches your workspace.",
       "Every widget implements the same configuration contract: baked-in JSON, query-string overlay, declared-parameter whitelist, and universal theme and accent controls.",
     ],
     dependency: "Notion-Version 2026-03-11",
+  },
+  {
+    version: "1.0.0",
+    date: "2026-10-11",
+    title: "Ten more taxonomy widgets for time, learning, and operations",
+    kind: "release",
+    body: [
+      "Time tools: Event Count-Up and Interval Timer; location display: Sunrise & Sunset, calculated approximately from configured coordinates, date, and time zone.",
+      "Personal tools: Daily Routine Checklist and Workout Set Tracker, with browser-local state; the Manual Currency Converter uses a rate entered by the user, not a live feed.",
+      "Learning tools: Vocabulary Trainer and Citation Builder. Citation output is a quick draft and should be checked against the required style guide.",
+      "Operations tools: Local Ticket Queue and Local Asset Checkout. Their state stays in this browser and provides no team sync, permissions, or audit trail.",
+      "This brings the catalog to 49 components: 38 widgets and 11 native recipes. All ten additions are free, self-contained, and offline. Use a Notion database or a connected service when data needs shared access, a system of record, or external freshness.",
+    ],
+    components: ["count-up", "interval-timer", "routine-checklist", "workout-tracker", "currency-converter", "sunrise-sunset", "vocabulary-trainer", "citation-builder", "ticket-queue", "asset-checkout"],
   },
   {
     version: "1.0.0",

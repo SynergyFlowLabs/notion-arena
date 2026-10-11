@@ -233,7 +233,7 @@ Details that matter and are easy to get wrong:
   same-route dynamic segments reconcile in place and would otherwise animate
   nothing when you jump across the "pairs well with" row.
 - The list-side shared element carries `default="none"`, or every filter and
-  sort would crossfade all 39 cards at once.
+  sort would crossfade all 49 cards at once.
 - Persistent chrome (header, footer, the catalog's sticky bar) is isolated with
   `view-transition-name`. The header and bar use `backdrop-filter`, so their old
   snapshots are hidden rather than cross-faded: that is the documented
@@ -242,7 +242,7 @@ Details that matter and are easy to get wrong:
   unnamed content keeps rendering and stays interactive instead of freezing
   behind a stale snapshot.
 - **Deliberately skipped:** list-identity reorder animation. The catalog filters
-  39 items client-side and instantly; a 400ms move on every keystroke would read
+  49 items client-side and instantly; a 400ms move on every keystroke would read
   as latency, not polish. The skill's own test is "if you can't articulate what
   it communicates, don't add it."
 
@@ -347,7 +347,7 @@ What the audit changed:
   hyphens. The rendered HTML of all fifteen content pages now contains zero
   of either character.
 - **Hero stack discipline.** The hero carried two mono chips and a trust
-  strip under the CTAs. One chip remains (`components/39`, real data), and
+  strip under the CTAs. One chip remains (`components/49`, real data), and
   the three honest facts moved to a hairline strip below the hero, where
   they read as page content instead of hero clutter.
 - **Numbered step markers.** The `01 02 03` mono numbers on the landing

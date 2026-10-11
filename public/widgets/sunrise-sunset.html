@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sunrise and Sunset</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#d9730d;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:230px;display:flex;flex-direction:column;gap:10px;padding:14px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:14px;font-weight:650;margin-top:2px}.date{width:130px;height:30px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);padding:4px 6px;font:inherit;font-size:10px}
+.times{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1}.time-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:9px}.icon{font-size:22px}.label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:650}.value{font-size:clamp(22px,7vw,34px);font-weight:650;letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}.daylength{text-align:center;font-size:10px;color:var(--muted)}.note{font-size:9px;color:var(--muted);text-align:center;line-height:1.35}
+@media(max-width:340px){.wrap{padding:10px}.date{width:112px}.value{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker" id="location">Solar times</div><div class="title" id="title">Sunrise & sunset</div></div><input class="date" id="date" type="date" aria-label="Choose date" /></header>
+  <section class="times"><div class="time-card"><span class="icon" aria-hidden="true">🌅</span><span class="label">Sunrise</span><span class="value" id="sunrise">--:--</span></div><div class="time-card"><span class="icon" aria-hidden="true">🌇</span><span class="label">Sunset</span><span class="value" id="sunset">--:--</span></div></section>
+  <div class="daylength" id="daylength"></div>
+  <div class="note" id="note">Approximate solar calculation from configured coordinates. No location access or network service.</div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#d9730d'),LABEL=String(c.label||'Sunrise & sunset').slice(0,48),PLACE=String(c.place||'Configured location').slice(0,40),TZ=String(c.timezone||'');
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.getElementById('location').textContent=PLACE;document.title=LABEL;
+  var dateInput=document.getElementById('date');
+  var lat=Math.max(-90,Math.min(90,parseFloat(c.lat))),lon=Math.max(-180,Math.min(180,parseFloat(c.lon)));
+  if(!isFinite(lat))lat=33.6844;if(!isFinite(lon))lon=73.0479;
+  if(TZ){try{new Intl.DateTimeFormat(undefined,{timeZone:TZ}).format(new Date());}catch(e){TZ='';}}
+  dateInput.value=/^\d{4}-\d{2}-\d{2}$/.test(String(c.date||''))?String(c.date):iso(new Date());
+  function rad(n){return n*Math.PI/180;}function deg(n){return n*180/Math.PI;}function norm(n,m){return((n%m)+m)%m;}
+  function offsetHours(year,month,day){var noon=Date.UTC(year,month-1,day,12),parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ||undefined,year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',hourCycle:'h23'}).formatToParts(new Date(noon)),p={};parts.forEach(function(x){p[x.type]=x.value;});return(Date.UTC(Number(p.year),Number(p.month)-1,Number(p.day),Number(p.hour),Number(p.minute))-noon)/3600000;}
+  function solar(sunrise,year,month,day){
+    var N=Math.floor((Date.UTC(year,month-1,day)-Date.UTC(year,0,0))/864e5),lngHour=lon/15,t=N+((sunrise?6:18)-lngHour)/24,M=.9856*t-3.289,L=norm(M+1.916*Math.sin(rad(M))+.020*Math.sin(2*rad(M))+282.634,360),RA=norm(deg(Math.atan(.91764*Math.tan(rad(L)))),360);
+    var Lq=Math.floor(L/90)*90,RAq=Math.floor(RA/90)*90;RA=(RA+(Lq-RAq))/15;
+    var sinDec=.39782*Math.sin(rad(L)),cosDec=Math.cos(Math.asin(sinDec)),cosH=(Math.cos(rad(90.833))-sinDec*Math.sin(rad(lat)))/(cosDec*Math.cos(rad(lat)));
+    if(cosH>1||cosH< -1)return null;
+    var H=(sunrise?360-deg(Math.acos(cosH)):deg(Math.acos(cosH)))/15,Tlocal=H+RA-.06571*t-6.622,UT=norm(Tlocal-lngHour,24);
+    var dayShift=Math.floor((UT+offsetHours(year,month,day))/24);return Date.UTC(year,month-1,day)+(UT-dayShift*24)*3600000;
+  }
+  function format(timestamp){if(timestamp===null)return'No sunrise';try{return new Intl.DateTimeFormat(undefined,{timeZone:TZ||undefined,hour:'numeric',minute:'2-digit'}).format(new Date(timestamp));}catch(e){return new Date(timestamp).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});}}
+  function paint(){var p=dateInput.value.split('-').map(Number);if(p.length!==3||!p[0])return;var rise=solar(true,p[0],p[1],p[2]),set=solar(false,p[0],p[1],p[2]);document.getElementById('sunrise').textContent=format(rise);document.getElementById('sunset').textContent=format(set);if(rise===null||set===null)document.getElementById('daylength').textContent='No sunrise or sunset at these coordinates on this date.';else{var minutes=Math.round((set-rise)/60000);document.getElementById('daylength').textContent='Daylight about '+Math.floor(minutes/60)+'h '+String(minutes%60).padStart(2,'0')+'m · '+(TZ||'viewer timezone');}}
+  dateInput.addEventListener('input',paint);paint();
+})();
+</script>
+</body>
+</html>

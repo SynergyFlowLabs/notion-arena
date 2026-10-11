@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Workout Set Tracker</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#0f7b6c;--track:#e9e9e7;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:220px;display:flex;flex-direction:column;gap:9px;padding:13px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:13.5px;font-weight:650;margin-top:2px}.count{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}.bar{height:5px;border-radius:99px;background:var(--track);overflow:hidden}.bar i{display:block;width:0;height:100%;background:var(--accent);border-radius:inherit;transition:width .2s ease}.list{display:flex;min-height:60px;flex:1;flex-direction:column;gap:4px;overflow:auto}.row{display:flex;align-items:center;gap:6px;min-height:32px;padding:4px 6px;border:1px solid var(--border);border-radius:7px;background:var(--surface)}.name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10.5px;font-weight:600}.target{font-size:9px;color:var(--muted);white-space:nowrap}.sets{min-width:39px;text-align:center;font-size:10px;font-variant-numeric:tabular-nums}.step{display:grid;place-items:center;width:24px;height:24px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-size:13px;cursor:pointer}.step:hover{border-color:var(--accent)}.status{font-size:9px;color:var(--muted);min-height:13px}.foot{display:flex;align-items:center;justify-content:space-between;gap:8px}button.reset{min-height:28px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--muted);font:inherit;font-size:10px;padding:4px 8px;cursor:pointer}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:330px){.wrap{padding:10px}.row{gap:4px;padding:4px}.step{width:22px}.target{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Today's session</div><div class="title" id="title">Workout log</div></div><div class="count" id="count">0 of 7 sets</div></header>
+  <div class="bar" id="bar" role="progressbar" aria-label="Workout sets completed" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><i id="fill"></i></div>
+  <section class="list" id="list" aria-label="Workout movements"></section>
+  <div class="foot"><div class="status" id="status" aria-live="polite">Set counts stay on this device. Move at your own pace.</div><button class="reset" id="reset" type="button">Reset session</button></div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function parse(raw){var out=[];String(raw||'').split('||').slice(0,20).forEach(function(row){var p=row.split('::'),name=(p[0]||'').trim(),sets=parseInt(p[1],10),reps=parseInt(p[2],10);if(name)out.push({name:name.slice(0,48),sets:Math.max(1,Math.min(30,isFinite(sets)?sets:3)),reps:Math.max(1,Math.min(500,isFinite(reps)?reps:10))});});return out;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#0f7b6c'),LABEL=String(c.label||'Workout log').slice(0,48),plan=parse(c.exercises||'Squats::3::12||Push-ups::3::10||Walk::1::20');if(!plan.length)plan=parse('Squats::3::12||Push-ups::3::10||Walk::1::20');
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;
+  function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'w'+(h>>>0).toString(36);}
+  var id=hash(LABEL+'|'+JSON.stringify(plan)),KEY='blocksmith.workout-tracker.v1',store={sessions:{}},today=dateKey(new Date()),done=[];
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.sessions)store=saved;}catch(e){}
+  function load(){var rec=store.sessions&&store.sessions[id];done=rec&&rec.date===today&&Array.isArray(rec.done)?rec.done.map(function(n,i){return Math.max(0,Math.min(plan[i]?plan[i].sets:0,parseInt(n,10)||0));}):[];while(done.length<plan.length)done.push(0);}
+  function save(){if(!store.sessions)store.sessions={};store.sessions[id]={date:today,done:done};var ids=Object.keys(store.sessions);while(ids.length>8){var old=ids.shift();if(old===id){ids.push(old);continue;}delete store.sessions[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  function render(){var list=document.getElementById('list');while(list.firstChild)list.removeChild(list.firstChild);var total=0,finished=0;plan.forEach(function(ex,i){total+=ex.sets;finished+=done[i];var row=document.createElement('div'),name=document.createElement('span'),target=document.createElement('span'),minus=document.createElement('button'),sets=document.createElement('span'),plus=document.createElement('button');row.className='row';name.className='name';name.textContent=ex.name;target.className='target';target.textContent=ex.reps+' reps';minus.className='step';minus.type='button';minus.textContent='−';minus.setAttribute('aria-label','Remove one set from '+ex.name);sets.className='sets';sets.textContent=done[i]+' / '+ex.sets;plus.className='step';plus.type='button';plus.textContent='+';plus.setAttribute('aria-label','Log one set of '+ex.name);minus.addEventListener('click',function(){done[i]=Math.max(0,done[i]-1);save();render();});plus.addEventListener('click',function(){done[i]=Math.min(ex.sets,done[i]+1);save();render();});row.appendChild(name);row.appendChild(target);row.appendChild(minus);row.appendChild(sets);row.appendChild(plus);list.appendChild(row);});var pct=total?Math.round(finished/total*100):0;document.getElementById('count').textContent=finished+' of '+total+' sets';document.getElementById('fill').style.width=pct+'%';document.getElementById('bar').setAttribute('aria-valuemax',String(total));document.getElementById('bar').setAttribute('aria-valuenow',String(finished));document.getElementById('status').textContent=finished>=total?'Session logged for today. Rest as needed.':'Set counts reset on the next local date and stay in this browser.';}
+  function rollover(){var key=dateKey(new Date());if(key!==today){today=key;done=plan.map(function(){return 0;});save();render();}}
+  document.getElementById('reset').addEventListener('click',function(){done=plan.map(function(){return 0;});save();render();});
+  load();render();save();setInterval(rollover,60000);
+})();
+</script>
+</body>
+</html>

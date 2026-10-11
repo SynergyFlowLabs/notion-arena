@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Asset Checkout</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#d9730d;--danger:#c24136;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--danger:#ff7369}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--danger:#ff7369}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:250px;display:flex;flex-direction:column;gap:8px;padding:13px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:13.5px;font-weight:650;margin-top:2px}.count{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.checkout{display:grid;grid-template-columns:minmax(0,1fr) 120px auto;gap:5px}.checkout input,.add input{min-width:0;height:29px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);padding:4px 6px;font:inherit;font-size:10px}.checkout input:focus-visible,.add input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}.list{display:flex;min-height:65px;flex:1;flex-direction:column;gap:4px;overflow:auto}.asset{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 8px;padding:7px;border:1px solid var(--border);border-radius:7px;background:var(--surface)}.asset-name{min-width:0;overflow-wrap:anywhere;font-size:10.5px;font-weight:600}.asset-status{font-size:9px;color:var(--muted);text-align:right}.asset-status.overdue{color:var(--danger)}.holder{grid-column:1/-1;font-size:9.5px;color:var(--muted);overflow-wrap:anywhere}.asset button,.add button{min-height:25px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-size:9.5px;padding:3px 7px;cursor:pointer}.asset button:hover,.add button:hover{border-color:var(--accent)}.add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px}.foot{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:9px;color:var(--muted)}.empty{text-align:center;padding:10px;color:var(--muted);font-size:10px}
+@media(max-width:340px){.wrap{padding:10px}.checkout{grid-template-columns:minmax(0,1fr) 94px auto;gap:3px}.checkout input,.add input{font-size:9px}.asset{gap:3px 5px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Local equipment list</div><div class="title" id="title">Asset checkout</div></div><div class="count" id="count">0 checked out</div></header>
+  <div class="checkout"><label class="sr-only" for="borrower">Borrower name</label><input id="borrower" maxlength="60" placeholder="Borrower" /><label class="sr-only" for="due">Due date, optional</label><input id="due" type="date" aria-label="Due date, optional" /></div>
+  <section class="list" id="list" aria-label="Equipment assets"></section>
+  <form class="add" id="addForm"><label class="sr-only" for="newAsset">New equipment name</label><input id="newAsset" maxlength="60" placeholder="Add equipment" /><button type="submit">Add asset</button></form>
+  <div class="foot"><span id="status" aria-live="polite">Checkout state saves only in this browser.</span><button id="restore" type="button">Restore defaults</button></div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#d9730d'),LABEL=String(c.label||'Asset checkout').slice(0,48),defaults=String(c.assets||'Laptop||Camera||Tripod').split('||').map(function(x){return x.trim().slice(0,60);}).filter(Boolean).slice(0,40);
+  if(!defaults.length)defaults=['Laptop','Camera','Tripod'];
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;
+  function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'a'+(h>>>0).toString(36);}
+  var id=hash(LABEL+'|'+defaults.join('|')),KEY='blocksmith.asset-checkout.v1',store={lists:{}},assets=defaults.map(function(name){return{name:name,holder:'',due:''};});
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.lists)store=saved;if(store.lists&&Array.isArray(store.lists[id]))assets=store.lists[id].filter(function(x){return x&&typeof x.name==='string';}).map(function(x){return{name:String(x.name).slice(0,60),holder:String(x.holder||'').slice(0,60),due:String(x.due||'').slice(0,10)};});}catch(e){}
+  function save(){if(!store.lists)store.lists={};store.lists[id]=assets;var ids=Object.keys(store.lists);while(ids.length>8){var old=ids.shift();if(old===id){ids.push(old);continue;}delete store.lists[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function render(){var list=document.getElementById('list');while(list.firstChild)list.removeChild(list.firstChild);var checked=0;assets.forEach(function(asset,index){var card=document.createElement('div'),name=document.createElement('div'),status=document.createElement('div'),holder=document.createElement('div'),button=document.createElement('button');card.className='asset';name.className='asset-name';name.textContent=asset.name;status.className='asset-status'+(asset.holder&&asset.due&&asset.due<today()?' overdue':'');status.textContent=asset.holder?(asset.due?'Due '+asset.due:'Checked out'):'Available';holder.className='holder';holder.textContent=asset.holder?(asset.holder+(asset.due?' · due '+asset.due:'')):'Ready to assign';button.type='button';button.textContent=asset.holder?'Return':'Check out';button.setAttribute('aria-label',(asset.holder?'Return ':'Check out ')+asset.name);button.addEventListener('click',function(){if(asset.holder){asset.holder='';asset.due='';}else{var borrower=document.getElementById('borrower').value.trim();if(!borrower){document.getElementById('status').textContent='Enter a borrower above before checking out.';return;}asset.holder=borrower;asset.due=document.getElementById('due').value;}save();render();});card.appendChild(name);card.appendChild(status);card.appendChild(holder);card.appendChild(button);list.appendChild(card);if(asset.holder)checked++;});document.getElementById('count').textContent=checked+' checked out';document.getElementById('status').textContent='Checkout state saves only in this browser.';if(!assets.length){var empty=document.createElement('div');empty.className='empty';empty.textContent='No assets in this list yet.';list.appendChild(empty);}}
+  document.getElementById('addForm').addEventListener('submit',function(e){e.preventDefault();var input=document.getElementById('newAsset'),name=input.value.trim();if(!name)return;if(assets.length>=40){document.getElementById('status').textContent='Asset limit reached.';return;}if(assets.some(function(x){return x.name.toLowerCase()===name.toLowerCase();})){document.getElementById('status').textContent='That asset is already listed.';return;}assets.push({name:name.slice(0,60),holder:'',due:''});input.value='';save();render();});
+  document.getElementById('restore').addEventListener('click',function(){assets=defaults.map(function(name){return{name:name,holder:'',due:''};});save();render();});
+  render();save();
+})();
+</script>
+</body>
+</html>
