@@ -573,7 +573,7 @@ export default function HomePage() {
                   </span>
                   {t.featured && (
                     <span className="rounded-full bg-primary px-2 py-0.5 text-[10.5px] font-semibold text-primary-foreground">
-                      Most chosen
+                      Recommended
                     </span>
                   )}
                 </div>

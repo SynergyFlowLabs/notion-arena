@@ -14,8 +14,8 @@ export default function SandboxPage() {
       title="The HTML block sandbox"
       lede={
         <>
-          Notion 3.6 added a native HTML block. It is the most capable thing
-          Notion has ever let a page contain, and the most misunderstood. It is
+          Notion 3.6 added a native HTML block. It lets a page contain a runnable
+          file, and the common reading of how it works is wrong. It is
           not an iframe of a URL and it is not a plugin — it is a file you
           upload, rendered in a frame with no address and no network. Every
           design decision behind our widgets follows from that.
@@ -37,8 +37,8 @@ export default function SandboxPage() {
           <code>embed</code> block type does double duty: with a{" "}
           <code>url</code> it iframes a remote page, with a{" "}
           <code>file_upload.id</code> it renders an uploaded HTML file. This is
-          the single most confusing part of the whole feature and the reason most
-          attempts to script it fail on the first try.
+          the part people get wrong, and the reason scripted attempts fail on the
+          first try.
         </P>
         <Note tone="blue" title="Where this is documented">
           The File Upload flow lives in the{" "}

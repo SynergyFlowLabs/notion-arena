@@ -40,7 +40,7 @@ const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> 
   },
   trackers: {
     problem:
-      "Trackers split into two very different needs: something you tick off privately, and something your team can see. Notion does the second one natively and the first one badly.",
+      "Trackers split into two different needs: something you tick off privately, and something your team can see. Notion does the second one natively and the first one badly.",
     answer:
       "Private trackers ship as widgets with localStorage. Shared trackers ship as native recipes with real databases, status properties and chart views — because a heatmap your colleague cannot see is not a tracker.",
   },
@@ -54,7 +54,7 @@ const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> 
     problem:
       "This is the category where an iframe is actively the wrong answer. A pipeline, an invoice or an OKR tree needs relations, rollups, formulas and views that your whole team queries.",
     answer:
-      "Most of these are native recipes that create real databases through the API. The exceptions are pure calculators — ROI, pricing, scenario modelling — where there is no data to store, only numbers to try.",
+      "The native recipes here create real databases through the API. The exceptions are pure calculators — ROI, pricing, scenario modelling — where there is no data to store, only numbers to try.",
   },
   visuals: {
     problem:

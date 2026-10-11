@@ -56,7 +56,7 @@ export default function DocsPage() {
       title="Read this before you install"
       lede={
         <>
-          Most component libraries document how to use their components. This
+          Other component libraries document how to use their components. This one
           documents the platform they run on, because Notion's constraints — not
           our design choices — decide what is possible. Everything here is
           verified against the Notion API reference or the HTML block
@@ -89,7 +89,7 @@ export default function DocsPage() {
             integration token plus four manual click-paths the API cannot cover.
           </LI>
         </UL>
-        <Note tone="yellow" title="The one rule that explains most of the catalog">
+        <Note tone="yellow" title="The one rule that explains the catalog">
           A widget cannot read your Notion data. If a component needs to show
           numbers from your workspace, it is a recipe — not because we preferred
           it that way, but because the HTML block sandbox has no network access

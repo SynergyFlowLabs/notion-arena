@@ -6,7 +6,7 @@ import { PageTransition } from "@/components/page-transition";
 export const metadata: Metadata = {
   title: "Privacy policy",
   description:
-    "What Blocksmith collects, which is very little: no accounts for browsing, no analytics on widget pages, no storage of Notion integration tokens.",
+    "What Blocksmith collects: no accounts for browsing, no analytics on widget pages, no storage of Notion integration tokens.",
 };
 
 export default function PrivacyPage() {

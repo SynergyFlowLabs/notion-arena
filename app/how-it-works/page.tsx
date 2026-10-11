@@ -29,7 +29,7 @@ const SANDBOX_ROWS: [string, boolean | "partial", string][] = [
   ["Reading the page it is embedded in", false, "No postMessage bridge to the parent, no access to page content or properties."],
   ["Writing to Notion", false, "No API access. This is a security boundary, not a missing feature."],
   ["External network calls, CDN fonts, analytics", false, "No network at all. Our widgets therefore inline every asset."],
-  ["Clipboard", "partial", "Write via the async Clipboard API when the user gestures; some browsers gate reads."],
+  ["Clipboard", "partial", "Write via the async Clipboard API when you gesture; some browsers gate reads."],
   ["Editing the source in place", false, "Replace the block: download a new file and upload it."],
   ["Viewing on any plan", true, "Free, Plus, Business, Enterprise. Only AI generation of HTML needs Business+."],
 ];

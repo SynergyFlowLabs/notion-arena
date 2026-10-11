@@ -342,7 +342,7 @@ ${embedHref}`;
                   <strong className="font-semibold text-foreground">Works on every Notion plan.</strong>{" "}
                   No integration, no OAuth, no server. The trade-off: the widget
                   lives on our host, so it needs network access to render, and a
-                  very high-traffic workspace could hit fair-use limits. For
+                  workspace serving thousands of page views a day could hit fair-use limits. For
                   offline-safe delivery, use the HTML block tab.
                 </p>
               </div>

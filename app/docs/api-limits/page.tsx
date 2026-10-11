@@ -226,7 +226,7 @@ pass 5 · PATCH /v1/data_sources/{id}
             ["Request rate", "~3 req/s average", `A ${crmRequests}-request CRM install takes well under a minute even paced conservatively. Our installer does not parallelise writes to the same parent.`],
             ["Children per request", "100", "Long documentation pages are chunked; the chunk count is visible in the plan before you run it."],
             ["Nesting per request", "2 levels", "Deep trees need sequential appends against returned block ids."],
-            ["Payload size", "500 KB per request", "Page bodies of a few hundred blocks are fine. Very large simple_tables may need splitting."],
+            ["Payload size", "500 KB per request", "Page bodies of a few hundred blocks are fine. A simple_table whose serialized body exceeds 500 KB needs splitting across requests."],
             ["File upload size", "Depends on plan", "Widget HTML is 15–90 KB, so uploads are never close to the limit on any plan."],
             ["Integration connections", "Per page or per workspace", "An internal integration must be explicitly connected to every page it writes to, or writes return restricted_resource."],
           ]}
@@ -252,7 +252,7 @@ pass 5 · PATCH /v1/data_sources/{id}
         <UL>
           <LI>
             Notion's API is versioned by date, and behaviour changes between
-            versions — most consequentially the database/data-source split, which
+            versions — notably the database/data-source split, which
             changes what a <code>relation</code> property points at.
           </LI>
           <LI>

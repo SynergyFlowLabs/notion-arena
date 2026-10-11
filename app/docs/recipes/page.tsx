@@ -284,7 +284,7 @@ type RecipeManual = {
       <section className="flex flex-col gap-4">
         <H2 id="manual">Writing manual steps</H2>
         <P>
-          A manual step is a promise to the user that we tried. The{" "}
+          A manual step is a promise to you that we tried. The{" "}
           <code>reason</code> field must name a real limitation. There are four
           shared constants, and every one of the {recipeList.length} recipes uses
           them rather than inventing an excuse:

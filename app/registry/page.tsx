@@ -71,7 +71,7 @@ const ITEM_FIELDS: [string, string, string][] = [
   ["title / description", "string", "Human-facing name and the one-line pitch shown in the catalog."],
   ["categories", "string[]", "Which of the eight catalog categories it belongs to."],
   ["tags", "string[]", "kind, tier and the component's own tags. Filterable, and what search matches against."],
-  ["meta.kind", "widget | native", "The single most useful field: it tells you which delivery channels apply."],
+  ["meta.kind", "widget | native", "It tells you which delivery channels apply."],
   ["meta.tier", "free | pro", "Whether it is in the free set."],
   ["meta.version / updatedAt", "semver / date", "For deciding whether to re-install. Downloaded HTML blocks are frozen; embed URLs are not."],
   ["meta.delivery", "string[]", "The channels this component actually supports — never guessed from kind."],
