@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CopyButton } from "@/components/copy-button";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
+import { ThemedIllustration } from "@/components/illustrations";
 import { IconAlert, IconArrowRight, IconCheck, IconClose, IconPlus } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -51,6 +52,11 @@ export default function HowItWorks() {
             failure modes. This page explains all three honestly, including the
             things none of them can do.
           </p>
+          <ThemedIllustration
+            name="how-it-works"
+            alt="Three delivery channels, an embed link, an uploaded file and a script of API calls, converging on one Notion page and its database."
+            className="mt-8 h-56 w-full max-w-[560px] sm:h-64"
+          />
           <nav className="mt-7 flex flex-wrap gap-2">
             {[
               ["#artifact", "The artifact"],

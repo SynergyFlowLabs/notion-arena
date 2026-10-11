@@ -4,6 +4,7 @@ import { STATS, COMPONENTS } from "@/lib/catalog";
 import { Faq } from "@/components/site/faq";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
+import { ThemedIllustration } from "@/components/illustrations";
 import { IconArrowRight, IconCheck, IconClose } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -97,6 +98,11 @@ export default function PricingPage() {
             into a blank block”. Pro pays for the components that take real work
             to build and for installation through the API.
           </p>
+          <ThemedIllustration
+            name="pricing"
+            alt="Two plan cards on a workbench, the Pro one edged in blue, surrounded by a flip clock, a progress ring and a small board."
+            className="mx-auto mt-8 h-52 w-full max-w-[520px] sm:h-60"
+          />
           <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--notion-green)]/35 bg-[color-mix(in_oklab,var(--notion-green)_7%,transparent)] px-3 py-1.5 text-[13px] text-foreground">
             <span className="relative flex size-1.5">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-[var(--notion-green)] opacity-60" />

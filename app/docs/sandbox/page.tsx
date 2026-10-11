@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table, YesNo, Cite } from "@/components/docs/prose";
+import { SandboxFlowArt } from "@/components/illustrations";
 
 export const metadata: Metadata = {
   title: "The HTML block sandbox",
@@ -22,6 +23,7 @@ export default function SandboxPage() {
         </>
       }
     >
+      <SandboxFlowArt className="mb-2 h-44 w-full max-w-[420px] text-ink-soft" />
       <section className="flex flex-col gap-4">
         <H2 id="what-it-is">What it actually is</H2>
         <P>

@@ -121,6 +121,9 @@ const TEXT_PAIRS = [
   ["primary-foreground", "primary", "label on the filled CTA"],
   ["primary-foreground", "primary-deep", "label on CTA hover"],
   ["app-ink", "card", "Notion app text inside a page mockup"],
+  ["mock-ink", "mock-page", "page ink inside the hero mockup"],
+  ["mock-ink-soft", "mock-page", "secondary ink inside the hero mockup"],
+  ["mock-tag-ink", "mock-tag-bg", "status tag inside the hero mockup"],
   ["muted-foreground", "secondary", "text on a secondary chip"],
   ["destructive", "background", "destructive text on canvas"],
   ["band-foreground", "band", "text on the dark campaign band"],
@@ -235,24 +238,10 @@ for (const [name, theme, canvasBg] of [
     );
   }
 
-  // The hero mockup renders Notion's app ink at reduced alpha over white.
-  // Alpha-composited text is the easiest thing to regress: the class reads
-  // `text-app-ink/55` and looks intentional. Composite and check it for real.
-  console.log(`\n${name} MODE — alpha-composited app ink (hero mockup)`);
-  const appInk = resolve(theme["--app-ink"] ?? "#37352f", theme);
-  const mockupBg = resolve(theme["--card"] ?? "#ffffff", theme);
-  for (const a of [0.6, 0.75, 0.8, 0.85]) {
-    const composited = composite(appInk, a, mockupBg);
-    check(
-      `app-ink at ${Math.round(a * 100)}% on mockup surface`,
-      composited,
-      mockupBg,
-      // 0.6 is used only for the aria-hidden breadcrumb slashes: decorative,
-      // so the 3:1 non-text threshold applies rather than 4.5:1.
-      a === 0.6 ? 3 : 4.5,
-      a === 0.6 ? "decorative separator" : `${composited}`
-    );
-  }
+  // The hero mockup used to composite app ink at reduced alpha over a
+  // hardcoded white surface, which inverted into light-on-light in dark
+  // mode. It now runs on solid --mock-* tokens per theme, audited as
+  // ordinary pairs in TEXT_PAIRS above, so there is nothing to composite.
 
   console.log(`\n${name} MODE — alpha-composited overlays on the dark band`);
   const band = resolve(theme["--band"] ?? "#191918", theme);

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { COMPONENTS, STATS } from "@/lib/catalog";
 import { CATEGORIES } from "@/lib/types";
 import { CATEGORY_ICONS, IconArrowRight, IconCheck, IconCheckCircle, IconCode, IconLink, IconTerminal, IconWrench, IconXCircle } from "@/components/icons";
+import { ChannelBlockArt, ChannelEmbedArt, ChannelRecipeArt, DotGrid } from "@/components/illustrations";
 import { ComponentCard } from "@/components/component-card";
 import { HeroDashboard } from "@/components/site/hero-dashboard";
 import { Faq } from "@/components/site/faq";
@@ -21,6 +22,7 @@ const CHANNELS = [
   {
     key: "embed",
     icon: IconLink,
+    Art: ChannelEmbedArt,
     name: "Embed URL",
     lede: "Paste one URL into Notion's Embed block.",
     body: "Every widget is served from /embed/<slug> with a frame-ancestors * policy, so it renders on any Notion plan. Configuration lives in the query string, which means a configured widget is a single shareable link.",
@@ -31,6 +33,7 @@ const CHANNELS = [
   {
     key: "html-block",
     icon: IconCode,
+    Art: ChannelBlockArt,
     name: "HTML block",
     lede: "Upload the file and Notion renders it inline.",
     body: "Each widget is one self-contained .html file: inline CSS and JS, no network calls. The File Upload API turns it into a native HTML block that loads instantly and keeps working if this site goes away.",
@@ -41,6 +44,7 @@ const CHANNELS = [
   {
     key: "recipe",
     icon: IconTerminal,
+    Art: ChannelRecipeArt,
     name: "Native recipe",
     lede: "Real databases, installed through the API.",
     body: "A recipe is a deterministic sequence of Notion API calls plus the steps no API can do for you. Read the plan before you run it: exact request count, endpoints, payload shapes, and every manual step.",
@@ -176,8 +180,9 @@ export default function HomePage() {
       </section>
 
  {/* CHANNELS : dark band interrupting the canvas */}
-      <section className="band">
-        <div className="mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
+      <section className="band relative overflow-hidden">
+        <DotGrid className="pointer-events-none absolute inset-0 h-full w-full text-band-foreground opacity-[0.05]" />
+        <div className="relative mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
           <div className="flex flex-col gap-4 border-b border-white/10 pb-8 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               <p className="label-mono text-band-muted">three ways in</p>
@@ -195,11 +200,16 @@ export default function HomePage() {
           <div className="mt-8 grid gap-4 lg:grid-cols-3">
             {CHANNELS.map((c) => {
               const Icon = c.icon;
+              const Art = c.Art;
               return (
                 <div
                   key={c.key}
                   className="group flex flex-col rounded-xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-white/25 hover:bg-white/[0.06]"
                 >
+                  {/* line art on the band: light pastels pinned, both themes */}
+                  <div className="band-art -mx-2 -mt-2 mb-4">
+                    <Art className="h-28 w-full text-band-foreground/85" />
+                  </div>
                   <span
                     className="grid size-10 place-items-center rounded-lg"
                     style={{ background: c.tint, color: c.ink }}
@@ -658,8 +668,9 @@ export default function HomePage() {
       </section>
 
  {/* CLOSING CTA : the one centred moment */}
-      <section className="band">
-        <div className="mx-auto w-full max-w-[760px] px-4 py-24 text-center sm:px-6">
+      <section className="band relative overflow-hidden">
+        <DotGrid className="pointer-events-none absolute inset-0 h-full w-full text-band-foreground opacity-[0.05]" />
+        <div className="relative mx-auto w-full max-w-[760px] px-4 py-24 text-center sm:px-6">
           <h2 className="font-display text-h1 text-band-foreground">
             Put something in your Notion today
           </h2>

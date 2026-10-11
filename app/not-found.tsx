@@ -1,15 +1,13 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/lib/types";
-import { STATS } from "@/lib/catalog";
 import { PageTransition } from "@/components/page-transition";
+import { NotFoundArt } from "@/components/illustrations";
 
 export default function NotFound() {
   return (
     <PageTransition>
     <div className="mx-auto flex w-full max-w-[720px] flex-col items-center px-4 py-24 text-center sm:px-6">
-      <div className="grid size-14 place-items-center rounded-xl border border-border bg-card text-[26px] shadow-xs">
-        🔍
-      </div>
+      <NotFoundArt className="h-40 w-60 text-ink-soft" />
       <p className="mt-5 label-mono text-primary">
         404 · object_not_found
       </p>
@@ -28,7 +26,7 @@ export default function NotFound() {
           href="/components"
           className="inline-flex h-10 items-center gap-2 rounded-xl bg-foreground px-4 text-[14px] font-semibold text-background transition-opacity hover:opacity-88"
         >
-          Browse {STATS.total} components
+          Browse components
         </Link>
         <Link
           href="/"

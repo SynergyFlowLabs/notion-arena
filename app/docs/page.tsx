@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DocPage, H2, P, Note, UL, LI } from "@/components/docs/prose";
+import { ThemedIllustration } from "@/components/illustrations";
 import { STATS } from "@/lib/catalog";
 import { IconArrowRight } from "@/components/icons";
 
@@ -64,6 +65,11 @@ export default function DocsPage() {
         </>
       }
     >
+      <ThemedIllustration
+        name="docs"
+        alt="An open manual surrounded by the tools it documents: a wrench, angle brackets, a database cylinder and a shield."
+        className="mb-4 h-52 w-full max-w-[520px]"
+      />
       <section className="flex flex-col gap-4">
         <H2>The short version</H2>
         <P>

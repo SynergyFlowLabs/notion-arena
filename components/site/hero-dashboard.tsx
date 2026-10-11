@@ -1,13 +1,22 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { InitialsAvatar } from "@/components/avatar";
+import { WidgetFrame } from "@/components/widget-frame";
 import { planInstall, RECIPES } from "@/lib/recipes";
 
 /**
  * The hero: a real Notion page surface with live components running inside it.
  *
  * Every widget pane is an iframe of the actual file a user would embed, so the
- * hero is proof rather than illustration. It carries the system's only deep
- * shadow; everything else on the site is flat with hairline borders.
+ * hero is proof rather than illustration. The surface is a picture of Notion
+ * rather than of this site, so it carries its own themed token family
+ * (`--mock-*`): a light page in light mode, Notion's dark page in dark mode,
+ * and the iframes are told which theme the surface is in so they can never
+ * disagree with the page they sit on.
+ *
+ * It carries the system's only deep shadow; everything else is flat with
+ * hairline borders.
  */
 
 /** Derived, so the label can never disagree with the real plan. */
@@ -39,95 +48,76 @@ const FRAMES: { slug: string; title: string; h: number; span: string; q?: string
   },
 ];
 
-function Frame({ slug, title, h, q = "" }: { slug: string; title: string; h: number; q?: string }) {
-  return (
-    <iframe
-      src={`/embed/${slug}${q}`}
-      title={title}
-      loading="eager"
-      sandbox="allow-scripts"
-      referrerPolicy="no-referrer"
-      scrolling="no"
-      tabIndex={-1}
-      style={{ height: h }}
-      className="pointer-events-none block w-full select-none border-0 bg-white"
-    />
-  );
-}
-
 export function HeroDashboard() {
   return (
     <div className="relative">
-      <div className="overflow-hidden rounded-xl border border-border bg-white shadow-mockup">
- {/* Notion window topbar */}
-        <div className="flex h-9 items-center gap-2 border-b border-[rgba(13,13,12,0.08)] bg-[#fbfbfa] px-3">
+      <div className="overflow-hidden rounded-xl border border-border bg-[var(--mock-page)] shadow-mockup">
+        {/* Notion window topbar */}
+        <div className="flex h-9 items-center gap-2 border-b border-[var(--mock-line)] bg-[var(--mock-chrome)] px-3">
           <span className="size-2.5 rounded-full bg-[#e03e3e]/60" />
           <span className="size-2.5 rounded-full bg-[#dfab01]/60" />
           <span className="size-2.5 rounded-full bg-[#0f7b6c]/60" />
 
           {/* breadcrumbs, in Notion's app voice */}
-          <div className="ml-2 flex min-w-0 items-center gap-1 text-[12px] text-app-ink/75">
+          <div className="ml-2 flex min-w-0 items-center gap-1 text-[12px] text-[var(--mock-ink-soft)]">
             <span className="shrink-0">Foundry Labs</span>
-            <span aria-hidden className="text-app-ink/60">/</span>
+            <span aria-hidden className="opacity-70">/</span>
             <span className="shrink-0">Engineering</span>
-            <span aria-hidden className="text-app-ink/60">/</span>
-            <span className="truncate font-medium text-app-ink">Q4 Dashboard</span>
+            <span aria-hidden className="opacity-70">/</span>
+            <span className="truncate font-medium text-[var(--mock-ink)]">Q4 Dashboard</span>
           </div>
 
-          <div className="ml-auto flex items-center gap-2 text-app-ink/75">
+          <div className="ml-auto flex items-center gap-2 text-[var(--mock-ink-soft)]">
             <span className="hidden font-mono text-[10px] sm:inline">⌘K</span>
             {/* Generated branded avatars: a stable hash of the name picks the
                 tint and block arrangement, so these match the ones an author
                 would get elsewhere on the site. */}
             <span className="flex -space-x-1.5">
               {["Mira Kovač", "Jonas Rey", "Ada Okonkwo"].map((name) => (
-                <span key={name} className="rounded-[6px] ring-2 ring-white">
+                <span key={name} className="rounded-[6px] ring-2 ring-[var(--mock-chrome)]">
                   <InitialsAvatar name={name} size={18} />
                 </span>
               ))}
             </span>
-            <span className="rounded-[4px] border border-[rgba(13,13,12,0.12)] px-1.5 py-px text-[10px] font-medium text-app-ink/80">
+            <span className="rounded-[4px] border border-[var(--mock-line)] px-1.5 py-px text-[10px] font-medium">
               Share
             </span>
           </div>
         </div>
 
- {/* page body */}
-        <div className="bg-white px-4 py-4 sm:px-6 sm:py-5">
+        {/* page body */}
+        <div className="bg-[var(--mock-page)] px-4 py-4 sm:px-6 sm:py-5">
           {/* cover strip */}
           <div
             className="-mx-4 -mt-4 mb-4 h-14 sm:-mx-6 sm:-mt-5"
-            style={{
-              background:
-                "linear-gradient(103deg, #eaf3fb 0%, #f1eefb 42%, #fbf4e3 100%)",
-            }}
+            style={{ background: "var(--mock-cover)" }}
           />
 
           <div className="-mt-9 flex items-end gap-2.5">
-            <span className="grid size-11 shrink-0 place-items-center rounded-[6px] bg-white text-[24px] shadow-[0_1px_3px_rgba(13,13,12,0.12)]">
+            <span className="grid size-11 shrink-0 place-items-center rounded-[6px] bg-[var(--mock-page)] text-[24px] shadow-[var(--mock-icon-shadow)]">
               📊
             </span>
           </div>
 
-          <h2 className="mt-2 text-[26px] font-bold leading-tight tracking-[-0.021em] text-app-ink">
+          <h2 className="mt-2 text-[26px] font-bold leading-tight tracking-[-0.021em] text-[var(--mock-ink)]">
             Q4 Dashboard
           </h2>
 
           {/* property rows, exactly how a Notion page header reads */}
           <dl className="mt-2.5 flex flex-col gap-1 text-[12.5px]">
             {[
-              ["Owner", <span key="v" className="inline-flex items-center gap-1.5"><InitialsAvatar name="Mira Kovač" size={17} /><span className="text-app-ink">Mira Kovač</span></span>],
-              ["Status", <span key="v" className="inline-flex items-center rounded-[4px] bg-[#ebf5f0] px-1.5 py-px text-[11.5px] font-medium text-[#14715f]">● On track</span>],
-              ["Quarter", <span key="v" className="text-app-ink">Oct 1 → Dec 31, 2026</span>],
+              ["Owner", <span key="v" className="inline-flex items-center gap-1.5"><InitialsAvatar name="Mira Kovač" size={17} /><span className="text-[var(--mock-ink)]">Mira Kovač</span></span>],
+              ["Status", <span key="v" className="inline-flex items-center rounded-[4px] bg-[var(--mock-tag-bg)] px-1.5 py-px text-[11.5px] font-medium text-[var(--mock-tag-ink)]">● On track</span>],
+              ["Quarter", <span key="v" className="text-[var(--mock-ink)]">Oct 1 → Dec 31, 2026</span>],
             ].map(([k, v]) => (
               <div key={String(k)} className="flex items-center gap-2">
-                <dt className="w-[68px] shrink-0 text-app-ink/75">{String(k)}</dt>
+                <dt className="w-[68px] shrink-0 text-[var(--mock-ink-soft)]">{String(k)}</dt>
                 <dd className="min-w-0">{v}</dd>
               </div>
             ))}
           </dl>
 
-          <hr className="my-4 border-[rgba(13,13,12,0.09)]" />
+          <hr className="my-4 border-[var(--mock-line)]" />
 
           {/* the widget grid */}
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
@@ -135,23 +125,30 @@ export function HeroDashboard() {
               <div
                 key={f.slug}
                 className={cn(
-                  "overflow-hidden rounded-[6px] border border-[rgba(13,13,12,0.1)] bg-white",
+                  "overflow-hidden rounded-[6px] border border-[var(--mock-line)] bg-[var(--mock-card)]",
                   f.span
                 )}
               >
-                <Frame slug={f.slug} title={f.title} h={f.h} q={f.q} />
+                <WidgetFrame
+                  src={`/embed/${f.slug}${f.q ?? ""}`}
+                  title={f.title}
+                  height={f.h}
+                  loading="eager"
+                  tabIndex={-1}
+                  className="pointer-events-none select-none bg-[var(--mock-card)]"
+                />
               </div>
             ))}
 
             {/* a native database block, so both halves of the product show */}
-            <div className="overflow-hidden rounded-[6px] border border-[rgba(13,13,12,0.1)] bg-white sm:col-span-3">
-              <div className="flex items-center gap-2 border-b border-[rgba(13,13,12,0.08)] bg-[#fbfbfa] px-2.5 py-1.5">
+            <div className="overflow-hidden rounded-[6px] border border-[var(--mock-line)] bg-[var(--mock-card)] sm:col-span-3">
+              <div className="flex items-center gap-2 border-b border-[var(--mock-line)] bg-[var(--mock-chrome)] px-2.5 py-1.5">
                 <span className="text-[13px]">💼</span>
-                <span className="text-[12.5px] font-semibold text-app-ink">Pipeline</span>
-                <span className="rounded-[4px] border border-[rgba(13,13,12,0.12)] bg-white px-1.5 py-px font-mono text-[9.5px] text-app-ink/75">
+                <span className="text-[12.5px] font-semibold text-[var(--mock-ink)]">Pipeline</span>
+                <span className="rounded-[4px] border border-[var(--mock-line)] bg-[var(--mock-card)] px-1.5 py-px font-mono text-[9.5px] text-[var(--mock-ink-soft)]">
                   board · native
                 </span>
-                <span className="ml-auto text-[11.5px] text-app-ink/75 tnum">12 deals</span>
+                <span className="ml-auto text-[11.5px] text-[var(--mock-ink-soft)] tnum">12 deals</span>
               </div>
               <NativeBoard />
             </div>
@@ -217,22 +214,22 @@ function NativeBoard() {
         <div key={col.name} className="flex min-w-0 flex-col gap-1.5">
           <div className="flex items-center gap-1.5 px-0.5">
             <span className="size-1.5 rounded-full" style={{ background: col.dot }} />
-            <span className="truncate text-[10.5px] font-semibold text-app-ink/85">
+            <span className="truncate text-[10.5px] font-semibold text-[var(--mock-ink)]">
               {col.name}
             </span>
-            <span className="ml-auto text-[10px] text-app-ink/75 tnum">{col.cards.length}</span>
+            <span className="ml-auto text-[10px] text-[var(--mock-ink-soft)] tnum">{col.cards.length}</span>
           </div>
           {col.cards.map((card) => (
             <div
               key={card.t}
-              className="rounded-[5px] border border-[rgba(13,13,12,0.1)] bg-white px-1.5 py-1.5"
+              className="rounded-[5px] border border-[var(--mock-line)] bg-[var(--mock-page)] px-1.5 py-1.5"
               style={card.hot ? { borderColor: "color-mix(in oklab, var(--notion-yellow) 55%, transparent)" } : undefined}
             >
-              <div className="truncate text-[10.5px] font-medium leading-tight text-app-ink">
+              <div className="truncate text-[10.5px] font-medium leading-tight text-[var(--mock-ink)]">
                 {card.t}
               </div>
               <div className="mt-1 flex items-center gap-1">
-                <span className="font-mono text-[9.5px] text-app-ink/75 tnum">{card.v}</span>
+                <span className="font-mono text-[9.5px] text-[var(--mock-ink-soft)] tnum">{card.v}</span>
                 <span
                   className="ml-auto rounded-[3px] px-1 font-mono text-[9px] tnum"
                   style={{ background: col.tint, color: col.ink }}

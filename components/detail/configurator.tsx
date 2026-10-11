@@ -3,6 +3,7 @@
 import * as React from "react";
 import type { WidgetComponent, WidgetParam } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { WidgetFrame } from "@/components/widget-frame";
 import { CopyButton } from "@/components/copy-button";
 import { IconCheck, IconClose, IconDownload, IconExternal, IconRefresh } from "@/components/icons";
 import { ComponentPreviewTransition } from "@/components/page-transition";
@@ -253,14 +254,13 @@ ${embedHref}`;
               </a>
             </span>
           </div>
-          <iframe
+          <WidgetFrame
             key={previewSrc}
             src={previewSrc}
             title={`${widget.name} live preview`}
+            height={height}
             sandbox="allow-scripts allow-popups allow-forms allow-modals"
-            referrerPolicy="no-referrer"
-            style={{ height }}
-            className="block w-full border-0 bg-white dark:bg-[#191919]"
+            className="bg-card"
           />
         </div>
         </ComponentPreviewTransition>

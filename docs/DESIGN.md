@@ -263,6 +263,58 @@ and it collapses the height of a multi-line text box, which is why the lede is
 two explicit single-line rows. The rendered output is checked visually in this
 repo's history: a picture beats a guess.
 
+## Dark mode, everywhere
+
+The site theme and the product theme are two different clocks, and the bug
+that produced this section was letting one drive the other. The hero's Notion
+mockup painted its page canvas with `--background`, so in dark mode the
+"paper" page went dark while the type sitting on it stayed ink-on-paper; and
+the widget iframes inside it received no theme at all, so light widgets sat on
+a dark page. The fix is a three-part contract:
+
+- **Mockup tokens.** A `--mock-*` family (`--mock-bg`, `--mock-fg`,
+  `--mock-surface`, `--mock-border`, `--mock-muted`, `--mock-accent`) paints
+  anything that is *depicted* rather than *chrome*: the page canvas, sidebar,
+  block rows and avatars of the hero mockup. Light mode gives them paper
+  values, dark mode gives them Notion's dark editor values, and nothing
+  outside a mockup may read them.
+- **Resolved theme.** `components/use-resolved-theme.ts` reduces
+  `light | dark | auto` plus `prefers-color-scheme` to one word, so client
+  components know what the visitor actually sees rather than what they asked
+  for.
+- **WidgetFrame.** Every widget iframe on the site goes through
+  `components/widget-frame.tsx`, which appends `theme=<resolved>` (and
+  `accent=`) to the embed URL and defaults the sandbox to `allow-scripts`.
+  The widgets already honour `theme=auto|light|dark`; the site simply stopped
+  forgetting to ask. Detail pages, the configurator, catalog cards and the
+  hero all render through it, so there is no raw iframe left to drift.
+
+## Generated artwork, in both themes
+
+Two families, both painted twice.
+
+- **Vectors** live in `components/illustrations.tsx`: eight inline SVG
+  compositions on a shared 240×160 sheet (channel embed, HTML block, recipe,
+  registry flow, sandbox flow, empty catalog, not found, dot grid). Stroke is
+  `currentColor` at the house 1.6px and fills read the `--tint-*` tokens, so a
+  vector re-themes with the page for free. The one exception is the dark
+  campaign band, which stays dark in both themes; `.band-art` in
+  `globals.css` pins the light pastel values for artwork placed inside it.
+- **Rasters** live in `public/illustrations/` as pixel-matched pairs,
+  `<name>-light.png` and `<name>-dark.png`. The light master is painted on
+  the paper canvas in the house editorial style (1.5px ink outlines, signal
+  blue, four pastel tints, no lettering); the dark twin is then edited from
+  that same master with a recolour instruction, so composition and linework
+  stay identical while the canvas, outlines and tints move to their dark
+  values. `components/illustrations.tsx` exports `ThemedIllustration`, which
+  swaps the pair on the `dark` class, so artwork never sits on a canvas it was
+  not painted for. Headers (how it works, docs, pricing) use the pairs; the
+  dark band uses single dark-canvas pieces.
+
+What the artwork never does: carry text (the model's lettering is the tell),
+state a number the catalog owns, or stand where a live widget would prove
+more.
+
 ## Branded assets, in use
 
 The first pass wrote `components/avatar.tsx` and never imported it, and left
@@ -315,6 +367,9 @@ What the audit changed:
 - **Favicon.** The site had none. `app/icon.svg` is the LogoMark on its ink
   tile with literal colours (a standalone file cannot inherit CSS custom
   properties), and `app/apple-icon.png` is a hand-rasterised 180px sibling.
+  The SVG carries an embedded `prefers-color-scheme: dark` block, so the tile
+  flips to the dark canvas on its own; a standalone file has no other way to
+  hear the visitor's theme.
 
 What the audit deliberately did not change, and why:
 
@@ -329,10 +384,14 @@ What the audit deliberately did not change, and why:
   because that is Notion's own page and database icon mechanism; the recipe
   panel shows them to preview the installed Notion surface. They are product
   data, not site iconography.
-- **No generated imagery.** `imagegen-frontend-web` and
-  `design-taste-frontend` both push image generation for section assets.
-  This brief keeps the site image-free by instruction; the hero shows the
-  real widgets in iframes instead, which is the stronger proof anyway.
+- **Generated imagery, reversed by the user.** The first audit kept the site
+  image-free; the user then asked for generated images, vectors, SVGs and
+  icons in both themes, so this override stands reversed. The rule that
+  survives from it is narrower and still binding: generated art never
+  replaces product proof. The hero keeps the real widgets in iframes, and
+  illustration is spent on section headers, empty states and the dark band,
+  where it carries tone instead of evidence. See "Generated artwork, in both
+  themes" below.
 - **The dark band stays.** A full-bleed `#191918` band interrupting the paper
   canvas would read as a copy-paste accident on a generic page; on Notion's
   own site it is a campaign device, and here it is committed to once,

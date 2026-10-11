@@ -6,6 +6,7 @@ import { RegistryExplorer } from "@/components/registry-explorer";
 import { CopyButton } from "@/components/copy-button";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
+import { RegistryFlowArt } from "@/components/illustrations";
 
 export const metadata: Metadata = {
   title: "Registry",
@@ -152,7 +153,8 @@ curl -s -X POST ${origin}/api/install \\
   return (
     <PageTransition>
       <section className="border-b border-border bg-raised">
-        <div className="mx-auto w-full max-w-[1000px] px-4 pb-12 pt-14 sm:px-6">
+        <div className="mx-auto grid w-full max-w-[1000px] gap-10 px-4 pb-12 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+          <div>
           <p className="label-mono text-primary">
             Registry
           </p>
@@ -184,6 +186,8 @@ curl -s -X POST ${origin}/api/install \\
             ))}
           </div>
         </div>
+          <RegistryFlowArt className="hidden h-48 w-[360px] text-ink-soft lg:block" />
+          </div>
       </section>
 
       <div className="mx-auto w-full max-w-[1000px] px-4 pb-20 sm:px-6">

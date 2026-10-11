@@ -7,6 +7,7 @@ import { COMPONENTS } from "@/lib/catalog";
 import { CATEGORIES, type CategorySlug } from "@/lib/types";
 import { ComponentCard } from "@/components/component-card";
 import { CATEGORY_ICONS, IconClose, IconSearch } from "@/components/icons";
+import { EmptyCatalogArt } from "@/components/illustrations";
 import { cn } from "@/lib/utils";
 
 type Kind = "all" | "widget" | "native";
@@ -320,9 +321,7 @@ export function CatalogBrowser() {
         </div>
       ) : (
         <div className="mt-10 flex flex-col items-center gap-3 rounded-xl border border-dashed border-border-strong bg-raised px-6 py-16 text-center">
-          <span className="grid size-11 place-items-center rounded-xl border border-border bg-card text-ink-faint">
-            <IconSearch size={20} />
-          </span>
+          <EmptyCatalogArt className="h-28 w-[210px] text-ink-faint" />
           <h3 className="mt-1 text-[16px] font-semibold tracking-[-0.011em] text-foreground">
             Nothing matches those filters
           </h3>

@@ -260,6 +260,28 @@ export const IconAlert = (p: P) => (
   </Base>
 );
 
+export const IconShield = (p: P) => (
+  <Base {...p}>
+    <path d="M12 3.2 5 6v5.4c0 4.3 2.9 7.6 7 9.4 4.1-1.8 7-5.1 7-9.4V6Z" />
+    <path d="m9.2 11.8 2 2 3.6-4" />
+  </Base>
+);
+
+export const IconUpload = (p: P) => (
+  <Base {...p}>
+    <path d="M12 15V4.6m0 0-4 4m4-4 4 4" />
+    <path d="M4.8 14.4v3.2a2 2 0 0 0 2 2h10.4a2 2 0 0 0 2-2v-3.2" />
+  </Base>
+);
+
+export const IconLayers = (p: P) => (
+  <Base {...p}>
+    <path d="m12 3.6 8.4 4.2L12 12 3.6 7.8Z" />
+    <path d="m3.6 12.2 8.4 4.2 8.4-4.2" />
+    <path d="m3.6 16.4 8.4 4.2 8.4-4.2" opacity={0.55} />
+  </Base>
+);
+
 export const IconWrench = (p: P) => (
   <Base {...p}>
     <path d="M14.8 3.6a5.2 5.2 0 0 0-6.1 6.9L3.6 15.6a1.9 1.9 0 0 0 2.7 2.7l5.1-5.1a5.2 5.2 0 0 0 6.9-6.1l-2.9 2.9-2.6-.6-.6-2.6z" />

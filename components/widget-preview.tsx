@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { WidgetFrame } from "@/components/widget-frame";
 
 export interface WidgetPreviewProps {
   src: string;
@@ -55,14 +56,13 @@ export function WidgetPreview({
           </span>
         </div>
       )}
-      <iframe
+      <WidgetFrame
         src={src}
         title={title}
+        height={height}
         loading={loading}
         sandbox="allow-scripts allow-popups allow-forms allow-modals"
-        referrerPolicy="no-referrer"
-        style={{ height: typeof height === "number" ? `${height}px` : height }}
-        className="block w-full border-0 bg-white dark:bg-[#191919]"
+        className="bg-card"
       />
     </div>
   );

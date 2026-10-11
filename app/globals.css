@@ -121,6 +121,22 @@
     0 0 0 1px rgba(13, 13, 12, 0.06), 0 4px 8px rgba(13, 13, 12, 0.06),
     0 12px 24px -8px rgba(13, 13, 12, 0.12);
   --shadow-inset: inset 0 0 0 1px rgba(13, 13, 12, 0.04);
+
+  /* --- the hero mockup: a Notion page surface, themed with the site ---
+     The mockup is a picture of Notion, so it must follow the visitor's
+     theme exactly the way Notion would: light page in light mode, dark
+     page in dark mode, with its own ink and hairlines. Hardcoding the
+     light surface while the ink tokens flipped was the dark-mode bug. */
+  --mock-page: #ffffff;
+  --mock-chrome: #fbfbfa;
+  --mock-card: #ffffff;
+  --mock-ink: #37352f;
+  --mock-ink-soft: #6b6a64;
+  --mock-line: rgba(13, 13, 12, 0.09);
+  --mock-cover: linear-gradient(103deg, #eaf3fb 0%, #f1eefb 42%, #fbf4e3 100%);
+  --mock-tag-bg: #ebf5f0;
+  --mock-tag-ink: #14715f;
+  --mock-icon-shadow: 0 1px 3px rgba(13, 13, 12, 0.12);
 }
 
 .dark {
@@ -220,6 +236,20 @@
   --shadow-pop:
     0 0 0 1px rgba(255, 255, 255, 0.07), 0 12px 24px -8px rgba(0, 0, 0, 0.6);
   --shadow-inset: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+
+  /* Notion's dark page: #191919 canvas, #202020 chrome and cards, ink at
+     roughly 85% white. The cover keeps the same three hues as the light
+     cover, pulled down into the dark tint family. */
+  --mock-page: #191919;
+  --mock-chrome: #202020;
+  --mock-card: #202020;
+  --mock-ink: #d9d8d5;
+  --mock-ink-soft: #a4a39f;
+  --mock-line: rgba(255, 255, 255, 0.1);
+  --mock-cover: linear-gradient(103deg, #16222c 0%, #211d2e 42%, #2a2418 100%);
+  --mock-tag-bg: #16241f;
+  --mock-tag-ink: #4dab9a;
+  --mock-icon-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* ==================================================================
@@ -497,6 +527,22 @@
     line-height: 1.3;
     letter-spacing: 0.06em;
     font-weight: 500;
+  }
+
+  /* Illustrations on the dark campaign band. The band stays dark in both
+     themes, but the tint tokens flip with the theme, so inside this wrapper
+     the light pastel values are pinned: the art reads the same whether the
+     visitor is in light or dark mode. */
+  .band-art {
+    --tint-sky: #eaf3fb;
+    --tint-sky-ink: #1f6c9f;
+    --tint-mint: #ebf5f0;
+    --tint-mint-ink: #14715f;
+    --tint-lavender: #f1eefb;
+    --tint-lavender-ink: #6b4fa8;
+    --tint-butter: #fbf4e3;
+    --tint-butter-ink: #956400;
+    --card: #ffffff;
   }
 
   /* The site header's hairline. Drawn by a scroll-driven animation so no

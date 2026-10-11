@@ -7,6 +7,7 @@ import { InView } from "@/components/in-view";
 import { CATEGORY_ICONS, IconArrowRight } from "@/components/icons";
 import { ComponentPreviewTransition } from "@/components/page-transition";
 import { cn } from "@/lib/utils";
+import { WidgetFrame } from "@/components/widget-frame";
 
 /**
  * Static stand-in for native recipes: a miniature Notion database, drawn rather
@@ -131,15 +132,12 @@ export function ComponentCard({
             }
           >
             <div className="relative overflow-hidden" style={{ height: 168 }}>
-              <iframe
+              <WidgetFrame
                 src={src}
                 title={`${c.name} preview`}
                 loading="lazy"
-                sandbox="allow-scripts"
-                referrerPolicy="no-referrer"
-                scrolling="no"
                 tabIndex={-1}
-                className="pointer-events-none absolute top-1/2 left-1/2 border-0 bg-white dark:bg-[#191919]"
+                className="pointer-events-none absolute top-1/2 left-1/2 border-0 bg-card"
                 style={{
                   width: 520,
                   height: Math.min(widget.height, 336),
