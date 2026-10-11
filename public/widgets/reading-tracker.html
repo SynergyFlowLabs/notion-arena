@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Reading Progress</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#0f7b6c;--track:#e9e9e7;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}}
+*{box-sizing:border-box}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:205px;display:flex;flex-direction:column;gap:11px;padding:14px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:14px;font-weight:650;margin-top:2px}.badge{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.progress{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.current{font-size:25px;font-weight:650;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--accent)}.total{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}.bar{height:7px;border-radius:99px;background:var(--track);overflow:hidden}.bar i{display:block;height:100%;width:0;border-radius:inherit;background:var(--accent);transition:width .3s ease}
+.controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.page-input{width:82px;height:31px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);padding:4px 7px;font:inherit;font-size:11px;font-variant-numeric:tabular-nums}.page-input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+button{min-height:30px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);font:inherit;font-size:11px;font-weight:550;padding:5px 9px;cursor:pointer;transition:border-color .15s,opacity .15s}button:hover{border-color:color-mix(in oklab,var(--accent) 45%,var(--border))}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.step{font-variant-numeric:tabular-nums}.spacer{flex:1}.status{font-size:10px;color:var(--muted);min-height:14px}
+@media(max-width:340px){.wrap{padding:10px}.controls{gap:4px}.page-input{width:68px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Reading progress</div><div class="title" id="title">Book title</div></div><div class="badge" id="percent">0%</div></header>
+  <div class="progress"><span class="current" id="currentDisplay">0</span><span class="total" id="totalDisplay">of 320 pages</span></div>
+  <div class="bar" id="bar" role="progressbar" aria-label="Book reading progress" aria-valuemin="0" aria-valuemax="320" aria-valuenow="0"><i id="fill"></i></div>
+  <div class="controls"><button class="step" id="back" type="button" aria-label="Move back by the configured step">−5</button><label class="sr-only" for="currentInput">Current page</label><input class="page-input" id="currentInput" type="number" min="0" value="0" /><button class="step" id="forward" type="button" aria-label="Advance by the configured step">+5</button><span class="spacer"></span><button id="reset" type="button">Start over</button></div>
+  <div class="status" id="status" aria-live="polite">Progress saves only in this browser.</div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function num(k,d){var n=parseFloat(c[k]);return isFinite(n)?n:d;}
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#0f7b6c');
+  var BOOK=String(c.book||'Reading progress').slice(0,60),TOTAL=Math.max(1,Math.min(100000,Math.round(num('pages',320)))),STEP=Math.max(1,Math.min(1000,Math.round(num('step',5))));
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=BOOK;document.title=BOOK;
+  document.getElementById('back').textContent='−'+STEP;document.getElementById('forward').textContent='+'+STEP;
+  var KEY='blocksmith.reading.v1',store={books:{}};
+  function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'b'+(h>>>0).toString(36);}
+  var bookId=hash(BOOK+'|'+TOTAL),page=0;
+  try{var parsed=JSON.parse(localStorage.getItem(KEY)||'{}');if(parsed&&parsed.books)store=parsed;}catch(e){}
+  if(store.books&&isFinite(Number(store.books[bookId])))page=Math.max(0,Math.min(TOTAL,Math.floor(Number(store.books[bookId]))));
+  function save(){if(!store.books)store.books={};store.books[bookId]=page;var ids=Object.keys(store.books);while(ids.length>12){var old=ids.shift();if(old===bookId){ids.push(old);continue;}delete store.books[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  var input=document.getElementById('currentInput');input.max=String(TOTAL);document.getElementById('totalDisplay').textContent='of '+TOTAL+' pages';
+  function render(){page=Math.max(0,Math.min(TOTAL,Math.floor(page)||0));input.value=String(page);document.getElementById('currentDisplay').textContent=String(page);var pct=Math.round(page/TOTAL*100);document.getElementById('percent').textContent=pct+'%';document.getElementById('fill').style.width=pct+'%';var bar=document.getElementById('bar');bar.setAttribute('aria-valuemax',String(TOTAL));bar.setAttribute('aria-valuenow',String(page));document.getElementById('status').textContent=page>=TOTAL?'Finished. Nice work. Progress is saved in this browser.':(TOTAL-page)+' pages left. Progress is saved in this browser.';}
+  function setPage(value){var n=parseInt(value,10);if(!isFinite(n))n=page;page=Math.max(0,Math.min(TOTAL,n));save();render();}
+  document.getElementById('back').addEventListener('click',function(){setPage(page-STEP);});document.getElementById('forward').addEventListener('click',function(){setPage(page+STEP);});input.addEventListener('change',function(){setPage(input.value);});document.getElementById('reset').addEventListener('click',function(){page=0;save();render();});
+  render();save();
+})();
+</script>
+</body>
+</html>

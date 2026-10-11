@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Year Progress</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#0f7b6c;--track:#e9e9e7;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:190px;display:flex;flex-direction:column;gap:9px;padding:14px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:14px;font-weight:650;margin-top:2px}.year{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.main{display:flex;align-items:center;justify-content:center;gap:17px;flex:1;flex-wrap:wrap}.ring{position:relative;width:108px;height:108px;flex:0 0 auto}.ring svg{width:100%;height:100%;transform:rotate(-90deg)}.ring circle{fill:none;stroke-width:7}.track{stroke:var(--track)}.value{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:301.59;stroke-dashoffset:301.59;transition:stroke-dashoffset .5s ease}.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.percent{font-size:24px;font-weight:650;letter-spacing:-.05em;font-variant-numeric:tabular-nums}.caption{font-size:9px;color:var(--muted)}
+.details{display:flex;min-width:160px;flex:1;flex-direction:column;gap:7px}.big{font-size:13px;font-weight:650;font-variant-numeric:tabular-nums}.bar{height:5px;border-radius:99px;background:var(--track);overflow:hidden}.bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--accent);transition:width .4s ease}.small{font-size:10.5px;color:var(--muted);line-height:1.4}
+@media(max-width:340px){.wrap{padding:10px}.ring{width:88px;height:88px}.percent{font-size:20px}.main{gap:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Year in view</div><div class="title" id="title">Year progress</div></div><div class="year" id="year"></div></header>
+  <section class="main" aria-label="Year progress">
+    <div class="ring" role="img" id="ringLabel" aria-label="Year progress"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="48"></circle><circle class="value" id="ring" cx="50" cy="50" r="48"></circle></svg><div class="center"><span class="percent" id="percent">0%</span><span class="caption">elapsed</span></div></div>
+    <div class="details"><div class="big" id="dayCount">Day 1 of 365</div><div class="bar" id="bar" role="progressbar" aria-label="Year elapsed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="fill"></i></div><div class="small" id="remaining"></div></div>
+  </section>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#0f7b6c');
+  var LABEL=String(c.label||'Year progress').slice(0,48),requested=parseInt(c.year,10),now=new Date(),YEAR=isFinite(requested)&&requested>=1000&&requested<=9999?requested:now.getFullYear();
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;
+  var dayCount=document.getElementById('dayCount'),remaining=document.getElementById('remaining'),percent=document.getElementById('percent'),fill=document.getElementById('fill'),bar=document.getElementById('bar'),ring=document.getElementById('ring');
+  var start=Date.UTC(YEAR,0,1),end=Date.UTC(YEAR+1,0,1),total=Math.round((end-start)/864e5),CIRC=2*Math.PI*48;
+  document.getElementById('year').textContent=String(YEAR);
+  function paint(){
+    var today=new Date(),stamp=Date.UTC(today.getFullYear(),today.getMonth(),today.getDate());
+    var passed=stamp<start?0:(stamp>=end?total:Math.floor((stamp-start)/864e5)+1);
+    var pct=total?Math.round(passed/total*100):0;
+    dayCount.textContent='Day '+passed+' of '+total;
+    percent.textContent=pct+'%';fill.style.width=pct+'%';bar.setAttribute('aria-valuenow',String(pct));
+    ring.setAttribute('stroke-dashoffset',String(CIRC*(1-Math.min(1,passed/total))));
+    if(stamp<start)remaining.textContent='Begins in '+Math.ceil((start-stamp)/864e5)+' days.';
+    else if(stamp>=end)remaining.textContent='This year is complete.';
+    else remaining.textContent=(total-passed)+' days left in '+YEAR+'.';
+  }
+  paint();setInterval(paint,60000);
+})();
+</script>
+</body>
+</html>

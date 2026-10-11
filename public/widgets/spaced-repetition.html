@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Spaced Repetition</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#6940a5;--track:#e9e9e7;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:235px;display:flex;flex-direction:column;gap:9px;padding:13px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:13.5px;font-weight:650;margin-top:2px}.count{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card{position:relative;display:flex;flex:1;min-height:108px;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px;width:100%;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--fg);padding:13px 15px;text-align:left;cursor:pointer}.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.card.done{align-items:center;text-align:center;background:color-mix(in oklab,var(--accent) 8%,var(--surface))}.side{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700}.prompt{font-size:14px;font-weight:550;line-height:1.45;overflow-wrap:anywhere}.helper{font-size:10px;color:var(--muted)}
+.grade{display:flex;gap:5px;flex-wrap:wrap}.grade button,.review{min-height:29px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);font:inherit;font-size:10.5px;font-weight:550;padding:5px 8px;cursor:pointer}.grade button:hover,.review:hover{border-color:color-mix(in oklab,var(--accent) 45%,var(--border))}.grade button:focus-visible,.review:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.grade .good{border-color:var(--accent);background:var(--accent);color:#fff}.grade button:disabled{opacity:.4;cursor:not-allowed}.status{min-height:14px;color:var(--muted);font-size:10px}
+@media(max-width:350px){.wrap{padding:10px}.grade{gap:4px}.grade button{padding:4px 6px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Review what you know</div><div class="title" id="title">Study deck</div></div><div class="count" id="count">0 due</div></header>
+  <button class="card" id="card" type="button" aria-expanded="false"><span class="side" id="side">Prompt</span><span class="prompt" id="prompt">Loading card</span><span class="helper" id="helper">Select to reveal</span></button>
+  <div class="grade" id="grade"><button id="again" type="button" disabled>Again · 10 min</button><button id="hard" type="button" disabled>Hard · 1 day</button><button class="good" id="good" type="button" disabled>Good</button><button id="easy" type="button" disabled>Easy</button><button class="review" id="review" type="button" hidden>Review deck</button></div>
+  <div class="status" id="status" aria-live="polite">Ratings schedule cards in this browser only.</div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#6940a5'),DECK=String(c.deck||'Study deck').slice(0,48);
+  var DEFAULT=[{front:'What is spaced repetition?',back:'Reviewing material at increasing intervals to strengthen recall.'},{front:'When should a card be marked Again?',back:'When the answer was not retrievable without looking.'},{front:'What belongs on one flashcard?',back:'One focused question and one concise answer.'},{front:'Where is this deck stored?',back:'Only in this browser. It is not synced to Notion.'}],cards=[];
+  String(c.cards||'').split('||').forEach(function(row){var cut=row.indexOf('::');if(cut<0)return;var front=row.slice(0,cut).trim(),back=row.slice(cut+2).trim();if(front&&back)cards.push({front:front,back:back});});if(!cards.length)cards=DEFAULT.slice(0);cards=cards.slice(0,100);
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=DECK;document.title=DECK;
+  function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'd'+(h>>>0).toString(36);}
+  var KEY='blocksmith.spaced-repetition.v1',deckId=hash(DECK+'|'+cards.map(function(x){return x.front+'|'+x.back;}).join('||')),store={decks:{}};
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.decks)store=saved;}catch(e){}
+  var state=store.decks&&store.decks[deckId];if(!state||typeof state!=='object')state={items:[]};if(!Array.isArray(state.items))state.items=[];
+  while(state.items.length<cards.length)state.items.push({dueAt:0,interval:0,seen:0,lapses:0});state.items=state.items.slice(0,cards.length).map(function(r){r=r&&typeof r==='object'?r:{};return{dueAt:Math.max(0,Number(r.dueAt)||0),interval:Math.max(0,Number(r.interval)||0),seen:Math.max(0,Number(r.seen)||0),lapses:Math.max(0,Number(r.lapses)||0)};});
+  var current=-1,revealed=false,forceRemaining=0,cardButton=document.getElementById('card'),prompt=document.getElementById('prompt'),side=document.getElementById('side'),helper=document.getElementById('helper'),status=document.getElementById('status');
+  function due(i,now){return !state.items[i].dueAt||state.items[i].dueAt<=now;}
+  function findDue(from){var now=Date.now();for(var step=0;step<cards.length;step++){var i=(from+step+cards.length)%cards.length;if(due(i,now))return i;}return -1;}
+  function save(){if(!store.decks)store.decks={};store.decks[deckId]=state;var ids=Object.keys(store.decks);while(ids.length>8){var old=ids.shift();if(old===deckId){ids.push(old);continue;}delete store.decks[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  function nextDueAt(){var min=Infinity;state.items.forEach(function(r){if(r.dueAt>Date.now()&&r.dueAt<min)min=r.dueAt;});return min;}
+  function render(){
+    var dueCount=0,reviewed=0;state.items.forEach(function(r,i){if(due(i,Date.now()))dueCount++;reviewed+=r.seen;});document.getElementById('count').textContent=dueCount+' due · '+reviewed+' reviews';
+    if(current<0){cardButton.classList.add('done');cardButton.setAttribute('aria-expanded','true');side.textContent='All caught up';prompt.textContent='No cards are due right now.';var next=nextDueAt();helper.textContent=next===Infinity?'Add a deck in the widget settings.':'Next review '+new Date(next).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});document.getElementById('grade').querySelectorAll('button:not(#review)').forEach(function(b){b.disabled=true;});document.getElementById('review').hidden=false;status.textContent='Your schedule is saved only in this browser.';return;}
+    cardButton.classList.remove('done');cardButton.setAttribute('aria-expanded',revealed?'true':'false');side.textContent=revealed?'Answer':'Prompt';prompt.textContent=revealed?cards[current].back:cards[current].front;helper.textContent=revealed?'Choose how well you recalled it.':'Select to reveal the answer.';document.getElementById('grade').querySelectorAll('button:not(#review)').forEach(function(b){b.disabled=!revealed;});document.getElementById('review').hidden=true;status.textContent='Review dates stay on this device and are not synced.';
+  }
+  function grade(kind){if(current<0||!revealed)return;var rec=state.items[current],now=Date.now(),old=rec.interval||0,days=1;
+    if(kind==='again'){rec.interval=0;rec.dueAt=now+10*60*1000;rec.lapses++;}
+    else{if(kind==='hard')days=old?Math.max(1,Math.ceil(old*1.2)):1;else if(kind==='good')days=old?Math.round(old*2):1;else days=old?Math.round(old*2.5):3;days=Math.max(1,Math.min(365,days));rec.interval=days;rec.dueAt=now+days*864e5;}
+    rec.seen++;save();
+    if(forceRemaining>0){forceRemaining--;if(forceRemaining>0)current=(current+1)%cards.length;else current=findDue((current+1)%cards.length);}
+    else current=findDue((current+1)%cards.length);
+    revealed=false;render();
+  }
+  cardButton.addEventListener('click',function(){if(current<0)return;revealed=!revealed;render();});
+  document.getElementById('again').addEventListener('click',function(){grade('again');});document.getElementById('hard').addEventListener('click',function(){grade('hard');});document.getElementById('good').addEventListener('click',function(){grade('good');});document.getElementById('easy').addEventListener('click',function(){grade('easy');});
+  document.getElementById('review').addEventListener('click',function(){forceRemaining=cards.length;current=0;revealed=false;render();});
+  current=findDue(0);if(current<0){document.getElementById('review').hidden=false;}
+  render();save();
+})();
+</script>
+</body>
+</html>

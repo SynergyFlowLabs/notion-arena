@@ -38,6 +38,19 @@ const ENTRIES: Entry[] = [
   {
     version: "1.0.0",
     date: "2026-10-11",
+    title: "Ten offline tools across time, learning, and operations",
+    kind: "release",
+    body: [
+      "Time tools: Stopwatch Timer, World Clock Board, Year Progress, Date Difference Calculator, and Moon Phase.",
+      "Learning tools: Reading Progress Tracker and Spaced Repetition Deck, with browser-local progress and schedules.",
+      "Operations tools: Monthly Budget Planner, Inventory Counter, and Local Intake Form. Budget and stock edits remain in this browser; the form prepares copyable JSON and sends nothing.",
+      "All ten are self-contained and offline. Use Notion databases or forms when data needs team sync, an audit trail, or a shared destination.",
+    ],
+    components: ["stopwatch", "world-clock", "year-progress", "date-calculator", "moon-phase", "reading-tracker", "spaced-repetition", "budget-planner", "inventory-tracker", "local-intake-form"],
+  },
+  {
+    version: "1.0.0",
+    date: "2026-10-11",
     title: "Month Calendar",
     kind: "release",
     body: [
