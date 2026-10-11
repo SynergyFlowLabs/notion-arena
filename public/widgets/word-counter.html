@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Word Counter</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#6940a5;--accent-ink:#fff;--accent-text:var(--accent)--track:#e9e9e7;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}}
+*{box-sizing:border-box}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:260px;display:flex;flex-direction:column;gap:9px;padding:13px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:13.5px;font-weight:650;margin-top:2px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.stat{min-width:0;padding:7px 5px;border:1px solid var(--border);border-radius:7px;background:var(--surface);text-align:center}.stat b{display:block;overflow:hidden;text-overflow:ellipsis;font-size:15px;color:var(--accent-text);font-variant-numeric:tabular-nums}.stat span{display:block;margin-top:2px;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.editor{width:100%;min-height:82px;flex:1;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--fg);padding:8px;font:11px/1.5 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;resize:vertical}.editor:focus-visible{outline:2px solid var(--accent);outline-offset:1px}.goal{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:9px;color:var(--muted)}.bar{height:5px;border-radius:99px;background:var(--track);overflow:hidden}.bar i{display:block;width:0;height:100%;background:var(--accent);border-radius:inherit;transition:width .15s ease}.note{font-size:9px;color:var(--muted);text-align:center;line-height:1.35}
+@media(max-width:330px){.wrap{padding:10px}.stats{gap:3px}.stat{padding:6px 3px}.stat b{font-size:13px}.stat span{font-size:7px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Writing utility</div><div class="title" id="title">Word counter</div></div></header>
+  <section class="stats" aria-label="Text statistics"><div class="stat"><b id="words">0</b><span>Words</span></div><div class="stat"><b id="chars">0</b><span>Characters</span></div><div class="stat"><b id="sentences">0</b><span>Sentences</span></div><div class="stat"><b id="minutes">0</b><span>Read min</span></div></section>
+  <label class="sr-only" for="text">Paste or type text</label><textarea class="editor" id="text" placeholder="Paste or type your draft here…"></textarea>
+  <div class="goal"><span id="goalLabel">0 / 500 words</span><span id="goalPct">0%</span></div><div class="bar" id="bar" role="progressbar" aria-label="Writing goal progress" aria-valuemin="0" aria-valuemax="500" aria-valuenow="0"><i id="fill"></i></div>
+  <div class="note">Text is processed in this page only. It is not stored, sent, or added to your URL.</div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  function rgb(hex){var s=String(hex).slice(1);return [0,2,4].map(function(i){return parseInt(s.slice(i,i+2),16);});}
+  function luminance(values){return values.map(function(v){v/=255;return v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4);}).reduce(function(a,v,i){return a+v*[.2126,.7152,.0722][i];},0);}
+  function contrast(a,b){var x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
+  function accentInk(hex){var c=rgb(hex);return contrast(c,[255,255,255])>=contrast(c,[0,0,0])?'#fff':'#000';}
+  function accentText(hex){var dark=theme==='dark'||(theme==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches),bg=rgb(dark?'#252525':'#f7f7f5'),base=rgb(hex),target=dark?[255,255,255]:[0,0,0];if(contrast(base,bg)>=4.5)return hex;for(var t=.02;t<=1;t+=.02){var mix=base.map(function(v,i){return Math.round(v+(target[i]-v)*t);});if(contrast(mix,bg)>=4.5)return '#'+mix.map(function(v){return v.toString(16).padStart(2,'0');}).join('');}return dark?'#fff':'#191919';}
+  function setAccentText(){document.documentElement.style.setProperty('--accent-text',accentText(ACCENT));}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#6940a5'),LABEL=String(c.label||'Word counter').slice(0,48),n=parseInt(c.goal,10),GOAL=Math.max(1,Math.min(100000,isFinite(n)?n:500));
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.documentElement.style.setProperty('--accent-ink',accentInk(ACCENT));setAccentText();if(theme==='auto'&&window.matchMedia){var scheme=window.matchMedia('(prefers-color-scheme: dark)');if(scheme.addEventListener)scheme.addEventListener('change',setAccentText);else if(scheme.addListener)scheme.addListener(setAccentText);}document.getElementById('title').textContent=LABEL;document.title=LABEL;
+  var editor=document.getElementById('text');
+  function calc(){var text=editor.value,words=(text.match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu)||[]).length,chars=Array.from(text).length,sentences=(text.match(/[.!?]+(?=\s|$)/g)||[]).length,mins=words?Math.ceil(words/225):0,pct=Math.min(100,Math.round(words/GOAL*100));document.getElementById('words').textContent=String(words);document.getElementById('chars').textContent=String(chars);document.getElementById('sentences').textContent=String(sentences);document.getElementById('minutes').textContent=String(mins);document.getElementById('goalLabel').textContent=words+' / '+GOAL+' words';document.getElementById('goalPct').textContent=pct+'%';document.getElementById('fill').style.width=pct+'%';document.getElementById('bar').setAttribute('aria-valuemax',String(GOAL));document.getElementById('bar').setAttribute('aria-valuenow',String(Math.min(words,GOAL)));}
+  editor.addEventListener('input',calc);calc();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pomodoro Focus Timer</title>
+<style>
+:root{
+  --bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;
+  --accent:#e03e3e;--track:#e9e9e7;--radius:10px;
+  --font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--track:#2f2f2f}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--track:#2f2f2f}}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;display:flex;align-items:center;justify-content:center;gap:28px;padding:16px;flex-wrap:wrap}
+.dial{position:relative;width:170px;height:170px;flex:0 0 auto}
+.dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+.dial .bg{fill:none;stroke:var(--track);stroke-width:9}
+.dial .fg{fill:none;stroke:var(--accent);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .4s linear}
+.readout{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.time{font-size:34px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.phase{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600}
+.side{display:flex;flex-direction:column;gap:12px;min-width:190px}
+.label{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;font-weight:500;border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:8px;padding:6px 12px;cursor:pointer;transition:background .12s,border-color .12s}
+button:hover{background:color-mix(in oklab,var(--fg) 8%,var(--surface));border-color:color-mix(in oklab,var(--fg) 18%,var(--border))}
+button:active{transform:translateY(.5px)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.primary:hover{filter:brightness(1.06)}
+.stats{display:flex;gap:16px;border-top:1px solid var(--border);padding-top:10px}
+.stat b{display:block;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;color:var(--muted)}
+.dots{display:flex;gap:5px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--track);transition:background .2s}
+.dot.on{background:var(--accent)}
+.hint{font-size:11px;color:var(--muted)}
+@media (max-width:520px){.wrap{gap:16px}.dial{width:140px;height:140px}.time{font-size:28px}}
+@media (prefers-reduced-motion:reduce){.dial .fg{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="dial">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <circle class="bg" cx="60" cy="60" r="52"></circle>
+      <circle class="fg" id="ring" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="0"></circle>
+    </svg>
+    <div class="readout">
+      <div class="time" id="time">25:00</div>
+      <div class="phase" id="phase">Focus</div>
+    </div>
+  </div>
+  <div class="side">
+    <div class="label" id="label">Deep work</div>
+    <div class="dots" id="dots"></div>
+    <div class="row">
+      <button class="primary" id="toggle">Start</button>
+      <button id="reset">Reset</button>
+      <button id="skip" title="Skip to the next phase">Skip</button>
+      <button id="add" title="Add one minute">+1m</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="today">0</b><span>sessions today</span></div>
+      <div class="stat"><b id="focused">0m</b><span>focused today</span></div>
+    </div>
+    <div class="hint">Space start/pause · R reset · + add a minute</div>
+  </div>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search);
+  var c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function num(k,d){var v=parseFloat(c[k]);return isFinite(v)?v:d;}
+  function bool(k,d){var v=c[k];if(v===undefined)return d;return v===true||v==='true'||v==='1';}
+
+  var WORK=num('work',25)*60, SHORT=num('short',5)*60, LONG=num('long',15)*60, ROUNDS=Math.max(2,Math.round(num('rounds',4)));
+  var LABEL=c.label||'Deep work', ACCENT=c.accent||'#e03e3e', CHIME=bool('chime',true);
+  if(c.theme){document.documentElement.setAttribute('data-theme',c.theme);}
+  document.documentElement.style.setProperty('--accent',ACCENT);
+  document.getElementById('label').textContent=LABEL;
+
+  var KEY='blocksmith.pomodoro.v1';
+  var store={};
+  try{store=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){}
+  var todayKey=new Date().toDateString();
+  if(store.day!==todayKey){store={day:todayKey,sessions:0,minutes:0};}
+
+  var phase='work', round=0, remaining=WORK, total=WORK, running=false, tick=null;
+  var CIRC=2*Math.PI*52;
+  var elTime=document.getElementById('time'),elPhase=document.getElementById('phase'),
+      elRing=document.getElementById('ring'),elToggle=document.getElementById('toggle'),
+      elDots=document.getElementById('dots'),elToday=document.getElementById('today'),
+      elFocused=document.getElementById('focused');
+
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  function fmt(s){s=Math.max(0,Math.round(s));var m=Math.floor(s/60),x=s%60;return (m<10?'0':'')+m+':'+(x<10?'0':'')+x;}
+  function dots(){
+    elDots.innerHTML='';
+    for(var i=0;i<ROUNDS;i++){
+      var d=document.createElement('span');
+      d.className='dot'+(i<round?' on':'');
+      if(i===round&&phase==='work')d.style.background='color-mix(in oklab,'+ACCENT+' 45%, var(--track))';
+      elDots.appendChild(d);
+    }
+  }
+  function paint(){
+    elTime.textContent=fmt(remaining);
+    elPhase.textContent=phase==='work'?'Focus':(remaining===LONG?'Long break':'Break');
+    var p=total>0?(total-remaining)/total:0;
+    elRing.setAttribute('stroke-dashoffset',String(CIRC*(1-p)));
+    elRing.style.stroke=phase==='work'?ACCENT:'color-mix(in oklab,'+ACCENT+' 55%, var(--muted))';
+    elToggle.textContent=running?'Pause':'Start';
+    elToday.textContent=String(store.sessions||0);
+    elFocused.textContent=(store.minutes||0)+'m';
+    document.title=fmt(remaining)+' · '+(phase==='work'?'Focus':'Break');
+    dots();
+  }
+  function beep(){
+    if(!CHIME)return;
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      var ctx=new AC(),o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=660;g.gain.value=0.0001;
+      o.connect(g);g.connect(ctx.destination);
+      var t=ctx.currentTime;
+      g.gain.exponentialRampToValueAtTime(0.16,t+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+0.55);
+      o.start(t);o.stop(t+0.6);
+      setTimeout(function(){try{ctx.close();}catch(e){}},900);
+    }catch(e){}
+  }
+  function setPhase(next){
+    phase=next;
+    if(next==='work'){total=remaining=WORK;}
+    else{var isLong=(round%ROUNDS===0);total=remaining=isLong?LONG:SHORT;}
+    paint();
+  }
+  function advance(){
+    beep();
+    if(phase==='work'){round++;store.sessions=(store.sessions||0)+1;store.minutes=(store.minutes||0)+Math.round(WORK/60);save();setPhase('break');}
+    else{setPhase('work');}
+  }
+  function start(){if(running)return;running=true;tick=setInterval(function(){remaining--;if(remaining<=0){advance();}},1000);paint();}
+  function pause(){running=false;clearInterval(tick);tick=null;paint();}
+  function toggle(){running?pause():start();}
+
+  elToggle.addEventListener('click',toggle);
+  document.getElementById('reset').addEventListener('click',function(){pause();setPhase(phase);});
+  document.getElementById('skip').addEventListener('click',function(){advance();});
+  document.getElementById('add').addEventListener('click',function(){remaining+=60;total+=60;paint();});
+  document.addEventListener('keydown',function(e){
+    if(e.target&&/INPUT|TEXTAREA/.test(e.target.tagName))return;
+    if(e.code==='Space'){e.preventDefault();toggle();}
+    else if(e.key==='r'||e.key==='R'){pause();setPhase(phase);}
+    else if(e.key==='+'||e.key==='='){remaining+=60;total+=60;paint();}
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

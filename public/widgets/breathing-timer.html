@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Breathing Break</title>
+<style>
+:root{--bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#6940a5;--track:#e9e9e7;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:210px;display:flex;flex-direction:column;gap:10px;padding:14px;overflow:auto}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.kicker{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:650}
+.title{margin-top:2px;font-size:14px;font-weight:650;letter-spacing:-.02em}
+.pattern{font-size:11px;color:var(--muted);text-align:right}
+.main{display:flex;align-items:center;justify-content:center;gap:22px;flex:1;min-height:0;flex-wrap:wrap}
+.orb-wrap{position:relative;width:132px;height:132px;flex:0 0 auto;display:grid;place-items:center}
+.orb-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.orb-ring circle{fill:none;stroke-width:2}
+.orb-ring .track{stroke:var(--track)}
+.orb-ring .progress{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:301.59;stroke-dashoffset:301.59;transition:stroke-dashoffset .25s linear}
+.orb{position:relative;width:82px;height:82px;border-radius:50%;background:color-mix(in oklab,var(--accent) 17%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--accent) 24%,transparent);transform:scale(.78);transition-property:transform;transition-timing-function:ease-in-out}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;pointer-events:none}
+.phase{font-size:13px;font-weight:650;letter-spacing:-.01em}
+.seconds{font-size:28px;font-weight:650;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.details{display:flex;flex:1 1 170px;min-width:155px;max-width:300px;flex-direction:column;gap:8px}
+.instruction{min-height:34px;font-size:12px;line-height:1.4;color:var(--muted)}
+.round{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.overall{height:5px;width:100%;overflow:hidden;border-radius:99px;background:var(--track)}
+.overall i{display:block;height:100%;width:0;border-radius:inherit;background:var(--accent);transition:width .2s linear}
+.status{min-height:15px;font-size:11px;color:var(--muted)}
+.controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+button{min-height:30px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit;font-size:11.5px;font-weight:550;padding:5px 10px;cursor:pointer;transition:border-color .15s,background .15s,opacity .15s}
+button:hover{border-color:color-mix(in oklab,var(--accent) 45%,var(--border))}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.primary{border-color:var(--accent);background:var(--accent);color:#fff}
+button.primary:hover{filter:brightness(.94)}
+@media(max-width:390px){.wrap{padding:11px}.main{gap:12px}.orb-wrap{width:108px;height:108px}.orb{width:70px;height:70px}.details{min-width:140px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div><div class="kicker">A small pause</div><div class="title" id="title">Breathing break</div></div>
+    <div class="pattern" id="pattern">Box breathing</div>
+  </header>
+  <main class="main">
+    <div class="orb-wrap" role="img" aria-label="Breathing pace animation">
+      <svg class="orb-ring" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="track" cx="50" cy="50" r="48"></circle>
+        <circle class="progress" id="phaseProgress" cx="50" cy="50" r="48"></circle>
+      </svg>
+      <div class="orb" id="orb"></div>
+      <div class="center"><span class="phase" id="phase">Ready</span><span class="seconds" id="seconds">4</span></div>
+    </div>
+    <section class="details" aria-label="Breathing session controls">
+      <div class="instruction" id="instruction" aria-live="polite">Press start when you are ready.</div>
+      <div class="round"><span id="round">Round 1 of 4</span><span id="elapsed">0% complete</span></div>
+      <div class="overall" id="overall" role="progressbar" aria-label="Session progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="fill"></i></div>
+      <div class="status" id="status">Follow the circle at a comfortable pace.</div>
+      <div class="controls">
+        <button class="primary" id="start" type="button">Start</button>
+        <button id="reset" type="button">Reset</button>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function num(k,d){var v=parseFloat(c[k]);return isFinite(v)?v:d;}
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto';
+  var ACCENT=safeColor(c.accent,'#6940a5');
+  var LABEL=String(c.label||'Breathing break').slice(0,50);
+  var ROUNDS=Math.max(1,Math.min(12,Math.round(num('rounds',4))));
+  var PATTERNS={
+    box:{name:'Box breathing',steps:[{name:'Inhale',seconds:4},{name:'Hold',seconds:4},{name:'Exhale',seconds:4},{name:'Hold',seconds:4}]},
+    '478':{name:'4 7 8 breathing',steps:[{name:'Inhale',seconds:4},{name:'Hold',seconds:7},{name:'Exhale',seconds:8}]},
+    equal:{name:'Equal breathing',steps:[{name:'Inhale',seconds:4},{name:'Exhale',seconds:4}]}
+  };
+  var selected=PATTERNS[String(c.pattern||'box')]||PATTERNS.box;
+  var steps=selected.steps;
+  if(theme)document.documentElement.setAttribute('data-theme',theme);
+  document.documentElement.style.setProperty('--accent',ACCENT);
+  document.getElementById('title').textContent=LABEL;
+  document.getElementById('pattern').textContent=selected.name;
+  document.title=LABEL;
+
+  var phaseEl=document.getElementById('phase'),secondsEl=document.getElementById('seconds');
+  var instructionEl=document.getElementById('instruction'),roundEl=document.getElementById('round');
+  var elapsedEl=document.getElementById('elapsed'),statusEl=document.getElementById('status');
+  var orb=document.getElementById('orb'),phaseProgress=document.getElementById('phaseProgress');
+  var fill=document.getElementById('fill'),overall=document.getElementById('overall'),startButton=document.getElementById('start');
+  var roundNumber=1,stepIndex=0,running=false,paused=false,complete=false,phaseEnd=0,remainingMs=steps[0].seconds*1000;
+  var timer=null,phaseStart=0,CIRC=2*Math.PI*48;
+  var reduceMotion=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var instruction={Inhale:'Breathe in gently.',Hold:'Rest with the breath held softly.',Exhale:'Let the breath out slowly.'};
+
+  function step(){return steps[stepIndex];}
+  function freezeOrb(){
+    if(reduceMotion)return;
+    var current=getComputedStyle(orb).transform;
+    orb.style.transitionDuration='0ms';
+    if(current&&current!=='none')orb.style.transform=current;
+  }
+  function applyBreathTarget(seconds,animate){
+    if(reduceMotion){orb.style.transitionDuration='0ms';orb.style.transform='scale(1)';return;}
+    var target=step().name==='Inhale'?'scale(1.14)':(step().name==='Exhale'?'scale(.78)':null);
+    if(!target)return;
+    if(animate){
+      var current=getComputedStyle(orb).transform;
+      orb.style.transitionDuration='0ms';orb.style.transform=current==='none'?'scale(.78)':current;
+      requestAnimationFrame(function(){orb.style.transitionDuration=Math.max(0,seconds)+'ms';orb.style.transform=target;});
+    }else{
+      orb.style.transitionDuration='0ms';orb.style.transform=target;
+    }
+  }
+  function setPhase(){
+    var s=step();phaseStart=phaseEnd-s.seconds*1000;
+    phaseEl.textContent=s.name;secondsEl.textContent=String(s.seconds);
+    instructionEl.textContent=instruction[s.name]||'Breathe at your own pace.';
+    roundEl.textContent='Round '+roundNumber+' of '+ROUNDS;
+    applyBreathTarget(s.seconds*1000,true);
+  }
+  function percentDone(now){
+    var total=steps.length*ROUNDS;
+    var phaseNumber=(roundNumber-1)*steps.length+stepIndex;
+    var duration=step().seconds*1000;
+    var fraction=duration?Math.max(0,Math.min(1,(now-phaseStart)/duration)):0;
+    return complete?100:Math.max(0,Math.min(100,((phaseNumber+fraction)/total)*100));
+  }
+  function render(now){
+    if(now===undefined)now=Date.now();
+    var ms=running?Math.max(0,phaseEnd-now):remainingMs;
+    var whole=Math.ceil(ms/1000);
+    secondsEl.textContent=String(Math.max(0,whole));
+    var pct=percentDone(now);
+    var ringOffset=CIRC*(1-Math.max(0,Math.min(1,(step().seconds*1000-ms)/(step().seconds*1000))));
+    phaseProgress.setAttribute('stroke-dashoffset',String(complete?0:ringOffset));
+    fill.style.width=pct.toFixed(1)+'%';
+    overall.setAttribute('aria-valuenow',String(Math.round(pct)));
+    elapsedEl.textContent=Math.round(pct)+'% complete';
+    roundEl.textContent=complete?'Session complete':'Round '+roundNumber+' of '+ROUNDS;
+    startButton.textContent=complete?'Start again':(running?'Pause':(paused?'Resume':'Start'));
+    statusEl.textContent=complete?'You finished '+ROUNDS+' calm rounds. Take a moment.':(running?'Stay with this breath.':(paused?'Paused. Resume when ready.':'Follow the circle at a comfortable pace.'));
+  }
+  function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+  function finish(){
+    running=false;paused=false;complete=true;remainingMs=0;stopTimer();
+    phaseEl.textContent='Complete';secondsEl.textContent='✓';
+    instructionEl.textContent='Session complete.';roundEl.textContent='Session complete';
+    statusEl.textContent='You finished '+ROUNDS+' calm rounds. Take a moment.';
+    fill.style.width='100%';overall.setAttribute('aria-valuenow','100');elapsedEl.textContent='100% complete';
+    phaseProgress.setAttribute('stroke-dashoffset','0');startButton.textContent='Start again';
+    orb.style.transitionDuration='0ms';orb.style.transform='scale(.9)';
+  }
+  function advance(){
+    stepIndex++;
+    if(stepIndex>=steps.length){stepIndex=0;roundNumber++;}
+    if(roundNumber>ROUNDS){finish();return;}
+    phaseEnd+=step().seconds*1000;
+    setPhase();
+  }
+  function tick(){
+    if(!running)return;
+    var now=Date.now(),guard=0;
+    while(running&&now>=phaseEnd&&guard<100){advance();guard++;}
+    if(running){remainingMs=Math.max(0,phaseEnd-now);render(now);}
+  }
+  function start(){
+    if(complete){reset();}
+    if(running){remainingMs=Math.max(0,phaseEnd-Date.now());running=false;paused=true;stopTimer();freezeOrb();render();return;}
+    running=true;paused=false;phaseEnd=Date.now()+Math.max(0,remainingMs);phaseStart=phaseEnd-step().seconds*1000;
+    applyBreathTarget(remainingMs,true);startButton.textContent='Pause';statusEl.textContent='Stay with this breath.';
+    timer=setInterval(tick,100);tick();
+  }
+  function reset(){
+    running=false;paused=false;complete=false;stopTimer();roundNumber=1;stepIndex=0;
+    remainingMs=steps[0].seconds*1000;phaseEnd=0;phaseStart=0;
+    phaseEl.textContent='Ready';secondsEl.textContent=String(steps[0].seconds);
+    instructionEl.textContent='Press start when you are ready.';
+    statusEl.textContent='Follow the circle at a comfortable pace.';
+    roundEl.textContent='Round 1 of '+ROUNDS;elapsedEl.textContent='0% complete';
+    fill.style.width='0%';overall.setAttribute('aria-valuenow','0');
+    phaseProgress.setAttribute('stroke-dashoffset',String(CIRC));
+    orb.style.transitionDuration='0ms';orb.style.transform='scale(.78)';
+    startButton.textContent='Start';
+  }
+  startButton.addEventListener('click',start);
+  document.getElementById('reset').addEventListener('click',reset);
+  reset();
+})();
+</script>
+</body>
+</html>

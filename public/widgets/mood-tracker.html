@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mood &amp; Energy Tracker</title>
+<style>
+:root{--bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#ad1a72;--cell:#ebedef;
+--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--cell:#2a2a2a}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--cell:#2a2a2a}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:13px;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;display:flex;flex-direction:column;gap:10px;padding:12px 14px;overflow:auto}
+.head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.title{font-size:13px;font-weight:600}
+.nav{display:flex;gap:4px;align-items:center}
+button{font:inherit;font-size:11.5px;font-weight:500;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:7px;padding:3px 9px;cursor:pointer}
+button:hover{color:var(--fg)}
+.month{font-size:12px;font-weight:600;min-width:110px;text-align:center}
+.pick{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.pick .lbl{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.mood{border:1px solid var(--border);background:var(--surface);border-radius:9px;padding:5px 9px;cursor:pointer;font-size:16px;line-height:1;transition:.12s}
+.mood:hover{transform:translateY(-1px);border-color:color-mix(in oklab,var(--accent) 45%,var(--border))}
+.mood.sel{border-color:var(--accent);background:color-mix(in oklab,var(--accent) 12%,var(--surface))}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dow{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;font-weight:600}
+.day{aspect-ratio:1/1;border:1px solid var(--border);border-radius:8px;background:var(--bg);display:flex;flex-direction:column;
+align-items:center;justify-content:center;gap:1px;cursor:pointer;position:relative;min-height:32px;transition:.12s}
+.day:hover{border-color:color-mix(in oklab,var(--fg) 25%,var(--border))}
+.day.out{opacity:.3;cursor:default}
+.day.today{border-color:var(--accent);box-shadow:0 0 0 1px color-mix(in oklab,var(--accent) 35%,transparent)}
+.day .n{font-size:9.5px;color:var(--muted);font-variant-numeric:tabular-nums;position:absolute;top:2px;left:4px}
+.day .e{font-size:15px;line-height:1}
+.day .en{font-size:8px;color:var(--muted);letter-spacing:.02em}
+.foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:8px}
+.avg{font-size:11.5px;color:var(--muted)}
+.avg b{color:var(--fg);font-weight:600}
+.spark{flex:1 1 120px;min-width:110px;height:30px}
+.spark path{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.spark .dots circle{fill:var(--accent)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="title">Mood &amp; energy</div>
+    <div class="nav">
+      <button id="prev">‹</button>
+      <div class="month" id="month"></div>
+      <button id="next">›</button>
+      <button id="todayBtn">Today</button>
+    </div>
+  </div>
+  <div class="pick" id="pick">
+    <span class="lbl">Log today</span>
+  </div>
+  <div class="cal" id="cal"></div>
+  <div class="foot">
+    <div class="avg" id="avg"></div>
+    <svg class="spark" id="spark" viewBox="0 0 120 30" preserveAspectRatio="none"></svg>
+  </div>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function bool(k,d){var v=c[k];return v===undefined?d:(v===true||v==='true'||v==='1');}
+
+  var ACCENT=c.accent||'#ad1a72';
+  if(c.theme)document.documentElement.setAttribute('data-theme',c.theme);
+  document.documentElement.style.setProperty('--accent',ACCENT);
+  var SHOW_ENERGY=bool('showEnergy',true);
+
+  var MOODS=[{v:1,e:'😞',t:'Awful'},{v:2,e:'🙁',t:'Low'},{v:3,e:'😐',t:'Okay'},{v:4,e:'🙂',t:'Good'},{v:5,e:'😄',t:'Great'}];
+  var ENERGY=['spent','low','steady','high','buzzing'];
+
+  var KEY='blocksmith.mood.v1';
+  var data={};
+  try{data=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){data={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
+  function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function sod(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+
+  var view=sod(new Date());view.setDate(1);
+  var today=sod(new Date());
+  var pickSel=0;
+
+  var pickEl=document.getElementById('pick'),calEl=document.getElementById('cal'),
+      monthEl=document.getElementById('month'),avgEl=document.getElementById('avg'),sparkEl=document.getElementById('spark');
+
+  function renderPicker(){
+    pickEl.querySelectorAll('.mood').forEach(function(n){n.remove();});
+    MOODS.forEach(function(m){
+      var b=document.createElement('button');
+      b.className='mood'+(pickSel===m.v?' sel':'');
+      b.type='button';b.textContent=m.e;b.title=m.t+' · '+m.v+'/5';
+      b.addEventListener('click',function(){
+        pickSel=pickSel===m.v?0:m.v;
+        var k=iso(today);
+        if(!data[k])data[k]={};
+        if(pickSel===0)delete data[k].mood;else data[k].mood=pickSel;
+        save();renderPicker();renderCal();renderFoot();
+      });
+      pickEl.appendChild(b);
+    });
+    if(SHOW_ENERGY){
+      var sel=document.getElementById('energy');
+      if(!sel){
+        sel=document.createElement('select');sel.id='energy';
+        sel.style.cssText='font:inherit;font-size:11.5px;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:7px;padding:3px 6px';
+        sel.innerHTML='<option value="">energy…</option>'+ENERGY.map(function(e,i){return '<option value="'+(i+1)+'">'+e+'</option>';}).join('');
+        sel.addEventListener('change',function(){
+          var k=iso(today);if(!data[k])data[k]={};
+          if(!sel.value)delete data[k].energy;else data[k].energy=parseInt(sel.value,10);
+          save();renderCal();renderFoot();
+        });
+        pickEl.appendChild(sel);
+      }
+      var cur=(data[iso(today)]||{}).energy;
+      sel.value=cur?String(cur):'';
+    }
+  }
+  function renderCal(){
+    monthEl.textContent=view.toLocaleDateString(undefined,{month:'long',year:'numeric'});
+    calEl.innerHTML='';
+    ['S','M','T','W','T','F','S'].forEach(function(d){
+      var s=document.createElement('div');s.className='dow';s.textContent=d;calEl.appendChild(s);
+    });
+    var first=new Date(view.getFullYear(),view.getMonth(),1);
+    var pad=first.getDay();
+    var dim=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
+    for(var i=0;i<pad;i++){var e=document.createElement('div');e.className='day out';calEl.appendChild(e);}
+    for(var dnum=1;dnum<=dim;dnum++){
+      var d=new Date(view.getFullYear(),view.getMonth(),dnum);
+      var k=iso(d),rec=data[k]||{};
+      var el=document.createElement('div');
+      el.className='day'+(d.getTime()===today.getTime()?' today':'')+(d>today?' out':'');
+      var mood=MOODS.filter(function(m){return m.v===rec.mood;})[0];
+      el.innerHTML='<span class="n">'+dnum+'</span>'+(mood?'<span class="e">'+mood.e+'</span>':'')
+        +(SHOW_ENERGY&&rec.energy?'<span class="en">'+ENERGY[rec.energy-1].slice(0,5)+'</span>':'');
+      if(d<=today){
+        (function(kk,el2){
+          el2.addEventListener('click',function(){
+            var cur=(data[kk]||{}).mood||0;
+            var nx=cur>=5?1:cur+1;
+            if(!data[kk])data[kk]={};
+            data[kk].mood=nx;
+            if(kk===iso(today)){pickSel=nx;renderPicker();}
+            save();renderCal();renderFoot();
+          });
+        })(k,el);
+      }
+      calEl.appendChild(el);
+    }
+  }
+  function renderFoot(){
+    var pts=[],vals=[];
+    for(var i=29;i>=0;i--){
+      var d=new Date(today.getTime()-i*864e5);
+      var m=(data[iso(d)]||{}).mood;
+      if(m){pts.push([29-i,m]);vals.push(m);}
+    }
+    var avg=vals.length?(vals.reduce(function(a,b){return a+b;},0)/vals.length):0;
+    avgEl.innerHTML='<b>'+(avg?avg.toFixed(1):'n/a')+'</b> / 5 · last 30 days · '+vals.length+' logged';
+    if(!pts.length){sparkEl.innerHTML='';return;}
+    var W=120,H=30,padY=4;
+    var xs=pts.map(function(p){return padY+(p[0]/29)*(W-padY*2);});
+    var ys=pts.map(function(p){return H-padY-((p[1]-1)/4)*(H-padY*2);});
+    var dpath=xs.map(function(x,i){return (i?'L':'M')+x.toFixed(1)+' '+ys[i].toFixed(1);}).join(' ');
+    var dots=xs.map(function(x,i){return '<circle cx="'+x.toFixed(1)+'" cy="'+ys[i].toFixed(1)+'" r="1.4"></circle>';}).join('');
+    sparkEl.innerHTML='<path d="'+dpath+'"></path><g class="dots">'+dots+'</g>';
+  }
+  document.getElementById('prev').addEventListener('click',function(){view.setMonth(view.getMonth()-1);renderCal();});
+  document.getElementById('next').addEventListener('click',function(){view.setMonth(view.getMonth()+1);renderCal();});
+  document.getElementById('todayBtn').addEventListener('click',function(){view=sod(new Date());view.setDate(1);renderCal();});
+  pickSel=(data[iso(today)]||{}).mood||0;
+  renderPicker();renderCal();renderFoot();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Weekly Meal Planner</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#0f7b6c;--accent-ink:#fff;--accent-text:var(--accent)--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:270px;display:flex;flex-direction:column;gap:8px;padding:13px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:13.5px;font-weight:650;margin-top:2px}.rows{display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;align-content:start}.day{display:flex;min-width:0;flex-direction:column;gap:3px;padding:5px;border:1px solid var(--border);border-radius:7px;background:var(--surface)}.day label{font-size:9px;font-weight:650;color:var(--muted)}.day input{width:100%;min-width:0;height:27px;border:0;border-radius:4px;background:transparent;color:var(--fg);padding:3px 4px;font:inherit;font-size:10px}.day input:focus-visible{outline:2px solid var(--accent);outline-offset:0}.foot{display:flex;align-items:center;justify-content:space-between;gap:8px}.status{font-size:9px;color:var(--muted)}button{min-height:27px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);font:inherit;font-size:9.5px;padding:4px 8px;cursor:pointer}button:hover{border-color:var(--accent)}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.note{font-size:9px;color:var(--muted);line-height:1.35}
+@media(max-width:330px){.wrap{padding:10px}.rows{gap:4px}.day{padding:4px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Your week</div><div class="title" id="title">Meal plan</div></div></header>
+  <section class="rows" id="rows" aria-label="Meals by weekday"></section>
+  <div class="foot"><span class="status" id="status" aria-live="polite">Plan saved only in this browser.</span><button id="clear" type="button">Clear week</button></div>
+  <div class="note">A planning list only. No recipes, nutrition data, or health recommendations are included.</div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  function rgb(hex){var s=String(hex).slice(1);return [0,2,4].map(function(i){return parseInt(s.slice(i,i+2),16);});}
+  function luminance(values){return values.map(function(v){v/=255;return v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4);}).reduce(function(a,v,i){return a+v*[.2126,.7152,.0722][i];},0);}
+  function contrast(a,b){var x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
+  function accentInk(hex){var c=rgb(hex);return contrast(c,[255,255,255])>=contrast(c,[0,0,0])?'#fff':'#000';}
+  function accentText(hex){var dark=theme==='dark'||(theme==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches),bg=rgb(dark?'#252525':'#f7f7f5'),base=rgb(hex),target=dark?[255,255,255]:[0,0,0];if(contrast(base,bg)>=4.5)return hex;for(var t=.02;t<=1;t+=.02){var mix=base.map(function(v,i){return Math.round(v+(target[i]-v)*t);});if(contrast(mix,bg)>=4.5)return '#'+mix.map(function(v){return v.toString(16).padStart(2,'0');}).join('');}return dark?'#fff':'#191919';}
+  function setAccentText(){document.documentElement.style.setProperty('--accent-text',accentText(ACCENT));}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#0f7b6c'),LABEL=String(c.label||'Meal plan').slice(0,48),days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.documentElement.style.setProperty('--accent-ink',accentInk(ACCENT));setAccentText();if(theme==='auto'&&window.matchMedia){var scheme=window.matchMedia('(prefers-color-scheme: dark)');if(scheme.addEventListener)scheme.addEventListener('change',setAccentText);else if(scheme.addListener)scheme.addListener(setAccentText);}document.getElementById('title').textContent=LABEL;document.title=LABEL;
+  function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'm'+(h>>>0).toString(36);}
+  var id=hash(LABEL),KEY='blocksmith.meal-planner.v1',store={weeks:{}},meals={};days.forEach(function(d){meals[d]='';});
+  String(c.meals||'').split('||').forEach(function(row){var p=row.split('::'),day=(p[0]||'').trim();if(days.indexOf(day)>-1)meals[day]=(p.slice(1).join('::')||'').slice(0,120);});
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.weeks)store=saved;if(store.weeks&&store.weeks[id])days.forEach(function(d){if(typeof store.weeks[id][d]==='string')meals[d]=store.weeks[id][d].slice(0,120);});}catch(e){}
+  function save(){if(!store.weeks)store.weeks={};store.weeks[id]=meals;var keys=Object.keys(store.weeks);while(keys.length>8){var old=keys.shift();if(old===id){keys.push(old);continue;}delete store.weeks[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  var rows=document.getElementById('rows');days.forEach(function(day){var field=document.createElement('div'),label=document.createElement('label'),input=document.createElement('input');field.className='day';label.textContent=day;label.setAttribute('for','day-'+day.toLowerCase());input.id='day-'+day.toLowerCase();input.type='text';input.maxLength=120;input.placeholder='Add a meal';input.value=meals[day];input.addEventListener('input',function(){meals[day]=input.value.slice(0,120);save();});field.appendChild(label);field.appendChild(input);rows.appendChild(field);});
+  document.getElementById('clear').addEventListener('click',function(){days.forEach(function(d){meals[d]='';document.getElementById('day-'+d.toLowerCase()).value='';});save();document.getElementById('status').textContent='Week cleared.';});save();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Goal Progress Ring</title>
+<style>
+:root{--bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#6940a5;--track:#e9e9e7;
+--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--track:#2f2f2f}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--track:#2f2f2f}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;display:flex;align-items:center;justify-content:center;gap:24px;padding:16px;flex-wrap:wrap}
+.ringbox{position:relative;width:158px;height:158px;flex:0 0 auto}
+.ringbox svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ringbox circle{fill:none;stroke-width:11}
+.ringbox .bg{stroke:var(--track)}
+.ringbox .fg{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.16,1,.3,1)}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.pct{font-size:34px;font-weight:650;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.of{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.side{min-width:190px;max-width:280px;display:flex;flex-direction:column;gap:11px}
+.goal{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.ms{display:flex;flex-direction:column;gap:6px}
+.m{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.m .box{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--border);flex:0 0 auto;display:flex;align-items:center;justify-content:center;transition:.2s}
+.m.hit{color:var(--fg)}
+.m.hit .box{background:var(--accent);border-color:var(--accent)}
+.m .box svg{width:9px;height:9px;opacity:0;transition:.2s}
+.m.hit .box svg{opacity:1}
+.remain{font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:9px}
+.remain b{color:var(--fg);font-weight:600}
+@media (max-width:520px){.wrap{gap:14px}.ringbox{width:126px;height:126px}.pct{font-size:27px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="ringbox">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <circle class="bg" cx="60" cy="60" r="52"></circle>
+      <circle class="fg" id="fg" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"></circle>
+    </svg>
+    <div class="center">
+      <div class="pct" id="pct">0%</div>
+      <div class="of" id="of"></div>
+    </div>
+  </div>
+  <div class="side">
+    <div class="goal" id="goal">Goal</div>
+    <div class="ms" id="ms"></div>
+    <div class="remain" id="remain"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function num(k,d){var v=parseFloat(c[k]);return isFinite(v)?v:d;}
+
+  var ACCENT=c.accent||'#6940a5';
+  if(c.theme)document.documentElement.setAttribute('data-theme',c.theme);
+  document.documentElement.style.setProperty('--accent',ACCENT);
+
+  var label=c.label||'Goal', unit=c.unit||'', value=num('value',0), target=num('target',100);
+  var miles=(c.milestones||'').split(',').map(function(s){return s.trim();}).filter(Boolean);
+  if(target<=0)target=100;
+  var pct=Math.max(0,value/target);
+  document.getElementById('goal').textContent=label;
+  document.getElementById('pct').textContent=Math.round(pct*100)+'%';
+  document.getElementById('of').textContent=value+unit+' of '+target+unit;
+  var left=Math.max(0,target-value);
+  document.getElementById('remain').innerHTML=left>0
+    ? '<b>'+left+unit+'</b> left to go'
+    : 'Target reached: <b>'+Math.round((pct-1)*100)+'%</b> over';
+
+  var CIRC=2*Math.PI*52;
+  var fg=document.getElementById('fg');
+  fg.setAttribute('stroke-dashoffset',String(CIRC));
+  requestAnimationFrame(function(){
+    setTimeout(function(){fg.setAttribute('stroke-dashoffset',String(CIRC*(1-Math.min(1,pct))));},80);
+  });
+
+  var box=document.getElementById('ms');
+  if(miles.length){
+    box.innerHTML=miles.map(function(name,i){
+      var threshold=(i+1)/miles.length;
+      var hit=pct>=threshold-1e-9;
+      return '<div class="m'+(hit?' hit':'')+'"><span class="box"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.4l2.6 2.6L10 3.6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>'+name.replace(/[<>&]/g,'')+'</span></div>';
+    }).join('');
+  }else{box.style.display='none';}
+})();
+</script>
+</body>
+</html>

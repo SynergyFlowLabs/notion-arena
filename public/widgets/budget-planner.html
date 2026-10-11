@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Monthly Budget</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#0f7b6c;--track:#e9e9e7;--danger:#c24136;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434;--danger:#ff7369}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434;--danger:#ff7369}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:250px;display:flex;flex-direction:column;gap:9px;padding:13px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:13.5px;font-weight:650;margin-top:2px}.currency{font-size:10px;color:var(--muted)}
+.summary{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.remaining{font-size:20px;font-weight:650;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--accent)}.spent{font-size:10px;color:var(--muted);text-align:right}.bar{height:5px;border-radius:99px;background:var(--track);overflow:hidden}.bar i{display:block;width:0;height:100%;background:var(--accent);border-radius:99px;transition:width .2s ease}.rows{display:grid;grid-template-columns:1fr 1fr;gap:6px}.field{display:flex;align-items:center;justify-content:space-between;gap:5px;min-width:0;border:1px solid var(--border);border-radius:7px;background:var(--surface);padding:5px 7px}.field label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;color:var(--muted)}.field input{width:74px;max-width:45%;border:0;outline:0;background:transparent;color:var(--fg);text-align:right;font:inherit;font-size:11px;font-variant-numeric:tabular-nums}.field input:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-radius:3px}.income{border-color:color-mix(in oklab,var(--accent) 40%,var(--border))}.note{font-size:9px;color:var(--muted);line-height:1.35}.over{color:var(--danger)!important}
+@media(max-width:350px){.wrap{padding:10px}.rows{gap:4px}.field{padding:4px 5px}.field input{width:60px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Monthly overview</div><div class="title" id="title">Budget planner</div></div><div class="currency" id="currency"></div></header>
+  <div class="summary"><div class="remaining" id="remaining">0</div><div class="spent" id="spent">0 of 0 planned</div></div>
+  <div class="bar" id="bar" role="progressbar" aria-label="Budget allocation" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="fill"></i></div>
+  <section class="rows" aria-label="Monthly income and expenses"><div class="field income"><label for="income">Income</label><input id="income" type="number" min="0" step="0.01" /></div><div class="field"><label for="housing">Housing</label><input id="housing" type="number" min="0" step="0.01" /></div><div class="field"><label for="food">Food</label><input id="food" type="number" min="0" step="0.01" /></div><div class="field"><label for="transport">Transport</label><input id="transport" type="number" min="0" step="0.01" /></div><div class="field"><label for="other">Other</label><input id="other" type="number" min="0" step="0.01" /></div></section>
+  <div class="note" id="note">Amounts are saved only in this browser. Planning aid, not financial advice.</div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function amount(k){var n=parseFloat(c[k]);return isFinite(n)?Math.max(0,Math.min(1e9,n)):0;}
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#0f7b6c');
+  var LABEL=String(c.label||'Budget planner').slice(0,48),CURRENCY=String(c.currency||'$').slice(0,8),keys=['income','housing','food','transport','other'],defaults={};keys.forEach(function(k){defaults[k]=amount(k);});
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.getElementById('currency').textContent=CURRENCY;document.title=LABEL;
+  function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'p'+(h>>>0).toString(36);}
+  var planId=hash(LABEL+'|'+JSON.stringify(defaults)),KEY='blocksmith.budget.v1',store={plans:{}},values=defaults;
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.plans)store=saved;}catch(e){}
+  if(store.plans&&store.plans[planId])keys.forEach(function(k){var n=parseFloat(store.plans[planId][k]);if(isFinite(n))values[k]=Math.max(0,Math.min(1e9,n));});
+  function save(){if(!store.plans)store.plans={};store.plans[planId]=values;var ids=Object.keys(store.plans);while(ids.length>10){var old=ids.shift();if(old===planId){ids.push(old);continue;}delete store.plans[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  var inputs={};keys.forEach(function(k){inputs[k]=document.getElementById(k);inputs[k].value=String(values[k]);inputs[k].addEventListener('input',function(){var n=parseFloat(inputs[k].value);values[k]=isFinite(n)?Math.max(0,Math.min(1e9,n)):0;save();render();});});
+  function money(n){return CURRENCY+' '+Number(n).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2});}
+  function render(){keys.forEach(function(k){if(document.activeElement!==inputs[k])inputs[k].value=String(values[k]);});var income=values.income,expenses=values.housing+values.food+values.transport+values.other,balance=income-expenses,pct=income?Math.min(100,Math.round(expenses/income*100)):0,rem=document.getElementById('remaining');rem.textContent=money(balance);rem.className='remaining'+(balance<0?' over':'');document.getElementById('spent').textContent=money(expenses)+' of '+money(income)+' planned';document.getElementById('fill').style.width=pct+'%';document.getElementById('bar').setAttribute('aria-valuenow',String(pct));}
+  render();save();
+})();
+</script>
+</body>
+</html>

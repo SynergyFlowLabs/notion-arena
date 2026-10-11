@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Daily Routine</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#0f7b6c;--track:#e9e9e7;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434;--track:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:220px;display:flex;flex-direction:column;gap:9px;padding:13px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:13.5px;font-weight:650;margin-top:2px}.count{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}.bar{height:5px;border-radius:99px;background:var(--track);overflow:hidden}.bar i{display:block;width:0;height:100%;background:var(--accent);border-radius:inherit;transition:width .2s ease}.list{display:flex;min-height:70px;flex:1;flex-direction:column;gap:4px;overflow:auto}.task{display:flex;align-items:center;gap:8px;min-height:31px;padding:5px 7px;border:1px solid var(--border);border-radius:7px;background:var(--surface);cursor:pointer}.task input{width:14px;height:14px;margin:0;accent-color:var(--accent)}.task span{font-size:11px;line-height:1.35}.task.done span{color:var(--muted);text-decoration:line-through}.foot{display:flex;align-items:center;justify-content:space-between;gap:8px}.status{font-size:9.5px;color:var(--muted);min-height:13px}button{min-height:28px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--muted);font:inherit;font-size:10px;padding:4px 8px;cursor:pointer}button:hover{border-color:var(--accent);color:var(--fg)}button:focus-visible,.task input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:330px){.wrap{padding:10px}.task{padding:4px 6px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker" id="dateLabel">Today</div><div class="title" id="title">Routine checklist</div></div><div class="count" id="count">0 of 3</div></header>
+  <div class="bar" id="bar" role="progressbar" aria-label="Today's routine progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><i id="fill"></i></div>
+  <section class="list" id="list" aria-label="Today's routine"></section>
+  <div class="foot"><div class="status" id="status" aria-live="polite">Daily checks save only in this browser.</div><button id="reset" type="button">Clear today</button></div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#0f7b6c'),LABEL=String(c.label||'Routine checklist').slice(0,48),tasks=String(c.tasks||'Stretch||Read||Plan the day').split('||').map(function(x){return x.trim().slice(0,60);}).filter(Boolean).slice(0,12);
+  if(!tasks.length)tasks=['Stretch','Read','Plan the day'];
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;
+  function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'r'+(h>>>0).toString(36);}
+  var id=hash(LABEL+'|'+tasks.join('|')),KEY='blocksmith.routine-checklist.v1',store={routines:{}},today=dateKey(new Date()),done={};
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.routines)store=saved;}catch(e){}
+  function current(){var rec=store.routines&&store.routines[id];if(rec&&rec.date===today&&rec.done&&typeof rec.done==='object')done=rec.done;else done={};}
+  function save(){if(!store.routines)store.routines={};store.routines[id]={date:today,done:done};var ids=Object.keys(store.routines);while(ids.length>8){var old=ids.shift();if(old===id){ids.push(old);continue;}delete store.routines[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  function render(){var list=document.getElementById('list');while(list.firstChild)list.removeChild(list.firstChild);var complete=0;tasks.forEach(function(task,i){var label=document.createElement('label'),input=document.createElement('input'),span=document.createElement('span');label.className='task'+(done[i]?' done':'');input.type='checkbox';input.checked=!!done[i];input.setAttribute('aria-label',task);span.textContent=task;input.addEventListener('change',function(){if(input.checked)done[i]=true;else delete done[i];save();render();});label.appendChild(input);label.appendChild(span);list.appendChild(label);if(done[i])complete++;});var pct=Math.round(complete/tasks.length*100);document.getElementById('count').textContent=complete+' of '+tasks.length;document.getElementById('fill').style.width=pct+'%';document.getElementById('bar').setAttribute('aria-valuemax',String(tasks.length));document.getElementById('bar').setAttribute('aria-valuenow',String(complete));document.getElementById('status').textContent='Resets at the next local date. Saved in this browser.';}
+  function rollover(){var nowKey=dateKey(new Date());if(nowKey!==today){today=nowKey;done={};save();document.getElementById('dateLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'});render();}}
+  document.getElementById('reset').addEventListener('click',function(){done={};save();render();});
+  current();document.getElementById('dateLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'});render();setInterval(rollover,60000);
+})();
+</script>
+</body>
+</html>

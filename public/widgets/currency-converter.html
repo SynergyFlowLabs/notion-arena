@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Currency Converter</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#2383e2;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:200px;display:flex;flex-direction:column;gap:10px;padding:14px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:14px;font-weight:650;margin-top:2px}.pair{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.field{display:flex;flex-direction:column;gap:4px}.field label{font-size:10px;color:var(--muted);font-weight:600}.field input{height:34px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--fg);padding:5px 8px;font:inherit;font-size:13px;font-variant-numeric:tabular-nums}.field input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}.rate{display:flex;align-items:center;gap:8px}.rate .field{flex:1}.rate input{width:100%}.output{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:9px;text-align:center}.result{font-size:clamp(26px,8vw,40px);font-weight:650;letter-spacing:-.05em;color:var(--accent);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.equals{font-size:10px;color:var(--muted)}.note{font-size:9px;color:var(--muted);text-align:center;line-height:1.35}
+@media(max-width:340px){.wrap{padding:10px}.result{font-size:28px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Manual rate</div><div class="title" id="title">Currency converter</div></div><div class="pair" id="pair">USD to EUR</div></header>
+  <div class="field"><label id="amountLabel" for="amount">Amount in USD</label><input id="amount" type="number" min="0" step="0.01" value="100" /></div>
+  <section class="rate"><div class="field"><label id="rateLabel" for="rate">1 USD equals</label><input id="rate" type="number" min="0" step="0.000001" value="0.92" /></div><div style="padding-top:18px;font-size:10px;color:var(--muted)" id="toLabel">EUR</div></section>
+  <section class="output" aria-live="polite"><div class="equals" id="equation">100 USD × 0.92</div><div class="result" id="result">92 EUR</div></section>
+  <div class="note">Reference rate is manual and may be stale. This tool does not fetch live exchange rates or provide financial advice.</div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  function safeUnit(v,d){var s=String(v||d).trim().slice(0,8);return /^[A-Za-z0-9$€£¥₨]+$/.test(s)?s:d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#2383e2'),LABEL=String(c.label||'Currency converter').slice(0,48),FROM=safeUnit(c.from,'USD'),TO=safeUnit(c.to,'EUR');
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;document.getElementById('pair').textContent=FROM+' to '+TO;document.getElementById('amountLabel').textContent='Amount in '+FROM;document.getElementById('rateLabel').textContent='1 '+FROM+' equals';document.getElementById('toLabel').textContent=TO;
+  var amount=document.getElementById('amount'),rate=document.getElementById('rate'),amountValue=parseFloat(c.amount),rateValue=parseFloat(c.rate);amount.value=String(Math.max(0,isFinite(amountValue)?amountValue:100));rate.value=String(Math.max(0,isFinite(rateValue)?rateValue:0.92));
+  function fmt(n){return Number(n).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2});}
+  function paint(){var a=Math.max(0,parseFloat(amount.value)||0),r=Math.max(0,parseFloat(rate.value)||0),value=a*r;document.getElementById('equation').textContent=fmt(a)+' '+FROM+' × '+fmt(r);document.getElementById('result').textContent=fmt(value)+' '+TO;}
+  amount.addEventListener('input',paint);rate.addEventListener('input',paint);paint();
+})();
+</script>
+</body>
+</html>

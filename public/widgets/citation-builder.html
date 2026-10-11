@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Citation Builder</title>
+<style>
+:root{--bg:#fff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#6940a5;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}
+@media(prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:300px;display:flex;flex-direction:column;gap:8px;padding:13px;overflow:auto}.head{display:flex;align-items:center;justify-content:space-between;gap:8px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:650}.title{font-size:13.5px;font-weight:650;margin-top:2px}.top{display:grid;grid-template-columns:1fr 1fr;gap:6px}.field{display:flex;min-width:0;flex-direction:column;gap:3px}.field.full{grid-column:1/-1}.field label{font-size:9.5px;color:var(--muted);font-weight:600}.field input,.field select{height:29px;width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--fg);padding:4px 6px;font:inherit;font-size:10.5px}.field input:focus-visible,.field select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}.output-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px}.output-title{font-size:10px;font-weight:650}.note{font-size:8.5px;color:var(--muted);line-height:1.35}.citation{width:100%;min-height:70px;flex:1;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);padding:7px;font:10px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical}.citation:focus-visible{outline:2px solid var(--accent);outline-offset:1px}.controls{display:flex;align-items:center;gap:6px}.controls button{min-height:28px;border:1px solid var(--border);border-radius:7px;background:var(--surface);color:var(--fg);font:inherit;font-size:10px;padding:4px 8px;cursor:pointer}.controls button:hover{border-color:var(--accent)}.controls button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.status{min-height:12px;font-size:9px;color:var(--muted)}
+@media(max-width:330px){.wrap{padding:10px}.top{gap:4px}.field input,.field select{font-size:9.5px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body><main class="wrap">
+  <header class="head"><div><div class="kicker">Research notes</div><div class="title" id="title">Citation builder</div></div></header>
+  <section class="top">
+    <div class="field"><label for="style">Style</label><select id="style"><option value="apa">APA quick draft</option><option value="mla">MLA quick draft</option><option value="chicago">Chicago quick draft</option></select></div>
+    <div class="field"><label for="type">Source type</label><select id="type"><option value="book">Book</option><option value="article">Journal article</option><option value="website">Website</option></select></div>
+    <div class="field full"><label for="author">Author or organization</label><input id="author" placeholder="Family name, Initials" /></div>
+    <div class="field full"><label for="sourceTitle">Title</label><input id="sourceTitle" placeholder="Source title" /></div>
+    <div class="field"><label for="year">Year</label><input id="year" inputmode="numeric" maxlength="10" /></div>
+    <div class="field"><label for="container">Publisher, journal, or site</label><input id="container" /></div>
+    <div class="field full"><label for="details">Volume, issue, or page range</label><input id="details" /></div>
+    <div class="field full"><label for="url">DOI or URL</label><input id="url" type="url" /></div>
+    <div class="field"><label for="accessed">Accessed date</label><input id="accessed" type="date" /></div>
+  </section>
+  <div class="output-head"><span class="output-title">Formatted draft</span><span class="note">Verify capitalization and punctuation with your required style guide.</span></div>
+  <textarea class="citation" id="citation" readonly aria-label="Formatted citation"></textarea>
+  <div class="controls"><button id="copy" type="button">Copy citation</button><button id="clear" type="button">Clear fields</button><span class="status" id="status" aria-live="polite">Nothing is saved or sent.</span></div>
+</main>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];q.forEach(function(v,k){c[k]=v;});
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#6940a5'),LABEL=String(c.label||'Citation builder').slice(0,48);
+  document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;
+  var ids=['style','type','author','sourceTitle','year','container','details','url','accessed'],citation=document.getElementById('citation'),styleInput=document.getElementById('style'),typeInput=document.getElementById('type');
+  if(['apa','mla','chicago'].indexOf(String(c.style||'apa'))>-1)styleInput.value=String(c.style||'apa');
+  if(['book','article','website'].indexOf(String(c.sourceType||'book'))>-1)typeInput.value=String(c.sourceType||'book');
+  function val(id){return document.getElementById(id).value.trim();}
+  function build(){
+    var style=val('style'),type=val('type'),author=val('author'),title=val('sourceTitle'),year=val('year'),container=val('container'),details=val('details'),url=val('url'),accessed=val('accessed');
+    if(!author&&!title){citation.value='';return;}
+    var date=year||'n.d.',text='';
+    if(style==='apa'){
+      if(type==='book')text=(author?author+'. ':'')+'('+date+'). '+(title||'[Title]')+'. '+(container?container+'.':'');
+      else if(type==='article')text=(author?author+'. ':'')+'('+date+'). '+(title||'[Title]')+'. '+(container||'[Journal]')+(details?', '+details:'')+'.';
+      else text=(author?author+'. ':'')+'('+date+'). '+(title||'[Title]')+'. '+(container||'')+(container?'. ':' ')+(url||'');
+      if(url&&type!=='website')text+=' '+url;
+    }else if(style==='mla'){
+      if(type==='book')text=(author?author+'. ':'')+(title?'*'+title+'*. ':'[Title]. ')+(container?container+', ':'')+date+'.';
+      else if(type==='article')text=(author?author+'. ':'')+'"'+(title||'[Title]')+'." '+(container?'*'+container+'*, ':'')+(details?details+', ':'')+date+'.'+(url?' '+url:'');
+      else text=(author?author+'. ':'')+'"'+(title||'[Title]')+'." '+(container?'*'+container+'*, ':'')+date+'.'+(url?' '+url:'')+(accessed?' Accessed '+accessed+'.':'');
+    }else{
+      if(type==='book')text=(author?author+'. ':'')+'*'+(title||'[Title]')+'*. '+(container?container+', ':'')+date+'.';
+      else if(type==='article')text=(author?author+'. ':'')+'"'+(title||'[Title]')+'." *'+(container||'[Journal]')+'*'+(details?', '+details:'')+' ('+date+').'+(url?' '+url:'');
+      else text=(author?author+'. ':'')+'"'+(title||'[Title]')+'." '+(container||'')+(container?'. ':'')+date+'.'+(url?' '+url:'')+(accessed?' Accessed '+accessed+'.':'');
+    }
+    citation.value=text.replace(/\s+/g,' ').trim();
+  }
+  ids.forEach(function(id){document.getElementById(id).addEventListener('input',build);document.getElementById(id).addEventListener('change',build);});
+  document.getElementById('copy').addEventListener('click',function(){if(!citation.value){document.getElementById('status').textContent='Add a title first.';return;}try{if(typeof navigator!=='undefined'&&navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(citation.value).then(function(){document.getElementById('status').textContent='Copied. Nothing is saved or sent.';},function(){citation.focus();citation.select();document.getElementById('status').textContent='Citation selected. Copy it with your device command.';});else{citation.focus();citation.select();document.getElementById('status').textContent='Citation selected. Copy it with your device command.';}}catch(e){citation.focus();citation.select();document.getElementById('status').textContent='Citation selected. Copy it with your device command.';}});
+  document.getElementById('clear').addEventListener('click',function(){ids.slice(2).forEach(function(id){document.getElementById(id).value='';});build();document.getElementById('status').textContent='Fields cleared.';});
+  build();
+})();
+</script>
+</body>
+</html>

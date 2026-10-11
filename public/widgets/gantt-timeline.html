@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gantt Timeline</title>
+<style>
+:root{--bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#d9730d;--grid:#f0efed;--today:#e03e3e;
+--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--grid:#232323;--today:#ff7369}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--grid:#232323;--today:#ff7369}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:12.5px;-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;display:flex;flex-direction:column;padding:11px 13px;gap:6px;overflow:hidden}
+.head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.title{font-size:13px;font-weight:600}
+.legend{display:flex;gap:9px;align-items:center;font-size:10.5px;color:var(--muted);flex-wrap:wrap}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:-1px}
+.scroller{flex:1;min-height:0;overflow:auto;border:1px solid var(--border);border-radius:10px;background:var(--bg)}
+.grid{position:relative;min-width:620px}
+.axis{position:sticky;top:0;z-index:3;background:var(--surface);border-bottom:1px solid var(--border);display:flex;height:26px}
+.axis .names{flex:0 0 var(--labelw,150px);border-right:1px solid var(--border);display:flex;align-items:center;padding:0 8px;font-size:10px;
+text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.axis .ticks{flex:1;position:relative}
+.axis .tick{position:absolute;top:0;bottom:0;border-left:1px solid var(--border);padding:0 5px;font-size:10px;color:var(--muted);
+display:flex;align-items:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rows{position:relative}
+.row{display:flex;height:32px;border-bottom:1px solid var(--grid);position:relative}
+.row:last-child{border-bottom:none}
+.row.group{background:var(--surface)}
+.row.group .names{font-weight:650;font-size:11.5px;text-transform:none;letter-spacing:0;color:var(--fg)}
+.names{flex:0 0 var(--labelw,150px);border-right:1px solid var(--border);display:flex;align-items:center;gap:5px;padding:0 8px;
+font-size:11.5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;position:sticky;left:0;background:inherit;z-index:2}
+.row .names{background:var(--bg)}
+.row.group .names{background:var(--surface)}
+.track{flex:1;position:relative}
+.vline{position:absolute;top:0;bottom:0;border-left:1px solid var(--grid)}
+.bar{position:absolute;top:7px;height:18px;border-radius:5px;background:color-mix(in oklab,var(--c,var(--accent)) 26%,transparent);
+border:1px solid color-mix(in oklab,var(--c,var(--accent)) 55%,transparent);overflow:hidden;cursor:default;min-width:4px}
+.bar .fill{position:absolute;left:0;top:0;bottom:0;background:var(--c,var(--accent));opacity:.85}
+.bar .cap{position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;font-size:10px;font-weight:600;color:var(--fg);
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis;mix-blend-mode:normal}
+.bar.done{opacity:.6}
+.bar.late{border-color:var(--today);box-shadow:0 0 0 1px color-mix(in oklab,var(--today) 30%,transparent)}
+.today{position:absolute;top:0;bottom:0;width:0;border-left:1.5px solid var(--today);z-index:2;pointer-events:none}
+.today::before{content:"Today";position:absolute;top:2px;left:3px;font-size:9px;font-weight:700;color:var(--today);text-transform:uppercase;letter-spacing:.05em}
+.dep{position:absolute;pointer-events:none;z-index:1}
+.dep path{fill:none;stroke:var(--muted);stroke-width:1.2;opacity:.55;marker-end:url(#ah)}
+.milestone{position:absolute;top:9px;width:14px;height:14px;background:var(--c,var(--accent));transform:rotate(45deg);border-radius:2px}
+.foot{font-size:10.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+@media (max-width:520px){.wrap{padding:9px}.grid{min-width:520px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="title" id="title">Project timeline</div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="scroller"><div class="grid" id="grid"></div></div>
+  <div class="foot"><span id="range"></span><span id="stats"></span></div>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function bool(k,d){var v=c[k];return v===undefined?d:(v===true||v==='true'||v==='1');}
+
+  var ACCENT=c.accent||'#d9730d';
+  if(c.theme)document.documentElement.setAttribute('data-theme',c.theme);
+  document.documentElement.style.setProperty('--accent',ACCENT);
+  if(c.title)document.getElementById('title').textContent=c.title;
+
+  function d(s){var x=new Date(String(s).length===10?String(s)+'T00:00:00':String(s));return isNaN(x)?null:x;}
+  function iso(x){return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');}
+  function addDays(x,n){return new Date(x.getTime()+n*864e5);}
+
+  var today=new Date();today=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+  var DEMO=(function(){
+    var s=addDays(today,-14);
+    function at(off,len){return [iso(addDays(s,off)),iso(addDays(s,off+len))];}
+    var t=[
+      {name:'Discovery',group:'Plan',progress:100},
+      {name:'Stakeholder interviews',group:'Plan',progress:100},
+      {name:'Scope & estimate',group:'Plan',progress:80},
+      {name:'Design system',group:'Build',progress:55},
+      {name:'Core flows',group:'Build',progress:35},
+      {name:'Integrations',group:'Build',progress:10,dependsOn:'Core flows'},
+      {name:'Beta with 5 clients',group:'Launch',progress:0,dependsOn:'Core flows'},
+      {name:'Public launch',group:'Launch',progress:0,milestone:true,dependsOn:'Beta with 5 clients'}
+    ];
+    var spans=[at(0,7),at(3,8),at(9,6),at(12,16),at(20,22),at(30,14),at(40,12),at(54,0)];
+    t.forEach(function(x,i){x.start=spans[i][0];x.end=spans[i][1];});
+    var colors={Plan:'#2383e2',Build:'#6940a5',Launch:'#0f7b6c'};
+    t.forEach(function(x){x.color=colors[x.group];});
+    return t;
+  })();
+
+  var tasks=DEMO;
+  if(c.data){
+    try{
+      var parsed=JSON.parse(decodeURIComponent(String(c.data)));
+      if(Array.isArray(parsed)&&parsed.length)tasks=parsed;
+    }catch(e){}
+  }
+  tasks=tasks.filter(function(t){return t.name;}).map(function(t){
+    var st=d(t.start),en=d(t.end||t.start);
+    if(!st)st=today;if(!en||en<st)en=st;
+    return {name:String(t.name),group:t.group||'',start:st,end:en,
+      progress:Math.max(0,Math.min(100,parseFloat(t.progress)||0)),
+      color:t.color||ACCENT,milestone:!!t.milestone,dependsOn:t.dependsOn||null};
+  });
+
+  var groups=[],byGroup={};
+  tasks.forEach(function(t){
+    var g=t.group||'';
+    if(!byGroup[g]){byGroup[g]=[];groups.push(g);}
+    byGroup[g].push(t);
+  });
+
+  var min=tasks.reduce(function(a,t){return t.start<a?t.start:a;},tasks[0]?tasks[0].start:today);
+  var max=tasks.reduce(function(a,t){return t.end>a?t.end:a;},tasks[0]?tasks[0].end:today);
+  min=addDays(min,-3);max=addDays(max,4);
+  var days=Math.max(1,Math.round((max-min)/864e5));
+
+  var LABELW=150, TRACK=Math.max(460,days*16);
+  var grid=document.getElementById('grid');
+  grid.style.setProperty('--labelw',LABELW+'px');
+  grid.style.minWidth=(LABELW+TRACK)+'px';
+
+  function x(date){return ((date-min)/864e5)*(TRACK/days);}
+
+  // axis
+  var ticks=[];
+  var step=days<=45?7:days<=120?14:30;
+  var cur=new Date(min);
+  cur.setDate(cur.getDate()+(step-(cur.getDay()%step||step))%step||0);
+  var i=0;
+  while(cur<=max&&i<200){
+    ticks.push(new Date(cur));cur=addDays(cur,step);i++;
+  }
+  if(!ticks.length)ticks=[min];
+
+  var axisHtml='<div class="axis"><div class="names">Task</div><div class="ticks">';
+  ticks.forEach(function(t){
+    axisHtml+='<div class="tick" style="left:'+x(t).toFixed(1)+'px">'+t.toLocaleDateString(undefined,{month:'short',day:'numeric'})+'</div>';
+  });
+  axisHtml+='</div></div>';
+
+  var rowsHtml='<div class="rows">';
+  var vlines='';
+  ticks.forEach(function(t){vlines+='<div class="vline" style="left:'+x(t).toFixed(1)+'px"></div>';});
+
+  groups.forEach(function(g){
+    if(g){rowsHtml+='<div class="row group"><div class="names">'+g.replace(/[<>&]/g,'')+'</div><div class="track">'+vlines+'</div></div>';}
+    byGroup[g].forEach(function(t,idx){
+      var l=x(t.start),r=x(t.end);
+      var w=Math.max(t.milestone?0:r-l,2);
+      var late=!t.milestone&&t.progress<100&&t.end<today;
+      var inner='';
+      if(t.milestone){
+        inner='<div class="milestone" style="left:'+(l-7).toFixed(1)+'px;--c:'+t.color+'" title="'+t.name+' · '+iso(t.start)+'"></div>';
+      }else{
+        inner='<div class="bar'+(t.progress>=100?' done':'')+(late?' late':'')+'" style="left:'+l.toFixed(1)+'px;width:'+w.toFixed(1)+'px;--c:'+t.color+'" '+
+          'title="'+t.name+' · '+iso(t.start)+' → '+iso(t.end)+' · '+t.progress+'%'+(late?' · overdue':'')+'">'+
+          '<div class="fill" style="width:'+t.progress+'%"></div>'+
+          '<div class="cap">'+(w>52?t.name.replace(/[<>&]/g,''):'')+'</div></div>';
+      }
+      rowsHtml+='<div class="row" data-task="'+idx+'"><div class="names" title="'+t.name.replace(/"/g,'')+'">'+
+        '<span style="width:6px;height:6px;border-radius:2px;background:'+t.color+';flex:0 0 auto"></span>'+
+        t.name.replace(/[<>&]/g,'')+'</div><div class="track">'+vlines+inner+'</div></div>';
+    });
+  });
+  if(today>=min&&today<=max){
+    rowsHtml+='<div class="today" style="left:'+(LABELW+x(today)).toFixed(1)+'px"></div>';
+  }
+  rowsHtml+='</div>';
+  grid.innerHTML=axisHtml+rowsHtml;
+
+  // dependency arrows
+  var svgNS='http://www.w3.org/2000/svg';
+  var tracks=grid.querySelectorAll('.row[data-task] .track');
+  var flat=[];
+  groups.forEach(function(g){byGroup[g].forEach(function(t){flat.push(t);});});
+  var rows=grid.querySelectorAll('.row[data-task]');
+  flat.forEach(function(t,i){
+    if(!t.dependsOn)return;
+    var src=null,si=-1;
+    flat.forEach(function(o,j){if(o.name===t.dependsOn){src=o;si=j;}});
+    if(!src||si<0||!rows[si]||!rows[i])return;
+    var track=rows[i].querySelector('.track');
+    var x1=x(src.milestone?src.start:src.end), y1=rows[si].offsetTop-rows[i].offsetTop+16;
+    var x2=x(t.start), y2=16;
+    var svg=document.createElementNS(svgNS,'svg');
+    svg.setAttribute('class','dep');
+    var lo=Math.min(x1,x2)-20,hi=Math.max(x1,x2)+20,to=Math.min(y1,y2)-20,bo=Math.max(y1,y2)+20;
+    svg.setAttribute('viewBox',lo+' '+to+' '+(hi-lo)+' '+(bo-to));
+    svg.style.cssText='left:'+lo+'px;top:'+to+'px;width:'+(hi-lo)+'px;height:'+(bo-to)+'px';
+    var mid=(x1+x2)/2;
+    var p=document.createElementNS(svgNS,'path');
+    p.setAttribute('d','M'+x1+' '+y1+' C'+mid+' '+y1+', '+mid+' '+y2+', '+(x2-4)+' '+y2);
+    svg.appendChild(p);
+    track.appendChild(svg);
+  });
+
+  var legend=document.getElementById('legend');
+  legend.innerHTML=groups.filter(Boolean).map(function(g){
+    var col=(byGroup[g][0]||{}).color||ACCENT;
+    return '<span><i style="background:'+col+'"></i>'+g.replace(/[<>&]/g,'')+'</span>';
+  }).join('')+'<span><i style="background:var(--today)"></i>today</span>';
+
+  document.getElementById('range').textContent=iso(min)+' → '+iso(max)+' · '+days+' days';
+  var done=tasks.filter(function(t){return t.progress>=100;}).length;
+  var avg=tasks.length?Math.round(tasks.reduce(function(a,t){return a+t.progress;},0)/tasks.length):0;
+  document.getElementById('stats').textContent=done+'/'+tasks.length+' complete · '+avg+'% overall';
+})();
+</script>
+</body>
+</html>
