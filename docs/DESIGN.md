@@ -205,3 +205,74 @@ ARIA.
   grid. Pure SVG, no raster assets, identical on server and client.
 - **Logo mark** — an anvil-shaped block mid-assembly: two stacked planes and a
   struck corner. A component being forged into a page.
+
+---
+
+## Motion
+
+One orchestrated entrance on the hero, plus native View Transitions for the
+navigations that actually communicate something. No animation library — the
+browser's `document.startViewTransition`, via React's `<ViewTransition>`.
+
+Implemented in the skill's priority order (`react-view-transitions`):
+
+| Priority | Where | What it says |
+|---|---|---|
+| 1 shared element | catalog card preview ↔ detail page preview | "same thing, gone deeper" |
+| 2 Suspense reveal | `/components` skeleton → grid | "the data arrived" |
+| 4 state change | — | deliberately unused; nothing appears/disappears as a primary action |
+| 5 route change | directional slide for catalog↔detail, crossfade elsewhere | "going deeper" vs "moving sideways" |
+
+Directional slides are **reserved for hierarchical navigation**. Lateral moves
+between top-level sections get a quiet crossfade — sliding from Pricing to Docs
+would assert a spatial relationship that does not exist.
+
+Details that matter and are easy to get wrong:
+
+- The detail page's `<ViewTransition>` is **keyed on the slug**, because
+  same-route dynamic segments reconcile in place and would otherwise animate
+  nothing when you jump across the "pairs well with" row.
+- The list-side shared element carries `default="none"`, or every filter and
+  sort would crossfade all 25 cards at once.
+- Persistent chrome (header, footer, the catalog's sticky bar) is isolated with
+  `view-transition-name`. The header and bar use `backdrop-filter`, so their old
+  snapshots are hidden rather than cross-faded — that is the documented
+  workaround for the flash backdrop-filter causes.
+- The root is kept **live** (`::view-transition-old(root) { display: none }`) so
+  unnamed content keeps rendering and stays interactive instead of freezing
+  behind a stale snapshot.
+- **Deliberately skipped:** list-identity reorder animation. The catalog filters
+  25 items client-side and instantly; a 400ms move on every keystroke would read
+  as latency, not polish. The skill's own test is "if you can't articulate what
+  it communicates, don't add it."
+
+Everything collapses to zero under `prefers-reduced-motion`, and browsers
+without the API skip it entirely.
+
+## The OG image
+
+`app/opengraph-image.tsx` renders the share card at build time with
+`next/og`, so the counts and palette are read from the catalog and cannot drift
+— the same derive-don't-hardcode rule as the rest of the site. The metadata
+declares `twitter:card = summary_large_image`, so an image has to exist; before
+this it did not.
+
+Two satori constraints shaped it: it cannot decode WOFF2
+(`Unsupported OpenType signature wOF2`), hence the `.woff` siblings in `fonts/`,
+and it collapses the height of a multi-line text box, which is why the lede is
+two explicit single-line rows. The rendered output is checked visually in this
+repo's history — a picture beats a guess.
+
+## Branded assets, in use
+
+The first pass wrote `components/avatar.tsx` and never imported it, and left
+eleven icons with no call site. Both are now resolved:
+
+- **Avatars** render in the hero's Notion mockup, replacing four ad-hoc initial
+  spans, so workspace avatars come from the same generated system everywhere.
+- **Icons**: zero hand-rolled `<svg>` remain outside the icon set and the avatar
+  generator. Six icons that had no home were deleted — a speculative icon set is
+  a maintenance liability — and `IconChevron` came back when the recipe panel's
+  disclosure markers turned out to need it. The kind badge carries
+  `IconFrame` vs `IconDatabase`, because a widget is an iframe and a recipe is a
+  database, and that distinction is the whole product.
