@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Water Tracker</title>
+<style>
+:root{--bg:#ffffff;--fg:#37352f;--muted:#787774;--surface:#f7f7f5;--border:#e9e9e7;--accent:#0f7b6c;--track:#e9e9e7;--font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--track:#343434}
+@media (prefers-color-scheme:dark){html[data-theme="auto"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252525;--border:#2f2f2f;--track:#343434}}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+.wrap{height:100%;min-height:190px;display:flex;flex-direction:column;gap:12px;padding:14px;overflow:auto}
+.head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.kicker{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:650}
+.title{margin-top:2px;font-size:15px;font-weight:650;letter-spacing:-.02em}
+.date{font-size:11px;color:var(--muted);white-space:nowrap}
+.main{display:flex;align-items:center;justify-content:center;gap:18px;flex:1;min-height:0;flex-wrap:wrap}
+.ring{position:relative;width:116px;height:116px;flex:0 0 auto}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9}
+.ring .track{stroke:var(--track)}
+.ring .value{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .45s cubic-bezier(.16,1,.3,1)}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.count{font-size:31px;font-weight:650;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.unit{font-size:10.5px;color:var(--muted);max-width:82px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.details{display:flex;flex:1 1 170px;min-width:155px;max-width:310px;flex-direction:column;gap:8px}
+.goalrow{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.goal{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.percent{font-family:var(--font);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:6px;width:100%;overflow:hidden;border-radius:99px;background:var(--track)}
+.bar i{display:block;height:100%;width:0;border-radius:inherit;background:var(--accent);transition:width .35s ease}
+.status{min-height:16px;font-size:11.5px;color:var(--muted)}
+.status.done{color:var(--accent);font-weight:600}
+.actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+button{min-height:30px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit;font-size:11.5px;font-weight:550;padding:5px 9px;cursor:pointer;transition:border-color .15s,background .15s,opacity .15s}
+button:hover{border-color:color-mix(in oklab,var(--accent) 45%,var(--border))}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.primary{border-color:var(--accent);background:var(--accent);color:#fff}
+button.primary:hover{filter:brightness(.94)}
+.reset{margin-left:auto;color:var(--muted)}
+@media(max-width:380px){.wrap{padding:11px}.main{gap:12px}.ring{width:94px;height:94px}.count{font-size:26px}.details{min-width:140px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div><div class="kicker">Daily check-in</div><div class="title" id="title">Water today</div></div>
+    <div class="date" id="date"></div>
+  </header>
+  <main class="main">
+    <div class="ring" role="img" aria-label="Water goal progress">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="track" cx="60" cy="60" r="51"></circle>
+        <circle class="value" id="ring" cx="60" cy="60" r="51" stroke-dasharray="320.44" stroke-dashoffset="320.44"></circle>
+      </svg>
+      <div class="center"><span class="count" id="count">0</span><span class="unit" id="unit">glasses</span></div>
+    </div>
+    <section class="details" aria-label="Daily water goal">
+      <div class="goalrow"><span class="goal" id="goal">0 of 8 glasses</span><span class="percent" id="percent">0%</span></div>
+      <div class="bar" id="bar" role="progressbar" aria-label="Water intake goal" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><i id="fill"></i></div>
+      <div class="status" id="status" aria-live="polite">Log a drink to get started.</div>
+      <div class="actions">
+        <button class="primary" id="add" type="button" aria-label="Log one glass">+ Log one</button>
+        <button id="undo" type="button" aria-label="Undo one drink">Undo</button>
+        <button class="reset" id="reset" type="button">Reset</button>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+(function(){
+  var cfgEl=document.getElementById('bk-config'),base={};
+  try{base=cfgEl?JSON.parse(cfgEl.textContent||'{}'):{};}catch(e){}
+  var q=new URLSearchParams(location.search),c={};for(var k in base)c[k]=base[k];
+  q.forEach(function(v,k){c[k]=v;});
+  function num(k,d){var v=parseFloat(c[k]);return isFinite(v)?v:d;}
+  function safeColor(v,d){return /^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):d;}
+  var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto';
+  var ACCENT=safeColor(c.accent,'#0f7b6c');
+  var LABEL=String(c.label||'Water today').slice(0,60);
+  var UNIT=String(c.unit||'glasses').slice(0,18);
+  var GOAL=Math.max(1,Math.min(50,Math.round(num('goal',8))));
+  if(theme)document.documentElement.setAttribute('data-theme',theme);
+  document.documentElement.style.setProperty('--accent',ACCENT);
+
+  var KEY='blocksmith.water.v1',count=0,todayKey='';
+  function dateKey(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function load(){
+    var saved={};
+    try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){saved={};}
+    todayKey=dateKey();
+    count=saved.date===todayKey&&isFinite(Number(saved.count))?Math.max(0,Math.min(999,Math.floor(Number(saved.count)))):0;
+    save();
+  }
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({date:todayKey||dateKey(),count:count}));}catch(e){}}
+
+  var title=document.getElementById('title'),date=document.getElementById('date'),unit=document.getElementById('unit');
+  var goal=document.getElementById('goal'),percent=document.getElementById('percent'),bar=document.getElementById('bar');
+  var fill=document.getElementById('fill'),ring=document.getElementById('ring'),status=document.getElementById('status');
+  var countEl=document.getElementById('count'),undo=document.getElementById('undo');
+  var resetButton=document.getElementById('reset'),resetArmed=false,resetTimer=null;
+  var CIRC=2*Math.PI*51;
+  title.textContent=LABEL;unit.textContent=UNIT;
+  document.getElementById('add').setAttribute('aria-label','Log one '+UNIT);
+  date.textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+
+  function disarmReset(){
+    resetArmed=false;
+    if(resetTimer){clearTimeout(resetTimer);resetTimer=null;}
+    resetButton.textContent='Reset';
+    resetButton.setAttribute('aria-label',"Reset today's water count");
+  }
+  function syncToday(){
+    var current=dateKey();
+    if(current!==todayKey){todayKey=current;count=0;save();disarmReset();date.textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});}
+  }
+  function render(){
+    syncToday();
+    var ratio=count/GOAL,pct=Math.round(ratio*100),visual=Math.min(1,ratio);
+    countEl.textContent=String(count);
+    goal.textContent=count+' of '+GOAL+' '+UNIT;
+    percent.textContent=pct+'%';
+    bar.setAttribute('aria-valuemax',String(GOAL));bar.setAttribute('aria-valuenow',String(Math.min(count,GOAL)));
+    fill.style.width=(visual*100).toFixed(1)+'%';
+    ring.setAttribute('stroke-dashoffset',String(CIRC*(1-visual)));
+    status.className='status'+(count>=GOAL?' done':'');
+    status.textContent=count>=GOAL?'Daily goal reached. Nice work.':(GOAL-count)+' '+UNIT+' to go.';
+    undo.disabled=count===0;resetButton.disabled=count===0;
+  }
+  document.getElementById('add').addEventListener('click',function(){syncToday();disarmReset();count=Math.min(999,count+1);save();render();});
+  undo.addEventListener('click',function(){syncToday();disarmReset();count=Math.max(0,count-1);save();render();});
+  resetButton.addEventListener('click',function(){
+    syncToday();
+    if(count===0)return;
+    if(!resetArmed){
+      resetArmed=true;resetButton.textContent='Confirm reset';
+      resetButton.setAttribute('aria-label',"Confirm reset of today's water count");
+      status.className='status';status.textContent="Tap Confirm reset again to clear today's count.";
+      resetTimer=setTimeout(function(){disarmReset();render();},4000);return;
+    }
+    disarmReset();count=0;save();render();
+  });
+  load();render();setInterval(render,60000);
+})();
+</script>
+</body>
+</html>

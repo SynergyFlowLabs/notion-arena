@@ -183,7 +183,7 @@ export const CATEGORIES: Category[] = [
     slug: "docs",
     name: "Docs & Systems",
     emoji: "📚",
-    blurb: "Native block recipes: meeting notes, PARA, portals and wikis.",
+    blurb: "Knowledge systems, study aids, meeting notes, PARA, portals and wikis.",
     color: "yellow",
   tint: "var(--tag-bg-yellow)",
   },

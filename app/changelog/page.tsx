@@ -38,6 +38,19 @@ const ENTRIES: Entry[] = [
   {
     version: "1.0.0",
     date: "2026-10-11",
+    title: "Wellbeing and study widgets",
+    kind: "release",
+    body: [
+      "Water Intake Tracker: one-tap daily logging with a goal ring, undo, date rollover, and browser-local state.",
+      "Breathing Timer: box, 4 7 8, and equal-breathing patterns with pause, resume, reduced-motion support, and no sound.",
+      "Flashcards: configurable question-and-answer decks, active-recall progress, optional shuffle, and browser-local mastery state.",
+      "All three are self-contained, work offline, and do not write to Notion or sync local progress across devices.",
+    ],
+    components: ["water-tracker", "breathing-timer", "flashcards"],
+  },
+  {
+    version: "1.0.0",
+    date: "2026-10-11",
     title: "Visual components",
     kind: "release",
     body: [

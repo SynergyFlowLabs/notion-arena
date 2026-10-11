@@ -5,7 +5,7 @@ import { STATS } from "@/lib/catalog";
 import { CATEGORIES } from "@/lib/types";
 
 export const alt =
-  "Blocksmith: the component registry for Notion. 14 interactive widgets and 11 native database recipes.";
+  `Blocksmith: the component registry for Notion. ${STATS.widgets} interactive widgets and ${STATS.native} native database recipes.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

@@ -223,11 +223,11 @@ For healthcare specifically, Notion's HIPAA documentation says BAA eligibility r
 
 This section reflects the project catalog in `lib/catalog.ts`; it is not a claim that these are the only useful Notion components.
 
-**Embeddable widgets:** Pomodoro Focus Timer, Event Countdown, Flip Clock, KPI Strip, Goal Progress Ring, Habit Heatmap Grid, Mood & Energy Tracker, Mini Kanban, Eisenhower Matrix, Gantt Timeline, ROI Calculator, Org Chart, Mini Whiteboard, and Daily Quote Card.
+**Embeddable widgets:** Pomodoro Focus Timer, Breathing Timer, Event Countdown, Flip Clock, KPI Strip, Goal Progress Ring, Habit Heatmap Grid, Water Intake Tracker, Mood & Energy Tracker, Mini Kanban, Eisenhower Matrix, Gantt Timeline, ROI Calculator, Org Chart, Mini Whiteboard, Daily Quote Card, and Flashcards.
 
 **Native recipes:** CRM Pipeline, Sprint Tracker, OKR System, Meeting Notes OS, Content Calendar, Invoice Generator, PARA Life OS, Habit OS Native, Client Portal, Job Tracker, and Automation Starter.
 
-The web research points to adjacent families worth tracking as future research candidates, not committed roadmap items: weather and calendar utilities, water and routine tracking, breathing or ambient focus, flashcards and reading, data-connected finance displays, public intake forms, inventory and support workflows, and more vertical packs for education, creators, nonprofits, property, and operations. Native Notion features should remain the default where they already meet the need.
+The first implementation pass selected from this taxonomy is the local-first Water Intake Tracker, Breathing Timer, and Flashcards widgets. Their scope is deliberately narrow: offline browser interactions, no Notion data writes, and no claim to sync local progress. Future research candidates remain weather and calendar utilities, broader habit and routine tracking, ambient focus beyond paced breathing, spaced repetition and reading workflows, data-connected finance displays, public intake forms, inventory and support workflows, and more vertical packs for education, creators, nonprofits, property, and operations. Native Notion features should remain the default where they already meet the need.
 
 ## 8. Research sources
 

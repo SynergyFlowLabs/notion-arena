@@ -9,6 +9,7 @@
     "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "check:widgets": "node scripts/check-widgets.mjs",
     "audit:contrast": "node scripts/audit-contrast.mjs"
   },
   "dependencies": {

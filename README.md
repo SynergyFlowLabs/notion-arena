@@ -3,8 +3,8 @@
 **The component registry for Notion.** shadcn/ui's model: browse, configure,
 copy, own, install from code, applied to Notion dashboards.
 
-25 components: **14 interactive widgets** that run inside a Notion page, and
-**11 native database recipes** that install through the Notion API. 14 are free.
+28 components: **17 interactive widgets** that run inside a Notion page, and
+**11 native database recipes** that install through the Notion API. 17 are free.
 
 > Notion is a trademark of Notion Labs Inc. This is an independent project and is
 > not affiliated with or endorsed by Notion.
@@ -57,6 +57,7 @@ Node 22+. Next.js 16 (Turbopack), React 19, Tailwind v4, TypeScript.
 
 ```bash
 npx tsc --noEmit     # type-check
+npm run check:widgets # offline HTML widget contract checks
 npm run build        # production build
 ```
 
@@ -69,8 +70,8 @@ host, falling back to `http://localhost:3000`.
 ## Layout
 
 ```
-public/widgets/*.html      the products: 14 self-contained HTML files
-lib/catalog.ts             source of truth for all 25 components
+public/widgets/*.html      the products: 17 self-contained HTML files
+lib/catalog.ts             source of truth for all 28 components
 lib/types.ts               component/param types + the 8 categories
 lib/widget.ts              config coercion, injection, HTML rendering  (server)
 lib/widget-url.ts          URL builders                                (browser-safe)
@@ -155,8 +156,9 @@ Every widget in `public/widgets/` implements the same four rules. See
 3. **`theme` and `accent` on every widget.** `theme=auto|light|dark` sets
    `data-theme` on `<html>` and follows `prefers-color-scheme` when auto;
    `accent` writes `--accent`, with derived shades via `color-mix(in oklab, …)`.
-4. **Namespaced state** under `blocksmith.<slug>.v1`, wrapped in try/catch. Per
-   browser, never synced, which is why shared trackers are recipes.
+4. **Namespaced state, only when persisted.** Widgets that save browser state use
+   `blocksmith.<slug>.v1` and wrap storage access in try/catch. That state stays
+   in one browser and never syncs, so shared trackers belong in native recipes.
 
 Plus: `body { overflow: hidden }` with `.wrap` managing its own scroll (one
 scrollbar, not two), a `prefers-reduced-motion` escape hatch, and clipboard
