@@ -1,7 +1,7 @@
 {
-  "name": "blocksmith",
+  "name": "notion-arena",
   "version": "0.1.0",
-  "description": "Blocksmith — the component registry for Notion. 143 components: 132 widgets + 11 native recipes. Browse, configure, and install from your AI agent.",
+  "description": "Notion Arena — the component registry for Notion. 143 components: 132 widgets + 11 native recipes. Browse, configure, and install from your AI agent.",
   "author": {
     "name": "SynergyFlowLabs",
     "url": "https://github.com/SynergyFlowLabs/notion-components"
@@ -13,7 +13,7 @@
     "notion",
     "components",
     "widgets",
-    "blocksmith",
+    "notion-arena",
     "shadcn",
     "registry",
     "mcp",
@@ -21,15 +21,15 @@
     "productivity"
   ],
   "skills": [
-    "./skills/blocksmith/SKILL.md",
-    "./.claude/skills/blocksmith/SKILL.md"
+    "./skills/notion-arena/SKILL.md",
+    "./.claude/skills/notion-arena/SKILL.md"
   ],
   "mcpServers": {
-    "blocksmith": {
+    "notion-arena": {
       "command": "npx",
-      "args": ["-y", "blocksmith-mcp"],
+      "args": ["-y", "notion-arena-mcp"],
       "env": {
-        "BLOCKSMITH_SITE_URL": "${BLOCKSMITH_SITE_URL:-https://blocksmith.dev}"
+        "NOTION_ARENA_SITE_URL": "${NOTION_ARENA_SITE_URL:-https://notionarena.vercel.app}"
       }
     }
   }

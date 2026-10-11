@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Blocksmith MCP Server
+ * Notion Arena MCP Server
  * 
  * The component registry for Notion — exposed as MCP tools.
  * 
@@ -58,8 +58,8 @@ const catalogData = loadCatalog();
 const COMPONENTS: any[] = catalogData.components;
 const RECIPES: Record<string, any> = catalogData.recipes ?? {};
 
-const SITE_URL = process.env.BLOCKSMITH_SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://blocksmith.dev";
-const REGISTRY_BASE = process.env.BLOCKSMITH_REGISTRY_URL || `${SITE_URL.replace(/\/$/, "")}/r`;
+const SITE_URL = process.env.NOTION_ARENA_SITE_URL || process.env.BLOCKSMITH_SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://notionarena.vercel.app";
+const REGISTRY_BASE = process.env.NOTION_ARENA_REGISTRY_URL || process.env.BLOCKSMITH_REGISTRY_URL || `${SITE_URL.replace(/\/$/, "")}/r`;
 
 function absoluteUrl(p: string) {
   if (p.startsWith("http")) return p;
@@ -106,16 +106,16 @@ function buildConfig(widget: any, inputConfig: Record<string, any>) {
 }
 
 const server = new McpServer({
-  name: "blocksmith",
-  version: "0.1.0",
+  name: "notion-arena",
+  version: "0.2.0",
 });
 
 // --- Tool: list_components ---
 server.registerTool(
   "list_components",
   {
-    title: "List Blocksmith components",
-    description: "List all 131 Blocksmith components (132 widgets + 11 native recipes). Filter by category, kind (widget/native), tier (free/pro), or delivery channel. Returns slug, name, tagline, category, capabilities.",
+    title: "List Notion Arena components",
+    description: "List all 143 Notion Arena components (132 widgets + 11 native recipes). Filter by category, kind (widget/native), tier (free/pro), or delivery channel. Returns slug, name, tagline, category, capabilities.",
     inputSchema: {
       category: z.string().optional().describe("Filter by category: dashboards, time, trackers, planning, business, visuals, docs, automations"),
       kind: z.enum(["widget", "native"]).optional().describe("Filter by kind: widget (HTML embed) or native (Notion API recipe)"),
@@ -166,7 +166,7 @@ server.registerTool(
 server.registerTool(
   "search_components",
   {
-    title: "Search Blocksmith components",
+    title: "Search Notion Arena components",
     description: "Keyword search across name, tagline, description, tags, category. Use for 'find me a timer', 'CRM', 'habit tracker', etc.",
     inputSchema: {
       query: z.string().describe("Search query, e.g. 'pomodoro', 'budget', 'kanban', 'CRM pipeline'"),
@@ -226,7 +226,7 @@ server.registerTool(
   "get_component",
   {
     title: "Get component detail",
-    description: "Get full detail for a single Blocksmith component by slug. Includes params, features, useCases, capabilities, delivery, embed/download URLs, and recipe info for native components.",
+    description: "Get full detail for a single Notion Arena component by slug. Includes params, features, useCases, capabilities, delivery, embed/download URLs, and recipe info for native components.",
     inputSchema: {
       slug: z.string().describe("Component slug, e.g. 'pomodoro-timer', 'crm-pipeline', 'habit-grid'"),
     }
@@ -461,8 +461,6 @@ server.registerTool(
         };
       }
       
-      // Simulate planInstall lightly — we don't have full installer here, but we can approximate
-      // For full fidelity, client should POST to /api/install mode:plan
       return {
         content: [{
           type: "text",
@@ -505,7 +503,7 @@ server.registerTool(
     description: "Get shadcn-compatible registry JSON for a component. This is what GET /r/{name}.json returns, with file contents inlined. Use for CLI installs or to inspect the exact HTML/JSON that gets installed.",
     inputSchema: {
       slug: z.string().describe("Component slug"),
-      baseUrl: z.string().optional().describe("Override registry base URL, default from env BLOCKSMITH_REGISTRY_URL"),
+      baseUrl: z.string().optional().describe("Override registry base URL, default from env NOTION_ARENA_REGISTRY_URL"),
     }
   },
   async ({ slug, baseUrl }) => {
@@ -517,14 +515,13 @@ server.registerTool(
     const base = (baseUrl || REGISTRY_BASE).replace(/\/$/, "");
     const isWidget = c.kind === 'widget';
     
-    // Build minimal registry item (without file content, since we don't have file system access to public/widgets in npm package)
     const item = {
       $schema: "https://ui.shadcn.com/schema/registry-item.json",
       name: c.slug,
       type: c.kind === 'widget' ? 'registry:component' : 'registry:block',
       title: c.name,
       description: c.tagline,
-      author: "Blocksmith",
+      author: "Notion Arena",
       categories: [c.category],
       tags: [c.kind, c.tier, ...c.tags],
       meta: {
@@ -647,8 +644,8 @@ POST ${absoluteUrl('/api/install')}
 
 ### Via registry (shadcn CLI)
 components.json:
-{ "registries": { "@blocksmith": "${REGISTRY_BASE}/{name}.json" } }
-Then: npx shadcn add @blocksmith/${slug}
+{ "registries": { "@notion-arena": "${REGISTRY_BASE}/{name}.json" } }
+Then: npx shadcn add @notion-arena/${slug}
 
 Registry JSON: ${REGISTRY_BASE}/${slug}.json
 Docs: ${absoluteUrl(`/components/${slug}`)}
@@ -710,7 +707,7 @@ server.registerTool(
   "get_categories",
   {
     title: "List categories",
-    description: "List all 8 Blocksmith categories with counts",
+    description: "List all 8 Notion Arena categories with counts",
     inputSchema: {}
   },
   async () => {
@@ -750,8 +747,8 @@ server.registerTool(
 server.registerTool(
   "get_site_info",
   {
-    title: "Get Blocksmith site info",
-    description: "Get Blocksmith site info: registry endpoints, delivery channels, API limits, honesty policy",
+    title: "Get Notion Arena site info",
+    description: "Get Notion Arena site info: registry endpoints, delivery channels, API limits, honesty policy",
     inputSchema: {}
   },
   async () => {
@@ -759,7 +756,7 @@ server.registerTool(
       content: [{
         type: "text",
         text: JSON.stringify({
-          name: "Blocksmith",
+          name: "Notion Arena",
           tagline: "The component registry for Notion",
           description: "143 components: 132 embeddable widgets that run inside a Notion page, and 11 native database recipes that install through the Notion API. 132 free, 11 Pro.",
           stats: {
@@ -773,7 +770,7 @@ server.registerTool(
             index: `${REGISTRY_BASE}/index.json`,
             item: `${REGISTRY_BASE}/{name}.json`,
             schema: `${REGISTRY_BASE}/schema.json`,
-            componentsJson: `{ "registries": { "@blocksmith": "${REGISTRY_BASE}/{name}.json" } }`,
+            componentsJson: `{ "registries": { "@notion-arena": "${REGISTRY_BASE}/{name}.json" } }`,
           },
           endpoints: {
             embed: `${SITE_URL}/embed/{slug}?config`,
@@ -787,7 +784,7 @@ server.registerTool(
             api: "POST /api/install mode:api installs native recipe (databases, views, seed rows)"
           },
           limits: {
-            widgets: "Cannot read/write Notion data. Sandbox has no network. State is localStorage only (blocksmith.<slug>.v1), not shared. If workflow needs workspace records, use native recipe.",
+            widgets: "Cannot read/write Notion data. Sandbox has no network. State is localStorage only (notion-arena.<slug>.v1), not shared. If workflow needs workspace records, use native recipe.",
             recipes: "Two-pass install required for relations (data_source_id doesn't exist until DB created). Four real API gaps appear as manual[] steps: no button block type, no automation endpoint, no recurring-template endpoint, no synced-block duplicates."
           },
           docs: {
@@ -808,10 +805,10 @@ server.registerTool(
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error(`[blocksmith-mcp] Server started. ${COMPONENTS.length} components loaded. Site: ${SITE_URL} Registry: ${REGISTRY_BASE}`);
+  console.error(`[notion-arena-mcp] Server started. ${COMPONENTS.length} components loaded. Site: ${SITE_URL} Registry: ${REGISTRY_BASE}`);
 }
 
 main().catch((err) => {
-  console.error("[blocksmith-mcp] Fatal:", err);
+  console.error("[notion-arena-mcp] Fatal:", err);
   process.exit(1);
 });

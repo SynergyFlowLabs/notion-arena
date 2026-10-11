@@ -107,7 +107,7 @@ font-size:11px;line-height:16px;text-align:center;cursor:pointer;opacity:0}
   var shapes=[],redoStack=[],notes=[];
   var drawing=false,last=null,preview=null,pan={x:0,y:0},panning=false,panStart=null;
 
-  var KEY='blocksmith.whiteboard.v1';
+  var KEY='notion-arena.whiteboard.v1';
   try{
     var s=JSON.parse(localStorage.getItem(KEY)||'null');
     if(s&&typeof s==='object'){shapes=s.shapes||[];notes=s.notes||[];pan=s.pan||pan;}

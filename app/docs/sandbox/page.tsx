@@ -99,7 +99,7 @@ export default function SandboxPage() {
           The hosted embed reads its parameters from the query string. A
           downloaded HTML block cannot: <code>location.search</code> is empty
           inside the sandbox. So the configuration has to travel inside the file.
-          Every Blocksmith widget implements the same loader:
+          Every Notion Arena widget implements the same loader:
         </P>
         <Code
           lang="js"
@@ -152,9 +152,9 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true", "1"].includes(String(
           habit grid's checked squares, a kanban's card positions) use{" "}
           <code>localStorage</code> under a namespaced key:
         </P>
-        <Code lang="text" code={`blocksmith.pomodoro-timer.v1   → {"day":"2026-10-11","sessions":3,"minutes":75}
-blocksmith.habit-grid.v1       → {"2026-10-11":{"Read":1,"Run":0}}
-blocksmith.whiteboard.v1       → {"shapes":[…],"notes":[…],"pan":[0,0]}`} />
+        <Code lang="text" code={`notion-arena.pomodoro-timer.v1   → {"day":"2026-10-11","sessions":3,"minutes":75}
+notion-arena.habit-grid.v1       → {"2026-10-11":{"Read":1,"Run":0}}
+notion-arena.whiteboard.v1       → {"shapes":[…],"notes":[…],"pan":[0,0]}`} />
         <P>
           The <code>.v1</code> suffix is deliberate: it lets a widget migrate a
           stored shape without silently corrupting an older one.

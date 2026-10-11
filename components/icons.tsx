@@ -1,7 +1,7 @@
 import type { SVGProps } from "react";
 
 /**
- * Blocksmith icon set.
+ * Notion Arena icon set.
  *
  * One visual language, so the icons read as a family rather than a bag of
  * borrowed glyphs: 24px grid, 1.6px stroke, round caps and joins, drawn in
@@ -38,7 +38,7 @@ function Base({ size = 20, children, ...rest }: P & { children: React.ReactNode 
 /* ------------------------------------------------------------------ */
 
 /**
- * The Blocksmith mark: an anvil-shaped block mid-assembly. Two stacked
+ * The Notion Arena mark: an anvil-shaped block mid-assembly. Two stacked
  * planes and a struck corner : a component being forged into a page.
  */
 export function LogoMark({ size = 22, ...rest }: P) {

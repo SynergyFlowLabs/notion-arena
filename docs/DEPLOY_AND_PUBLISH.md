@@ -1,18 +1,18 @@
 # Deploy for Free + Publish MCP, Skill, Plugin
 
-> Complete guide to deploy Blocksmith site for free and publish its MCP server, skill, and plugin so AI-agent users can `npx` and `/plugin install` it.
+> Complete guide to deploy Notion Arena site for free and publish its MCP server, skill, and plugin so AI-agent users can `npx` and `/plugin install` it.
 
 ---
 
 ## Part 1 — Deploy the Site for Free
 
-Blocksmith is a Next.js 16 app (App Router, API routes, Turbopack). It needs **server rendering** for `/embed/[slug]`, `/api/widget/[slug]`, `/api/install`, `/r/[name]`. So **static export (GitHub Pages) won't work** — you need a platform that runs Node functions.
+Notion Arena is a Next.js 16 app (App Router, API routes, Turbopack). It needs **server rendering** for `/embed/[slug]`, `/api/widget/[slug]`, `/api/install`, `/r/[name]`. So **static export (GitHub Pages) won't work** — you need a platform that runs Node functions.
 
 ### Best free option: Vercel (made for Next.js)
 
 **Why:** Zero config for Next.js, 100GB bandwidth free, 100k function invocations, preview deploys, global CDN, free `*.vercel.app` domain, automatic HTTPS, env vars, and `NEXT_PUBLIC_SITE_URL` support. [1](https://dev.to/joodi/free-nextjs-hosting-providers-in-2025-pros-and-cons-2a0e)
 
-**Cost 2026:** Hobby = $0 (1 user, 100GB bandwidth, 6000 build minutes). Pro = $20/seat. For Blocksmith (no DB, no heavy compute), Hobby is enough for thousands of users. [2](https://temps.sh/blog/nextjs-deployment-cost-calculator)
+**Cost 2026:** Hobby = $0 (1 user, 100GB bandwidth, 6000 build minutes). Pro = $20/seat. For Notion Arena (no DB, no heavy compute), Hobby is enough for thousands of users. [2](https://temps.sh/blog/nextjs-deployment-cost-calculator)
 
 #### Deploy via Vercel Dashboard (no CLI, 2 minutes)
 
@@ -53,17 +53,17 @@ vercel --prod
 
 Vercel free includes free `*.vercel.app` and you can add custom domain free (you pay domain registrar, Vercel SSL free):
 
-- Vercel Dashboard → Project → Settings → Domains → Add `blocksmith.dev` or `notion.yourdomain.com`
+- Vercel Dashboard → Project → Settings → Domains → Add `notionarena.vercel.app` or `notion.yourdomain.com`
 - Add DNS CNAME/TXT as instructed
 - Vercel auto-issues Let's Encrypt cert
 - Update env var `NEXT_PUBLIC_SITE_URL=https://your-custom-domain.com` and redeploy
 
 #### After deploy, update MCP env
 
-Your MCP server defaults to `https://blocksmith.dev`. For self-hosted, users should override:
+Your MCP server defaults to `https://notionarena.vercel.app`. For self-hosted, users should override:
 
 ```bash
-claude mcp add --scope project blocksmith -- npx -y blocksmith-mcp -e BLOCKSMITH_SITE_URL=https://your-project.vercel.app
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp -e NOTION_ARENA_SITE_URL=https://your-project.vercel.app
 ```
 
 Or you can publish MCP with your URL baked in via `mcp/server.json` or `README`.
@@ -78,7 +78,7 @@ Or you can publish MCP with your URL baked in via `mcp/server.json` or `README`.
 | **Fly.io** | Free allowance ~3 small VMs | Docker | `fly launch`, `fly deploy` |
 | **Railway** | $5 free trial, then usage | Nixpacks | Easy but not forever free |
 
-**For Blocksmith, Vercel is simplest.** If you need Cloudflare for free unlimited bandwidth, do:
+**For Notion Arena, Vercel is simplest.** If you need Cloudflare for free unlimited bandwidth, do:
 
 ```bash
 npm i -D @cloudflare/next-on-pages
@@ -112,8 +112,8 @@ CMD ["npm", "run", "start"]
 ```
 
 ```bash
-docker build -t blocksmith .
-docker run -p 3000:3000 -e NEXT_PUBLIC_SITE_URL=https://your-domain.com blocksmith
+docker build -t notion-arena .
+docker run -p 3000:3000 -e NEXT_PUBLIC_SITE_URL=https://your-domain.com notion-arena
 ```
 
 Free VPS: Oracle Cloud Free (4 ARM cores, 24GB RAM forever), Hetzner CX11 ~€4/mo, or Fly.io free.
@@ -122,16 +122,16 @@ Free VPS: Oracle Cloud Free (4 ARM cores, 24GB RAM forever), Hetzner CX11 ~€4/
 
 ## Part 2 — Publish MCP Server to npm (free)
 
-MCP server is just an npm package that runs via stdio. Users install via `npx -y blocksmith-mcp`.
+MCP server is just an npm package that runs via stdio. Users install via `npx -y notion-arena-mcp`.
 
 ### Check name availability
 
 ```bash
-npm view blocksmith-mcp version
-# If 404, name is free. If exists, you need scoped name: @yourorg/blocksmith-mcp
+npm view notion-arena-mcp version
+# If 404, name is free. If exists, you need scoped name: @yourorg/notion-arena-mcp
 ```
 
-Our `mcp/package.json` uses `blocksmith-mcp` — if taken, rename to `@synergyflow/blocksmith-mcp` or `blocksmith-notion-mcp`.
+Our `mcp/package.json` uses `notion-arena-mcp` — if taken, rename to `@synergyflow/notion-arena-mcp` or `notion-arena-notion-mcp`.
 
 ### Publish steps
 
@@ -169,10 +169,10 @@ npm publish --access public
 
 6. **Verify**:
 ```bash
-npm view blocksmith-mcp
-npx -y blocksmith-mcp --help  # our server has no --help, but it will start and wait
+npm view notion-arena-mcp
+npx -y notion-arena-mcp --help  # our server has no --help, but it will start and wait
 # Test via MCP inspector:
-npx @modelcontextprotocol/inspector npx -y blocksmith-mcp
+npx @modelcontextprotocol/inspector npx -y notion-arena-mcp
 ```
 
 7. **Update `mcp/server.json` version** to match package.json version before MCP Registry publish.
@@ -182,16 +182,16 @@ npx @modelcontextprotocol/inspector npx -y blocksmith-mcp
 ```json
 // mcp/package.json
 {
-  "name": "@synergyflowlabs/blocksmith-mcp",
-  "bin": { "blocksmith-mcp": "./dist/index.js" }
+  "name": "@synergyflowlabs/notion-arena-mcp",
+  "bin": { "notion-arena-mcp": "./dist/index.js" }
 }
 ```
 
 Users then run:
 
 ```bash
-npx -y @synergyflowlabs/blocksmith-mcp
-claude mcp add --scope project blocksmith -- npx -y @synergyflowlabs/blocksmith-mcp
+npx -y @synergyflowlabs/notion-arena-mcp
+claude mcp add --scope project notion-arena -- npx -y @synergyflowlabs/notion-arena-mcp
 ```
 
 ### Automate via GitHub Actions (free)
@@ -252,20 +252,20 @@ sudo mv mcp-publisher /usr/local/bin/
 ```json
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.SynergyFlowLabs/blocksmith",
-  "description": "Blocksmith MCP — 143 components for Notion...",
+  "name": "io.github.SynergyFlowLabs/notion-arena",
+  "description": "Notion Arena MCP — 143 components for Notion...",
   "repository": { "url": "https://github.com/SynergyFlowLabs/notion-components", "source": "github" },
   "version": "0.2.0",
   "packages": [{
     "registryType": "npm",
-    "identifier": "blocksmith-mcp",
+    "identifier": "notion-arena-mcp",
     "version": "0.2.0",
     "transport": { "type": "stdio" }
   }]
 }
 ```
 
-- `name` must be namespaced: `io.github.<github-user>/<server-name>` → we use `io.github.SynergyFlowLabs/blocksmith`
+- `name` must be namespaced: `io.github.<github-user>/<server-name>` → we use `io.github.SynergyFlowLabs/notion-arena`
 - Must match GitHub OAuth user that publishes
 - `identifier` must be exact npm package name
 
@@ -283,10 +283,10 @@ mcp-publisher publish
 ```
 
 5. **Verify**:
-- https://registry.modelcontextprotocol.io → search `blocksmith`
-- API: `curl https://registry.modelcontextprotocol.io/v0/servers?search=blocksmith`
+- https://registry.modelcontextprotocol.io → search `notion-arena`
+- API: `curl https://registry.modelcontextprotocol.io/v0/servers?search=notion-arena`
 
-**For custom domain namespace** (`com.example/...`): verify via DNS TXT record instead of GitHub OAuth. For Blocksmith, `io.github` is easiest.
+**For custom domain namespace** (`com.example/...`): verify via DNS TXT record instead of GitHub OAuth. For Notion Arena, `io.github` is easiest.
 
 **Note:** Registry listing does NOT auto-install in Claude Desktop/Cursor yet (clients don't auto-discover). It improves SEO and future client integration. Primary install remains via `npx`.
 
@@ -303,16 +303,16 @@ skills.sh is open marketplace by Vercel, ~600k skills indexed, `npx skills add` 
 **No publish step.** Just push to GitHub main:
 
 ```bash
-git add skills/blocksmith/SKILL.md .claude/skills/blocksmith/SKILL.md
-git commit -m "feat: blocksmith skill 143 components"
+git add skills/notion-arena/SKILL.md .claude/skills/notion-arena/SKILL.md
+git commit -m "feat: notion-arena skill 143 components"
 git push origin main
 ```
 
 skills.sh auto-discovers `**/SKILL.md` via GitHub API. Users install:
 
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill blocksmith --agent claude-code --yes
-npx skills add SynergyFlowLabs/notion-components --skill blocksmith --agent '*' --yes  # all agents
+npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent claude-code --yes
+npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent '*' --yes  # all agents
 npx skills add SynergyFlowLabs/notion-components --list  # list available
 ```
 
@@ -322,7 +322,7 @@ npx skills add SynergyFlowLabs/notion-components --list  # list available
 
 ```bash
 npx skills add . --list
-# Should show: blocksmith — Use Blocksmith — the component registry for Notion...
+# Should show: notion-arena — Use Notion Arena — the component registry for Notion...
 ```
 
 ### Option B — Claude Code Plugin Marketplace (official, for Claude Code)
@@ -340,7 +340,7 @@ We already ship:
 ```bash
 # In Claude Code:
 /plugin marketplace add SynergyFlowLabs/notion-components
-/plugin install blocksmith@blocksmith-marketplace
+/plugin install notion-arena@notion-arena-marketplace
 ```
 
 This installs BOTH skill and MCP server in one command (because `plugin.json` defines both).
@@ -350,7 +350,7 @@ This installs BOTH skill and MCP server in one command (because `plugin.json` de
 ```bash
 /plugin marketplace add ./
 # Then
-/plugin install blocksmith@blocksmith-marketplace
+/plugin install notion-arena@notion-arena-marketplace
 ```
 
 **Validation:**
@@ -367,8 +367,8 @@ For Claude.ai web (not Claude Code):
 
 1. Zip the skill folder:
 ```bash
-cd skills/blocksmith
-zip -r blocksmith-skill.zip SKILL.md
+cd skills/notion-arena
+zip -r notion-arena-skill.zip SKILL.md
 # Or include assets if any
 ```
 
@@ -381,15 +381,15 @@ Tell users to copy file:
 
 ```bash
 # Project (travels with repo)
-mkdir -p .claude/skills/blocksmith
-curl -o .claude/skills/blocksmith/SKILL.md https://raw.githubusercontent.com/SynergyFlowLabs/notion-components/main/skills/blocksmith/SKILL.md
+mkdir -p .claude/skills/notion-arena
+curl -o .claude/skills/notion-arena/SKILL.md https://raw.githubusercontent.com/SynergyFlowLabs/notion-components/main/skills/notion-arena/SKILL.md
 
 # Personal (all projects)
-mkdir -p ~/.claude/skills/blocksmith
-curl -o ~/.claude/skills/blocksmith/SKILL.md https://raw.githubusercontent.com/SynergyFlowLabs/notion-components/main/skills/blocksmith/SKILL.md
+mkdir -p ~/.claude/skills/notion-arena
+curl -o ~/.claude/skills/notion-arena/SKILL.md https://raw.githubusercontent.com/SynergyFlowLabs/notion-components/main/skills/notion-arena/SKILL.md
 ```
 
-For Cursor/Windsurf: same, but path `.cursor/skills/blocksmith/` or use `npx skills add` with `--agent cursor`.
+For Cursor/Windsurf: same, but path `.cursor/skills/notion-arena/` or use `npx skills add` with `--agent cursor`.
 
 ---
 
@@ -399,10 +399,10 @@ We already bundle both in `.claude-plugin/plugin.json`:
 
 ```json
 {
-  "name": "blocksmith",
-  "skills": ["./skills/blocksmith/SKILL.md", "./.claude/skills/blocksmith/SKILL.md"],
+  "name": "notion-arena",
+  "skills": ["./skills/notion-arena/SKILL.md", "./.claude/skills/notion-arena/SKILL.md"],
   "mcpServers": {
-    "blocksmith": { "command": "npx", "args": ["-y", "blocksmith-mcp"] }
+    "notion-arena": { "command": "npx", "args": ["-y", "notion-arena-mcp"] }
   }
 }
 ```
@@ -411,7 +411,7 @@ Users get full agent-native experience in **one command**:
 
 ```bash
 /plugin marketplace add SynergyFlowLabs/notion-components
-/plugin install blocksmith@blocksmith-marketplace
+/plugin install notion-arena@notion-arena-marketplace
 # → installs skill + MCP server
 ```
 
@@ -488,9 +488,9 @@ Public repos get 2000 free Action minutes/month.
 - [ ] Test `/r/index.json` returns 143, `/embed/pomodoro-timer` works, `/api/install` plan works
 - [ ] (Optional) Add custom domain in Vercel → update env var
 - [ ] Publish MCP to npm: `cd mcp && npm publish --access public`
-- [ ] Test `npx -y blocksmith-mcp` + MCP inspector
+- [ ] Test `npx -y notion-arena-mcp` + MCP inspector
 - [ ] Publish MCP to MCP Registry: `mcp-publisher login github && mcp-publisher publish`
-- [ ] Skill: push `skills/blocksmith/SKILL.md` to main → test `npx skills add . --list`
+- [ ] Skill: push `skills/notion-arena/SKILL.md` to main → test `npx skills add . --list`
 - [ ] Plugin: ensure `.claude-plugin/plugin.json` + `marketplace.json` valid → test `/plugin marketplace add .` locally
 - [ ] Update README with deploy URL, MCP install, Skill install
 - [ ] Share install commands: Twitter, Notion communities, Vercel skills.sh
@@ -503,24 +503,24 @@ Public repos get 2000 free Action minutes/month.
 
 **MCP** (npm, free):
 ```bash
-claude mcp add --scope project blocksmith -- npx -y blocksmith-mcp
-# or scoped: npx -y @synergyflowlabs/blocksmith-mcp
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
+# or scoped: npx -y @synergyflowlabs/notion-arena-mcp
 ```
 
 **Skill** (skills.sh, free, cross-agent):
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill blocksmith --agent '*' --yes
+npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent '*' --yes
 ```
 
 **Plugin** (Claude Code, free, one command for both):
 ```bash
 /plugin marketplace add SynergyFlowLabs/notion-components
-/plugin install blocksmith@blocksmith-marketplace
+/plugin install notion-arena@notion-arena-marketplace
 ```
 
 **Registry** (shadcn, free):
 ```json
-{ "registries": { "@blocksmith": "https://your-project.vercel.app/r/{name}.json" } }
+{ "registries": { "@notion-arena": "https://your-project.vercel.app/r/{name}.json" } }
 ```
 
 All free, no server costs, no DB, no secrets in repo. Widgets are single HTML files with no dependencies, so bandwidth is tiny (5-22KB each).
@@ -530,7 +530,7 @@ All free, no server costs, no DB, no secrets in repo. Widgets are single HTML fi
 ## Links
 
 - Vercel Deploy: https://vercel.com/new
-- npm: https://www.npmjs.com/signup, https://www.npmjs.com/package/blocksmith-mcp
+- npm: https://www.npmjs.com/signup, https://www.npmjs.com/package/notion-arena-mcp
 - MCP Registry: https://github.com/modelcontextprotocol/registry, https://registry.modelcontextprotocol.io
 - skills.sh: https://skills.sh, https://github.com/vercel-labs/agent-skills
 - Claude Code Plugins: https://code.claude.com/docs/en/plugins, https://code.claude.com/docs/en/marketplaces

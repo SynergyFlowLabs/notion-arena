@@ -57,7 +57,7 @@ export function SiteFooter() {
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_repeat(4,minmax(0,1fr))]">
             {/* brand column */}
             <div className="max-w-sm">
-              <Link href="/" aria-label="Blocksmith home" className="inline-flex rounded-lg focus-visible:outline-offset-4">
+              <Link href="/" aria-label="Notion Arena home" className="inline-flex rounded-lg focus-visible:outline-offset-4">
                 <Logo inverted />
               </Link>
               <p className="mt-4 text-[14px] leading-[1.65] text-band-muted">
@@ -131,7 +131,7 @@ export function SiteFooter() {
 
           <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-[12.5px] leading-relaxed text-band-muted sm:flex-row sm:items-start sm:justify-between">
             <p className="max-w-xl">
-              © {new Date().getFullYear()} Blocksmith. Components ship under MIT
+              © {new Date().getFullYear()} Notion Arena. Components ship under MIT
               unless marked Pro. Not affiliated with Notion Labs, Inc. Notion is
               a trademark of Notion Labs, Inc.
             </p>

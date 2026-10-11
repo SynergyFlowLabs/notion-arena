@@ -71,7 +71,7 @@ padding:4px 6px;cursor:grab;font-size:12px;line-height:1.3}
     {id:'dele',name:'Delegate',sub:'Urgent · Not important',color:'var(--dele)'},
     {id:'drop',name:'Delete',sub:'Not urgent · Not important',color:'var(--drop)'}
   ];
-  var KEY='blocksmith.eisenhower.v1';
+  var KEY='notion-arena.eisenhower.v1';
   var DEFAULT={do:['Ship the proposal'],sched:['Draft Q4 roadmap','Read 20 pages'],dele:['Reply to status emails'],drop:[]};
   var state=DEFAULT;
   try{var s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object')state=s;}catch(e){}

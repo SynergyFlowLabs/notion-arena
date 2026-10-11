@@ -31,7 +31,7 @@ export function Logo({
             inverted ? "text-band-foreground" : "text-foreground"
           )}
         >
-          Blocksmith
+          Notion Arena
         </span>
       )}
     </span>
@@ -42,7 +42,7 @@ export function WordmarkLink({ inverted = false }: { inverted?: boolean }) {
   return (
     <Link
       href="/"
-      aria-label="Blocksmith home"
+      aria-label="Notion Arena home"
       className="rounded-lg focus-visible:outline-offset-4"
     >
       <Logo inverted={inverted} />

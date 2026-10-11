@@ -718,7 +718,7 @@ export const COMPONENTS: CatalogComponent[] = [
       "Log one unit, undo the last tap, or confirm a daily reset",
       "Circular and linear progress that caps at the configured goal",
       "Daily counter rolls over on the device's local date",
-      "Saved only in this browser under blocksmith.water.v1",
+      "Saved only in this browser under notion-arena.water.v1",
     ],
     useCases: [
       "A personal wellbeing dashboard",
@@ -1069,7 +1069,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Increment, decrement, add, and remove list items",
       "Restore the configured starting list at any time",
-      "Quantity changes persist locally under blocksmith.inventory.v1",
+      "Quantity changes persist locally under notion-arena.inventory.v1",
       "No cross-device sync or audited stock movement history",
     ],
     useCases: [
@@ -1367,7 +1367,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Reveal, then rate recall to schedule the next review",
       "Again returns in ten minutes; other ratings schedule in days",
-      "Deck schedule and review counts save under blocksmith.spaced-repetition.v1",
+      "Deck schedule and review counts save under notion-arena.spaced-repetition.v1",
       "Study progress stays in this browser and is not synced",
     ],
     useCases: [
@@ -1419,7 +1419,7 @@ export const COMPONENTS: CatalogComponent[] = [
       "Tap or press Enter to reveal each answer",
       "Mark known cards or send a card back for another review",
       "Optional deterministic shuffle and a built-in four-card sample deck",
-      "Deck progress and mastery are saved locally under blocksmith.flashcards.v1",
+      "Deck progress and mastery are saved locally under notion-arena.flashcards.v1",
     ],
     useCases: [
       "A study dashboard for vocabulary, concepts, or exam review",
@@ -1571,7 +1571,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Editable task list supplied as widget configuration",
       "Daily progress bar, reset control, and local-date rollover",
-      "Completion is stored in this browser under blocksmith.routine-checklist.v1",
+      "Completion is stored in this browser under notion-arena.routine-checklist.v1",
       "No shared history, streaks, or Notion sync",
     ],
     useCases: [
@@ -1887,7 +1887,7 @@ export const COMPONENTS: CatalogComponent[] = [
       "Add a short request and mark its priority",
       "Move tickets between open, working, blocked, and closed",
       "Remove individual tickets or clear closed items",
-      "Local-only persistence under blocksmith.ticket-queue.v1",
+      "Local-only persistence under notion-arena.ticket-queue.v1",
     ],
     useCases: [
       "A personal to-fix list or workshop demo",
@@ -1936,7 +1936,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Configure an initial equipment list and add items in the widget",
       "Check out or return an asset with an optional due date",
-      "Checkout state persists only in this browser under blocksmith.asset-checkout.v1",
+      "Checkout state persists only in this browser under notion-arena.asset-checkout.v1",
       "No shared assignments, reminders, permissions, or audit history",
     ],
     useCases: [
@@ -2042,7 +2042,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Add and remove monthly or yearly recurring costs with an optional renewal date",
       "Calculates monthly equivalents and a simple annual estimate",
-      "Entries persist only in this browser under blocksmith.subscription-tracker.v1",
+      "Entries persist only in this browser under notion-arena.subscription-tracker.v1",
       "No account connection, statement import, or cancellation alerts",
     ],
     useCases: [
@@ -2245,7 +2245,7 @@ export const COMPONENTS: CatalogComponent[] = [
     ],
     features: [
       "Seven editable day fields for a simple weekly plan",
-      "Changes persist only in this browser under blocksmith.meal-planner.v1",
+      "Changes persist only in this browser under notion-arena.meal-planner.v1",
       "Clear the current plan without affecting Notion data",
       "No recipe lookup, nutrition calculation, or dietary advice",
     ],
@@ -2296,7 +2296,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Add, check, and remove items with an optional starter list",
       "Clear purchased items or restore the configured list",
-      "State persists only in this browser under blocksmith.grocery-list.v1",
+      "State persists only in this browser under notion-arena.grocery-list.v1",
       "No store connection, shared sync, or purchase history outside this device",
     ],
     useCases: [
@@ -2345,7 +2345,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Add stops with an activity, local date, optional time, and place label",
       "Sorts the list chronologically and supports removing individual stops",
-      "Entries persist only in this browser under blocksmith.trip-itinerary.v1",
+      "Entries persist only in this browser under notion-arena.trip-itinerary.v1",
       "No maps, booking connections, or calendar integrations",
     ],
     useCases: [
@@ -2395,7 +2395,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Start, pause, resume, and save timed project sessions",
       "Optional hourly rate produces a rough local estimate",
-      "Up to 30 session entries persist under blocksmith.billable-time-tracker.v1",
+      "Up to 30 session entries persist under notion-arena.billable-time-tracker.v1",
       "No sync, invoice export, billing system, or audit history",
     ],
     useCases: [
@@ -2596,7 +2596,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Edit, complete, and remove daily routine tasks",
       "Completed states reset after the browser's local date changes",
-      "Task names stay in this browser under blocksmith.pet-care-checklist.v1",
+      "Task names stay in this browser under notion-arena.pet-care-checklist.v1",
       "No medication schedule, health assessment, or veterinary guidance",
     ],
     useCases: [
@@ -2744,7 +2744,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Add dated amounts with a manual category",
       "Shows the sum of entries in the current calendar month",
-      "Stores up to 100 entries under blocksmith.expense-tracker.v1",
+      "Stores up to 100 entries under notion-arena.expense-tracker.v1",
       "No bank connection, payment processing, or financial advice",
     ],
     useCases: [
@@ -2794,7 +2794,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "Set an editable target and log individual contributions",
       "Calculates saved amount, remaining amount, and capped progress percent",
-      "Entries persist only in this browser under blocksmith.savings-goal.v1",
+      "Entries persist only in this browser under notion-arena.savings-goal.v1",
       "No bank integration, transfer capability, or financial advice",
     ],
     useCases: [

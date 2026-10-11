@@ -5,7 +5,7 @@ import { RECIPES, planInstall } from "@/lib/recipes";
 export const metadata: Metadata = {
   title: "Notion API limits, cited",
   description:
-    "Every Notion API constraint that shapes a Blocksmith recipe: block nesting depth, children per request, rate limits, the missing button type, automations, recurring templates, dashboard layouts, and the two-pass data-source problem.",
+    "Every Notion API constraint that shapes a Notion Arena recipe: block nesting depth, children per request, rate limits, the missing button type, automations, recurring templates, dashboard layouts, and the two-pass data-source problem.",
 };
 
 const recipeCount = Object.keys(RECIPES).length;

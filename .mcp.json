@@ -1,10 +1,10 @@
 {
   "mcpServers": {
-    "blocksmith": {
+    "notion-arena": {
       "command": "node",
       "args": ["mcp/dist/index.js"],
       "env": {
-        "BLOCKSMITH_SITE_URL": "http://localhost:3000"
+        "NOTION_ARENA_SITE_URL": "http://localhost:3000"
       }
     }
   }

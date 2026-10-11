@@ -3,7 +3,7 @@ import { CATEGORIES, isWidget, type CatalogComponent, type WidgetComponent } fro
 import { absoluteUrl } from "./utils";
 import { getRecipe } from "./recipes";
 
-export const REGISTRY_NAME = "blocksmith";
+export const REGISTRY_NAME = "notion-arena";
 export const REGISTRY_HOMEPAGE = absoluteUrl("/");
 
 /**
@@ -23,7 +23,7 @@ const at = (base: string | undefined, path: string) => `${registryBase(base)}${p
  * A registry item in the shadcn/ui shape.
  *
  * shadcn items ship `files` with source code the CLI writes into your project.
- * Blocksmith items ship the same envelope, but `files` contain the artifacts
+ * Notion Arena items ship the same envelope, but `files` contain the artifacts
  * Notion actually consumes:
  *   • a `.html` file  → upload via the File Upload API, attach to an embed block
  *   • a `.json` file  → the Notion API payloads a recipe installs
@@ -33,7 +33,7 @@ const at = (base: string | undefined, path: string) => `${registryBase(base)}${p
  * MCP registry server, a `components.json` namespace entry : can address this
  * catalog without modification:
  *
- *   "registries": { "@blocksmith": "https://blocksmith.dev/r/{name}.json" }
+ *   "registries": { "@notion-arena": "https://notionarena.vercel.app/r/{name}.json" }
  */
 export interface RegistryItem {
   $schema: string;
@@ -80,7 +80,7 @@ export function buildRegistryItem(c: CatalogComponent, base?: string): RegistryI
     type: c.kind === "widget" ? "registry:component" : "registry:block",
     title: c.name,
     description: c.tagline,
-    author: "Blocksmith",
+    author: "Notion Arena",
     categories: [c.category],
     tags: [c.kind, c.tier, ...c.tags],
     meta: {

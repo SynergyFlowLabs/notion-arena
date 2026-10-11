@@ -7,7 +7,7 @@ import { PageTransition } from "@/components/page-transition";
 export const metadata: Metadata = {
   title: "Changelog",
   description:
-    "What changed in Blocksmith, and which Notion API version it targets. Every entry says what shipped and what it depends on.",
+    "What changed in Notion Arena, and which Notion API version it targets. Every entry says what shipped and what it depends on.",
 };
 
 type Entry = {
@@ -150,7 +150,7 @@ const ENTRIES: Entry[] = [
     title: "Visual components",
     kind: "release",
     body: [
-      "Whiteboard: pan, zoom, freehand, shapes, sticky notes, and SVG export. State persists locally under blocksmith.whiteboard.v1.",
+      "Whiteboard: pan, zoom, freehand, shapes, sticky notes, and SVG export. State persists locally under notion-arena.whiteboard.v1.",
       "Org chart: delimited-string data model, collapsible branches, JSON and SVG export.",
       "Both export through the clipboard and always log the payload as a fallback, because clipboard writes need a user gesture and some WebViews block them.",
     ],
@@ -230,7 +230,7 @@ const ENTRIES: Entry[] = [
       "HTML blocks become installable through the API: reserve a file upload, send the bytes, append an embed block referencing the upload id.",
       "POST /v1/views lands, making board groups, timeline dates, chart axes, calendar ranges and form questions creatable from code for the first time.",
       "heading_4 and tab blocks are added; position replaces after for child placement; notifications gain a silent mode; database objects gain a typed database_type.",
-      "This is the version every request in Blocksmith pins, and the reason native recipes can provision a workspace end to end rather than stopping at the databases.",
+      "This is the version every request in Notion Arena pins, and the reason native recipes can provision a workspace end to end rather than stopping at the databases.",
     ],
     dependency: "developers.notion.com/page/changelog",
   },

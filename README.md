@@ -1,4 +1,4 @@
-# Blocksmith
+# Notion Arena
 
 **The component registry for Notion.** shadcn/ui's model: browse, configure,
 copy, own, install from code, applied to Notion dashboards.
@@ -21,7 +21,7 @@ and no draggable card that is not a database row.
 The ecosystem's answers are hosted embed galleries, one-off paid block bundles, or
 app builders that live outside Notion. None publish a machine-readable manifest.
 
-Blocksmith publishes one.
+Notion Arena publishes one.
 
 See **[`docs/RESEARCH.md`](docs/RESEARCH.md)** for the full research that drove
 every design decision here, with sources.
@@ -49,31 +49,31 @@ no URL.
 
 ## For AI agents — MCP + Skill
 
-You work from your AI agent most of the time. Plug Blocksmith directly into Claude Code, Cursor, Windsurf, Claude Desktop.
+You work from your AI agent most of the time. Plug Notion Arena directly into Claude Code, Cursor, Windsurf, Claude Desktop.
 
 **MCP server** — gives your agent tools to list/search/configure/plan-install 143 components:
 
 ```bash
 # Claude Code (project scope)
-claude mcp add --scope project blocksmith -- npx -y blocksmith-mcp
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
 
 # Cursor — .cursor/mcp.json
 # Claude Desktop — claude_desktop_config.json
 # See docs/AGENT_SETUP.md for all clients
 ```
 
-**Skill** — teaches your agent the Blocksmith workflow, delivery channels, widget contract:
+**Skill** — teaches your agent the Notion Arena workflow, delivery channels, widget contract:
 
 ```bash
 # Via skills.sh (Vercel) — cross-agent
-npx skills add SynergyFlowLabs/notion-components --skill blocksmith
+npx skills add SynergyFlowLabs/notion-components --skill notion-arena
 
 # Via Claude Code plugin marketplace
 /plugin marketplace add SynergyFlowLabs/notion-components
-/plugin install blocksmith@blocksmith-marketplace
+/plugin install notion-arena@notion-arena-marketplace
 
 # Manual
-cp -r skills/blocksmith .claude/skills/blocksmith
+cp -r skills/notion-arena .claude/skills/notion-arena
 ```
 
 Once both are installed:
@@ -88,7 +88,7 @@ See **[`docs/AGENT_SETUP.md`](docs/AGENT_SETUP.md)** for MCP+Skill setup and **[
 
 **MCP tools**: `list_components`, `search_components`, `get_component`, `get_widget_schema`, `build_embed_url`, `plan_install`, `get_registry_item`, `get_install_guide`, `get_categories`, `get_site_info`
 
-**Skill**: `skills/blocksmith/SKILL.md` + `.claude/skills/blocksmith/SKILL.md` + `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
+**Skill**: `skills/notion-arena/SKILL.md` + `.claude/skills/notion-arena/SKILL.md` + `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
 
 ---
 
@@ -109,7 +109,7 @@ npm run build        # production build
 
 # MCP server
 npm run generate:mcp-catalog  # 143 components → mcp/src/data/catalog.json
-npm run build:mcp             # build blocksmith-mcp
+npm run build:mcp             # build notion-arena-mcp
 npm run dev:mcp               # run MCP server with tsx (stdio)
 ```
 
@@ -153,7 +153,7 @@ GET /r/schema.json         JSON Schema of every widget's parameters
 
 ```jsonc
 // mcp config / components.json
-{ "registries": { "@blocksmith": "https://your-host/r/{name}.json" } }
+{ "registries": { "@notion-arena": "https://your-host/r/{name}.json" } }
 ```
 
 ```bash
@@ -210,7 +210,7 @@ Every widget in `public/widgets/` implements the same four rules. See
    `data-theme` on `<html>` and follows `prefers-color-scheme` when auto;
    `accent` writes `--accent`, with derived shades via `color-mix(in oklab, …)`.
 4. **Namespaced state, only when persisted.** Widgets that save browser state use
-   `blocksmith.<slug>.v1` and wrap storage access in try/catch. That state stays
+   `notion-arena.<slug>.v1` and wrap storage access in try/catch. That state stays
    in one browser and never syncs, so shared trackers belong in native recipes.
 
 Plus: `body { overflow: hidden }` with `.wrap` managing its own scroll (one

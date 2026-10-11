@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { COMPONENTS } from "@/lib/catalog";
 import { CATEGORIES } from "@/lib/types";
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://blocksmith.app";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://notionarena.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

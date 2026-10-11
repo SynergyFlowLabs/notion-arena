@@ -10,7 +10,7 @@ import { IconAlert, IconArrowRight, IconCheck, IconClose, IconPlus } from "@/com
 export const metadata: Metadata = {
   title: "How it works",
   description:
-    "The three ways a Blocksmith component gets into a Notion page: hosted embed URLs, native HTML blocks via the File Upload API, and database recipes via the Notion API, including exactly where each one breaks.",
+    "The three ways a Notion Arena component gets into a Notion page: hosted embed URLs, native HTML blocks via the File Upload API, and database recipes via the Notion API, including exactly where each one breaks.",
 };
 
 const DECISION_ROWS = [
@@ -152,7 +152,7 @@ export default function HowItWorks() {
               {
                 t: "Copy the URL from any component page",
                 d: "The configurator writes every control into the query string as you change it, so the URL you copy is the URL you configured.",
-                code: "https://blocksmith.app/embed/pomodoro-timer?work=25&short=5&accent=%23e03e3e",
+                code: "https://notionarena.vercel.app/embed/pomodoro-timer?work=25&short=5&accent=%23e03e3e",
               },
               {
                 t: "In Notion, type /embed and press Enter",

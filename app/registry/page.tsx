@@ -91,9 +91,9 @@ export default async function RegistryPage() {
 
   const mcpConfig = `{
   "mcpServers": {
-    "blocksmith": {
+    "notion-arena": {
       "registries": {
-        "@blocksmith": "${origin}/r/{name}.json"
+        "@notion-arena": "${origin}/r/{name}.json"
       }
     }
   }
@@ -102,7 +102,7 @@ export default async function RegistryPage() {
   const componentsJson = `{
   "$schema": "https://ui.shadcn.com/schema.json",
   "registries": {
-    "@blocksmith": "${origin}/r/{name}.json"
+    "@notion-arena": "${origin}/r/{name}.json"
   }
 }`;
 

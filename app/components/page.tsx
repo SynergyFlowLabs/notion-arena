@@ -7,7 +7,7 @@ import { STATS } from "@/lib/catalog";
 export const metadata: Metadata = {
   title: "Components",
   description:
-    "Browse every Blocksmith component: interactive widgets that run inside a Notion page, and native database recipes that install through the Notion API.",
+    "Browse every Notion Arena component: interactive widgets that run inside a Notion page, and native database recipes that install through the Notion API.",
 };
 
 export default function ComponentsPage() {

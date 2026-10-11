@@ -1,10 +1,10 @@
-# Blocksmith MCP Server
+# Notion Arena MCP Server
 
 **The component registry for Notion, for your AI agent.**
 
 143 components: 132 embeddable widgets that run inside a Notion page, and 11 native database recipes that install through the Notion API.
 
-This MCP server lets AI coding agents (Claude Code, Cursor, Windsurf, etc.) browse, configure, and install Blocksmith components without leaving the conversation.
+This MCP server lets AI coding agents (Claude Code, Cursor, Windsurf, etc.) browse, configure, and install Notion Arena components without leaving the conversation.
 
 ## What it does
 
@@ -20,16 +20,19 @@ This MCP server lets AI coding agents (Claude Code, Cursor, Windsurf, etc.) brow
 
 ```bash
 # Project scope (recommended — travels with repo)
-claude mcp add --scope project blocksmith -- npx -y blocksmith-mcp
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
+
+# Or legacy name (still works)
+claude mcp add --scope project notion-arena -- npx -y blocksmith-mcp
 
 # Or global
-claude mcp add --scope user blocksmith -- npx -y blocksmith-mcp
+claude mcp add --scope user notion-arena -- npx -y notion-arena-mcp
 ```
 
 With custom site URL (self-hosted):
 
 ```bash
-claude mcp add --scope project blocksmith -- npx -y blocksmith-mcp -e BLOCKSMITH_SITE_URL=https://your-host.com
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp -e NOTION_ARENA_SITE_URL=https://your-host.com
 ```
 
 ### Claude Desktop
@@ -39,11 +42,11 @@ Edit `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "blocksmith": {
+    "notion-arena": {
       "command": "npx",
-      "args": ["-y", "blocksmith-mcp"],
+      "args": ["-y", "notion-arena-mcp"],
       "env": {
-        "BLOCKSMITH_SITE_URL": "https://blocksmith.dev"
+        "NOTION_ARENA_SITE_URL": "https://notionarena.vercel.app"
       }
     }
   }
@@ -60,11 +63,11 @@ Edit `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "blocksmith": {
+    "notion-arena": {
       "command": "npx",
-      "args": ["-y", "blocksmith-mcp"],
+      "args": ["-y", "notion-arena-mcp"],
       "env": {
-        "BLOCKSMITH_SITE_URL": "https://blocksmith.dev"
+        "NOTION_ARENA_SITE_URL": "https://notionarena.vercel.app"
       }
     }
   }
@@ -101,13 +104,13 @@ npx @modelcontextprotocol/mcpb pack
 
 ## Environment variables
 
-- `BLOCKSMITH_SITE_URL` — override site URL (default: `https://blocksmith.dev`)
-- `BLOCKSMITH_REGISTRY_URL` — override registry base (default: `{SITE_URL}/r`)
+- `NOTION_ARENA_SITE_URL` — override site URL (default: `https://notionarena.vercel.app`). Also supports legacy `BLOCKSMITH_SITE_URL`.
+- `NOTION_ARENA_REGISTRY_URL` — override registry base (default: `{SITE_URL}/r`). Also supports `BLOCKSMITH_REGISTRY_URL`.
 
 For local dev:
 
 ```bash
-BLOCKSMITH_SITE_URL=http://localhost:3000 npx blocksmith-mcp
+NOTION_ARENA_SITE_URL=http://localhost:3000 npx notion-arena-mcp
 ```
 
 ## Local development
@@ -128,22 +131,22 @@ npm run dev               # runs with tsx, stdio transport
 
 ## Registry compatibility
 
-Blocksmith is shadcn-compatible:
+Notion Arena is shadcn-compatible:
 
 ```json
 // components.json
 {
   "registries": {
-    "@blocksmith": "https://blocksmith.dev/r/{name}.json"
+    "@notion-arena": "https://notionarena.vercel.app/r/{name}.json"
   }
 }
 ```
 
 ```bash
-npx shadcn add @blocksmith/pomodoro-timer
+npx shadcn add @notion-arena/pomodoro-timer
 ```
 
-The MCP server respects the same registry URL via `BLOCKSMITH_REGISTRY_URL`.
+The MCP server respects the same registry URL via `NOTION_ARENA_REGISTRY_URL`.
 
 ## License
 

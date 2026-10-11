@@ -6,7 +6,7 @@ import { PageTransition } from "@/components/page-transition";
 export const metadata: Metadata = {
   title: "Privacy policy",
   description:
-    "What Blocksmith collects: no accounts for browsing, no analytics on widget pages, no storage of Notion integration tokens.",
+    "What Notion Arena collects: no accounts for browsing, no analytics on widget pages, no storage of Notion integration tokens.",
 };
 
 export default function PrivacyPage() {
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
         </ul>
         <p>
           What it can do is store data in your browser's <code>localStorage</code>,
-          under a key namespaced <code>blocksmith.&lt;component&gt;.v1</code>. That
+          under a key namespaced <code>notion-arena.&lt;component&gt;.v1</code>. That
           data stays on your device. It is not synced to teammates, not uploaded to
           us, and removed when you clear site data.
         </p>

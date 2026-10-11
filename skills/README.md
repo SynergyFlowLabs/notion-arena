@@ -1,23 +1,23 @@
-# Skills — Blocksmith
+# Skills — Notion Arena
 
-This directory contains distributable Agent Skills for Blocksmith.
+This directory contains distributable Agent Skills for Notion Arena.
 
 ## Available skills
 
-### `blocksmith`
+### `notion-arena`
 
 **The component registry for Notion — for your AI agent.**
 
-- **File**: `blocksmith/SKILL.md`
-- **Description**: Use Blocksmith to browse, configure, and install 143 Notion components (132 widgets + 11 native recipes)
+- **File**: `notion-arena/SKILL.md`
+- **Description**: Use Notion Arena to browse, configure, and install 143 Notion components (132 widgets + 11 native recipes)
 - **Triggers**: Notion widget, embed, HTML block, dashboard component, timer, tracker, kanban, CRM, "add to Notion", etc.
 
 **Install via skills.sh (Vercel):**
 
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill blocksmith --agent claude-code --yes
+npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent claude-code --yes
 # or all agents
-npx skills add SynergyFlowLabs/notion-components --skill blocksmith --agent '*' --yes
+npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent '*' --yes
 
 # list available
 npx skills add SynergyFlowLabs/notion-components --list
@@ -27,22 +27,22 @@ npx skills add SynergyFlowLabs/notion-components --list
 
 ```bash
 # Project (travels with repo)
-mkdir -p .claude/skills/blocksmith
-cp skills/blocksmith/SKILL.md .claude/skills/blocksmith/
+mkdir -p .claude/skills/notion-arena
+cp skills/notion-arena/SKILL.md .claude/skills/notion-arena/
 
 # Personal (all projects)
-mkdir -p ~/.claude/skills/blocksmith
-cp skills/blocksmith/SKILL.md ~/.claude/skills/blocksmith/
+mkdir -p ~/.claude/skills/notion-arena
+cp skills/notion-arena/SKILL.md ~/.claude/skills/notion-arena/
 ```
 
-Also available at `.claude/skills/blocksmith/SKILL.md` (same file, committed via .gitignore exception for Claude Code plugin marketplace).
+Also available at `.claude/skills/notion-arena/SKILL.md` (same file, committed via .gitignore exception for Claude Code plugin marketplace).
 
 ## How skills.sh discovers skills
 
 `skills.sh` (https://skills.sh) clones a GitHub repo and searches for `**/SKILL.md` files. It finds:
 
-- `skills/blocksmith/SKILL.md` ✅
-- `.claude/skills/blocksmith/SKILL.md` ✅
+- `skills/notion-arena/SKILL.md` ✅
+- `.claude/skills/notion-arena/SKILL.md` ✅
 
 Both are valid. We keep both so:
 - `skills/` is the conventional location for distributable skills (not ignored)
@@ -59,7 +59,7 @@ Install:
 
 ```bash
 /plugin marketplace add SynergyFlowLabs/notion-components
-/plugin install blocksmith@blocksmith-marketplace
+/plugin install notion-arena@notion-arena-marketplace
 ```
 
 ## Adding a new skill

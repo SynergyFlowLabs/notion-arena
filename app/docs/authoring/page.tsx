@@ -5,7 +5,7 @@ import { IconCheck } from "@/components/icons";
 export const metadata: Metadata = {
   title: "Authoring a widget",
   description:
-    "The four contracts every Blocksmith widget implements (configuration, theming, persistence and export) plus the checklist for adding one to the catalog.",
+    "The four contracts every Notion Arena widget implements (configuration, theming, persistence and export) plus the checklist for adding one to the catalog.",
 };
 
 export default function AuthoringPage() {
@@ -32,7 +32,7 @@ export default function AuthoringPage() {
             ["Zero external requests", "The sandbox has no network. A CDN link is a blank block, and a webfont is a layout shift on every load.", "Inline everything: CSS in <style>, JS in <script>, images as data: URIs."],
             ["Read config from two sources", "The /embed path has a URL; the downloaded path does not. One file must serve both.", 'The bk-config loader, in the same order, in every widget.'],
             ["Implement theme and accent", "A dashboard is re-skinned as a whole. Six widgets with six hardcoded palettes cannot be.", '<code>data-theme</code> on <code>&lt;html&gt;</code> plus <code>--accent</code>.'],
-            ["Namespace persisted state", "Two widgets on one page must not collide, and a schema change must not corrupt stored data.", '<code>blocksmith.&lt;slug&gt;.v1</code>'],
+            ["Namespace persisted state", "Two widgets on one page must not collide, and a schema change must not corrupt stored data.", '<code>notion-arena.&lt;slug&gt;.v1</code>'],
           ]}
         />
       </section>
@@ -111,7 +111,7 @@ export default function AuthoringPage() {
   document.documentElement.style.setProperty("--accent", str("accent", "#2383e2"));
 
   /* ---- 2. state --------------------------------------------- */
-  var KEY = "blocksmith.my-widget.v1";
+  var KEY = "notion-arena.my-widget.v1";
   var load = function () {
     try { return JSON.parse(localStorage.getItem(KEY) || "null") || {}; }
     catch (e) { return {}; }
@@ -184,7 +184,7 @@ export default function AuthoringPage() {
   } catch (err) {
     // Clipboard writes need a user gesture and are blocked in some WebViews.
     // Always leave the payload in the console as a fallback.
-    console.log("[blocksmith] " + label + "\\n" + payload);
+    console.log("[notion-arena] " + label + "\\n" + payload);
     flash("Copy blocked. Payload logged to the console");
   }
 }`}

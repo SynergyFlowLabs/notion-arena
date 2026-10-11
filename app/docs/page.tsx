@@ -8,7 +8,7 @@ import { IconArrowRight } from "@/components/icons";
 export const metadata: Metadata = {
   title: "Documentation",
   description:
-    "How Blocksmith components get into Notion, what the HTML block sandbox allows, and every Notion API limit that shapes a recipe, with citations.",
+    "How Notion Arena components get into Notion, what the HTML block sandbox allows, and every Notion API limit that shapes a recipe, with citations.",
 };
 
 const PAGES = [

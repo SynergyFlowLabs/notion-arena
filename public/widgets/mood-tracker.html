@@ -78,7 +78,7 @@ align-items:center;justify-content:center;gap:1px;cursor:pointer;position:relati
   var MOODS=[{v:1,e:'😞',t:'Awful'},{v:2,e:'🙁',t:'Low'},{v:3,e:'😐',t:'Okay'},{v:4,e:'🙂',t:'Good'},{v:5,e:'😄',t:'Great'}];
   var ENERGY=['spent','low','steady','high','buzzing'];
 
-  var KEY='blocksmith.mood.v1';
+  var KEY='notion-arena.mood.v1';
   var data={};
   try{data=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){data={};}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}

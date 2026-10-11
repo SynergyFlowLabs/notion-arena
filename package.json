@@ -1,8 +1,13 @@
 {
-  "name": "notion-components",
-  "version": "0.1.0",
+  "name": "notion-arena",
+  "version": "0.2.0",
   "private": true,
-  "description": "BlockKit — a component registry for Notion. Pre-built, embeddable widgets and native block recipes for Notion dashboards.",
+  "description": "Notion Arena — a component registry for Notion. 143 pre-built, embeddable widgets and native database recipes for Notion dashboards.",
+  "homepage": "https://notionarena.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SynergyFlowLabs/notion-components.git"
+  },
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",

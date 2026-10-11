@@ -1,11 +1,11 @@
 ---
-name: blocksmith
-description: Use Blocksmith — the component registry for Notion — to browse, configure, and install 131 Notion components (132 widgets + 11 native database recipes). Use when the user wants a Notion widget, embed, HTML block, dashboard component, timer, tracker, kanban, CRM, or to install anything into Notion via API.
+name: notion-arena
+description: Use Notion Arena — the component registry for Notion — to browse, configure, and install 143 Notion components (132 widgets + 11 native database recipes). Use when the user wants a Notion widget, embed, HTML block, dashboard component, timer, tracker, kanban, CRM, or to install anything into Notion via API.
 ---
 
-# Blocksmith — The Component Registry for Notion
+# Notion Arena — The Component Registry for Notion
 
-You are working with **Blocksmith**, a shadcn-style registry for Notion. It has 143 components: 132 embeddable widgets (single-file HTML, zero dependencies, offline-safe) and 11 native database recipes (real Notion databases installed via API).
+You are working with **Notion Arena**, a shadcn-style registry for Notion. It has 143 components: 132 embeddable widgets (single-file HTML, zero dependencies, offline-safe) and 11 native database recipes (real Notion databases installed via API).
 
 **Honesty policy**: No fabricated install counts. Widgets cannot read/write Notion data — Notion's HTML block sandbox has no network. If workflow needs workspace records, collaboration, permissions, use a native recipe.
 
@@ -15,11 +15,11 @@ You are working with **Blocksmith**, a shadcn-style registry for Notion. It has 
 - User wants to install something into Notion
 - User says "add to Notion", "Notion component", "Notion block"
 - User is building a Notion template, dashboard, or system
-- You see `blocksmith`, `notion-components`, or registry URLs like `/r/{name}.json`
+- You see `notion-arena`, `notion-components`, or registry URLs like `/r/{name}.json`
 
 ## Quick reference
 
-**Site**: `https://blocksmith.dev` (override with `BLOCKSMITH_SITE_URL` env or local `http://localhost:3000`)
+**Site**: `https://notionarena.vercel.app` (override with `NOTION_ARENA_SITE_URL` env or local `http://localhost:3000`)
 
 **Registry** (shadcn-compatible):
 ```
@@ -30,7 +30,7 @@ GET /r/schema.json         — JSON Schema for all widget params
 
 `components.json`:
 ```json
-{ "registries": { "@blocksmith": "https://blocksmith.dev/r/{name}.json" } }
+{ "registries": { "@notion-arena": "https://notionarena.vercel.app/r/{name}.json" } }
 ```
 
 **Three delivery channels**:
@@ -58,7 +58,7 @@ One HTML file serves both widget channels, so they cannot drift. Config comes fr
 
 ### 1. Discover
 
-If you have the Blocksmith MCP server (`blocksmith-mcp`), use its tools:
+If you have the Notion Arena MCP server (`notion-arena-mcp`), use its tools:
 - `list_components` — browse with filters
 - `search_components` — keyword search: "pomodoro", "CRM", "budget"
 - `get_categories` — list categories with counts
@@ -66,8 +66,8 @@ If you have the Blocksmith MCP server (`blocksmith-mcp`), use its tools:
 
 Without MCP, fetch the registry:
 ```bash
-curl https://blocksmith.dev/r/index.json | jq '.items[] | {name, title, categories}'
-curl https://blocksmith.dev/r/pomodoro-timer.json | jq
+curl https://notionarena.vercel.app/r/index.json | jq '.items[] | {name, title, categories}'
+curl https://notionarena.vercel.app/r/pomodoro-timer.json | jq
 ```
 
 Or read local catalog if in this repo: `lib/catalog.ts` is source of truth, `public/widgets/*.html` are the products.
@@ -78,7 +78,7 @@ MCP: `get_component` with slug, e.g. `pomodoro-timer`, `crm-pipeline`, `habit-gr
 
 Or:
 ```bash
-curl https://blocksmith.dev/r/pomodoro-timer.json
+curl https://notionarena.vercel.app/r/pomodoro-timer.json
 ```
 
 Detail includes:
@@ -98,7 +98,7 @@ Manual:
 
 Example:
 ```
-https://blocksmith.dev/embed/pomodoro-timer?work=25&short=5&long=15&rounds=4&label=Deep%20work&accent=%23e03e3e&theme=auto
+https://notionarena.vercel.app/embed/pomodoro-timer?work=25&short=5&long=15&rounds=4&label=Deep%20work&accent=%23e03e3e&theme=auto
 ```
 
 For HTML block, config is baked into file as:
@@ -110,7 +110,7 @@ Widget contract (every widget in `public/widgets/`):
 1. Zero external requests — no CDN, no webfont, no fetch, no @import
 2. Two config sources: baked-in `bk-config` script tag, then `URLSearchParams` on top
 3. `theme` and `accent` on every widget — `theme` sets `data-theme` on `<html>`, `accent` writes `--accent` with derived shades via `color-mix(in oklab, ...)`
-4. Namespaced state only when persisted: `blocksmith.<slug>.v1`, wrapped in try/catch, per-browser not synced
+4. Namespaced state only when persisted: `notion-arena.<slug>.v1`, wrapped in try/catch, per-browser not synced
 5. `body { overflow: hidden }` with `.wrap` managing scroll (one scrollbar), `prefers-reduced-motion` escape hatch, clipboard exports also `console.log`
 
 ### 4. Install
@@ -121,7 +121,7 @@ MCP: `build_embed_url` or `plan_install` with mode `embed`
 
 Manual:
 1. In Notion, type `/embed`
-2. Paste: `https://blocksmith.dev/embed/pomodoro-timer?work=25&accent=%23e03e3e`
+2. Paste: `https://notionarena.vercel.app/embed/pomodoro-timer?work=25&accent=%23e03e3e`
 3. Resize block as needed
 
 API (agent):
@@ -141,7 +141,7 @@ POST /api/install
 MCP: `build_embed_url` gives download URL, `plan_install` mode `html-block` gives steps
 
 Manual:
-1. Download: `https://blocksmith.dev/api/widget/pomodoro-timer?work=25&accent=%23e03e3e`
+1. Download: `https://notionarena.vercel.app/api/widget/pomodoro-timer?work=25&accent=%23e03e3e`
 2. Upload via Notion API:
 ```
 POST https://api.notion.com/v1/file_uploads
@@ -162,7 +162,7 @@ MCP: `plan_install` mode `plan` (dry-run, no token), then `plan_install` mode `a
 
 **Always plan first — no credentials needed**:
 ```bash
-curl -X POST https://blocksmith.dev/api/install \
+curl -X POST https://notionarena.vercel.app/api/install \
   -H 'content-type: application/json' \
   -d '{"component":"crm-pipeline","mode":"plan"}'
 ```
@@ -171,7 +171,7 @@ Returns: exact request sequence, `totalRequests`, `manualSteps`, `warnings`, pay
 
 **Then install**:
 ```bash
-curl -X POST https://blocksmith.dev/api/install \
+curl -X POST https://notionarena.vercel.app/api/install \
   -H 'content-type: application/json' \
   -d '{"component":"crm-pipeline","mode":"api","token":"'"$NOTION_TOKEN"'","parentPageId":"'"$PAGE_ID"'"}'
 ```
@@ -189,15 +189,15 @@ A manual step whose reason is "it's easier by hand" is rejected.
 #### Registry — shadcn CLI
 
 ```bash
-# components.json already has @blocksmith registry
-npx shadcn add @blocksmith/pomodoro-timer
+# components.json already has @notion-arena registry
+npx shadcn add @notion-arena/pomodoro-timer
 # or
-npx shadcn add @blocksmith/crm-pipeline
+npx shadcn add @notion-arena/crm-pipeline
 ```
 
 This writes files to `notion/widgets/{slug}.html` or `notion/recipes/{slug}.json` per `lib/registry.ts`.
 
-## For agents building on Blocksmith
+## For agents building on Notion Arena
 
 **A widget cannot read or write your Notion data.** Sandbox has no network and no bridge to parent page. Widgets may keep user-entered personal state in this browser, but that state is not Notion data and not shared. If workflow needs workspace records, collaboration, permissions, audit trail, use native database or recipe.
 
@@ -215,7 +215,7 @@ See `/docs/authoring` page in repo and `lib/widget.ts` for contract. Every widge
 - No external requests
 - Reads config from `<script id="bk-config">` then `URLSearchParams`
 - Has `theme` and `accent` params
-- Namespaces localStorage as `blocksmith.<slug>.v1`
+- Namespaces localStorage as `notion-arena.<slug>.v1`
 - `body { overflow: hidden }`, `.wrap` manages scroll
 - `prefers-reduced-motion` support
 - Clipboard exports also `console.log` as fallback
@@ -234,19 +234,19 @@ If user works from AI agents most of time, they should plug the MCP server:
 
 **Claude Code**:
 ```bash
-claude mcp add --scope project blocksmith -- npx -y blocksmith-mcp
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
 # self-hosted:
-claude mcp add --scope project blocksmith -- npx -y blocksmith-mcp -e BLOCKSMITH_SITE_URL=https://your-host.com
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp -e NOTION_ARENA_SITE_URL=https://your-host.com
 ```
 
 **Claude Desktop** `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "blocksmith": {
+    "notion-arena": {
       "command": "npx",
-      "args": ["-y", "blocksmith-mcp"],
-      "env": { "BLOCKSMITH_SITE_URL": "https://blocksmith.dev" }
+      "args": ["-y", "notion-arena-mcp"],
+      "env": { "NOTION_ARENA_SITE_URL": "https://notionarena.vercel.app" }
     }
   }
 }
@@ -256,13 +256,13 @@ claude mcp add --scope project blocksmith -- npx -y blocksmith-mcp -e BLOCKSMITH
 
 MCP tools: `list_components`, `search_components`, `get_component`, `get_widget_schema`, `build_embed_url`, `plan_install`, `get_registry_item`, `get_install_guide`, `get_categories`, `get_site_info`
 
-Env: `BLOCKSMITH_SITE_URL` (default `https://blocksmith.dev`), `BLOCKSMITH_REGISTRY_URL` (default `{SITE_URL}/r`)
+Env: `NOTION_ARENA_SITE_URL` (default `https://notionarena.vercel.app`), `NOTION_ARENA_REGISTRY_URL` (default `{SITE_URL}/r`)
 
 ## Skill installation (this skill)
 
 **Via skills CLI (Vercel skills.sh)** — recommended:
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill blocksmith
+npx skills add SynergyFlowLabs/notion-components --skill notion-arena
 # or all skills from repo
 npx skills add SynergyFlowLabs/notion-components --all
 ```
@@ -273,11 +273,11 @@ npx skills add SynergyFlowLabs/notion-components --all
 ```
 
 **Manual** — copy this folder to:
-- Project: `.claude/skills/blocksmith/` (travels with repo)
-- Personal: `~/.claude/skills/blocksmith/` (all your projects)
+- Project: `.claude/skills/notion-arena/` (travels with repo)
+- Personal: `~/.claude/skills/notion-arena/` (all your projects)
 
 **For Cursor / Windsurf / other agents**:
-- Cursor: `.cursor/skills/blocksmith/` or copy SKILL.md content into your rules
+- Cursor: `.cursor/skills/notion-arena/` or copy SKILL.md content into your rules
 - Windsurf: similar, or use `npx skills add` with `--agent cursor --agent windsurf`
 
 ## Examples
@@ -302,7 +302,7 @@ npx skills add SynergyFlowLabs/notion-components --all
 1. `list_components` category `trackers`, delivery `html-block`
 2. Filter where `capabilities.offlineSafe=true` and `persistsLocally=true`
 3. `get_component` for `habit-grid` etc.
-4. Provide download URL: `https://blocksmith.dev/api/widget/habit-grid`
+4. Provide download URL: `https://notionarena.vercel.app/api/widget/habit-grid`
 
 ## References
 

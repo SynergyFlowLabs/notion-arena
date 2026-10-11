@@ -60,7 +60,7 @@ export const FAQS: { q: string; a: React.ReactNode }[] = [
     q: "Is this connected to Notion the company?",
     a: (
       <>
-        No. Blocksmith is an independent project. Notion, Notion Labs Inc. and the
+        No. Notion Arena is an independent project. Notion, Notion Labs Inc. and the
         Notion API are trademarks of Notion Labs Inc. We build on their public API
         and their documented HTML block feature.
       </>

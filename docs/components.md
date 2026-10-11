@@ -219,7 +219,7 @@ Use this checklist when researching a new persona or planning a Notion component
 
 For healthcare specifically, Notion's HIPAA documentation says BAA eligibility requires an Enterprise subscription and enabled configuration, and the policy includes restrictions beyond the plan itself. A third-party widget's processing is not automatically covered by Notion's agreement, so vendor review is separate. [1](https://www.notion.com/help/hipaa) [2](https://www.notion.com/help/security-and-privacy)
 
-## 7. Current Blocksmith catalog, for comparison
+## 7. Current Notion Arena catalog, for comparison
 
 This section reflects the project catalog in `lib/catalog.ts`; it is not a claim that these are the only useful Notion components.
 

@@ -30,7 +30,7 @@ html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252
   if(!defaults.length)defaults=['Laptop','Camera','Tripod'];
   document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;
   function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'a'+(h>>>0).toString(36);}
-  var id=hash(LABEL+'|'+defaults.join('|')),KEY='blocksmith.asset-checkout.v1',store={lists:{}},assets=defaults.map(function(name){return{name:name,holder:'',due:''};});
+  var id=hash(LABEL+'|'+defaults.join('|')),KEY='notion-arena.asset-checkout.v1',store={lists:{}},assets=defaults.map(function(name){return{name:name,holder:'',due:''};});
   try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.lists)store=saved;if(store.lists&&Array.isArray(store.lists[id]))assets=store.lists[id].filter(function(x){return x&&typeof x.name==='string';}).map(function(x){return{name:String(x.name).slice(0,60),holder:String(x.holder||'').slice(0,60),due:String(x.due||'').slice(0,10)};});}catch(e){}
   function save(){if(!store.lists)store.lists={};store.lists[id]=assets;var ids=Object.keys(store.lists);while(ids.length>8){var old=ids.shift();if(old===id){ids.push(old);continue;}delete store.lists[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
   function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}

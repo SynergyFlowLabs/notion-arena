@@ -29,7 +29,7 @@ html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252
   if(!tasks.length)tasks=['Stretch','Read','Plan the day'];
   document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;
   function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'r'+(h>>>0).toString(36);}
-  var id=hash(LABEL+'|'+tasks.join('|')),KEY='blocksmith.routine-checklist.v1',store={routines:{}},today=dateKey(new Date()),done={};
+  var id=hash(LABEL+'|'+tasks.join('|')),KEY='notion-arena.routine-checklist.v1',store={routines:{}},today=dateKey(new Date()),done={};
   try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.routines)store=saved;}catch(e){}
   function current(){var rec=store.routines&&store.routines[id];if(rec&&rec.date===today&&rec.done&&typeof rec.done==='object')done=rec.done;else done={};}
   function save(){if(!store.routines)store.routines={};store.routines[id]={date:today,done:done};var ids=Object.keys(store.routines);while(ids.length>8){var old=ids.shift();if(old===id){ids.push(old);continue;}delete store.routines[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}

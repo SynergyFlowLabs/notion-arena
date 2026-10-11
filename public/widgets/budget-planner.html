@@ -31,7 +31,7 @@ html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252
   var LABEL=String(c.label||'Budget planner').slice(0,48),CURRENCY=String(c.currency||'$').slice(0,8),keys=['income','housing','food','transport','other'],defaults={};keys.forEach(function(k){defaults[k]=amount(k);});
   document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.getElementById('currency').textContent=CURRENCY;document.title=LABEL;
   function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'p'+(h>>>0).toString(36);}
-  var planId=hash(LABEL+'|'+JSON.stringify(defaults)),KEY='blocksmith.budget.v1',store={plans:{}},values=defaults;
+  var planId=hash(LABEL+'|'+JSON.stringify(defaults)),KEY='notion-arena.budget.v1',store={plans:{}},values=defaults;
   try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.plans)store=saved;}catch(e){}
   if(store.plans&&store.plans[planId])keys.forEach(function(k){var n=parseFloat(store.plans[planId][k]);if(isFinite(n))values[k]=Math.max(0,Math.min(1e9,n));});
   function save(){if(!store.plans)store.plans={};store.plans[planId]=values;var ids=Object.keys(store.plans);while(ids.length>10){var old=ids.shift();if(old===planId){ids.push(old);continue;}delete store.plans[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}

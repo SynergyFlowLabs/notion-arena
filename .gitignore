@@ -16,8 +16,8 @@ next-env.d.ts
 .claude/*
 !.claude/skills/
 .claude/skills/*
-!.claude/skills/blocksmith/
-!.claude/skills/blocksmith/SKILL.md
+!.claude/skills/notion-arena/
+!.claude/skills/notion-arena/SKILL.md
 # Except our own plugin manifests — source, not installed third-party
 !.claude-plugin/
 !.claude-plugin/plugin.json

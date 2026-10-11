@@ -29,7 +29,7 @@ html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252
   var theme=['auto','light','dark'].indexOf(String(c.theme||'auto'))>-1?String(c.theme||'auto'):'auto',ACCENT=safeColor(c.accent,'#0f7b6c'),LABEL=String(c.label||'Workout log').slice(0,48),plan=parse(c.exercises||'Squats::3::12||Push-ups::3::10||Walk::1::20');if(!plan.length)plan=parse('Squats::3::12||Push-ups::3::10||Walk::1::20');
   document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=LABEL;document.title=LABEL;
   function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'w'+(h>>>0).toString(36);}
-  var id=hash(LABEL+'|'+JSON.stringify(plan)),KEY='blocksmith.workout-tracker.v1',store={sessions:{}},today=dateKey(new Date()),done=[];
+  var id=hash(LABEL+'|'+JSON.stringify(plan)),KEY='notion-arena.workout-tracker.v1',store={sessions:{}},today=dateKey(new Date()),done=[];
   try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.sessions)store=saved;}catch(e){}
   function load(){var rec=store.sessions&&store.sessions[id];done=rec&&rec.date===today&&Array.isArray(rec.done)?rec.done.map(function(n,i){return Math.max(0,Math.min(plan[i]?plan[i].sets:0,parseInt(n,10)||0));}):[];while(done.length<plan.length)done.push(0);}
   function save(){if(!store.sessions)store.sessions={};store.sessions[id]={date:today,done:done};var ids=Object.keys(store.sessions);while(ids.length>8){var old=ids.shift();if(old===id){ids.push(old);continue;}delete store.sessions[old];}try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
