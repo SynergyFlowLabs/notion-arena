@@ -47,7 +47,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
  * possible signal that you are looking at the same thing, gone deeper.
  *
  * `default="none"` matters here : without it, every filter or sort update in
- * the catalog would crossfade all 59 cards at once.
+ * the catalog would crossfade all 71 cards at once.
  */
 export function ComponentPreviewTransition({
   slug,

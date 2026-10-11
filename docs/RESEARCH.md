@@ -84,7 +84,7 @@ This is implemented in `lib/notion/installer.ts` as `installHtmlBlock()`.
 A sandboxed block has no `location.search`. So the same file needs two config
 sources: a baked-in `<script id="bk-config" type="application/json">` for the
 download path, and `URLSearchParams` for the `/embed` path. That contract is
-implemented identically in all 48 widgets and documented in
+implemented identically in all 60 widgets and documented in
 `app/docs/authoring/page.tsx`.
 
 ---
@@ -272,7 +272,7 @@ only two delivery mechanisms real:
 - **`native`**: a recipe of API calls plus documented manual steps. Channels:
   `api`, `duplicate`, `guide`. Creates real databases.
 
-Eight categories, 59 components: 48 widgets, 11 recipes, 48 free and 11 Pro.
+Eight categories, 71 components: 60 widgets, 11 recipes, 60 free and 11 Pro.
 
 ---
 

@@ -126,6 +126,20 @@ const ENTRIES: Entry[] = [
     components: ["white-noise", "subscription-tracker", "bill-splitter", "grade-calculator", "word-counter", "meal-planner", "grocery-list", "trip-itinerary", "billable-time-tracker", "sleep-duration"],
   },
   {
+    version: "1.0.0",
+    date: "2026-10-11",
+    title: "Twelve offline components for home, finance, study, and reference",
+    kind: "release",
+    body: [
+      "Home and travel: Packing List, Household Chore Checklist, Pet Care Checklist, Plant Care Log, and Home Maintenance Log. Their entries remain in this browser, not in a shared household workspace.",
+      "Pet, plant, and maintenance widgets are personal checklists or logs, not veterinary, plant-care, repair, or safety guidance.",
+      "Finance: Expense Tracker totals entered expenses for the current month; Savings Goal Tracker, Net Worth Snapshot, and Manual Portfolio Tracker calculate from figures entered by the user. No bank connection, live prices, or financial advice.",
+      "Study and reference: Class Timetable, Bookmark Library, and Reading List are local-only. Bookmarks accept http and https URLs, fetch no previews, and open only after a click; schedules and reading metadata are not externally verified.",
+      "All twelve additions are free, self-contained, and offline, bringing the catalog to 71 components: 60 widgets and 11 native recipes. Use Notion databases when the records need team access, permissions, or sync.",
+    ],
+    components: ["packing-list", "chore-checklist", "pet-care-checklist", "plant-care-log", "home-maintenance-log", "expense-tracker", "savings-goal", "net-worth-snapshot", "portfolio-tracker", "class-timetable", "bookmark-library", "reading-list"],
+  },
+  {
     version: "platform",
     date: "2026-03-11",
     title: "Notion ships HTML blocks and the Views API",
