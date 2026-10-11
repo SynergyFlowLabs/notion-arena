@@ -13,4 +13,12 @@ next-env.d.ts
 # Agent skill tooling, installed by `npx skills add`. Third-party content and
 # ~6 MB of bundled fonts; skills-lock.json is committed instead as provenance.
 .agents/
-.claude/
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/blocksmith/
+!.claude/skills/blocksmith/SKILL.md
+# Except our own plugin manifests — source, not installed third-party
+!.claude-plugin/
+!.claude-plugin/plugin.json
+!.claude-plugin/marketplace.json

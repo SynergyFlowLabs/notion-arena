@@ -1,0 +1,26 @@
+{
+  "name": "blocksmith-marketplace",
+  "owner": {
+    "name": "SynergyFlowLabs",
+    "email": "hello@blocksmith.dev"
+  },
+  "metadata": {
+    "description": "Blocksmith marketplace — Notion component registry plugin with MCP server and agent skill",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "blocksmith",
+      "source": "./",
+      "description": "Blocksmith — the component registry for Notion. 143 components: 132 widgets + 11 native recipes. Browse, configure, and install from your AI agent.",
+      "version": "0.1.0",
+      "author": {
+        "name": "SynergyFlowLabs"
+      },
+      "homepage": "https://github.com/SynergyFlowLabs/notion-components",
+      "repository": "https://github.com/SynergyFlowLabs/notion-components",
+      "license": "MIT",
+      "keywords": ["notion", "components", "widgets", "blocksmith", "mcp", "skill"]
+    }
+  ]
+}

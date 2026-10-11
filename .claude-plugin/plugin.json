@@ -1,0 +1,36 @@
+{
+  "name": "blocksmith",
+  "version": "0.1.0",
+  "description": "Blocksmith — the component registry for Notion. 143 components: 132 widgets + 11 native recipes. Browse, configure, and install from your AI agent.",
+  "author": {
+    "name": "SynergyFlowLabs",
+    "url": "https://github.com/SynergyFlowLabs/notion-components"
+  },
+  "homepage": "https://github.com/SynergyFlowLabs/notion-components#readme",
+  "repository": "https://github.com/SynergyFlowLabs/notion-components",
+  "license": "MIT",
+  "keywords": [
+    "notion",
+    "components",
+    "widgets",
+    "blocksmith",
+    "shadcn",
+    "registry",
+    "mcp",
+    "dashboard",
+    "productivity"
+  ],
+  "skills": [
+    "./skills/blocksmith/SKILL.md",
+    "./.claude/skills/blocksmith/SKILL.md"
+  ],
+  "mcpServers": {
+    "blocksmith": {
+      "command": "npx",
+      "args": ["-y", "blocksmith-mcp"],
+      "env": {
+        "BLOCKSMITH_SITE_URL": "${BLOCKSMITH_SITE_URL:-https://blocksmith.dev}"
+      }
+    }
+  }
+}

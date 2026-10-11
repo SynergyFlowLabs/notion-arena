@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "blocksmith": {
+      "command": "node",
+      "args": ["mcp/dist/index.js"],
+      "env": {
+        "BLOCKSMITH_SITE_URL": "http://localhost:3000"
+      }
+    }
+  }
+}

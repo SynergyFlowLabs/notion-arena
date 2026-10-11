@@ -10,7 +10,10 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "check:widgets": "node scripts/check-widgets.mjs",
-    "audit:contrast": "node scripts/audit-contrast.mjs"
+    "audit:contrast": "node scripts/audit-contrast.mjs",
+    "generate:mcp-catalog": "node scripts/generate-mcp-catalog.mjs",
+    "build:mcp": "npm run generate:mcp-catalog && cd mcp && npm install && npm run build",
+    "dev:mcp": "cd mcp && npm run dev"
   },
   "dependencies": {
     "@notionhq/client": "^5.27.0",

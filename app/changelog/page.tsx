@@ -22,6 +22,20 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    version: "1.3.0",
+    date: "2026-10-11",
+    title: "Twelve offline widgets for daily planning, finance, legal, events, and team workflows",
+    kind: "release",
+    body: [
+      "Planning and finance: Daily Time-Block Planner and Debt Payoff Tracker. Time blocks are manual and not tied to calendar events or reminders; debt entries are aliases and manual balances with no payoff dates, financial advice, or account numbers.",
+      "Legal and events: Legal Matter Tracker and Wedding Seating Planner. Matter aliases are not case management or legal advice; seating stores guest aliases and RSVP state, not contacts, invitations, or dietary safety.",
+      "Engineering and product: Sprint Retrospective Board, Customer Feedback Log, Changelog Builder, Pricing Tier Calculator, and User Story Map. Retro notes are private drafts, feedback stores no PII or auto-sentiment, changelog does not publish or tag code, pricing uses manual USD estimates with no tax or billing, and story map is not a Jira sync.",
+      "People and content: OKR Weekly Check-in, Employee Onboarding Tracker, and Content Repurposing Tracker. OKR check-ins are local drafts with confidence and blockers, onboarding avoids sensitive personal data and is not HR or compliance, and repurposing does not publish or fetch analytics.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 143 components: 132 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["daily-planner", "debt-payoff-tracker", "legal-matter-tracker", "wedding-seating-planner", "sprint-retrospective", "customer-feedback-log", "changelog-builder", "pricing-tier-calculator", "user-story-map", "okr-weekly-checkin", "employee-onboarding-tracker", "content-repurposing-tracker"],
+  },
+  {
     version: "1.2.0",
     date: "2026-10-11",
     title: "Twelve offline tools for engineering, service work, and creative planning",
