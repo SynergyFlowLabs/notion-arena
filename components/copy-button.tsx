@@ -84,7 +84,7 @@ export function CopyButton({
         )}
       </button>
       {/* The button swaps its own label, which a screen reader does not
-          re-announce on click — so the outcome goes to a live region. */}
+          re-announce on click, so the outcome goes to a live region. */}
       <span aria-live="polite" className="sr-only">
         {announced}
       </span>

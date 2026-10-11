@@ -3,7 +3,7 @@
  *
  * A "component" is one of two things:
  *
- *  1. `widget`  — a single self-contained .html file with no external
+ * 1. `widget` : a single self-contained .html file with no external
  *                 dependencies. The exact same file is delivered two ways:
  *                   • as an embed URL  -> Notion `/embed` block (iframe)
  *                   • as an HTML block -> Notion `/html` (File Upload API,
@@ -12,7 +12,7 @@
  *                 widgets must be 100% offline-capable: inline CSS/JS only,
  *                 no CDNs, no fonts, no fetch(). State is localStorage at most.
  *
- *  2. `native`  — a "recipe": a deterministic set of Notion API calls that
+ * 2. `native` : a "recipe": a deterministic set of Notion API calls that
  *                 build real Notion structure (databases, data source
  *                 properties, views incl. dashboard/chart, synced blocks,
  *                 page templates, formulas) plus the steps that the API
@@ -143,7 +143,7 @@ export const CATEGORIES: Category[] = [
     slug: "time",
     name: "Time & Focus",
     emoji: "⏱️",
-    blurb: "Pomodoro, countdowns and clocks. Notion shows the date — never the time.",
+    blurb: "Pomodoro, countdowns and clocks. Notion shows the date, never the time.",
     color: "orange",
   tint: "var(--tag-bg-orange)",
   },
@@ -175,7 +175,7 @@ export const CATEGORIES: Category[] = [
     slug: "visuals",
     name: "Visuals & Diagrams",
     emoji: "🎨",
-    blurb: "Org charts, whiteboards and quote cards — things Notion can't draw.",
+    blurb: "Org charts, whiteboards and quote cards: things Notion can't draw.",
     color: "pink",
   tint: "var(--tag-bg-pink)",
   },

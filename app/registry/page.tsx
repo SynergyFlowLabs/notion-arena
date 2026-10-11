@@ -26,7 +26,7 @@ const ENDPOINTS = [
     path: "/r/{name}.json",
     what: "One item, with its HTML / recipe JSON / manual steps inlined",
     auth: "none",
-    size: "8–40 KB",
+    size: "8-40 KB",
   },
   {
     method: "GET",
@@ -61,12 +61,12 @@ const ENDPOINTS = [
     path: "/api/install",
     what: "Plan or execute an install. mode: plan needs no credentials",
     auth: "token for writes",
-    size: "—",
+    size: "n/a",
   },
 ];
 
 const ITEM_FIELDS: [string, string, string][] = [
-  ["name", "string", "The slug. Stable, lowercase, kebab-case — the address you install by."],
+  ["name", "string", "The slug. Stable, lowercase, kebab-case: the address you install by."],
   ["type", "registry:component | registry:block", "component for widgets (a file you place), block for recipes (a structure you create)."],
   ["title / description", "string", "Human-facing name and the one-line pitch shown in the catalog."],
   ["categories", "string[]", "Which of the eight catalog categories it belongs to."],
@@ -74,12 +74,12 @@ const ITEM_FIELDS: [string, string, string][] = [
   ["meta.kind", "widget | native", "It tells you which delivery channels apply."],
   ["meta.tier", "free | pro", "Whether it is in the free set."],
   ["meta.version / updatedAt", "semver / date", "For deciding whether to re-install. Downloaded HTML blocks are frozen; embed URLs are not."],
-  ["meta.delivery", "string[]", "The channels this component actually supports — never guessed from kind."],
+  ["meta.delivery", "string[]", "The channels this component actually supports, never guessed from kind."],
   ["meta.capabilities", "object", "interactive, offlineSafe, persistsLocally, writesToNotion, needsNetwork. Booleans, not adjectives."],
   ["meta.params", "WidgetParam[]", "Widgets only: every configuration key with type, bounds, options, default and help text."],
   ["meta.embedUrl / downloadUrl", "string", "Widgets only: the two URLs a consumer needs, already absolute."],
   ["meta.recipe / installUrl", "string", "Recipes only: the recipe id and the endpoint that installs it."],
-  ["files[]", "object[]", "path, type, target and — on /r/{name}.json — content. The HTML is inlined, not linked."],
+  ["files[]", "object[]", "path, type, target and (on /r/{name}.json) content. The HTML is inlined, not linked."],
 ];
 
 export default async function RegistryPage() {
@@ -105,7 +105,7 @@ export default async function RegistryPage() {
   }
 }`;
 
-  const nodeSnippet = `// Node 20+ — no dependencies
+  const nodeSnippet = `// Node 20+: no dependencies
 const registry = "${origin}/r";
 
 const { items } = await (await fetch(\`\${registry}/index.json\`)).json();
@@ -123,7 +123,7 @@ for (const item of candidates) {
   await Bun.write(\`./notion/widgets/\${item.name}.html\`, html);
 }`;
 
-  const installSnippet = `# 1 · see the plan — no credentials, no side effects
+  const installSnippet = `# 1 · see the plan: no credentials, no side effects
 curl -s -X POST ${origin}/api/install \\
   -H 'content-type: application/json' \\
   -d '{"component":"crm-pipeline","mode":"plan"}' | jq '.plan.calls[] | .method + " " + .path'
@@ -164,7 +164,7 @@ curl -s -X POST ${origin}/api/install \\
             <code className="rounded bg-secondary px-1 py-px font-mono text-[14px]">registry-item</code>{" "}
             schema, with its source inlined rather than linked. A CLI, an MCP
             server, an agent or a 20-line script can list the catalog, read a
-            component's exact capabilities, and install it — without anyone
+            component's exact capabilities, and install it without anyone
             opening a browser.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
@@ -193,7 +193,7 @@ curl -s -X POST ${origin}/api/install \\
           <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-muted-foreground">
             This panel is not a mock. It fetches{" "}
             <code className="rounded bg-secondary px-1 py-px font-mono text-[13px]">/r/index.json</code>{" "}
-            from your browser and then each item as you click it — the same two
+            from your browser and then each item as you click it, the same two
             requests an agent would make.
           </p>
           <div className="mt-4">
@@ -268,7 +268,7 @@ curl -s -X POST ${origin}/api/install \\
             <Snippet
               n="B"
               title="Two fetches and a file write"
-              body="The index gives you names and capabilities. The item gives you the bytes. That is the whole protocol — there is no SDK and no auth for reads."
+              body="The index gives you names and capabilities. The item gives you the bytes. That is the whole protocol: there is no SDK and no auth for reads."
               lang="ts"
               filename="install.ts"
               code={nodeSnippet}
@@ -319,7 +319,7 @@ curl -s -X POST ${origin}/api/install \\
             {[
               {
                 t: "Versioning",
-                d: "Items carry semver in meta.version. Widget source files are frozen per version at /widgets/{slug}.html; embed URLs always serve the latest patch. If you are shipping a template to a customer, download the file — that is the whole point of the second channel.",
+                d: "Items carry semver in meta.version. Widget source files are frozen per version at /widgets/{slug}.html; embed URLs always serve the latest patch. If you are shipping a template to a customer, download the file: that is the whole point of the second channel.",
               },
               {
                 t: "Stability",
@@ -327,7 +327,7 @@ curl -s -X POST ${origin}/api/install \\
               },
               {
                 t: "Self-hosting",
-                d: "Widgets are single files with no dependencies. Fork the repo, serve public/widgets/ from anywhere, and point your registry base at your own host. Nothing phones home — there is nothing to phone.",
+                d: "Widgets are single files with no dependencies. Fork the repo, serve public/widgets/ from anywhere, and point your registry base at your own host. Nothing phones home: there is nothing to phone.",
               },
               {
                 t: "Caching",

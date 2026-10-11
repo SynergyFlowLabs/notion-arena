@@ -115,7 +115,7 @@ color:var(--muted);font-size:10px;line-height:14px;text-align:center;cursor:poin
   function nodeHtml(n){
     var kids=subtreeCount(n);
     var tw=n.kids.length?'<span class="tw" data-toggle="'+n.id+'">'+(n.collapsed?'+':'−')+'</span>':'';
-    return '<div class="node'+(n.vacant?' vacant':'')+'" data-id="'+n.id+'" title="'+n.name.replace(/"/g,'')+' — '+n.role.replace(/"/g,'')+(kids?' · '+kids+' report'+(kids===1?'s':''):'')+'">'+
+    return '<div class="node'+(n.vacant?' vacant':'')+'" data-id="'+n.id+'" title="'+n.name.replace(/"/g,'')+', '+n.role.replace(/"/g,'')+(kids?' · '+kids+' report'+(kids===1?'s':''):'')+'">'+
       '<span class="av" style="background:'+(n.vacant?'transparent':n.color)+';'+(n.vacant?'border:1.5px dashed var(--line);color:var(--muted)':'')+'">'+(n.vacant?'+':n.initials)+'</span>'+
       '<span class="who"><b>'+n.name.replace(/[<>&]/g,'')+'</b><span>'+n.role.replace(/[<>&]/g,'')+'</span></span>'+tw+'</div>';
   }

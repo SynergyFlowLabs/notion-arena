@@ -9,8 +9,8 @@ import type { NotionColor } from "@/lib/types";
  *
  * The pairs come from `--tag-bg-*` / `--tag-ink-*` in globals.css, where every
  * combination was solved to clear 4.5:1 on its own tint *and* on the page
- * canvas in both themes. Notion's raw property values cannot be used as ink —
- * its yellow reaches only 1.94:1 as text — so they stay fills and dots.
+ * canvas in both themes. Notion's raw property values cannot be used as ink :
+ * its yellow reaches only 1.94:1 as text : so they stay fills and dots.
  */
 const COLOR_CLASSES: Record<NotionColor, string> = {
   gray: "bg-tag-bg-gray text-tag-ink-gray",
@@ -27,7 +27,7 @@ const COLOR_CLASSES: Record<NotionColor, string> = {
 /**
  * The matching ink for a property colour, for use as an inline `style` value
  * (icons and marks that sit on a tint). Passing the colour *name* to `color:`
- * would silently resolve to the CSS keyword — `blue`, `pink`, `gray` — so this
+ * would silently resolve to the CSS keyword : `blue`, `pink`, `gray` : so this
  * always returns the tested variable.
  */
 export function notionInk(color: NotionColor) {

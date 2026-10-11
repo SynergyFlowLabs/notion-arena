@@ -24,17 +24,17 @@ export async function generateMetadata({
   };
 }
 
-/** What a category actually needs from Notion — the honest framing per group. */
+/** What a category actually needs from Notion: the honest framing per group. */
 const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> = {
   dashboards: {
     problem:
-      "A dashboard's job is to answer a question in under two seconds. Notion's own Dashboard view can aggregate database numbers, but it cannot show a clock, a ring, a countdown or a strip of trend arrows — those need pixels Notion does not draw.",
+      "A dashboard's job is to answer a question in under two seconds. Notion's own Dashboard view can aggregate database numbers, but it cannot show a clock, a ring, a countdown or a strip of trend arrows. Those need pixels Notion does not draw.",
     answer:
       "Every component here is a widget, not a recipe: a self-contained HTML document that renders numbers you pass in, and that you can resize by dragging the block edge.",
   },
   time: {
     problem:
-      "Notion has dates and durations, but no sense of now. There is no timer, no elapsed counter, no live countdown — because a block cannot tick without JavaScript running inside the page.",
+      "Notion has dates and durations, but no sense of now. There is no timer, no elapsed counter, no live countdown, because a block cannot tick without JavaScript running inside the page.",
     answer:
       "Widgets run real JS in a sandboxed iframe, so they can use requestAnimationFrame, the Web Audio API and setInterval. State persists in localStorage per browser, which is right for a personal timer and wrong for a shared log.",
   },
@@ -42,37 +42,37 @@ const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> 
     problem:
       "Trackers split into two different needs: something you tick off privately, and something your team can see. Notion does the second one natively and the first one badly.",
     answer:
-      "Private trackers ship as widgets with localStorage. Shared trackers ship as native recipes with real databases, status properties and chart views — because a heatmap your colleague cannot see is not a tracker.",
+      "Private trackers ship as widgets with localStorage. Shared trackers ship as native recipes with real databases, status properties and chart views, because a heatmap your colleague cannot see is not a tracker.",
   },
   planning: {
     problem:
       "Notion's Timeline and Board views are database-bound: they only work on rows, they only show properties, and you cannot drop a card onto a quarter that has no row.",
     answer:
-      "Free-form planning components are widgets with their own drag model and their own persistence. Structured planning — sprints, content pipelines — is a recipe, because it needs relations and rollups to be useful at all.",
+      "Free-form planning components are widgets with their own drag model and their own persistence. Structured planning (sprints, content pipelines) is a recipe, because it needs relations and rollups to be useful at all.",
   },
   business: {
     problem:
       "This is the category where an iframe is actively the wrong answer. A pipeline, an invoice or an OKR tree needs relations, rollups, formulas and views that your whole team queries.",
     answer:
-      "The native recipes here create real databases through the API. The exceptions are pure calculators — ROI, pricing, scenario modelling — where there is no data to store, only numbers to try.",
+      "The native recipes here create real databases through the API. The exceptions are pure calculators (ROI, pricing, scenario modelling) where there is no data to store, only numbers to try.",
   },
   visuals: {
     problem:
       "Notion's visual vocabulary stops at emoji, icons, covers and callouts. There is no drawing surface, no diagram primitive, no way to render a hierarchy as boxes and lines.",
     answer:
-      "These are canvas-backed widgets. They export — SVG, JSON or clipboard — so what you draw can leave the sandbox, because the sandbox itself cannot write back to Notion.",
+      "These are canvas-backed widgets. They export (SVG, JSON or clipboard) so what you draw can leave the sandbox, because the sandbox itself cannot write back to Notion.",
   },
   docs: {
     problem:
       "Documentation systems are mostly structure: the right databases, the right relations, the right template bodies, repeated consistently for months.",
     answer:
-      "Recipes build that structure with real block trees — headings, toggles, callouts, synced blocks, column lists — so the workspace arrives already written rather than empty and hopeful.",
+      "Recipes build that structure with real block trees (headings, toggles, callouts, synced blocks, column lists) so the workspace arrives already written rather than empty and hopeful.",
   },
   automations: {
     problem:
       "Buttons and database automations are Notion's answer to workflow, and neither can be created through the API. There is no button block type in the public reference, and no automation endpoint at all.",
     answer:
-      "The recipe installs every database, property and view the automations depend on, then gives you the exact click path for each button and each rule — with the reason it has to be manual, quoted from the API reference.",
+      "The recipe installs every database, property and view the automations depend on, then gives you the exact click path for each button and each rule, with the reason it has to be manual, quoted from the API reference.",
   },
 };
 

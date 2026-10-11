@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table } from "@/components/docs/prose";
+import { IconCheck } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Authoring a widget",
   description:
-    "The four contracts every Blocksmith widget implements — configuration, theming, persistence and export — plus the checklist for adding one to the catalog.",
+    "The four contracts every Blocksmith widget implements (configuration, theming, persistence and export) plus the checklist for adding one to the catalog.",
 };
 
 export default function AuthoringPage() {
@@ -16,7 +17,7 @@ export default function AuthoringPage() {
         <>
           A widget is one self-contained HTML file. No framework, no build step,
           no dependencies. That constraint is what makes both delivery channels
-          possible from a single artifact — and it means four contracts have to
+          possible from a single artifact, and it means four contracts have to
           be implemented identically in every file, or the catalog stops feeling
           like one product.
         </>
@@ -127,7 +128,7 @@ export default function AuthoringPage() {
         />
         <Note tone="blue" title="Why the IIFE and var">
           Notion renders blocks in WebViews of varying age, and an HTML block
-          gives you no error surface — a syntax error is a blank rectangle. The
+          gives you no error surface: a syntax error is a blank rectangle. The
           defensive style is deliberate: wrap storage access in try/catch (Safari
           private mode throws on <code>setItem</code>), and never let one bad
           parameter throw during initialisation.
@@ -145,7 +146,7 @@ export default function AuthoringPage() {
           <LI>
             <code>body {"{ overflow: hidden }"}</code> and{" "}
             <code>.wrap {"{ height: 100% }"}</code>. A scrollbar inside a Notion
-            block is a bad experience — the page already scrolls.
+            block is a bad experience: the page already scrolls.
           </LI>
           <LI>
             Declare <code>height</code>, <code>minHeight</code> and{" "}
@@ -169,8 +170,8 @@ export default function AuthoringPage() {
         <H2 id="export">Export, and the clipboard caveat</H2>
         <P>
           A sandboxed block cannot send anything anywhere. If a widget produces
-          something worth keeping — a whiteboard drawing, an org chart, a
-          calculator result — it has to hand it back through the clipboard or the
+          something worth keeping (a whiteboard drawing, an org chart, a
+          calculator result) it has to hand it back through the clipboard or the
           console.
         </P>
         <Code
@@ -184,7 +185,7 @@ export default function AuthoringPage() {
     // Clipboard writes need a user gesture and are blocked in some WebViews.
     // Always leave the payload in the console as a fallback.
     console.log("[blocksmith] " + label + "\\n" + payload);
-    flash("Copy blocked — payload logged to the console");
+    flash("Copy blocked. Payload logged to the console");
   }
 }`}
         />
@@ -209,7 +210,7 @@ export default function AuthoringPage() {
       <section className="flex flex-col gap-4">
         <H2 id="catalog">Adding it to the catalog</H2>
         <P>
-          One file, one entry. Nothing else needs to change — the embed route,
+          One file, one entry. Nothing else needs to change: the embed route,
           the download route, the registry manifest, the JSON Schema endpoint,
           the sitemap and the catalog UI all read from the same array.
         </P>
@@ -269,7 +270,7 @@ export default function AuthoringPage() {
         <Note tone="yellow" title="params is a whitelist, not documentation">
           <code>buildConfig()</code> drops any key that is not declared here
           before it reaches the file. So an undeclared parameter is not merely
-          undocumented — it is silently unreachable through the embed URL. If a
+          undocumented: it is silently unreachable through the embed URL. If a
           widget reads <code>cfg.something</code>, it must appear in{" "}
           <code>params</code>.
         </Note>
@@ -285,16 +286,16 @@ export default function AuthoringPage() {
             ["Accent recolors coherently", "Try #e03e3e and #0f7b6c. Nothing should stay hardcoded blue."],
             ["Survives 120px tall", "No overflow, no clipped controls, no scrollbars."],
             ["Survives 240px wide", "Labels truncate or wrap rather than pushing layout out."],
-            ["State persists and recovers", "Reload keeps it. Corrupt localStorage manually — it must not throw."],
+            ["State persists and recovers", "Reload keeps it. Corrupt localStorage manually; it must not throw."],
             ["Reduced motion respected", "prefers-reduced-motion: reduce stops all animation."],
             ["Escape-safe config", "A label containing </script> and a quote must not break the page."],
             ["Export has a console fallback", "Block the clipboard and confirm the payload is logged."],
             ["Catalog entry matches source", "Every param the file reads is declared; every declared param is read."],
-            ["Schema endpoint updated", "GET /r/schema.json includes the new widget automatically — verify it appears."],
+            ["Schema endpoint updated", "GET /r/schema.json includes the new widget automatically. Verify it appears."],
           ].map(([t, d]) => (
             <div key={t} className="flex items-start gap-2.5 rounded-lg border border-border bg-card px-3 py-2.5">
-              <span className="mt-px grid size-[15px] shrink-0 place-items-center rounded-full border border-border-strong text-[9px] text-muted-foreground">
-                ✓
+              <span className="mt-px grid size-[15px] shrink-0 place-items-center rounded-full border border-border-strong text-muted-foreground">
+                <IconCheck size={9} />
               </span>
               <div className="min-w-0">
                 <div className="text-[13px] font-medium">{t}</div>
@@ -325,7 +326,7 @@ export default function AuthoringPage() {
           Download the configured file and open it directly. It must render
           identically to the embed URL with the same parameters. If it does not,
           the widget is reading something from <code>location</code> that the
-          sandbox will not have — usually <code>location.search</code> or{" "}
+          sandbox will not have, usually <code>location.search</code> or{" "}
           <code>location.href</code>.
         </P>
         <Code

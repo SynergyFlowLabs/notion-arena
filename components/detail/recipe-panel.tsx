@@ -208,7 +208,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
                             ty === "formula" && "text-foreground/80"
                           )}
                         >
-                          {schemaSummary(schema) || "—"}
+                          {schemaSummary(schema) || "n/a"}
                         </code>
                       </div>
                     );
@@ -255,8 +255,8 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
         <section>
           <h2 className="text-h5 text-foreground">Documentation pages</h2>
           <p className="mt-1 text-[13.5px] leading-relaxed text-muted-foreground">
-            Appended with real block types — headings, toggles, callouts, to-dos,
-            column lists — in chunks of 100, the Append block children limit.
+            Appended with real block types (headings, toggles, callouts, to-dos,
+            column lists) in chunks of 100, the Append block children limit.
           </p>
           <div className="mt-3 flex flex-col gap-3">
             {recipe.pages.map((p) => (

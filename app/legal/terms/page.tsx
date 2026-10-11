@@ -18,7 +18,7 @@ export default function TermsPage() {
         <p className="mt-4 text-[14.5px] leading-[1.75] text-muted-foreground">
           Plain terms, because the product is small and so is the surface area for
           disagreement. If something here is unclear, that is our failure to write
-          it well — ask and we will rewrite it.
+          it well: ask and we will rewrite it.
         </p>
       </header>
 
@@ -48,7 +48,7 @@ export default function TermsPage() {
           You are responsible for the scopes you grant your integration and for
           which pages you connect it to. Use an internal integration scoped as
           narrowly as the task allows. We will never ask for a token to show you a
-          plan — <code>mode: "plan"</code> requires no credentials at all, and you
+          plan: <code>mode: "plan"</code> requires no credentials at all, and you
           should be suspicious of any tool that claims otherwise.
         </p>
       </Section>
@@ -81,7 +81,7 @@ export default function TermsPage() {
         </p>
         <p>
           Pro components: the same rights while your subscription is active. Files
-          you downloaded during an active subscription keep working afterwards —
+          you downloaded during an active subscription keep working afterwards:
           we do not disable anything retroactively.
         </p>
         <p>
@@ -100,7 +100,7 @@ export default function TermsPage() {
         </p>
         <p>
           Because a sandboxed HTML block has no network access, no widget can send
-          your Notion data anywhere — not to us and not to anyone else. This is a
+          your Notion data anywhere: not to us and not to anyone else. This is a
           property of Notion's sandbox rather than a promise we make, but it holds.
         </p>
       </Section>
@@ -132,7 +132,7 @@ export default function TermsPage() {
           The service is provided without warranty of any kind, to the maximum
           extent permitted by law. Our total liability for any claim arising from
           your use of Blocksmith is limited to the amount you paid us in the twelve
-          months before the claim — which, during the beta, is nothing.
+          months before the claim, which, during the beta, is nothing.
         </p>
         <p>
           In particular: an install that creates databases in the wrong place, a

@@ -51,9 +51,9 @@ button:hover{color:var(--fg);border-color:color-mix(in oklab,var(--fg) 20%,var(-
     <div style="display:flex;flex-direction:column;gap:10px" id="inputs"></div>
     <div style="display:flex;flex-direction:column;gap:9px">
       <div class="out">
-        <div class="o"><span>Cost / mo</span><b id="oCost">—</b></div>
-        <div class="o hi"><span>Saving / mo</span><b id="oSave">—</b></div>
-        <div class="o"><span>ROI</span><b id="oRoi">—</b></div>
+        <div class="o"><span>Cost / mo</span><b id="oCost">n/a</b></div>
+        <div class="o hi"><span>Saving / mo</span><b id="oSave">n/a</b></div>
+        <div class="o"><span>ROI</span><b id="oRoi">n/a</b></div>
       </div>
       <div class="chart">
         <div class="cap">Cumulative value, 12 months</div>
@@ -111,7 +111,7 @@ button:hover{color:var(--fg);border-color:color-mix(in oklab,var(--fg) 20%,var(-
     var net=value-cost;
     var roi=cost>0?value/cost:0;
     var payback=net>0?cost/net:null;
-    // cumulative net position, month 0..12 — the payback curve
+    // cumulative net position, month 0..12: the payback curve
     var series=[];var cum=-cost;series.push(cum);
     for(var mm=1;mm<=12;mm++){cum+=net;series.push(cum);}
     return {cost:cost,value:value,net:net,roi:roi,payback:payback,series:series};
@@ -126,7 +126,7 @@ button:hover{color:var(--fg);border-color:color-mix(in oklab,var(--fg) 20%,var(-
     document.getElementById('oCost').textContent=money(r.cost);
     document.getElementById('oSave').textContent=money(r.net);
     document.getElementById('oSave').style.color=r.net>=0?'var(--good)':'var(--bad)';
-    document.getElementById('oRoi').textContent=r.roi?r.roi.toFixed(1)+'×':'—';
+    document.getElementById('oRoi').textContent=r.roi?r.roi.toFixed(1)+'×':'n/a';
     document.getElementById('oRoi').style.color=r.roi>=1?'var(--accent)':'var(--bad)';
 
     var W=300,H=88,pad=6;
@@ -150,7 +150,7 @@ button:hover{color:var(--fg);border-color:color-mix(in oklab,var(--fg) 20%,var(-
       +'Cost: '+money(r.cost)+' / month ('+state.seats+' × '+money(state.price)+')\n'
       +'Time saved: '+state.hours+'h / month at '+money(state.rate)+'/h = '+money(r.value)+'\n'
       +'Net saving: '+money(r.net)+' / month\n'
-      +'ROI: '+(r.roi?r.roi.toFixed(1)+'×':'—')+'\n'
+      +'ROI: '+(r.roi?r.roi.toFixed(1)+'×':'n/a')+'\n'
       +(r.payback!==null?'Payback: month '+Math.max(1,Math.ceil(r.payback)):'Payback: not reached in 12 months');
     function done(t){b.textContent=t;setTimeout(function(){b.textContent='Copy summary';},1400);}
     try{navigator.clipboard.writeText(txt).then(function(){done('Copied ✓');},function(){done('Press ⌘C');});}catch(err){done('Press ⌘C');}

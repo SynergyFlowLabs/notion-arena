@@ -4,7 +4,7 @@ import { STATS, COMPONENTS } from "@/lib/catalog";
 import { Faq } from "@/components/site/faq";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
-import { IconArrowRight } from "@/components/icons";
+import { IconArrowRight, IconCheck, IconClose } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -153,7 +153,17 @@ export default function PricingPage() {
                           : "bg-secondary text-muted-foreground/60"
                       )}
                     >
-                      {included ? "✓" : "–"}
+                      {included ? (
+                        <>
+                          <IconCheck size={9} />
+                          <span className="sr-only">Included</span>
+                        </>
+                      ) : (
+                        <>
+                          <IconClose size={8} />
+                          <span className="sr-only">Not included</span>
+                        </>
+                      )}
                     </span>
                     <span
                       className={cn(
@@ -234,7 +244,7 @@ export default function PricingPage() {
               },
               {
                 t: "Recipes are split by whether they are a system",
-                d: "OKR, meeting notes, content calendar and job tracker are free — they are structures most people would build anyway. CRM, sprint tracking, invoicing, PARA and the client portal are Pro: they are multi-database systems with rollups, formulas and views that take real modelling.",
+                d: "OKR, meeting notes, content calendar and job tracker are free: they are structures most people would build anyway. CRM, sprint tracking, invoicing, PARA and the client portal are Pro: they are multi-database systems with rollups, formulas and views that take real modelling.",
               },
               {
                 t: "Downloads are never paywalled mid-flight",
@@ -257,7 +267,7 @@ export default function PricingPage() {
         <section className="mt-16">
           <h2 className="font-display text-h4 text-foreground">Compared with the alternatives</h2>
           <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-muted-foreground">
-            Not a claim that these are bad products — they solve different
+            Not a claim that these are bad products: they solve different
             problems. This is what you are actually choosing between.
           </p>
           <div className="mt-4 overflow-x-auto rounded-xl border border-border">
@@ -272,11 +282,11 @@ export default function PricingPage() {
               </thead>
               <tbody>
                 {[
-                  ["Blocksmith", "$0–9/mo", "Widgets in three delivery channels, installable database recipes, a machine-readable registry", "Widgets cannot read your Notion data — that is a Notion limit, not ours"],
+                  ["Blocksmith", "$0-9/mo", "Widgets in three delivery channels, installable database recipes, a machine-readable registry", "Widgets cannot read your Notion data: that is a Notion limit, not ours"],
                   ["Widget galleries", "Free / donation", "Dozens of hosted embed widgets", "Embed-only: no offline HTML block, no API install, no database recipes"],
-                  ["Paid block bundles", "$149–$449 one-off", "A large pack of hand-built Notion templates and synced blocks", "A one-time purchase you update by hand; nothing scriptable"],
-                  ["Notion Apps / Super", "$20–$100/mo", "Turn a database into a real web app or site", "A separate product outside Notion, and a subscription that scales with traffic"],
-                  ["Build it yourself", "Your time", "Exactly what you want", "The sandbox rules, the two-pass data-source problem, and the four API gaps — learned the hard way"],
+                  ["Paid block bundles", "$149-$449 one-off", "A large pack of hand-built Notion templates and synced blocks", "A one-time purchase you update by hand; nothing scriptable"],
+                  ["Notion Apps / Super", "$20-$100/mo", "Turn a database into a real web app or site", "A separate product outside Notion, and a subscription that scales with traffic"],
+                  ["Build it yourself", "Your time", "Exactly what you want", "The sandbox rules, the two-pass data-source problem, and the four API gaps, learned the hard way"],
                 ].map((row, i) => (
                   <tr key={i} className={cn("border-b border-border last:border-0 align-top", i % 2 === 1 && "bg-raised/50", i === 0 && "bg-primary/[0.04]")}>
                     <td className="px-3.5 py-2.5 font-semibold">{row[0]}</td>

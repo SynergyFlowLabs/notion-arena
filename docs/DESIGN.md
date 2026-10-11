@@ -8,11 +8,11 @@ critique. Revised sections say what changed and why.
 
 Make Blocksmith read as a first-party Notion surface: its design system, branded
 icons, avatars, colours, contrast and typographic voice. Not "a SaaS site that
-mentions Notion" — a site that looks like it belongs next to notion.com.
+mentions Notion": a site that looks like it belongs next to notion.com.
 
 **Subject grounding.** The most characteristic thing in this product's world is a
 Notion page being assembled out of blocks. So the hero is not a headline over a
-gradient wash — it is a live Notion page surface with real components running
+gradient wash: it is a live Notion page surface with real components running
 inside it. That is the memorable element, and per the restraint principle
 everything around it stays quiet.
 
@@ -31,7 +31,7 @@ All values live in `app/globals.css`.
 ### Colour
 
 Notion's marketing surface is a warm paper canvas, not white, and its ink is
-`rgba(0,0,0,.95)` rather than pure black. Both matter — cool greys and pure black
+`rgba(0,0,0,.95)` rather than pure black. Both matter: cool greys and pure black
 are what make a Notion-alike read as an imitation.
 
 | Role | Token | Light | Dark |
@@ -55,7 +55,7 @@ moments only, never on a control.
 
 **Pastel tints** (`--tint-peach/rose/mint/lavender/sky/butter/clay/stone`, each
 with a paired `-ink`) are lifted from Notion's own database property colours.
-They carry meaning — a card's tint says which part of the product it belongs to —
+They carry meaning (a card's tint says which part of the product it belongs to)
 rather than decorating.
 
 **App ink** (`--app-ink: #37352f`) is Notion's *application* text colour, kept
@@ -67,7 +67,7 @@ canvas.
 Self-hosted, no CDN: Inter Variable (the face Notion's own "NotionInter" cut is
 built from, SIL OFL) and IBM Plex Mono (iA Writer Mono, which Notion uses for
 code and labels, is derived from IBM Plex Mono). Lyon Text is licensed from
-Commercial Type and cannot be bundled, so Georgia stands in — it is the first
+Commercial Type and cannot be bundled, so Georgia stands in: it is the first
 fallback Notion itself lists.
 
 Scale is Notion's: tracking tightens as size grows.
@@ -89,16 +89,16 @@ Scale is Notion's: tracking tightens as size grows.
 | `quote` | 22 / 1.27 serif | 0 | 400 |
 
 OpenType discipline: `ss01` + `lnum` + `locl` on display and headings (Inter's
-curved-tail alternates — the softer, more humanist cut); `tnum` on every data
+curved-tail alternates, the softer, more humanist cut); `tnum` on every data
 surface (pricing, counters, request counts).
 
-### Radius — two values, plus pills
+### Radius: two values, plus pills
 
 Notion's geometry is rectangular-sober. **12px** for cards, images and product
 mockups. **8px** for buttons, inputs and controls. **9999px** exclusively for
-badges and tags — buttons are never pills.
+badges and tags; buttons are never pills.
 
-### Shadow — exactly one
+### Shadow: exactly one
 
 Notion is flat: 1px hairline borders carry structure, not shadows. The system
 defines one deep shadow (`--shadow-mockup`) and it is reserved for the hero
@@ -126,7 +126,7 @@ part of the voice. Centre alignment is used once, for the closing CTA.
 │        └─────────────────┘   └──────────────────────┘    │
 │                              ↑ the ONE deep shadow       │
 ├──────────────────────────────────────────────────────────┤
-│ DARK BAND #191918 — the three delivery channels          │
+│ DARK BAND #191918: the three delivery channels          │
 ├──────────────────────────────────────────────────────────┤
 │ FEATURED  paper · pastel-tinted cards · live previews    │
 ├──────────────────────────────────────────────────────────┤
@@ -138,14 +138,14 @@ part of the voice. Centre alignment is used once, for the closing CTA.
 ├──────────────────────────────────────────────────────────┤
 │ QUOTE     Georgia, once, 22px                            │
 ├──────────────────────────────────────────────────────────┤
-│ CTA       centred — the only centred moment              │
+│ CTA       centred: the only centred moment              │
 ├──────────────────────────────────────────────────────────┤
 │ FOOTER    dark band · 4 link columns + stats             │
 └──────────────────────────────────────────────────────────┘
 ```
 
 Section rhythm: 80px vertical gaps between major sections on desktop, 56px on
-mobile — Notion's spacing, which is what gives the page its unhurried feel.
+mobile: Notion's spacing, which is what gives the page its unhurried feel.
 
 ---
 
@@ -160,9 +160,9 @@ mobile — Notion's spacing, which is what gives the page its unhurried feel.
 4. **Dark bands interrupt the canvas.** Used for the channels section and the
    footer, to create the stage-transition contrast Notion relies on.
 5. **Motion is one orchestrated moment.** A single hero reveal sequence on load.
-   Nothing animates on scroll; cards do not lift on hover — their border darkens.
+   Nothing animates on scroll; cards do not lift on hover; their border darkens.
 6. **Mono labels are functional.** They mark shortcuts, versions, endpoints and
-   request counts — things that genuinely are code. Never a decorative eyebrow.
+   request counts: things that genuinely are code. Never a decorative eyebrow.
 7. **Tints carry meaning.** A card's pastel maps to a part of the product or a
    Notion property colour, not to a gradient the designer liked.
 8. **Spend the boldness once.** The hero mockup is the memorable thing. Everything
@@ -178,14 +178,14 @@ Audit of the previous build, and what changed:
 | Tell found in v1 | Revision |
 |---|---|
 | Headline with one clause in `text-primary` | Single-colour headline. Emphasis comes from Inter 700 at −0.033em, not from hue. |
-| Tracked-out ALL-CAPS sans eyebrow above every heading | Mono `label-mono`, 11px/500/+0.06em, mixed case — Notion's actual label style. |
+| Tracked-out ALL-CAPS sans eyebrow above every heading | Mono `label-mono`, 11px/500/+0.06em, mixed case: Notion's actual label style. |
 | Meta strings joined with middle dots (`A · B · C`) | Replaced with discrete mono chips and hairline-separated definition lists. |
 | `bg-dotgrid` / radial gradient washes as decoration | Removed. Flat paper canvas; structure comes from 1px hairlines. |
 | Uniform rounded cards, one radius, same soft shadow | Two radii with roles, flat cards, varied treatment: pastel tints, borderless panels, dark bands. |
 | `hover:-translate-y-0.5` + shadow on every card | Removed. Hover darkens the border and shifts ink colour only. |
 | Per-section fade-and-slide-up entrances | Removed. One hero reveal sequence, staggered 60/140/220ms. |
 | `→` character appended to button and link text | Removed from buttons. Card links use a drawn SVG arrow, which is what Notion's feature cards actually do. |
-| Tinted near-black standing in for black | Kept deliberately — `#0d0d0c` *is* Notion's value (`rgba(0,0,0,.95)` composited), so here it is a choice, not a tell. |
+| Tinted near-black standing in for black | Kept deliberately: `#0d0d0c` *is* Notion's value (`rgba(0,0,0,.95)` composited), so here it is a choice, not a tell. |
 
 ## Quality floor
 
@@ -197,13 +197,13 @@ ARIA.
 
 ## Branded assets
 
-- **Icons** (`components/icons.tsx`) — 24px grid, 1.6px stroke, round caps and
+- **Icons** (`components/icons.tsx`): 24px grid, 1.6px stroke, round caps and
   joins, `currentColor`. Filled shapes are reserved for one job: marking state.
   Eight distinctive category glyphs plus the brand mark.
-- **Avatars** (`components/avatar.tsx`) — generated, not illustrated. A stable djb2
+- **Avatars** (`components/avatar.tsx`): generated, not illustrated. A stable djb2
   hash of the seed picks a tint pair and one of six block arrangements on a 3×3
   grid. Pure SVG, no raster assets, identical on server and client.
-- **Logo mark** — an anvil-shaped block mid-assembly: two stacked planes and a
+- **Logo mark**: an anvil-shaped block mid-assembly: two stacked planes and a
   struck corner. A component being forged into a page.
 
 ---
@@ -211,7 +211,7 @@ ARIA.
 ## Motion
 
 One orchestrated entrance on the hero, plus native View Transitions for the
-navigations that actually communicate something. No animation library — the
+navigations that actually communicate something. No animation library: the
 browser's `document.startViewTransition`, via React's `<ViewTransition>`.
 
 Implemented in the skill's priority order (`react-view-transitions`):
@@ -220,11 +220,11 @@ Implemented in the skill's priority order (`react-view-transitions`):
 |---|---|---|
 | 1 shared element | catalog card preview ↔ detail page preview | "same thing, gone deeper" |
 | 2 Suspense reveal | `/components` skeleton → grid | "the data arrived" |
-| 4 state change | — | deliberately unused; nothing appears/disappears as a primary action |
+| 4 state change | n/a | deliberately unused; nothing appears/disappears as a primary action |
 | 5 route change | directional slide for catalog↔detail, crossfade elsewhere | "going deeper" vs "moving sideways" |
 
 Directional slides are **reserved for hierarchical navigation**. Lateral moves
-between top-level sections get a quiet crossfade — sliding from Pricing to Docs
+between top-level sections get a quiet crossfade, sliding from Pricing to Docs
 would assert a spatial relationship that does not exist.
 
 Details that matter and are easy to get wrong:
@@ -236,7 +236,7 @@ Details that matter and are easy to get wrong:
   sort would crossfade all 25 cards at once.
 - Persistent chrome (header, footer, the catalog's sticky bar) is isolated with
   `view-transition-name`. The header and bar use `backdrop-filter`, so their old
-  snapshots are hidden rather than cross-faded — that is the documented
+  snapshots are hidden rather than cross-faded: that is the documented
   workaround for the flash backdrop-filter causes.
 - The root is kept **live** (`::view-transition-old(root) { display: none }`) so
   unnamed content keeps rendering and stays interactive instead of freezing
@@ -253,7 +253,7 @@ without the API skip it entirely.
 
 `app/opengraph-image.tsx` renders the share card at build time with
 `next/og`, so the counts and palette are read from the catalog and cannot drift
-— the same derive-don't-hardcode rule as the rest of the site. The metadata
+, the same derive-don't-hardcode rule as the rest of the site. The metadata
 declares `twitter:card = summary_large_image`, so an image has to exist; before
 this it did not.
 
@@ -261,7 +261,7 @@ Two satori constraints shaped it: it cannot decode WOFF2
 (`Unsupported OpenType signature wOF2`), hence the `.woff` siblings in `fonts/`,
 and it collapses the height of a multi-line text box, which is why the lede is
 two explicit single-line rows. The rendered output is checked visually in this
-repo's history — a picture beats a guess.
+repo's history: a picture beats a guess.
 
 ## Branded assets, in use
 
@@ -271,8 +271,69 @@ eleven icons with no call site. Both are now resolved:
 - **Avatars** render in the hero's Notion mockup, replacing four ad-hoc initial
   spans, so workspace avatars come from the same generated system everywhere.
 - **Icons**: zero hand-rolled `<svg>` remain outside the icon set and the avatar
-  generator. Six icons that had no home were deleted — a speculative icon set is
-  a maintenance liability — and `IconChevron` came back when the recipe panel's
+  generator. Six icons that had no home were deleted: a speculative icon set is
+  a maintenance liability, and `IconChevron` came back when the recipe panel's
   disclosure markers turned out to need it. The kind badge carries
   `IconFrame` vs `IconDatabase`, because a widget is an iframe and a recipe is a
   database, and that distinction is the whole product.
+
+## The skills audit pass
+
+After the redesign landed, the installed skill set grew a second family:
+`leonxlnx/taste-skill` (94k stars, 589k+ installs for `design-taste-frontend`),
+installed per the `find-skills` workflow alongside the Vercel and Anthropic
+skills. Five of its skills were read in full and run as an audit over the
+shipped site: `redesign-existing-projects`, `design-taste-frontend`,
+`high-end-visual-design`, `minimalist-ui` and `imagegen-frontend-web`.
+
+What the audit changed:
+
+- **Em-dash and en-dash ban.** The taste-skill family bans both characters
+  anywhere a reader can see them. Every user-visible string in `app/`,
+  `components/`, `lib/`, the widgets and the repo docs was rewritten to
+  commas, colons, parentheses or full stops; ranges (`1-10`, `$0-9/mo`) use
+  hyphens. The rendered HTML of all fifteen content pages now contains zero
+  of either character.
+- **Hero stack discipline.** The hero carried two mono chips and a trust
+  strip under the CTAs. One chip remains (`components/25`, real data), and
+  the three honest facts moved to a hairline strip below the hero, where
+  they read as page content instead of hero clutter.
+- **Numbered step markers.** The `01 02 03` mono numbers on the landing
+  sequence are a section-numbering tell; the ordered list and its connector
+  hairlines carry the sequence now.
+- **One label per CTA intent.** "Get started" (header) and "Browse the
+  catalog" (steps) both meant browse, so every browse-intent link now says
+  "Browse components"; the free-tier variant stays "Browse free components".
+- **Scroll listener removed.** The header's hairline used to come from a
+  `window.scroll` handler. It is now a CSS scroll-driven animation
+  (`.header-line`, `animation-timeline: scroll(root)`), with a static
+  hairline under `@supports not (animation-timeline: scroll())`.
+- **State glyphs became branded icons.** The `✓ / ~ / ✕` text glyphs in the
+  capability matrices, pricing table and docs `YesNo` chips are now
+  `IconCheck`, `IconAlert` and `IconClose` from the brand set, with `sr-only`
+  text where the glyph was the only signal.
+- **Favicon.** The site had none. `app/icon.svg` is the LogoMark on its ink
+  tile with literal colours (a standalone file cannot inherit CSS custom
+  properties), and `app/apple-icon.png` is a hand-rasterised 180px sibling.
+
+What the audit deliberately did not change, and why:
+
+- **Inter stays.** Three of these skills ban Inter as an LLM default. Notion
+  self-hosts Inter as NotionInter; on a site mirroring Notion, Inter is the
+  brand voice, not a default. The skills' own override clause covers this.
+- **The branded SVG icon set stays.** `design-taste-frontend` says never
+  hand-roll icons and reach for Phosphor or Radix instead; the user brief
+  asked for branded icons, and `redesign-existing-projects` asks for a
+  custom set with one standardised stroke. One family, 1.6px, currentColor.
+- **Recipe emoji stay.** Recipe declarations carry `icon: { type: "emoji" }`
+  because that is Notion's own page and database icon mechanism; the recipe
+  panel shows them to preview the installed Notion surface. They are product
+  data, not site iconography.
+- **No generated imagery.** `imagegen-frontend-web` and
+  `design-taste-frontend` both push image generation for section assets.
+  This brief keeps the site image-free by instruction; the hero shows the
+  real widgets in iframes instead, which is the stronger proof anyway.
+- **The dark band stays.** A full-bleed `#191918` band interrupting the paper
+  canvas would read as a copy-paste accident on a generic page; on Notion's
+  own site it is a campaign device, and here it is committed to once,
+  full-bleed, with its own type and tint treatment.

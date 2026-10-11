@@ -57,7 +57,7 @@ const RELATION_MARKER = "__relationRef";
  * Builds the exact request sequence an install performs.
  *
  * Notion's data-source model forces a two-pass approach:
- *   1. create the databases (relations stripped — their targets do not exist)
+ * 1. create the databases (relations stripped : their targets do not exist)
  *   2. read back each database's default data source id
  *   3. patch the relation properties in with resolved data_source_ids
  *   4. add rollups/formulas that reference those relations
@@ -81,7 +81,7 @@ export function planInstall(recipe: Recipe, parentPageId = "{parent_page_id}"): 
     },
   });
 
-  // Pass 1 — databases without relations
+ // Pass 1 : databases without relations
   recipe.databases.forEach((db) => {
     const clean: Record<string, unknown> = {};
     const deferred: Record<string, unknown> = {};
@@ -125,7 +125,7 @@ export function planInstall(recipe: Recipe, parentPageId = "{parent_page_id}"): 
     }
   });
 
-  // Pass 2 — views
+ // Pass 2 : views
   recipe.views.forEach((v) => {
     if (v.type === "dashboard") {
       calls.push({
@@ -140,7 +140,7 @@ export function planInstall(recipe: Recipe, parentPageId = "{parent_page_id}"): 
         },
       });
       warnings.push(
-        `“${v.name}” is created empty. Dashboard configuration is read-only in the API — each widget is its own POST /v1/views with view_id set to the dashboard. See the manual steps.`
+        `“${v.name}” is created empty. Dashboard configuration is read-only in the API: each widget is its own POST /v1/views with view_id set to the dashboard. See the manual steps.`
       );
       return;
     }
@@ -160,19 +160,19 @@ export function planInstall(recipe: Recipe, parentPageId = "{parent_page_id}"): 
     });
   });
 
-  // Pass 3 — seed rows. POST /v1/pages creates exactly one page per request;
+ // Pass 3 : seed rows. POST /v1/pages creates exactly one page per request;
   // Notion has no bulk insert, so N rows is N requests and the plan must say so.
   recipe.databases.forEach((db) => {
     if (!db.seed?.length) return;
     calls.push({
       method: "POST",
       path: "/v1/pages",
-      note: `Seed ${db.seed.length} rows into ${db.title} so the views are not empty on first open (one request per row — Notion has no bulk insert)`,
+      note: `Seed ${db.seed.length} rows into ${db.title} so the views are not empty on first open (one request per row; Notion has no bulk insert)`,
       count: db.seed.length,
     });
   });
 
-  // Pass 4 — documentation pages + bodies
+ // Pass 4 : documentation pages + bodies
   recipe.pages.forEach((page) => {
     calls.push({
       method: "POST",

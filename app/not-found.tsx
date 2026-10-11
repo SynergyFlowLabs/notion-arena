@@ -19,7 +19,7 @@ export default function NotFound() {
       <p className="mt-4 max-w-md text-lede text-ink-soft">
         The Notion API returns{" "}
         <code className="rounded bg-secondary px-1 py-px font-mono text-[13px]">object_not_found</code>{" "}
-        when you ask for something you cannot see — including things that exist
+        when you ask for something you cannot see, including things that exist
         but are not shared with your integration. Same idea here.
       </p>
 

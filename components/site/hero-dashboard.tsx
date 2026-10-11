@@ -7,7 +7,7 @@ import { planInstall, RECIPES } from "@/lib/recipes";
  *
  * Every widget pane is an iframe of the actual file a user would embed, so the
  * hero is proof rather than illustration. It carries the system's only deep
- * shadow — everything else on the site is flat with hairline borders.
+ * shadow; everything else on the site is flat with hairline borders.
  */
 
 /** Derived, so the label can never disagree with the real plan. */
@@ -59,7 +59,7 @@ export function HeroDashboard() {
   return (
     <div className="relative">
       <div className="overflow-hidden rounded-xl border border-border bg-white shadow-mockup">
-        {/* ── Notion window topbar ─────────────────────────────── */}
+ {/* Notion window topbar */}
         <div className="flex h-9 items-center gap-2 border-b border-[rgba(13,13,12,0.08)] bg-[#fbfbfa] px-3">
           <span className="size-2.5 rounded-full bg-[#e03e3e]/60" />
           <span className="size-2.5 rounded-full bg-[#dfab01]/60" />
@@ -67,7 +67,7 @@ export function HeroDashboard() {
 
           {/* breadcrumbs, in Notion's app voice */}
           <div className="ml-2 flex min-w-0 items-center gap-1 text-[12px] text-app-ink/75">
-            <span className="shrink-0">Acme</span>
+            <span className="shrink-0">Foundry Labs</span>
             <span aria-hidden className="text-app-ink/60">/</span>
             <span className="shrink-0">Engineering</span>
             <span aria-hidden className="text-app-ink/60">/</span>
@@ -92,7 +92,7 @@ export function HeroDashboard() {
           </div>
         </div>
 
-        {/* ── page body ────────────────────────────────────────── */}
+ {/* page body */}
         <div className="bg-white px-4 py-4 sm:px-6 sm:py-5">
           {/* cover strip */}
           <div
@@ -159,7 +159,7 @@ export function HeroDashboard() {
         </div>
       </div>
 
-      {/* two quiet annotations, in mono — functional, not decorative */}
+      {/* two quiet annotations, in mono: functional, not decorative */}
       <div className="pointer-events-none absolute -left-2 top-[38%] hidden rounded-[6px] border border-border bg-card px-2 py-1 font-mono text-[10.5px] text-ink-soft shadow-pop lg:block">
         <span className="text-notion-green">●</span> live widget, not an image
       </div>
@@ -178,7 +178,7 @@ function NativeBoard() {
       dot: "var(--notion-blue)",
       tint: "var(--tag-bg-blue)",
       cards: [
-        { t: "Kestrel Labs — Starter", v: "$9.6k", p: "40%" },
+        { t: "Kestrel Labs · Starter", v: "$9.6k", p: "40%" },
         { t: "Meridian Freight", v: "$22k", p: "35%" },
       ],
     },
@@ -188,7 +188,7 @@ function NativeBoard() {
       dot: "var(--tag-ink-yellow)",
       tint: "var(--tag-bg-yellow)",
       cards: [
-        { t: "Northwind — Platform", v: "$48k", p: "60%", hot: true },
+        { t: "Northwind · Platform", v: "$48k", p: "60%", hot: true },
         { t: "Halcyon Studio", v: "$14k", p: "55%" },
       ],
     },

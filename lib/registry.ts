@@ -29,8 +29,8 @@ const at = (base: string | undefined, path: string) => `${registryBase(base)}${p
  *   • a `.json` file  → the Notion API payloads a recipe installs
  *   • a `.md` file    → the manual steps the API cannot express
  *
- * Keeping the envelope identical means existing tooling — the shadcn CLI, an
- * MCP registry server, a `components.json` namespace entry — can address this
+ * Keeping the envelope identical means existing tooling : the shadcn CLI, an
+ * MCP registry server, a `components.json` namespace entry : can address this
  * catalog without modification:
  *
  *   "registries": { "@blocksmith": "https://blocksmith.dev/r/{name}.json" }
@@ -120,7 +120,7 @@ export function registryIndex(base?: string) {
   };
 }
 
-/** Full item, with file contents inlined — this is what `GET /r/<name>.json` returns. */
+/** Full item, with file contents inlined : this is what `GET /r/<name>.json` returns. */
 export async function registryItemWithContent(slug: string, base?: string) {
   const c = getComponent(slug);
   if (!c) return null;

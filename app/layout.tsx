@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
   title: {
-    default: "Blocksmith — the component registry for Notion",
+    default: "Blocksmith: the component registry for Notion",
     template: "%s · Blocksmith",
   },
   description:
-    "Pre-built, embeddable components for Notion dashboards. Interactive widgets that run as /embed URLs or native HTML blocks, plus API-installable database recipes — the shadcn/ui model, applied to Notion.",
+    "Pre-built, embeddable components for Notion dashboards. Interactive widgets that run as /embed URLs or native HTML blocks, plus API-installable database recipes: the shadcn/ui model, applied to Notion.",
   keywords: [
     "notion components",
     "notion widgets",
@@ -25,18 +25,22 @@ export const metadata: Metadata = {
     "notion registry",
   ],
   openGraph: {
-    title: "Blocksmith — the component registry for Notion",
+    title: "Blocksmith: the component registry for Notion",
     description:
       "Feature-rich components Notion doesn't ship: interactive widgets, HTML blocks, and API-installable database systems.",
     type: "website",
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
+  },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    // Matches the paper canvas, not pure white — Notion's page bg is warm.
+    // Matches the paper canvas, not pure white; Notion's page bg is warm.
     { media: "(prefers-color-scheme: light)", color: "#f6f5f4" },
     { media: "(prefers-color-scheme: dark)", color: "#191919" },
   ],

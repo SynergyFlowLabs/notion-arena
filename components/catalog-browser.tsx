@@ -15,7 +15,7 @@ type Tier = "all" | "free" | "pro";
 const SORTS = [
   { id: "featured", label: "Featured" },
   { id: "updated", label: "Recently updated" },
-  { id: "name", label: "A–Z" },
+  { id: "name", label: "A-Z" },
 ] as const;
 
 const BADGE_RANK: Record<string, number> = { "staff-pick": 0, popular: 1, new: 2 };
@@ -193,7 +193,7 @@ export function CatalogBrowser() {
                 "h-9 w-full rounded-lg border border-border bg-card py-0 pl-9 pr-8 text-[13.5px] text-foreground",
                 "placeholder:text-ink-faint transition-[border-color,box-shadow] duration-150",
                 // A text field should show its ring on focus, not only on
-                // keyboard focus — the user is always about to type.
+                // keyboard focus: the user is always about to type.
                 "focus:border-primary focus:ring-2 focus:ring-[color-mix(in_oklab,var(--primary)_22%,transparent)] focus:outline-none",
                 "[&::-webkit-search-cancel-button]:appearance-none"
               )}

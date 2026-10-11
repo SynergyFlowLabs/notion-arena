@@ -19,7 +19,7 @@ export interface RecipePage {
 
 export interface RecipeManual {
   title: string;
-  /** why this cannot be scripted — always a real Notion API limitation */
+ /** why this cannot be scripted : always a real Notion API limitation */
   reason: string;
   steps: string[];
 }

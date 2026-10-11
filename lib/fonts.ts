@@ -6,11 +6,11 @@ import localFont from "next/font/local";
  *
  * We mirror that stack with fonts we can legally self-host:
  *
- *   • Inter Variable   — the same open-source face Notion's cut is built from
- *                        (SIL OFL 1.1), variable 100–900 with the opsz axis.
- *   • IBM Plex Mono    — iA Writer Mono is derived from IBM Plex Mono, so this
+ * • Inter Variable : the same open-source face Notion's cut is built from
+ * (SIL OFL 1.1), variable 100-900 with the opsz axis.
+ * • IBM Plex Mono : iA Writer Mono is derived from IBM Plex Mono, so this
  *                        is the closest freely redistributable match.
- *   • Lyon Text        — licensed from Commercial Type, so it cannot be bundled.
+ * • Lyon Text : licensed from Commercial Type, so it cannot be bundled.
  *                        Georgia is the first fallback Notion itself lists.
  *
  * Everything is local: no CDN, no render-blocking third-party request, and

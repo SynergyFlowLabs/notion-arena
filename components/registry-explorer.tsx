@@ -141,7 +141,7 @@ export function RegistryExplorer({ origin }: { origin: string }) {
 
       <div className="flex flex-wrap items-center gap-2 border-t border-border bg-raised px-3 py-2 text-[11.5px] text-ink-soft">
         <span>
-          {index ? `${index.length} items` : "—"} · schema{" "}
+          {index ? `${index.length} items` : "0 items"} · schema{" "}
           <a href="/r/schema.json" className="font-mono text-primary hover:underline">
             /r/schema.json
           </a>

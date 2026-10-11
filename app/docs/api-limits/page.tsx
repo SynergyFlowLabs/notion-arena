@@ -34,10 +34,10 @@ export default function ApiLimitsPage() {
           rows={[
             ["Children per append request", "100", "The installer chunks every page body into groups of 100 and issues one PATCH per chunk."],
             ["Nesting depth per request", "2 levels", "A column_list containing columns containing paragraphs is already at the ceiling. Deeper trees are split across requests, appended to the block id the previous request returned."],
-            [<span>Block types available</span>, "See reference", "paragraph, heading_1–4, bulleted/numbered_list_item, to_do, toggle, quote, callout, divider, code, equation, embed, bookmark, column_list, synced_block, table, table_row, breadcrumb, table_of_contents, child_page, child_database."],
+            [<span>Block types available</span>, "See reference", "paragraph, heading_1-4, bulleted/numbered_list_item, to_do, toggle, quote, callout, divider, code, equation, embed, bookmark, column_list, synced_block, table, table_row, breadcrumb, table_of_contents, child_page, child_database."],
             [<span><code>button</code> block type</span>, <span className="text-[var(--tag-ink-red)]">does not exist</span>, "Buttons are the single most-requested thing a recipe cannot create. Every recipe that needs one ships the exact click path instead."],
             ["Insertion position", <><code>position</code></>, "Since 2026-03-11, <code>position</code> replaces the older <code>after</code> field for placing children."],
-            ["Notifications on write", <><code>mode: "silent"</code></>, "Bulk installs should send this — otherwise every appended block can notify watchers of the page."],
+            ["Notifications on write", <><code>mode: "silent"</code></>, "Bulk installs should send this, otherwise every appended block can notify watchers of the page."],
           ]}
         />
         <P>
@@ -65,7 +65,7 @@ export default function ApiLimitsPage() {
           A <code>relation</code> property targets a data source. So creating
           <strong className="font-semibold text-foreground"> Deals</strong> with
           a relation to <strong className="font-semibold text-foreground"> Companies</strong>{" "}
-          requires the <code>data_source_id</code> of Companies — which only
+          requires the <code>data_source_id</code> of Companies, which only
           exists after Companies has been created and read back.
         </P>
         <Code
@@ -83,7 +83,7 @@ pass 5 · PATCH /v1/data_sources/{id}
         />
         <Note tone="blue" title="Why recipes declare refs instead of ids">
           In a recipe definition, a relation points at another recipe database by{" "}
-          <code>ref</code> — a local name like <code>companies</code>. The
+          <code>ref</code>: a local name like <code>companies</code>. The
           installer marks those with an internal{" "}
           <code>__relationRef</code> field, strips them from pass 1, and resolves
           each one to a real <code>data_source_id</code> in pass 3. That is why a
@@ -113,9 +113,9 @@ pass 5 · PATCH /v1/data_sources/{id}
           head={["Property type", "Readable", "Writable", "Note"]}
           widths={["24%", "80px", "80px", undefined]}
           rows={[
-            [<span><code>button</code></span>, <YesNo v />, <YesNo v={false} />, "Returned by the API on databases that have one. Cannot be created or configured programmatically — it is a page-level control, not a schema field."],
+            [<span><code>button</code></span>, <YesNo v />, <YesNo v={false} />, "Returned by the API on databases that have one. Cannot be created or configured programmatically: it is a page-level control, not a schema field."],
             [<span><code>verification</code></span>, <YesNo v />, <YesNo v={false} />, "The wiki page-verification badge. Response-only."],
-            [<span><code>status</code> groups</span>, <YesNo v />, <YesNo v="partial" />, "On create, each option may carry a <code>group</code> of To-do, In progress or Complete. In responses, groups arrive separately with <code>option_ids</code> — so a round-trip is not symmetrical."],
+            [<span><code>status</code> groups</span>, <YesNo v />, <YesNo v="partial" />, "On create, each option may carry a <code>group</code> of To-do, In progress or Complete. In responses, groups arrive separately with <code>option_ids</code>, so a round-trip is not symmetrical."],
             [<span><code>unique_id</code></span>, <YesNo v />, <YesNo v="partial" />, "You can set the <code>prefix</code>. You cannot set the number."],
             [<span><code>relation</code></span>, <YesNo v />, <YesNo v />, "Current versions target a data source, not a database id. Older integrations pinned to an earlier Notion-Version still address databases directly."],
           ]}
@@ -148,7 +148,7 @@ pass 5 · PATCH /v1/data_sources/{id}
           <LI>
             <strong className="font-semibold text-foreground">Dashboard layouts
             are read-only.</strong> You can create a dashboard view, and you can
-            create the widget views it would display — but you cannot position
+            create the widget views it would display, but you cannot position
             them. Notion composes the layout itself from the widget views
             attached to the same data source.
           </LI>
@@ -227,13 +227,13 @@ pass 5 · PATCH /v1/data_sources/{id}
             ["Children per request", "100", "Long documentation pages are chunked; the chunk count is visible in the plan before you run it."],
             ["Nesting per request", "2 levels", "Deep trees need sequential appends against returned block ids."],
             ["Payload size", "500 KB per request", "Page bodies of a few hundred blocks are fine. A simple_table whose serialized body exceeds 500 KB needs splitting across requests."],
-            ["File upload size", "Depends on plan", "Widget HTML is 15–90 KB, so uploads are never close to the limit on any plan."],
+            ["File upload size", "Depends on plan", "Widget HTML is 15-90 KB, so uploads are never close to the limit on any plan."],
             ["Integration connections", "Per page or per workspace", "An internal integration must be explicitly connected to every page it writes to, or writes return restricted_resource."],
           ]}
         />
         <Note tone="blue" title="Read the plan before you spend a token">
           <code>POST /api/install</code> with <code>mode: "plan"</code> requires no
-          credentials and returns every request — method, path, body and a note.
+          credentials and returns every request: method, path, body and a note.
           You can count them, diff them, and estimate the runtime before anything
           touches your workspace.
         </Note>
@@ -252,7 +252,7 @@ pass 5 · PATCH /v1/data_sources/{id}
         <UL>
           <LI>
             Notion's API is versioned by date, and behaviour changes between
-            versions — notably the database/data-source split, which
+            versions, notably the database/data-source split, which
             changes what a <code>relation</code> property points at.
           </LI>
           <LI>

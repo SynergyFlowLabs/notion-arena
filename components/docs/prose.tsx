@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { CopyButton } from "@/components/copy-button";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
-import { IconExternal } from "@/components/icons";
+import { IconAlert, IconCheck, IconClose, IconExternal } from "@/components/icons";
 
 /* A small set of server-rendered primitives so every docs page reads the same. */
 
@@ -217,7 +217,13 @@ export function YesNo({ v }: { v: boolean | "partial" }) {
       )}
       aria-label={v === true ? "supported" : v === "partial" ? "partially supported" : "not supported"}
     >
-      {v === true ? "✓" : v === "partial" ? "~" : "✕"}
+      {v === true ? (
+        <IconCheck size={11} />
+      ) : v === "partial" ? (
+        <IconAlert size={11} />
+      ) : (
+        <IconClose size={10} />
+      )}
     </span>
   );
 }

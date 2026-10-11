@@ -9,7 +9,7 @@
  *   • HTML blocks are `embed` blocks whose file is a `file_upload`
  *
  * Two documented gaps are modelled explicitly rather than papered over:
- *   • Button properties and database automations are response-only — the API
+ * • Button properties and database automations are response-only : the API
  *     cannot create them. Recipes therefore emit `manual` steps for those.
  *   • Relation targets are unknown until the databases exist, so relations are
  *     declared by local ref and patched in a second pass.
@@ -243,7 +243,7 @@ export const equation = (expression: string): Block =>
 
 /**
  * An HTML block. The file itself is uploaded through the File Upload API and
- * referenced by id — Notion renders it in a sandboxed iframe.
+ * referenced by id : Notion renders it in a sandboxed iframe.
  */
 export const htmlBlock = (fileUploadId: string, caption: (string | RichText)[] = []): Block =>
   blk("embed", {

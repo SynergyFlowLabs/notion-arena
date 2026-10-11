@@ -16,7 +16,7 @@ export default function SandboxPage() {
         <>
           Notion 3.6 added a native HTML block. It lets a page contain a runnable
           file, and the common reading of how it works is wrong. It is
-          not an iframe of a URL and it is not a plugin — it is a file you
+          not an iframe of a URL and it is not a plugin. It is a file you
           upload, rendered in a frame with no address and no network. Every
           design decision behind our widgets follows from that.
         </>
@@ -28,7 +28,7 @@ export default function SandboxPage() {
           When you create an HTML block, Notion stores an <code>.html</code> file
           in its own file storage and renders it inside a sandboxed frame. The{" "}
           <code>/html</code> slash command does this by hand: you paste source,
-          Notion uploads it. The API does it in three requests — reserve an
+          Notion uploads it. The API does it in three requests: reserve an
           upload, send the bytes, then append an <code>embed</code> block that
           points at the upload id.
         </P>
@@ -63,7 +63,7 @@ export default function SandboxPage() {
         <P>
           Documented behaviour, plus what we observe when our own widgets render
           in a real block. Where a row is browser-dependent rather than
-          Notion-dependent it is marked partial — treat those as "test it on the
+          Notion-dependent it is marked partial, treat those as "test it on the
           devices your team actually uses".
         </P>
         <Table
@@ -71,13 +71,13 @@ export default function SandboxPage() {
           widths={["34%", "36px", undefined]}
           rows={[
             [<span>JavaScript execution</span>, <YesNo v />, "Full ES2022. Timers, requestAnimationFrame, canvas 2D, SVG, WebAudio, drag events, IntersectionObserver, the async Clipboard API on a user gesture."],
-            [<span>CSS</span>, <YesNo v />, "Full, including container queries, <code>:has()</code>, <code>color-mix()</code> and custom properties. Inline only — no external stylesheets."],
+            [<span>CSS</span>, <YesNo v />, "Full, including container queries, <code>:has()</code>, <code>color-mix()</code> and custom properties. Inline only, no external stylesheets."],
             [<span>Viewing the block</span>, <YesNo v />, "Every plan: Free, Plus, Business, Enterprise. It is a block, not a feature flag."],
             [<span>localStorage / IndexedDB</span>, <YesNo v="partial" />, "Works, scoped to the browser profile. Not synced to teammates, not available in the mobile app's WebView on some versions, cleared with site data."],
             [<span>Clipboard write</span>, <YesNo v="partial" />, "Requires a user gesture. Our export buttons therefore always also <code>console.log</code> the payload as a fallback."],
             [<span>External network calls</span>, <YesNo v={false} />, "None. No <code>fetch</code>, no XHR, no WebSocket, no image hotlink, no CDN script, no webfont, no analytics beacon."],
             [<span>Reading the host page</span>, <YesNo v={false} />, "No URL, no <code>location.search</code>, no postMessage bridge to Notion, no access to page content or database properties."],
-            [<span>Writing to Notion</span>, <YesNo v={false} />, "No API access. A block cannot create a page, tick a checkbox or update a property — even with a valid token, which it could not hold anyway."],
+            [<span>Writing to Notion</span>, <YesNo v={false} />, "No API access. A block cannot create a page, tick a checkbox or update a property, even with a valid token, which it could not hold anyway."],
             [<span>AI generating or editing the HTML</span>, <YesNo v="partial" />, "Notion AI can author and revise HTML blocks on Business and Enterprise plans only. Blocks you installed still render everywhere regardless of who made them."],
             [<span>Editing in place</span>, <YesNo v={false} />, "You replace the file. Notion does not expose a source editor for an existing block through the API."],
           ]}
@@ -85,7 +85,7 @@ export default function SandboxPage() {
         <Note tone="red" title="The two rows that decide your architecture">
           No network and no page access. Together they mean a widget can never be
           data-driven from your workspace. If a component needs to display real
-          numbers, it has to be a database with a view or a chart — i.e. a native
+          numbers, it has to be a database with a view or a chart, i.e. a native
           recipe. Any product that claims an HTML block reads your Notion data is
           either wrong or is doing something you should look at closely.
         </Note>
@@ -95,7 +95,7 @@ export default function SandboxPage() {
         <H2 id="configuration">Configuring a block that has no URL</H2>
         <P>
           The hosted embed reads its parameters from the query string. A
-          downloaded HTML block cannot — <code>location.search</code> is empty
+          downloaded HTML block cannot: <code>location.search</code> is empty
           inside the sandbox. So the configuration has to travel inside the file.
           Every Blocksmith widget implements the same loader:
         </P>
@@ -112,7 +112,7 @@ const qs = new URLSearchParams(location.search);
 const cfg = { ...baked };
 for (const [key, value] of qs) cfg[key] = value;
 
-// 3. typed accessors — never trust the raw string
+// 3. typed accessors: never trust the raw string
 const num  = (k, d) => Number.isFinite(+cfg[k]) ? +cfg[k] : d;
 const bool = (k, d) => cfg[k] === undefined ? d : ["true", "1"].includes(String(cfg[k]));`}
         />
@@ -128,14 +128,14 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true", "1"].includes(String(
         <H3>Two parameters exist on every widget</H3>
         <UL>
           <LI>
-            <code>theme</code> — <code>auto</code>, <code>light</code> or{" "}
+            <code>theme</code>: <code>auto</code>, <code>light</code> or{" "}
             <code>dark</code>. Sets <code>data-theme</code> on{" "}
             <code>&lt;html&gt;</code>. <code>auto</code> follows{" "}
             <code>prefers-color-scheme</code>, which inside Notion means it
             follows Notion's own appearance setting.
           </LI>
           <LI>
-            <code>accent</code> — any CSS colour, written to{" "}
+            <code>accent</code>: any CSS colour, written to{" "}
             <code>--accent</code>. Derived shades use{" "}
             <code>color-mix(in oklab, …)</code> so one accent produces a
             consistent palette rather than five hardcoded ones.
@@ -146,8 +146,8 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true", "1"].includes(String(
       <section className="flex flex-col gap-4">
         <H2 id="state">State, and why it is not shared</H2>
         <P>
-          Widgets that need to remember something — a pomodoro's session count, a
-          habit grid's checked squares, a kanban's card positions — use{" "}
+          Widgets that need to remember something (a pomodoro's session count, a
+          habit grid's checked squares, a kanban's card positions) use{" "}
           <code>localStorage</code> under a namespaced key:
         </P>
         <Code lang="text" code={`blocksmith.pomodoro-timer.v1   → {"day":"2026-10-11","sessions":3,"minutes":75}
@@ -161,7 +161,7 @@ blocksmith.whiteboard.v1       → {"shapes":[…],"notes":[…],"pan":[0,0]}`} 
           State is per browser, per device. Your colleague opening the same page
           sees defaults, not your checked squares. That is correct for a personal
           timer, a calculator or a mood log. It is wrong for anything a team
-          tracks together — which is why every shared tracker in this catalog
+          tracks together, which is why every shared tracker in this catalog
           also exists as a native recipe with a real database behind it.
         </Note>
       </section>
@@ -171,7 +171,7 @@ blocksmith.whiteboard.v1       → {"shapes":[…],"notes":[…],"pan":[0,0]}`} 
         <P>
           Three requests. The second one goes to a Notion storage host, not to{" "}
           <code>api.notion.com</code>, and takes no <code>Authorization</code>{" "}
-          header — the upload URL is already scoped.
+          header: the upload URL is already scoped.
         </P>
         <Code
           lang="bash"
@@ -232,10 +232,10 @@ curl -sS -X PATCH "https://api.notion.com/v1/blocks/$PAGE_ID/children" \\
             ["Where the file lives", "Our host", "Notion's file storage"],
             ["Needs internet to render", "Yes", "No"],
             ["Configuration source", "Query string", "Baked-in JSON script tag"],
-            ["Receives our updates", "Yes, automatically", "No — frozen at your version"],
+            ["Receives our updates", "Yes, automatically", "No. Frozen at your version"],
             ["Install effort", "/embed + paste", "/html + upload, or 3 API calls"],
             ["Works on Free plan", "Yes", "Yes"],
-            ["Safe to resell in a template", "Risky — we could disappear", "Yes — it is self-contained"],
+            ["Safe to resell in a template", "Risky: we could disappear", "Yes. It is self-contained"],
             ["Inspectable by you", "View source", "The file you downloaded"],
           ]}
         />

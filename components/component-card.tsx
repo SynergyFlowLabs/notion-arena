@@ -104,7 +104,7 @@ export function ComponentCard({
       className={cn(
         "group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card",
         // Flat by design: hover darkens the hairline and the title ink. No lift,
-        // no shadow stack — Notion's cards do not move.
+        // no shadow stack: Notion's cards do not move.
         "transition-[border-color] duration-150 hover:border-border-strong"
       )}
     >
@@ -113,7 +113,7 @@ export function ComponentCard({
         // Hierarchical: catalog -> detail. The slide direction says "deeper".
         transitionTypes={["nav-forward"]}
         className="absolute inset-0 z-10 rounded-xl focus-visible:outline-offset-2"
-        aria-label={`${c.name} — ${c.tagline}`}
+        aria-label={`${c.name}: ${c.tagline}`}
       />
 
       <div className="relative border-b border-border bg-raised">

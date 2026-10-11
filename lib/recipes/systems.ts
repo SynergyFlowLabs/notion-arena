@@ -86,7 +86,7 @@ export const meetingNotesOs: Recipe = {
         "Open actions": rollup("Action items", "Done", "unchecked"),
         "All actions": rollup("Action items", "Name", "count_values"),
         "Actions closed": formula(
-          'if(prop("All actions") == 0, "—", format(prop("All actions") - prop("Open actions")) + "/" + format(prop("All actions")))'
+          'if(prop("All actions") == 0, "n/a", format(prop("All actions") - prop("Open actions")) + "/" + format(prop("All actions")))'
         ),
         "Is overdue": formula(
           'if(and(prop("Date") < now(), prop("Status") == "Scheduled"), "🔴 Notes not written", "")'
@@ -95,7 +95,7 @@ export const meetingNotesOs: Recipe = {
       },
       seed: [
         { name: "Weekly team sync", props: { Type: "Team", Status: "Notes written" } },
-        { name: "1:1 — Dana", props: { Type: "1:1" } },
+        { name: "1:1 · Dana", props: { Type: "1:1" } },
       ],
     },
     {
@@ -199,7 +199,7 @@ export const meetingNotesOs: Recipe = {
         callout(
           [
             t("This is the body Notion inserts when you apply the “Meeting” database template. ", { bold: true }),
-            t("Every block below is a real block type — the installer can build the equivalent page directly through Append block children."),
+            t("Every block below is a real block type: the installer can build the equivalent page directly through Append block children."),
           ],
           "📄",
           "blue_background"
@@ -221,10 +221,10 @@ export const meetingNotesOs: Recipe = {
         toggle([t("Topic 1")], [paragraph([t("Notes")]), bullet([t("Detail")])]),
         heading(2, "Decisions"),
         callout([t("Record the decision and the reason, not just the outcome. Six months from now the reason is the only part that is useful.")], "📌", "yellow_background"),
-        bullet([t("Decision — why — who decided")]),
+        bullet([t("Decision, why, who decided")]),
         heading(2, "Action items"),
         paragraph([t("Embed the Action Items database as a linked view filtered to this meeting. Then each row you add is a real tracked action with an owner and a due date.")]),
-        todo([t("Action — @owner — due date")]),
+        todo([t("Action, @owner, due date")]),
         divider(),
         heading(3, "Carry-over"),
         paragraph([t("Anything unresolved from the last meeting with this group. Linked view: same Type, same Attendees, Status ≠ Actions closed.")]),
@@ -239,7 +239,7 @@ export const meetingNotesOs: Recipe = {
       steps: [
         "Meetings → the ▾ beside New → + New template.",
         "Name it “Meeting”. Set Type and Status = Scheduled as property defaults.",
-        "Paste the body shown on this page — Notion keeps the headings, toggles and to-dos as real blocks.",
+        "Paste the body shown on this page: Notion keeps the headings, toggles and to-dos as real blocks.",
         "In the Action items section, type /linked and choose Action Items, filtered to Meeting = this page (Relative link → Meeting).",
         "Template ••• → Set as default.",
       ],
@@ -260,7 +260,7 @@ export const meetingNotesOs: Recipe = {
       steps: [
         "Meetings → Automations → New automation.",
         "Trigger: Date is before Today. Condition: Status is Scheduled.",
-        "Action: set Status to “Notes written” — no. Instead add a comment @mentioning the first attendee: “Notes owed.”",
+        "Action: do not set Status to “Notes written”. Add a comment @mentioning the first attendee: “Notes owed.”",
         "Second automation: when every Action item is Done, set Status to “Actions closed”. Notion cannot express “all related rows”, so use a weekly recurring review instead.",
       ],
     },
@@ -283,10 +283,10 @@ export const contentCalendar: Recipe = {
       properties: {
         Name: title(),
         Score: sel([
-          { name: "A — ship it", color: "green" },
-          { name: "B — needs work", color: "blue" },
-          { name: "C — maybe", color: "yellow" },
-          { name: "D — no", color: "red" },
+          { name: "A: ship it", color: "green" },
+          { name: "B: needs work", color: "blue" },
+          { name: "C: maybe", color: "yellow" },
+          { name: "D: no", color: "red" },
         ]),
         Angle: multi([
           { name: "How-to", color: "blue" },
@@ -313,8 +313,8 @@ export const contentCalendar: Recipe = {
         Submitted: createdTime(),
       },
       seed: [
-        { name: "Why Notion HTML blocks change component design", props: { Score: "A — ship it", Angle: ["Contrarian", "Data"] } },
-        { name: "The three ways to get a component into Notion", props: { Score: "A — ship it", Angle: ["How-to"] } },
+        { name: "Why Notion HTML blocks change component design", props: { Score: "A: ship it", Angle: ["Contrarian", "Data"] } },
+        { name: "The three ways to get a component into Notion", props: { Score: "A: ship it", Angle: ["How-to"] } },
       ],
     },
     {
@@ -442,7 +442,7 @@ export const contentCalendar: Recipe = {
         callout(
           [
             t("Publish the form view to a public URL and put it in your footer. ", { bold: true }),
-            t("Support questions are the best idea source you have — they are pre-qualified by the fact that someone asked."),
+            t("Support questions are the best idea source you have: they are pre-qualified by the fact that someone asked."),
           ],
           "💡",
           "yellow_background"
@@ -490,7 +490,7 @@ export const contentCalendar: Recipe = {
 export const paraLifeOs: Recipe = {
   id: "para-life-os",
   summary:
-    "Projects, Areas, Resources, Notes and Tasks — cross-linked so nothing is orphaned, with a home dashboard built from synced blocks.",
+    "Projects, Areas, Resources, Notes and Tasks, cross-linked so nothing is orphaned, with a home dashboard built from synced blocks.",
   databases: [
     {
       ref: "projects",
@@ -593,7 +593,7 @@ export const paraLifeOs: Recipe = {
         Summary: text(),
       },
       seed: [
-        { name: "Notion API — Working with views", props: { Type: "Reference", Topic: ["Notion", "Engineering"], Rating: "★★★★" } },
+        { name: "Notion API: Working with views", props: { Type: "Reference", Topic: ["Notion", "Engineering"], Rating: "★★★★" } },
         { name: "Building a second brain", props: { Type: "Book", Topic: ["Writing"] } },
       ],
     },
@@ -744,7 +744,7 @@ export const paraLifeOs: Recipe = {
       steps: [
         "Build the header once on Home, inside a synced block.",
         "On every other dashboard page: type /synced and choose “Paste from elsewhere”, then pick the Home header.",
-        "Editing any instance edits all of them — that is the whole point.",
+        "Editing any instance edits all of them. That is the whole point.",
       ],
     },
     {
@@ -904,7 +904,7 @@ export const habitOsNative: Recipe = {
         ),
         heading(2, "The loop"),
         numbered([t("Press “Log today” once. It creates one Daily Log row per active habit, dated today.")]),
-        numbered([t("Tick Completed on the rows you did. Leave the rest unchecked — an unchecked row is data, not failure.")]),
+        numbered([t("Tick Completed on the rows you did. Leave the rest unchecked: an unchecked row is data, not failure.")]),
         numbered([t("On Sunday, look at the Completion by habit chart. Anything under 50% for three weeks gets its frequency reduced, not its willpower increased.")]),
         divider(),
         heading(2, "The formulas"),
@@ -914,7 +914,7 @@ export const habitOsNative: Recipe = {
         callout(
           [
             t("A true current-streak formula needs a self-referencing lookup across dated rows, which Notion formulas cannot express. ", { bold: true }),
-            t("That is an honest limitation, not a missing feature — which is why the weekly chart does the motivating instead."),
+            t("That is an honest limitation, not a missing feature, which is why the weekly chart does the motivating instead."),
           ],
           "⚠️",
           "yellow_background"
@@ -1016,7 +1016,7 @@ export const clientPortal: Recipe = {
         ),
       },
       seed: [
-        { name: "Brand refresh — round 1", props: { Status: "In client review", "Client visible": true } },
+        { name: "Brand refresh · round 1", props: { Status: "In client review", "Client visible": true } },
         { name: "Internal pricing model", props: { Status: "In progress", "Client visible": false } },
       ],
     },
@@ -1094,7 +1094,7 @@ export const clientPortal: Recipe = {
           columns(
             [
               heading(2, "👋 Welcome"),
-              paragraph([t("Everything about our work together, in one place. Updated as it happens — no weekly status email.")]),
+              paragraph([t("Everything about our work together, in one place. Updated as it happens. No weekly status email.")]),
             ],
             [
               paragraph([t("Your contact", { bold: true })]),
@@ -1123,7 +1123,7 @@ export const clientPortal: Recipe = {
           [
             t("Before you publish: ", { bold: true }),
             t(
-              "audit every linked view on this page. Anything not filtered to this client and not marked Client visible will leak. Publishing exposes the page body, not the properties of the rows — but a linked view shows whatever its filter allows."
+              "audit every linked view on this page. Anything not filtered to this client and not marked Client visible will leak. Publishing exposes the page body, not the properties of the rows, but a linked view shows whatever its filter allows."
             ),
           ],
           "🔒",
@@ -1149,7 +1149,7 @@ export const clientPortal: Recipe = {
       steps: [
         "Deliverables → Automations → New automation.",
         "Trigger: Status changes to “In client review”.",
-        "Action: add a comment @mentioning the client's contact — if they are a guest on the page, they are notified by email.",
+        "Action: add a comment @mentioning the client's contact; if they are a guest on the page, they are notified by email.",
       ],
     },
     {
@@ -1290,7 +1290,7 @@ export const automationStarter: Recipe = {
           [
             t("Buttons and database automations cannot be created through the Notion API. ", { bold: true }),
             t(
-              "This recipe installs the two data sources they act on, then gives you the exact click-path for each one. Twelve automations, six buttons, three recurring templates — roughly an afternoon, and then they run forever."
+              "This recipe installs the two data sources they act on, then gives you the exact click-path for each one. Twelve automations, six buttons, three recurring templates. Roughly an afternoon, and then they run forever."
             ),
           ],
           "⚡",
@@ -1311,7 +1311,7 @@ export const automationStarter: Recipe = {
         heading(3, "4. Flag overdue, daily"),
         bullet([t("Trigger: ", { bold: true }), t("Due is before Today")]),
         bullet([t("Condition: ", { bold: true }), t("Status is not Done")]),
-        bullet([t("Action: ", { bold: true }), t("Comment @Owner “Overdue — reschedule or finish”")]),
+        bullet([t("Action: ", { bold: true }), t("Comment @Owner “Overdue: reschedule or finish”")]),
         heading(3, "5. Un-snooze"),
         bullet([t("Trigger: ", { bold: true }), t("Snoozed until is Today")]),
         bullet([t("Action: ", { bold: true }), t("Status = Today, clear Snoozed until")]),
@@ -1336,16 +1336,16 @@ export const automationStarter: Recipe = {
           ["Mark done", "Tasks", "Status = Done · Finished at = Today · confetti"],
         ]),
         heading(2, "Recurring templates"),
-        bullet([t("Daily standup — ", { bold: true }), t("every weekday 08:45. Body: linked Today view, linked Overdue view, one prompt per person.")]),
-        bullet([t("Weekly review — ", { bold: true }), t("every Friday 16:30. Body: Completed per week chart, Waiting too long table, three questions.")]),
-        bullet([t("Monthly retro — ", { bold: true }), t("last working day, 17:00. Body: cycle-time averages, what to stop doing.")]),
+        bullet([t("Daily standup: ", { bold: true }), t("every weekday 08:45. Body: linked Today view, linked Overdue view, one prompt per person.")]),
+        bullet([t("Weekly review: ", { bold: true }), t("every Friday 16:30. Body: Completed per week chart, Waiting too long table, three questions.")]),
+        bullet([t("Monthly retro: ", { bold: true }), t("last working day, 17:00. Body: cycle-time averages, what to stop doing.")]),
         divider(),
         heading(2, "What Notion still cannot do"),
         callout(
           [
             t("Native automations only fire inside one database. ", { bold: true }),
             t(
-              "Cross-database writes need a second automation on the target, or an external tool. Formulas cannot trigger side effects — they can only display a value, so a formula that says “overdue” needs an automation watching the same condition to actually notify anyone. If you find yourself chaining five automations to approximate one conditional branch, you have outgrown native and should use Make, n8n or the API."
+              "Cross-database writes need a second automation on the target, or an external tool. Formulas cannot trigger side effects: they can only display a value, so a formula that says “overdue” needs an automation watching the same condition to actually notify anyone. If you find yourself chaining five automations to approximate one conditional branch, you have outgrown native and should use Make, n8n or the API."
             ),
           ],
           "🚧",
@@ -1361,7 +1361,7 @@ export const automationStarter: Recipe = {
       steps: [
         "Open Tasks → ••• → Automations → New automation, and work down the list on the playbook page.",
         "Each entry gives the trigger, the condition and the action in the order the panel asks for them.",
-        "Date-based triggers are evaluated once a day, not continuously — a task due at 09:00 may not fire until the daily pass.",
+        "Date-based triggers are evaluated once a day, not continuously: a task due at 09:00 may not fire until the daily pass.",
         "Automations are per-database and do not copy when you duplicate the database.",
       ],
     },
@@ -1372,7 +1372,7 @@ export const automationStarter: Recipe = {
         "On the target page, type /button.",
         "Add each action in the order given in the table; Notion runs them top to bottom.",
         "For “add page to” actions you can pre-fill properties from the current page.",
-        "Buttons cannot loop, cannot branch, and cannot read a rollup — if a step needs any of those, it is an automation or an API call.",
+        "Buttons cannot loop, cannot branch, and cannot read a rollup. If a step needs any of those, it is an automation or an API call.",
       ],
     },
     {

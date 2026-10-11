@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  * a tint pair and one of six block arrangements. Same seed always yields the
  * same avatar, which is what makes them usable as author/contributor marks.
  *
- * Pure SVG — no image requests, no raster assets, and they stay crisp at the
+ * Pure SVG : no image requests, no raster assets, and they stay crisp at the
  * 18px size they usually render at.
  */
 
@@ -23,7 +23,7 @@ const PALETTE = [
   { bg: "var(--tint-stone)", fg: "var(--tint-stone-ink)" },
 ] as const;
 
-/** djb2 — small, stable, and identical across server and client renders. */
+/** djb2 : small, stable, and identical across server and client renders. */
 function hash(seed: string) {
   let h = 5381;
   for (let i = 0; i < seed.length; i++) h = ((h << 5) + h + seed.charCodeAt(i)) | 0;

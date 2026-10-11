@@ -11,7 +11,7 @@ import { NotionTag, notionInk } from "@/components/ui/notion-tag";
 import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
-  title: "Blocksmith — the component registry for Notion",
+  title: "Blocksmith: the component registry for Notion",
   description:
     "Feature-rich components Notion doesn't ship: interactive widgets that run as /embed URLs or native HTML blocks, and database systems that install through the Notion API. Browse, copy, install.",
 };
@@ -33,7 +33,7 @@ const CHANNELS = [
     icon: IconCode,
     name: "HTML block",
     lede: "Upload the file and Notion renders it inline.",
-    body: "Each widget is one self-contained .html file — inline CSS and JS, no network calls. The File Upload API turns it into a native HTML block that loads instantly and keeps working if this site goes away.",
+    body: "Each widget is one self-contained .html file: inline CSS and JS, no network calls. The File Upload API turns it into a native HTML block that loads instantly and keeps working if this site goes away.",
     mono: "POST /v1/file_uploads → embed.file_upload",
     tint: "var(--tint-mint)",
     ink: "var(--tint-mint-ink)",
@@ -64,7 +64,7 @@ const GAPS = [
   },
   {
     n: "No recurring or native charts",
-    d: "Recurring tasks and charts on your own data have to be expressed with formulas, rollups and views — or drawn by a widget that owns its rendering.",
+    d: "Recurring tasks and charts on your own data have to be expressed with formulas, rollups and views, or drawn by a widget that owns its rendering.",
     ref: "/components?category=time",
   },
   {
@@ -76,21 +76,18 @@ const GAPS = [
 
 const STEPS = [
   {
-    k: "01",
     t: "Pick a component",
-    d: "Filter by category, by delivery channel, or by whether it needs to be interactive. Every card runs the real file — what you see is what gets installed.",
+    d: "Filter by category, by delivery channel, or by whether it needs to be interactive. Every card runs the real file. What you see is what gets installed.",
     href: "/components",
-    cta: "Browse the catalog",
+    cta: "Browse components",
   },
   {
-    k: "02",
     t: "Configure it",
     d: "Change colours, labels, targets and data. The preview re-renders as you type and the URL updates, so a configured widget is just a link you can save.",
     href: "/how-it-works#config",
     cta: "See how configuration works",
   },
   {
-    k: "03",
     t: "Put it in Notion",
     d: "Copy the embed URL, download the HTML file, or read the install plan for a native recipe. Three channels, one component.",
     href: "/how-it-works",
@@ -121,16 +118,13 @@ export default function HomePage() {
 
   return (
     <PageTransition>
-      {/* ══ HERO — paper canvas, left-aligned, one deep shadow ═══════ */}
+ {/* HERO : paper canvas, left-aligned, one deep shadow */}
       <section className="relative overflow-hidden bg-background">
         <div className="mx-auto grid w-full max-w-[1240px] items-center gap-x-12 gap-y-12 px-4 pt-14 pb-20 sm:px-6 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:pt-20 lg:pb-24">
           <div className="reveal max-w-[34rem]">
             <div className="flex flex-wrap items-center gap-2">
               <span className="label-mono rounded-[5px] bg-primary-wash px-2 py-1 text-primary-deep">
                 components/{STATS.total}
-              </span>
-              <span className="label-mono rounded-[5px] border border-border bg-card px-2 py-1 text-ink-soft">
-                notion-version 2026-03-11
               </span>
             </div>
 
@@ -148,26 +142,12 @@ export default function HomePage() {
 
             <div className="mt-7 flex flex-col gap-2.5 sm:flex-row sm:items-center">
               <Button asChild size="lg" className="h-11 px-5 text-[15px] sm:w-auto">
-                <Link href="/components">Browse {STATS.total} components</Link>
+                <Link href="/components">Browse components</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-11 px-5 text-[15px] sm:w-auto">
                 <Link href="/how-it-works">See how it works</Link>
               </Button>
             </div>
-
-            {/* three honest facts, hairline-separated rather than dot-joined */}
-            <ul className="mt-8 flex flex-col gap-2.5 border-t border-border pt-6 sm:flex-row sm:gap-6">
-              {[
-                `${STATS.free} free, no account`,
-                "Runs offline in Notion",
-                "MIT unless marked Pro",
-              ].map((f) => (
-                <li key={f} className="flex items-center gap-2 text-[13.5px] text-ink-soft">
-                  <IconCheck size={14} className="shrink-0 text-notion-green" />
-                  {f}
-                </li>
-              ))}
-            </ul>
           </div>
 
           <div className="reveal reveal-2">
@@ -176,7 +156,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ CHANNELS — dark band interrupting the canvas ════════════ */}
+      {/* three honest facts. Kept out of the hero on purpose: the hero is one
+          moment, and these belong to the page below it. */}
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto w-full max-w-[1240px] px-4 py-4 sm:px-6">
+          <ul className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-8">
+            {[
+              `${STATS.free} free, no account`,
+              "Runs offline in Notion",
+              "MIT unless marked Pro",
+            ].map((f) => (
+              <li key={f} className="flex items-center gap-2 text-[13.5px] text-ink-soft">
+                <IconCheck size={14} className="shrink-0 text-notion-green" />
+                {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+ {/* CHANNELS : dark band interrupting the canvas */}
       <section className="band">
         <div className="mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
           <div className="flex flex-col gap-4 border-b border-white/10 pb-8 md:flex-row md:items-end md:justify-between">
@@ -242,7 +241,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ FEATURED — pastel cards, live previews ══════════════════ */}
+ {/* FEATURED : pastel cards, live previews */}
       <section className="bg-background">
         <div className="mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -315,7 +314,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ THE GAPS — why this exists ══════════════════════════════ */}
+ {/* THE GAPS : why this exists */}
       <section className="border-y border-border bg-card">
         <div className="mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
           <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
@@ -326,7 +325,7 @@ export default function HomePage() {
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
                 Every native recipe in this catalog cites the specific limitation
-                it works around. These are not opinions about Notion — they are
+                it works around. These are not opinions about Notion: they are
                 documented behaviour of the public API, and each one links to the
                 source.
               </p>
@@ -367,7 +366,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ HOW IT WORKS — a genuine sequence, so numbering is earned ══ */}
+ {/* HOW IT WORKS : a genuine sequence, so numbering is earned */}
       <section className="bg-background">
         <div className="mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
           <p className="label-mono text-ink-faint">workflow</p>
@@ -378,7 +377,7 @@ export default function HomePage() {
           <ol className="mt-10 grid gap-4 lg:grid-cols-3">
             {STEPS.map((s, i) => (
               <li
-                key={s.k}
+                key={s.t}
                 className="relative flex flex-col rounded-xl border border-border bg-card p-6"
               >
                 {/* the connector is the structure, not a decoration */}
@@ -388,10 +387,7 @@ export default function HomePage() {
                     className="absolute top-1/2 -right-4 hidden h-px w-4 bg-border-strong lg:block"
                   />
                 )}
-                <span className="font-mono text-[12px] font-semibold text-primary tnum">
-                  {s.k}
-                </span>
-                <h3 className="mt-3 text-[18px] font-semibold leading-snug tracking-[-0.012em] text-foreground">
+                <h3 className="text-[18px] font-semibold leading-snug tracking-[-0.012em] text-foreground">
                   {s.t}
                 </h3>
                 <p className="mt-2.5 flex-1 text-[14px] leading-[1.65] text-ink-soft">
@@ -413,7 +409,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ REGISTRY — the developer surface ════════════════════════ */}
+ {/* REGISTRY : the developer surface */}
       <section className="border-y border-border bg-card">
         <div className="mx-auto grid w-full max-w-[1240px] gap-x-12 gap-y-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-center">
           <div>
@@ -452,7 +448,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* endpoint table — mono, tabular, hairline rows */}
+ {/* endpoint table : mono, tabular, hairline rows */}
           <div className="overflow-hidden rounded-xl border border-border bg-background">
             <div className="flex items-center gap-2 border-b border-border bg-raised px-4 py-2.5">
               <IconCode size={15} className="text-ink-faint" />
@@ -493,7 +489,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ PRICING ═════════════════════════════════════════════════ */}
+ {/* PRICING */}
       <section className="bg-background">
         <div className="mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
           <div className="max-w-2xl">
@@ -616,7 +612,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ PULL QUOTE — serif, once, per the type system ═══════════ */}
+ {/* PULL QUOTE : serif, once, per the type system */}
       <section className="border-y border-border bg-card">
         <div className="mx-auto w-full max-w-[820px] px-4 py-20 sm:px-6">
           <blockquote className="text-quote font-serif text-foreground">
@@ -631,12 +627,12 @@ export default function HomePage() {
             <Link href="/docs/api-limits" className="font-mono text-[12px] text-primary underline underline-offset-4 hover:text-primary-deep">
               docs/api-limits
             </Link>
-            <span>— where each limitation is sourced</span>
+            <span>, where each limitation is sourced</span>
           </p>
         </div>
       </section>
 
-      {/* ══ FAQ ═════════════════════════════════════════════════════ */}
+ {/* FAQ */}
       <section className="bg-background">
         <div className="mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
           <div className="grid gap-x-12 gap-y-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
@@ -661,7 +657,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ CLOSING CTA — the one centred moment ════════════════════ */}
+ {/* CLOSING CTA : the one centred moment */}
       <section className="band">
         <div className="mx-auto w-full max-w-[760px] px-4 py-24 text-center sm:px-6">
           <h2 className="font-display text-h1 text-band-foreground">

@@ -7,8 +7,8 @@ import type { SVGProps } from "react";
  * borrowed glyphs: 24px grid, 1.6px stroke, round caps and joins, drawn in
  * `currentColor` so they inherit ink and never fight the surface they sit on.
  *
- * Filled shapes are reserved for exactly one job — marking state (a checked
- * box, an active dot) — so that a filled mark always means something.
+ * Filled shapes are reserved for exactly one job : marking state (a checked
+ * box, an active dot) : so that a filled mark always means something.
  */
 
 type P = SVGProps<SVGSVGElement> & { size?: number };
@@ -39,7 +39,7 @@ function Base({ size = 20, children, ...rest }: P & { children: React.ReactNode 
 
 /**
  * The Blocksmith mark: an anvil-shaped block mid-assembly. Two stacked
- * planes and a struck corner — a component being forged into a page.
+ * planes and a struck corner : a component being forged into a page.
  */
 export function LogoMark({ size = 22, ...rest }: P) {
   return (
@@ -70,7 +70,7 @@ export function LogoMark({ size = 22, ...rest }: P) {
         rx="2.4"
         fill="currentColor"
       />
-      {/* struck corner — the smith's mark */}
+ {/* struck corner : the smith's mark */}
       <path
         d="M15.8 7.2v-2a1.6 1.6 0 0 0-2.3-1.44l-1.9.86"
         stroke="currentColor"
@@ -267,7 +267,7 @@ export const IconWrench = (p: P) => (
 );
 
 /* ------------------------------------------------------------------ */
-/* Category glyphs — one distinctive mark per catalog category          */
+/* Category glyphs : one distinctive mark per catalog category */
 /* ------------------------------------------------------------------ */
 
 /** Dashboards: a block grid with one live tile. */

@@ -13,7 +13,7 @@ import { COMPONENTS } from "@/lib/catalog";
 export const metadata: Metadata = {
   title: "Authoring a recipe",
   description:
-    "How a Blocksmith native recipe is declared — databases, property refs, relation resolution, views, seed rows, page bodies and manual steps — and how planInstall turns it into an ordered request list.",
+    "How a Blocksmith native recipe is declared (databases, property refs, relation resolution, views, seed rows, page bodies and manual steps) and how planInstall turns it into an ordered request list.",
 };
 
 const recipeList = Object.values(RECIPES);
@@ -36,7 +36,7 @@ export default function RecipesPage() {
           A recipe is a declarative description of a Notion workspace fragment:
           databases, their properties, the views over them, seed rows, and
           documentation pages written as real block trees. The installer turns it
-          into an ordered list of API calls — including the two passes that
+          into an ordered list of API calls, including the two passes that
           relations force. You never write a request yourself.
         </>
       }
@@ -71,7 +71,7 @@ type RecipeManual = {
 };`}
         />
         <Note tone="blue" title="ref is the whole trick">
-          Recipe databases do not know their own ids — they do not exist yet. So
+          Recipe databases do not know their own ids: they do not exist yet. So
           they address each other by <code>ref</code>, a local string. The
           installer resolves refs to real <code>data_source_id</code>s in a second
           pass. That indirection is what lets a recipe declare a bidirectional
@@ -91,7 +91,7 @@ type RecipeManual = {
         </P>
         <Code
           lang="ts"
-          filename="lib/recipes/business.ts — abbreviated"
+          filename="lib/recipes/business.ts, abbreviated"
           code={`{
   ref: "deals",
   title: "Deals",
@@ -121,7 +121,7 @@ type RecipeManual = {
     "Days open": rollup("Company", "Created", "earliest_date"),
   },
   seed: [
-    { "Deal": "Northwind — Platform", "Amount": 48000, "Stage": "Proposal out" },
+    { "Deal": "Northwind · Platform", "Amount": 48000, "Stage": "Proposal out" },
     { "Deal": "Aurelia Health",       "Amount": 180000, "Stage": "Negotiation" },
   ],
 }`}
@@ -141,7 +141,7 @@ type RecipeManual = {
           <LI>
             Both relations, both the rollup and the <code>Weighted</code> formula
             are <strong className="font-semibold text-foreground">stripped from
-            pass 1</strong> — the databases are created with{" "}
+            pass 1</strong>: the databases are created with{" "}
             {crm.databases.map((d) => `${d.title} (${Object.keys(d.properties).length} props)`).join(", ")}{" "}
             minus anything that references another database.
           </LI>
@@ -188,7 +188,7 @@ type RecipeManual = {
           Views come after properties, because a board view groups by a select
           property that must exist. Seed rows come after views, because rows
           created before a form view exists cannot be validated against it. Page
-          bodies come last, in chunks of 100, because that is the append limit —
+          bodies come last, in chunks of 100, because that is the append limit,
           and any chunk that needs deeper than two levels is appended against the
           block id the previous chunk returned.
         </Note>
@@ -212,7 +212,7 @@ type RecipeManual = {
 { on: "deals", name: "Close calendar", type: "calendar",
   calendar: { start_date_property: "Close date" } }
 
-// form — Notion renders it as a public intake page
+// form: Notion renders it as a public intake page
 { on: "intake", name: "New client intake", type: "form",
   form: { questions: [
     { property: "Company", required: true },
@@ -223,7 +223,7 @@ type RecipeManual = {
 { on: "logs", name: "Consistency", type: "chart",
   chart: { type: "bar", x_property: "Week", y_aggregate: "count" } }
 
-// dashboard — layout is Notion's to compose
+// dashboard: layout is Notion's to compose
 { on: "habits", name: "Habit dashboard", type: "dashboard" }`}
         />
         <Note tone="red" title="Dashboard layouts are read-only">
@@ -238,7 +238,7 @@ type RecipeManual = {
         <H2 id="pages">Documentation pages</H2>
         <P>
           A workspace that arrives empty is a workspace nobody uses. Recipes
-          append real block trees — not markdown, not screenshots — so headings
+          append real block trees (not markdown, not screenshots) so headings
           are headings and toggles are toggles.
         </P>
         <Code
@@ -247,7 +247,7 @@ type RecipeManual = {
   title: "How to run a sprint",
   icon: "🔁",
   blocks: [
-    heading(2, "Monday — planning, 45 minutes"),
+    heading(2, "Monday: planning, 45 minutes"),
     numbered([t("Read the sprint goal out loud. If nobody can, rewrite it.")]),
     numbered([t("Pull from Backlog, not from Triage.")]),
     callout("Stop at capacity. Carry-over counts against capacity first.", "⚠️"),
@@ -271,7 +271,7 @@ type RecipeManual = {
           </LI>
           <LI>
             <code>syncedBlock()</code> creates the original. Its duplicates cannot
-            be created by API — that is always a manual step.
+            be created by API: that is always a manual step.
           </LI>
           <LI>
             <code>embedUrl()</code> can point a recipe page at one of our widgets,
@@ -325,7 +325,7 @@ type RecipeManual = {
           <LI>
             Open the component page. The install plan, the property tables, the
             view list, the page-body previews and the manual steps all render
-            from the declaration — check that the plan reads the way you
+            from the declaration. Check that the plan reads the way you
             intended before you call it done.
           </LI>
         </UL>

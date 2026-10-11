@@ -31,8 +31,8 @@ export default function PrivacyPage() {
           download any free component.
         </p>
         <p>
-          Our web host records standard request logs — IP address, user agent, the
-          path requested, and a timestamp — because every web server does. Those
+          Our web host records standard request logs (IP address, user agent, the
+          path requested, and a timestamp) because every web server does. Those
           logs are used to diagnose errors and to understand aggregate traffic.
           They are not sold, not shared, and not used to build a profile of you.
         </p>
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
           us, and removed when you clear site data.
         </p>
         <p>
-          Our widgets contain no external requests by construction — the authoring
+          Our widgets contain no external requests by construction: the authoring
           checklist requires a grep for <code>http://</code>, <code>https://</code>{" "}
           and <code>@import</code> to return zero hits before a component ships.
         </p>
@@ -89,7 +89,7 @@ export default function PrivacyPage() {
           appear in the request path, and therefore in host request logs.
         </p>
         <p>
-          Do not put sensitive information into widget parameters — a client name you
+          Do not put sensitive information into widget parameters: a client name you
           would not want in a log, a private note, anything that looks like a
           credential. Parameters are meant for display text, numbers, colours and
           dates.
@@ -109,7 +109,7 @@ export default function PrivacyPage() {
         <p>
           There are no accounts yet. Pro is free during the beta and no payment
           details are collected. When billing starts, a payment processor will handle
-          card details — we will not see or store your card number — and this policy
+          card details (we will not see or store your card number) and this policy
           will be updated before that happens, with the previous version still
           reachable.
         </p>
@@ -127,7 +127,7 @@ export default function PrivacyPage() {
         </p>
         <p>
           No advertising networks, no data brokers, no analytics vendors, no
-          behavioural profiling, and no sale of any data — because there is
+          behavioural profiling, and no sale of any data, because there is
           effectively no data to sell.
         </p>
       </Section>

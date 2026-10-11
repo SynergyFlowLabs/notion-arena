@@ -75,7 +75,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-s
   var left=Math.max(0,target-value);
   document.getElementById('remain').innerHTML=left>0
     ? '<b>'+left+unit+'</b> left to go'
-    : 'Target reached — <b>'+Math.round((pct-1)*100)+'%</b> over';
+    : 'Target reached: <b>'+Math.round((pct-1)*100)+'%</b> over';
 
   var CIRC=2*Math.PI*52;
   var fg=document.getElementById('fg');

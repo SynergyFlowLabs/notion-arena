@@ -4,12 +4,12 @@ import Link from "next/link";
 import { CopyButton } from "@/components/copy-button";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
-import { IconArrowRight, IconPlus } from "@/components/icons";
+import { IconAlert, IconArrowRight, IconCheck, IconClose, IconPlus } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "How it works",
   description:
-    "The three ways a Blocksmith component gets into a Notion page: hosted embed URLs, native HTML blocks via the File Upload API, and database recipes via the Notion API — including exactly where each one breaks.",
+    "The three ways a Blocksmith component gets into a Notion page: hosted embed URLs, native HTML blocks via the File Upload API, and database recipes via the Notion API, including exactly where each one breaks.",
 };
 
 const DECISION_ROWS = [
@@ -20,7 +20,7 @@ const DECISION_ROWS = [
   ["An agent should build it from a prompt", "Registry + API", "/r/index.json for discovery, POST /api/install for execution."],
   ["The workspace is air-gapped or offline", "HTML block", "The only channel with zero network dependency at render time."],
   ["I need drag-and-drop inside the block", "Widget", "Notion cannot script its own blocks; a sandboxed iframe can script itself."],
-  ["I need it to trigger something in Notion", "Neither — read this", "No channel can write to Notion from inside a block. Buttons and automations are the answer, and they are manual."],
+  ["I need it to trigger something in Notion", "Neither. Read this", "No channel can write to Notion from inside a block. Buttons and automations are the answer, and they are manual."],
 ];
 
 const SANDBOX_ROWS: [string, boolean | "partial", string][] = [
@@ -48,7 +48,7 @@ export default function HowItWorks() {
           <p className="mt-5 max-w-2xl text-lede text-ink-soft">
             Notion does not have a plugin system, so there is no single install
             path. There are three, each with different powers and different
-            failure modes. This page explains all three honestly — including the
+            failure modes. This page explains all three honestly, including the
             things none of them can do.
           </p>
           <nav className="mt-7 flex flex-wrap gap-2">
@@ -88,7 +88,7 @@ export default function HowItWorks() {
             possible without the two versions drifting apart. The{" "}
             <code>/embed</code> URL streams it with your parameters appended to
             the query string. The download endpoint streams the same bytes with
-            your parameters baked into the file — because a sandboxed block has
+            your parameters baked into the file, because a sandboxed block has
             no URL to read them from.
           </p>
 
@@ -126,13 +126,13 @@ export default function HowItWorks() {
               </div>
             </div>
             <div className="border-t border-border bg-raised px-4 py-2.5 font-mono text-[11.5px] text-muted-foreground">
-              public/widgets/pomodoro-timer.html — one file, 100% self-contained
+              public/widgets/pomodoro-timer.html. One file, 100% self-contained
             </div>
           </div>
         </Section>
 
         {/* ===================== EMBED ===================== */}
-        <Section id="embed" label="channel — embed" title="Embed URL" accent="var(--notion-blue)">
+        <Section id="embed" label="channel: embed" title="Embed URL" accent="var(--notion-blue)">
           <p>
             The oldest trick in the book, and still the fastest. Notion's{" "}
             <code>/embed</code> block iframes any URL that allows framing. We
@@ -150,7 +150,7 @@ export default function HowItWorks() {
               },
               {
                 t: "In Notion, type /embed and press Enter",
-                d: "Choose “Embed link” — not “Upload”, which is the HTML block path.",
+                d: "Choose “Embed link”, not “Upload”, which is the HTML block path.",
               },
               {
                 t: "Paste and resize",
@@ -174,9 +174,9 @@ export default function HowItWorks() {
         </Section>
 
         {/* ===================== HTML BLOCK ===================== */}
-        <Section id="html-block" label="channel — html block" title="Native HTML block" accent="var(--notion-purple)">
+        <Section id="html-block" label="channel: html block" title="Native HTML block" accent="var(--notion-purple)">
           <p>
-            Notion 3.6 shipped a real HTML block. It is not an iframe of a URL —
+            Notion 3.6 shipped a real HTML block. It is not an iframe of a URL.
             it is a file you upload, stored in Notion's own file storage and
             rendered in a sandboxed frame with no address. The{" "}
             <code>/html</code> slash command creates one by hand, and the Notion
@@ -205,7 +205,7 @@ export default function HowItWorks() {
           </h3>
           <p>
             Three requests. This is the flow Notion documents for HTML blocks and
-            the one Notion MCP uses internally — it just is not obvious from the
+            the one Notion MCP uses internally. It just is not obvious from the
             block reference, because the{" "}
             <code>embed</code> block type does the double duty.
           </p>
@@ -250,18 +250,18 @@ export default function HowItWorks() {
 
           <div className="relative mt-3">
             <pre className="code-block max-h-[400px] overflow-auto pr-12">
-              <code>{`# 1 — reserve
+              <code>{`# 1: reserve
 curl -X POST https://api.notion.com/v1/file_uploads \\
   -H "Authorization: Bearer $NOTION_TOKEN" \\
   -H "Notion-Version: 2026-03-11" \\
   -H "Content-Type: application/json" -d '{}'
 
-# 2 — upload the bytes to the returned upload_url
+# 2: upload the bytes to the returned upload_url
 curl -X POST "$UPLOAD_URL" \\
   -H "Content-Type: text/html" \\
   --data-binary @pomodoro-timer.html
 
-# 3 — append the block
+# 3: append the block
 curl -X PATCH \\
   https://api.notion.com/v1/blocks/$PAGE_ID/children \\
   -H "Authorization: Bearer $NOTION_TOKEN" \\
@@ -301,7 +301,13 @@ curl -X PATCH \\
                     ok === false && "bg-[color-mix(in_oklab,var(--notion-red)_14%,transparent)] text-[var(--tag-ink-red)]"
                   )}
                 >
-                  {ok === true ? "✓" : ok === "partial" ? "~" : "✕"}
+                  {ok === true ? (
+                    <IconCheck size={10} />
+                  ) : ok === "partial" ? (
+                    <IconAlert size={10} />
+                  ) : (
+                    <IconClose size={9} />
+                  )}
                 </span>
                 <div className="min-w-0">
                   <div className="text-[13px] font-medium">{String(label)}</div>
@@ -313,7 +319,7 @@ curl -X PATCH \\
         </Section>
 
         {/* ===================== RECIPE ===================== */}
-        <Section id="recipe" label="channel — native recipe" title="Native recipe" accent="var(--notion-green)">
+        <Section id="recipe" label="channel: native recipe" title="Native recipe" accent="var(--notion-green)">
           <p>
             A CRM, an OKR tree or a meeting-notes system is not a widget. It is
             databases with relations between them, rollups that aggregate across
@@ -324,7 +330,7 @@ curl -X PATCH \\
           <p>
             The catch is ordering. Since Notion split databases from data
             sources, a relation property targets a{" "}
-            <code>data_source_id</code> — which does not exist until the target
+            <code>data_source_id</code>, which does not exist until the target
             database has been created. So a correct install is inherently two
             passes, and any tool that shows you a single{" "}
             <code>POST /v1/databases</code> per table is not telling you the
@@ -333,12 +339,12 @@ curl -X PATCH \\
 
           <div className="mt-5 flex flex-col gap-2.5">
             {[
-              { n: 1, t: "Create the container page", d: "POST /v1/pages — everything else nests inside it, so the whole system can be deleted or duplicated as one unit." },
-              { n: 2, t: "Create every database with its base properties", d: "POST /v1/databases — title, text, number, select, status, date, people, unique_id. Relations, rollups and any formula that reads them are deliberately left out." },
-              { n: 3, t: "Read back the data source ids", d: "GET /v1/databases/{id} — each new database arrives with a default data source, and its id is what relations must reference." },
-              { n: 4, t: "Patch in the dependent properties", d: "PATCH /v1/data_sources/{id} — now relations resolve, rollups can name a relation property, and formulas can reference both." },
-              { n: 5, t: "Create the views", d: "POST /v1/views — board groups, timeline dates, chart axes, calendar ranges, form questions. Available since Notion-Version 2026-03-11." },
-              { n: 6, t: "Seed rows and append documentation", d: "POST /v1/pages for seed data, then PATCH /v1/blocks/{id}/children in chunks of 100 — the hard limit on children per request, and on nesting depth per request." },
+              { n: 1, t: "Create the container page", d: "POST /v1/pages: everything else nests inside it, so the whole system can be deleted or duplicated as one unit." },
+              { n: 2, t: "Create every database with its base properties", d: "POST /v1/databases: title, text, number, select, status, date, people, unique_id. Relations, rollups and any formula that reads them are deliberately left out." },
+              { n: 3, t: "Read back the data source ids", d: "GET /v1/databases/{id}: each new database arrives with a default data source, and its id is what relations must reference." },
+              { n: 4, t: "Patch in the dependent properties", d: "PATCH /v1/data_sources/{id}: now relations resolve, rollups can name a relation property, and formulas can reference both." },
+              { n: 5, t: "Create the views", d: "POST /v1/views: board groups, timeline dates, chart axes, calendar ranges, form questions. Available since Notion-Version 2026-03-11." },
+              { n: 6, t: "Seed rows and append documentation", d: "POST /v1/pages for seed data, then PATCH /v1/blocks/{id}/children in chunks of 100, the hard limit on children per request, and on nesting depth per request." },
             ].map((s) => (
               <div key={s.n} className="flex gap-3 rounded-xl border border-border bg-card p-3.5">
                 <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[color-mix(in_oklab,var(--notion-green)_14%,transparent)] font-mono text-[11.5px] font-bold text-[var(--tag-ink-green)]">
@@ -354,7 +360,7 @@ curl -X PATCH \\
 
           <Callout tone="yellow" title="Every recipe publishes its plan before it runs">
             <code>POST /api/install</code> with <code>mode: "plan"</code> needs no
-            credentials and returns the exact request sequence — method, path,
+            credentials and returns the exact request sequence: method, path,
             body and a note for each one. Read it, diff it against what you
             expected, then spend a token. Nothing is hidden behind an
             OAuth handshake.
@@ -372,7 +378,7 @@ curl -X PATCH \\
         <Section id="config" label="the contract" title="The configuration contract">
           <p>
             Every widget implements the same four rules. If you are writing your
-            own, copy them — they are what makes a widget configurable from a
+            own, copy them. They are what makes a widget configurable from a
             URL, from a downloaded file, and from an API call without three
             different code paths.
           </p>
@@ -380,7 +386,7 @@ curl -X PATCH \\
             {[
               ["Read baked-in config first", 'If a <script id="bk-config" type="application/json"> tag exists, parse it. This is the download and API-install path, where there is no URL.'],
               ["Overlay the query string", "new URLSearchParams(location.search) wins over baked-in values. This is the /embed path, and it lets one file serve many configurations."],
-              ["Whitelist declared parameters", "Unknown keys are dropped, never passed through. Values are coerced to the declared type — number, boolean, color, date, select, string."],
+              ["Whitelist declared parameters", "Unknown keys are dropped, never passed through. Values are coerced to the declared type: number, boolean, color, date, select, string."],
               ["Two universal parameters", 'theme (auto | light | dark) and accent (any CSS colour) exist on every widget, so a whole dashboard can be re-skinned from one place.'],
             ].map(([t, d], i) => (
               <div key={String(t)} className="rounded-xl border border-border bg-card p-4">
@@ -436,13 +442,13 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
                 {[
                   ["Host goes down", "Block renders blank", "Unaffected", "Unaffected"],
                   ["No internet at render time", "Fails", "Works", "Works"],
-                  ["Reads your Notion data", "No", "No", "Yes — it is the data"],
+                  ["Reads your Notion data", "No", "No", "Yes. It is the data"],
                   ["State shared with teammates", "No (localStorage)", "No (localStorage)", "Yes (database rows)"],
                   ["Needs an integration token", "No", "Only to install by API", "Yes"],
                   ["Works on the Free plan", "Yes", "Yes", "Yes (API included)"],
                   ["Editable after install", "We ship updates", "Re-upload the file", "Edit like any database"],
                   ["Rate-limited", "Our fair use", "No", "Notion: ~3 req/s average"],
-                  ["100-block append limit", "n/a", "n/a", "Applies — we chunk"],
+                  ["100-block append limit", "n/a", "n/a", "Applies. We chunk"],
                   ["2-level nesting limit", "n/a", "n/a", "Applies per request"],
                 ].map((row, i) => (
                   <tr key={i} className={cn("border-b border-border last:border-0", i % 2 === 1 && "bg-raised/50")}>

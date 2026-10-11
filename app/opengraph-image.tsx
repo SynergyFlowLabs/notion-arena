@@ -5,7 +5,7 @@ import { STATS } from "@/lib/catalog";
 import { CATEGORIES } from "@/lib/types";
 
 export const alt =
-  "Blocksmith — the component registry for Notion. 14 interactive widgets and 11 native database recipes.";
+  "Blocksmith: the component registry for Notion. 14 interactive widgets and 11 native database recipes.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -19,7 +19,7 @@ export const contentType = "image/png";
  * `display: flex`.
  */
 
-// Mirrored from app/globals.css — satori cannot resolve var().
+// Mirrored from app/globals.css; satori cannot resolve var().
 const C = {
   paper: "#f6f5f4",
   card: "#ffffff",
@@ -66,7 +66,7 @@ export default function OpengraphImage() {
           color: C.ink,
         }}
       >
-        {/* ── brand row ─────────────────────────────────────────── */}
+ {/* brand row */}
         <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <div
             style={{
@@ -116,7 +116,7 @@ export default function OpengraphImage() {
           </div>
         </div>
 
-        {/* ── headline ──────────────────────────────────────────── */}
+ {/* headline */}
         <div
           style={{
             display: "flex",
@@ -150,7 +150,7 @@ export default function OpengraphImage() {
           <div style={{ display: "flex" }}>and database systems that install through the API.</div>
         </div>
 
-        {/* ── channel chips: the three ways in ──────────────────── */}
+ {/* channel chips: the three ways in */}
         <div style={{ display: "flex", gap: 12, marginTop: 26 }}>
           {[
             { label: "Embed URL", bg: C.tagBlueBg, ink: C.tagBlueInk },
@@ -176,7 +176,7 @@ export default function OpengraphImage() {
           ))}
         </div>
 
-        {/* ── footer: hairline, then the derived counts ─────────── */}
+ {/* footer: hairline, then the derived counts */}
         <div style={{ display: "flex", marginTop: "auto", width: "100%" }}>
           <div
             style={{

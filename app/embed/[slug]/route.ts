@@ -33,7 +33,7 @@ export async function GET(
     headers: {
       "content-type": "text/html; charset=utf-8",
       // Notion builds its own iframe around this URL. There is no X-Frame-Options
-      // value that means "allow everywhere" — the correct way is to omit the
+ // value that means "allow everywhere" : the correct way is to omit the
       // header and allow framing explicitly with CSP frame-ancestors.
       "content-security-policy":
         "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data: blob:; media-src data: blob:; base-uri 'none'; form-action 'none'; frame-ancestors *",

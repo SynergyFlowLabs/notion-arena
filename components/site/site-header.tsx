@@ -10,7 +10,7 @@ import { IconClose, IconGithub, IconMenu } from "@/components/icons";
 
 /**
  * Notion's marketing nav labels each section with a bracketed monospace
- * shortcut — `[S] Syncs`. We keep that device, and make it honest: the
+ * shortcut : `[S] Syncs`. We keep that device, and make it honest: the
  * shortcuts actually work, and are suppressed while typing or when a
  * modifier is held.
  */
@@ -32,14 +32,6 @@ export function SiteHeader() {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
-
-  React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   React.useEffect(() => setOpen(false), [pathname]);
 
@@ -79,13 +71,11 @@ export function SiteHeader() {
       // page content slides beneath it. It uses backdrop-filter, which is why
       // globals.css hides its old snapshot rather than cross-fading it.
       style={{ viewTransitionName: "site-header" }}
-      className={cn(
-        "sticky top-0 z-50 w-full border-b transition-[background-color,border-color,box-shadow] duration-200",
-        scrolled
-          ? "border-border bg-card/90 backdrop-blur-md supports-[backdrop-filter]:bg-card/75"
-          : "border-transparent bg-card"
-      )}
+      className="sticky top-0 z-50 w-full bg-card/90 backdrop-blur-md supports-[backdrop-filter]:bg-card/75"
     >
+      {/* The hairline is drawn by CSS scroll-driven animation, not a scroll
+          listener: it fades in over the first 32px of scroll and stays. */}
+      <span aria-hidden className="header-line" />
       <div className="mx-auto flex h-14 w-full max-w-[1240px] items-center gap-3 px-4 sm:px-6">
         <Link
           href="/"
@@ -95,7 +85,7 @@ export function SiteHeader() {
           <Logo />
         </Link>
 
-        {/* desktop nav — Inter 15/500 for the label, mono for the shortcut */}
+ {/* desktop nav : Inter 15/500 for the label, mono for the shortcut */}
         <nav aria-label="Main" className="ml-4 hidden items-center gap-0.5 lg:flex">
           {NAV.map((item) => (
             <Link
@@ -141,7 +131,7 @@ export function SiteHeader() {
             href="/components"
             className="ml-1 hidden h-8 items-center rounded-lg bg-primary px-3 text-[14px] font-semibold text-primary-foreground transition-colors hover:bg-primary-deep sm:inline-flex"
           >
-            Get started
+            Browse components
           </Link>
 
           <button
@@ -188,7 +178,7 @@ export function SiteHeader() {
                 href="/components"
                 className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-primary text-[15px] font-semibold text-primary-foreground"
               >
-                Get started
+                Browse components
               </Link>
               <a
                 href="https://github.com/SynergyFlowLabs/notion-components"

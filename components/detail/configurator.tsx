@@ -4,7 +4,7 @@ import * as React from "react";
 import type { WidgetComponent, WidgetParam } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { CopyButton } from "@/components/copy-button";
-import { IconDownload, IconExternal, IconRefresh } from "@/components/icons";
+import { IconCheck, IconClose, IconDownload, IconExternal, IconRefresh } from "@/components/icons";
 import { ComponentPreviewTransition } from "@/components/page-transition";
 
 type Config = Record<string, string | number | boolean>;
@@ -222,7 +222,7 @@ ${embedHref}`;
         <ComponentPreviewTransition slug={widget.slug}>
         <div className="overflow-hidden rounded-xl border border-border bg-card shadow-pop">
           <div className="flex items-center gap-2 border-b border-border bg-raised px-3 py-2">
-            {/* Decorative window chrome, not status — hidden from AT and so
+            {/* Decorative window chrome, not status; hidden from AT and so
                 exempt from the 3:1 graphic threshold. */}
             <span aria-hidden className="flex items-center gap-1.5">
             <span className="size-2.5 rounded-full bg-[#e03e3e]/70" />
@@ -354,7 +354,7 @@ ${embedHref}`;
                   Notion 3.6 added a native{" "}
                   <strong className="font-semibold text-foreground">HTML block</strong>. You
                   upload a <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">.html</code>{" "}
-                  file and Notion renders it in a sandboxed iframe — the same
+                  file and Notion renders it in a sandboxed iframe, the same
                   block <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">/html</code>{" "}
                   creates and that agents create through Notion MCP. Because the
                   sandbox has no URL, your configuration is baked into the file.
@@ -402,7 +402,7 @@ ${embedHref}`;
                       <tbody>
                         {[
                           ["Interactive JS, CSS, canvas, WebAudio", true, "Runs inside the block"],
-                          ["localStorage", true, "Per browser only — not synced, not shared with teammates"],
+                          ["localStorage", true, "Per browser only: not synced, not shared with teammates"],
                           ["Reading your Notion data", false, "The block cannot see the page it sits on"],
                           ["Writing back to Notion", false, "Blocked for security"],
                           ["External API calls / CDN fonts", false, "No network access at all"],
@@ -411,7 +411,7 @@ ${embedHref}`;
                           <tr key={String(label)} className="border-b border-border last:border-0">
                             <td className="w-6 py-2 pl-3 align-top">
                               <span className={ok ? "text-[var(--tag-ink-green)]" : "text-[var(--tag-ink-red)]"}>
-                                {ok ? "✓" : "✕"}
+                                {ok ? <IconCheck size={12} /> : <IconClose size={11} />}
                               </span>
                             </td>
                             <td className="py-2 pr-2 align-top font-medium">{String(label)}</td>
@@ -483,7 +483,7 @@ ${embedHref}`;
             <h3 className="text-[12px] font-semibold text-foreground">What changes</h3>
             <p className="mt-1.5 text-[12px] leading-relaxed text-muted-foreground">
               {qs
-                ? "Every control writes to the URL, so the same file can be configured differently on every page — and shared as a link."
+                ? "Every control writes to the URL, so the same file can be configured differently on every page, and shared as a link."
                 : "You are on the defaults. Change anything and the URL, the download and the install payload all update."}
             </p>
             <div className="mt-2.5 flex flex-wrap gap-1">

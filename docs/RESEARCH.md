@@ -12,12 +12,12 @@ Date of research: October 2026. Notion API version targeted: `2026-03-11`.
 
 Notion's block system is optimised for documents, not interfaces. The public
 [block object reference](https://developers.notion.com/reference/block) enumerates
-every type Notion can create: paragraph, headings 1–4, list items, to_do, toggle,
+every type Notion can create: paragraph, headings 1-4, list items, to_do, toggle,
 quote, callout, divider, code, equation, embed, bookmark, column_list,
 synced_block, table, breadcrumb, table_of_contents, child_page, child_database.
 
 There is no timer. No progress ring. No countdown. No sparkline. No heatmap. No
-draggable card that is not a database row. The gaps are not subtle — they are
+draggable card that is not a database row. The gaps are not subtle: they are
 categories.
 
 Meanwhile the ecosystem's answer has been one of three things:
@@ -29,7 +29,7 @@ Meanwhile the ecosystem's answer has been one of three things:
 | App builders | NotionApps, Super, Tapti (via [templatesfornotion.com/notion-tools](https://templatesfornotion.com/notion-tools)) | A separate product outside Notion, priced as SaaS. |
 
 None of them publish a machine-readable manifest. That is the gap Blocksmith
-fills: **shadcn/ui's model — copy, own, configure, install from code — applied to
+fills: **shadcn/ui's model (copy, own, configure, install from code) applied to
 Notion.**
 
 The shadcn analogy is not decorative. The
@@ -61,7 +61,7 @@ is the clearest third-party writeup of what it can do.
 Two conclusions follow, and they shaped the whole product:
 
 1. **A widget must be a single self-contained HTML file with zero external
-   requests.** Not a preference — the sandbox has no network.
+   requests.** Not a preference: the sandbox has no network.
 2. **Anything data-driven must be a native recipe, not a widget.** Every
    "shared tracker" in this catalog therefore exists in two forms: a private
    localStorage widget and a real database recipe.
@@ -70,7 +70,7 @@ Two conclusions follow, and they shaped the whole product:
 
 There is no `html` block type. The `embed` block does double duty: with a `url`
 it iframes a remote page, with a `file_upload.id` it renders an uploaded HTML
-file. Installation is three requests —
+file. Installation is three requests:
 [create a file upload](https://developers.notion.com/reference/create-a-file-upload),
 send the bytes to the returned `upload_url`, then
 [append block children](https://developers.notion.com/reference/patch-block-children)
@@ -101,7 +101,7 @@ hard limits:
 
 | Gap | Evidence | Where it surfaces |
 |---|---|---|
-| **No `button` block type** | The block type enum in the reference does not include it. The `button` *property* is explicitly response-only — the API returns the schema but ignores writes. | 6 recipes ship a manual button click-path. |
+| **No `button` block type** | The block type enum in the reference does not include it. The `button` *property* is explicitly response-only: the API returns the schema but ignores writes. | 6 recipes ship a manual button click-path. |
 | **No automation endpoint** | Database automations are configured in the UI and are absent from the public schema entirely. | 9 recipes. |
 | **No recurring-template endpoint** | Database templates can be created as page bodies, but the repeat schedule is a Business+ UI feature with no API. | 6 recipes. |
 | **Synced-block duplicates** | The API creates a `synced_block` original with children; it cannot create the linked duplicate elsewhere in the workspace. | 1 recipe. |
@@ -109,7 +109,7 @@ hard limits:
 The policy that follows is in `lib/recipes/types.ts` as four shared constants
 (`BUTTON_LIMITATION`, `AUTOMATION_LIMITATION`, `RECURRING_LIMITATION`,
 `SYNCED_BLOCK_LIMITATION`). Every `manual[]` entry in every recipe cites one of
-them. **A manual step whose reason is "it's easier by hand" is rejected** — that
+them. **A manual step whose reason is "it's easier by hand" is rejected**: that
 rule is written into `app/docs/recipes/page.tsx`.
 
 ---
@@ -128,7 +128,7 @@ So a recipe declaring `Deals.Company → companies` **cannot** be created in one
 pass. The correct order:
 
 ```
-pass 1 · POST  /v1/databases          base properties only — relations,
+pass 1 · POST  /v1/databases          base properties only: relations,
                                       rollups and dependent formulas stripped
 pass 2 · GET   /v1/databases/{id}     read back data_sources[0].id
 pass 3 · PATCH /v1/data_sources/{id}  relations, refs resolved to real ids
@@ -136,7 +136,7 @@ pass 4 · PATCH /v1/data_sources/{id}  rollups (they name a relation property)
 pass 5 · PATCH /v1/data_sources/{id}  formulas reading either of the above
 ```
 
-Recipes therefore address each other by `ref` — a local string — and the
+Recipes therefore address each other by `ref` (a local string) and the
 installer marks those with an internal `__relationRef` field
 (`lib/notion/schema.ts` → `relation()`), strips them from pass 1, and resolves
 them in pass 3. This is what allows a recipe to declare a *bidirectional*
@@ -147,7 +147,7 @@ not telling the whole story.
 
 Also from the property reference: `status` options accept a `group` field
 (`To-do` / `In progress` / `Complete`) on create, but responses return groups
-separately with `option_ids` — so a read-modify-write round trip is not
+separately with `option_ids`, so a read-modify-write round trip is not
 symmetrical. `unique_id` accepts a `prefix` but not a number.
 
 ---
@@ -156,7 +156,7 @@ symmetrical. `unique_id` accepts a `prefix` but not a number.
 
 [Working with views](https://developers.notion.com/guides/data-apis/working-with-views)
 documents `POST /v1/views` for table, board, list, calendar, timeline, gallery,
-form, chart, map and dashboard — including board groups, timeline date
+form, chart, map and dashboard, including board groups, timeline date
 properties, chart axes, calendar ranges and form questions.
 
 Before this, you could create a database but not shape how anyone looked at it.
@@ -185,7 +185,7 @@ and the changelog:
   a minute; the installer deliberately does not parallelise writes to one parent.
 - **500 KB per request payload.**
 - **`position` replaced `after`** for child placement in `2026-03-11`.
-- **`notifications.mode: "silent"`** — bulk installs should send it, or every
+- **`notifications.mode: "silent"`**: bulk installs should send it, or every
   appended block can notify page watchers.
 - **`heading_4` and tab blocks** are new in this version.
 - **`restricted_resource`** is what every write returns when the integration is
@@ -208,7 +208,7 @@ Compared
 
 Blocksmith supports both. The registry manifest is what an MCP server or agent
 reads; `POST /api/install` is what executes deterministically. **`mode: "plan"`
-requires no credentials at all** and returns the full ordered request sequence —
+requires no credentials at all** and returns the full ordered request sequence:
 so an agent can be shown exactly what will happen before anyone hands it a token.
 That decision came directly from the MCP/API tradeoff: the trustworthy path is
 "review the plan, then authorise the write".
@@ -218,15 +218,15 @@ That decision came directly from the MCP/API tradeoff: the trustworthy path is
 ## 8. Design language
 
 - [notion-ui.vercel.app](https://notion-ui.vercel.app/) and
-  [steeeee0223/notion-kit](https://github.com/steeeee0223/notion-kit) — React
+  [steeeee0223/notion-kit](https://github.com/steeeee0223/notion-kit): React
   Notion-style UI kits. Adjacent rather than competing, and the reference for
   spacing, type scale and colour values used in `app/globals.css`.
-- [nicelydone.club](https://nicelydone.club/examples/apps/notion/components) —
+- [nicelydone.club](https://nicelydone.club/examples/apps/notion/components):
   screenshots of Notion's own primitives. The goal for widgets is that they read
   as native: `#37352f` foreground on `#ffffff`, `#e6e6e4` on `#191919`, the
   Notion select palette, and the system font stack rather than a webfont (which
   the sandbox could not load anyway).
-- [createxyz components](https://createxyz.notion.site/Create-Components-) —
+- [createxyz components](https://createxyz.notion.site/Create-Components-):
   component *variations* plus a version-staleness / one-click-update model.
   Adopted as `meta.version` + `updatedAt` in the registry, and as the reason
   embed URLs serve latest while downloaded files are frozen.
@@ -251,7 +251,7 @@ and derived from the catalog, not invented. The one place market numbers appear
 is the landing page, cited. `app/changelog/page.tsx` states this explicitly.
 
 **Pricing consequence:** freemium with $0 / $9 / $29 tiers, Pro free during beta,
-and a hard commitment that downloaded files never stop working — because the
+and a hard commitment that downloaded files never stop working, because the
 research shows the failure mode users actually fear is a purchased template
 rotting.
 
@@ -267,9 +267,9 @@ Button, Feature, Formula, Database Automation.
 Blocksmith collapses this to two kinds, because the research in §2 and §3 makes
 only two delivery mechanisms real:
 
-- **`widget`** — a self-contained HTML file. Channels: `embed`, `html-block`,
+- **`widget`**: a self-contained HTML file. Channels: `embed`, `html-block`,
   `download`. Cannot touch Notion data.
-- **`native`** — a recipe of API calls plus documented manual steps. Channels:
+- **`native`**: a recipe of API calls plus documented manual steps. Channels:
   `api`, `duplicate`, `guide`. Creates real databases.
 
 Eight categories, 25 components: 14 widgets, 11 recipes, 14 free and 11 Pro.
@@ -286,7 +286,7 @@ Recorded so they are not retried:
 - **`landmarklabs.co/notion-templates`** returns only a CookieYes consent blob to
   a non-browser client. Not essential; not retried.
 - **`app/r/index.json/route.ts`** was written and deleted. Next.js route files may
-  only export HTTP methods and config — re-exporting `COMPONENTS` or builder
+  only export HTTP methods and config; re-exporting `COMPONENTS` or builder
   functions from one is illegal. `index.json` is now special-cased inside
   `app/r/[name]/route.ts`.
 - **Server-computed absolute iframe `src`.** Under a reverse proxy the server sees

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!--
+    Blocksmith favicon. The same mark as components/icons.tsx LogoMark, but
+    scaled to fill a 32px tile and with literal colours: a standalone SVG file
+    is fetched outside the document, so it cannot inherit CSS custom
+    properties. Ink #0d0d0c, paper #f6f5f4, the two ends of the site palette.
+  -->
+  <rect width="32" height="32" rx="7.2" fill="#0d0d0c"/>
+  <g transform="translate(1.6 1.6) scale(1.2)">
+    <path
+      d="M6.6 3.4 18.2 5.9a1 1 0 0 1 .8.98v10.2a1 1 0 0 1-.72.96l-1.4.44"
+      fill="none"
+      stroke="#f6f5f4"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      opacity="0.42"
+    />
+    <rect x="3.4" y="7.2" width="12.4" height="12.4" rx="2.4" fill="#f6f5f4"/>
+    <path
+      d="M15.8 7.2v-2a1.6 1.6 0 0 0-2.3-1.44l-1.9.86"
+      fill="none"
+      stroke="#f6f5f4"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M6.9 11.1h5.4M6.9 14h3.4"
+      fill="none"
+      stroke="#0d0d0c"
+      stroke-width="1.7"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

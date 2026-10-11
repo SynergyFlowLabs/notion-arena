@@ -11,7 +11,7 @@ import { RecipePanel } from "@/components/detail/recipe-panel";
 import { ComponentCard } from "@/components/component-card";
 import { getRecipe } from "@/lib/recipes";
 import { htmlBlockInstallSnippet } from "@/lib/widget";
-import { IconArrowRight, IconCheck, IconDatabase, IconFrame } from "@/components/icons";
+import { IconArrowRight, IconCheck, IconClose, IconDatabase, IconFrame } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
 
@@ -30,7 +30,7 @@ export async function generateMetadata({
   return {
     title: c.name,
     description: `${c.tagline} ${c.description.slice(0, 120)}`,
-    openGraph: { title: `${c.name} — Blocksmith`, description: c.tagline, type: "article" },
+    openGraph: { title: `${c.name} · Blocksmith`, description: c.tagline, type: "article" },
   };
 }
 
@@ -68,7 +68,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
   return (
     // Keyed so navigating between two components (the "pairs well with" row)
-    // remounts the page and fires enter/exit — the router would otherwise
+    // remounts the page and fires enter/exit; the router would otherwise
     // reconcile this same-route dynamic segment in place and animate nothing.
     <PageTransition key={c.slug}>
       {/* breadcrumb */}
@@ -216,7 +216,17 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                               : "bg-secondary text-muted-foreground"
                           )}
                         >
-                          {on ? "✓" : "–"}
+                          {on ? (
+                            <>
+                              <IconCheck size={10} />
+                              <span className="sr-only">Yes</span>
+                            </>
+                          ) : (
+                            <>
+                              <IconClose size={9} />
+                              <span className="sr-only">No</span>
+                            </>
+                          )}
                         </span>
                         <div className="min-w-0">
                           <div className="text-[12.5px] font-medium">{row.label}</div>

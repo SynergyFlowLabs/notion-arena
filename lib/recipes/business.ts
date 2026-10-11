@@ -186,15 +186,15 @@ export const crmPipeline: Recipe = {
       },
       seed: [
         {
-          name: "Northwind — Platform rollout",
+          name: "Northwind · Platform rollout",
           props: { Stage: "Proposal out", Value: 48000, Probability: 0.6, Source: "Inbound" },
         },
         {
-          name: "Kestrel Labs — Starter",
+          name: "Kestrel Labs · Starter",
           props: { Stage: "Demo given", Value: 9600, Probability: 0.4, Source: "Referral" },
         },
         {
-          name: "Aurelia Health — Enterprise",
+          name: "Aurelia Health · Enterprise",
           props: { Stage: "Qualified", Value: 180000, Probability: 0.2, Source: "Outbound" },
         },
       ],
@@ -262,7 +262,7 @@ export const crmPipeline: Recipe = {
   ],
   pages: [
     {
-      title: "CRM — how this system works",
+      title: "CRM: how this system works",
       icon: "🧭",
       blocks: [
         callout(
@@ -305,13 +305,13 @@ export const crmPipeline: Recipe = {
           code('dateBetween(now(), prop("Last stage change"), "days") > 21', "javascript"),
           paragraph([
             t(
-              "Deals do not die loudly, they go quiet. This surfaces anything that has not moved in three weeks. It needs a date property that changes when the stage changes — set that with an automation (see the manual steps)."
+              "Deals do not die loudly, they go quiet. This surfaces anything that has not moved in three weeks. It needs a date property that changes when the stage changes; set that with an automation (see the manual steps)."
             ),
           ]),
         ]),
         divider(),
         heading(2, "Adding a deal"),
-        todo([t("Create the Company first if it does not exist — never a deal without one")]),
+        todo([t("Create the Company first if it does not exist. Never a deal without one")]),
         todo([t("Set Value, Probability and Expected close on the same day you create it")]),
         todo([t("Link a Primary contact; an unlinked deal has nobody to follow up with")]),
         todo([t("Write the Next step in one sentence, as a verb")]),
@@ -346,7 +346,7 @@ export const crmPipeline: Recipe = {
       reason: AUTOMATION_LIMITATION,
       steps: [
         "Trigger: Expected close is before Today AND Stage is not in the Complete group.",
-        "Action: Add a comment @mentioning the Owner with “This deal has slipped — update the close date or move the stage.”",
+        "Action: Add a comment @mentioning the Owner with “This deal has slipped: update the close date or move the stage.”",
         "Action: set Blocked to true, so the Slipped view stays honest.",
       ],
     },
@@ -477,8 +477,8 @@ export const sprintTracker: Recipe = {
         "Velocity": rollup("Done stories", "Points", "count_values"),
       },
       seed: [
-        { name: "Sprint 24 — registry", props: { Status: "Active", "Capacity (points)": 34, Goal: "Ship the public registry endpoints and harden the widget sandbox." } },
-        { name: "Sprint 25 — install flow", props: { Status: "Planned", "Capacity (points)": 34 } },
+        { name: "Sprint 24: registry", props: { Status: "Active", "Capacity (points)": 34, Goal: "Ship the public registry endpoints and harden the widget sandbox." } },
+        { name: "Sprint 25: install flow", props: { Status: "Planned", "Capacity (points)": 34 } },
       ],
     },
   ],
@@ -535,14 +535,14 @@ export const sprintTracker: Recipe = {
       title: "Sprint rituals",
       icon: "🔁",
       blocks: [
-        heading(2, "Monday — planning, 45 minutes"),
+        heading(2, "Monday: planning, 45 minutes"),
         numbered([t("Read the sprint goal out loud. If nobody can, rewrite it before you pick work.")]),
         numbered([t("Pull from Backlog, not from Triage. Triage is not estimable by definition.")]),
         numbered([t("Stop at capacity. Carry-over stories count against capacity first.")]),
-        heading(2, "Daily — 10 minutes"),
+        heading(2, "Daily: 10 minutes"),
         bullet([t("Work the Needs attention view, not the board. The board tells you where things are; that view tells you where they are stuck.")]),
         bullet([t("Anything In review for more than three days gets a name and a decision today.")]),
-        heading(2, "Friday — review and retro, 40 minutes"),
+        heading(2, "Friday: review and retro, 40 minutes"),
         bullet([t("Compare Velocity to Capacity. Two consecutive sprints over capacity means the capacity number is wrong, not the team.")]),
         callout(
           [t("Carried-over stories get "), t("Carried over", { code: true }), t(" ticked before the sprint closes, or velocity lies to you next quarter.")],
@@ -577,7 +577,7 @@ export const sprintTracker: Recipe = {
     {
       title: "Widget views on the sprint dashboard",
       reason:
-        "Dashboard layout is read-only in the API. You can create the dashboard view itself, but each widget is a separate POST /v1/views with view_id set to the dashboard — the order they are created in becomes the layout.",
+        "Dashboard layout is read-only in the API. You can create the dashboard view itself, but each widget is a separate POST /v1/views with view_id set to the dashboard; the order they are created in becomes the layout.",
       steps: [
         "Create the dashboard view: POST /v1/views with type: \"dashboard\" and the Stories data source's database_id.",
         "Then, for each widget, POST /v1/views with view_id = the dashboard id and the widget's own data_source_id.",
@@ -761,7 +761,7 @@ export const okrSystem: Recipe = {
         toggle([t("Why Confidence is a number and not a formula")], [
           paragraph([
             t(
-              "A formula can only see properties on the same row. Confidence is a forecast about the future, which no property can express. Notion formulas cannot trigger side effects either — so a low confidence cannot itself alert anyone. That is what the automation below is for."
+              "A formula can only see properties on the same row. Confidence is a forecast about the future, which no property can express. Notion formulas cannot trigger side effects either, so a low confidence cannot itself alert anyone. That is what the automation below is for."
             ),
           ]),
         ]),
@@ -861,8 +861,8 @@ export const invoiceGenerator: Recipe = {
         Attachments: filesProp(),
       },
       seed: [
-        { name: "October retainer — Northwind", props: { Status: "Sent" } },
-        { name: "Component audit — Kestrel", props: { Status: "Draft" } },
+        { name: "October retainer · Northwind", props: { Status: "Sent" } },
+        { name: "Component audit · Kestrel", props: { Status: "Draft" } },
       ],
     },
     {
@@ -998,10 +998,10 @@ export const jobTracker: Recipe = {
         Name: title(),
         Website: url(),
         Size: sel([
-          { name: "1–10", color: "gray" },
-          { name: "11–50", color: "blue" },
-          { name: "51–200", color: "green" },
-          { name: "201–1000", color: "yellow" },
+          { name: "1-10", color: "gray" },
+          { name: "11-50", color: "blue" },
+          { name: "51-200", color: "green" },
+          { name: "201-1000", color: "yellow" },
           { name: "1000+", color: "purple" },
         ]),
         Industry: sel([
@@ -1027,7 +1027,7 @@ export const jobTracker: Recipe = {
         Applications: relation("applications", { twoWay: true, syncedName: "Company" }),
         Notes: text(),
       },
-      seed: [{ name: "Example Studio", props: { Remote: "Hybrid", Size: "51–200" } }],
+      seed: [{ name: "Example Studio", props: { Remote: "Hybrid", Size: "51-200" } }],
     },
     {
       ref: "applications",
@@ -1069,7 +1069,7 @@ export const jobTracker: Recipe = {
         "Interview scheduled": formula('if(empty(prop("Interview date")), false, prop("Interview date") >= now())'),
       },
       seed: [
-        { name: "Example Studio — Senior Frontend", props: { Stage: "Interviewing", Source: "Referral" } },
+        { name: "Example Studio · Senior Frontend", props: { Stage: "Interviewing", Source: "Referral" } },
       ],
     },
   ],
@@ -1104,16 +1104,16 @@ export const jobTracker: Recipe = {
       icon: "✉️",
       blocks: [
         toggle([t("Cold outreach")], [
-          paragraph([t("Subject: ", { bold: true }), t("<role> — <one specific thing about their product>")]),
+          paragraph([t("Subject: ", { bold: true }), t("<role>: <one specific thing about their product>")]),
           paragraph([t("Hi <name>,")]),
           paragraph([t("<Two sentences: what you noticed about them, and the specific problem you have solved that matches. No preamble, no flattery paragraph.>")]),
           paragraph([t("<One sentence on the most relevant thing you have shipped, with a number in it.>")]),
           paragraph([t("Would a 20-minute call next week be useful? I am free <two concrete slots>.")]),
           paragraph([t("<Name>")]),
         ]),
-        toggle([t("Interview debrief — fill within an hour")], [
+        toggle([t("Interview debrief: fill within an hour")], [
           heading(3, "What they asked"),
-          bullet([t("Question 1 — how I answered — what I would answer now")]),
+          bullet([t("Question 1: how I answered, what I would answer now")]),
           heading(3, "What I learned about the role"),
           bullet([t("Real scope, real team size, real manager")]),
           heading(3, "Signals"),
@@ -1131,7 +1131,7 @@ export const jobTracker: Recipe = {
             ["Manager, and would I work for them again?", "", ""],
             ["What I would learn", "", ""],
             ["Commute and hours per week", "", ""],
-            ["Weighted score (1–5 × weight)", "", ""],
+            ["Weighted score (1-5 × weight)", "", ""],
           ]),
         ]),
       ],

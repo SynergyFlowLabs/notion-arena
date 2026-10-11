@@ -22,9 +22,9 @@ export default function ComponentsPage() {
             Every component, previewed live
           </h1>
           <p className="mt-4 max-w-2xl text-lede text-ink-soft">
-            {STATS.widgets} widgets that run inside a Notion page — as an{" "}
+            {STATS.widgets} widgets that run inside a Notion page, as an{" "}
             <code className="rounded bg-secondary px-1 py-px font-mono text-[13px]">/embed</code>{" "}
-            URL or a native HTML block — and {STATS.native} database recipes that
+            URL or a native HTML block, and {STATS.native} database recipes that
             install through the API. Nothing here is a screenshot.
           </p>
         </div>

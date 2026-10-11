@@ -7,7 +7,7 @@ import { IconArrowRight } from "@/components/icons";
 export const metadata: Metadata = {
   title: "Documentation",
   description:
-    "How Blocksmith components get into Notion, what the HTML block sandbox allows, and every Notion API limit that shapes a recipe — with citations.",
+    "How Blocksmith components get into Notion, what the HTML block sandbox allows, and every Notion API limit that shapes a recipe, with citations.",
 };
 
 const PAGES = [
@@ -27,7 +27,7 @@ const PAGES = [
     href: "/docs/authoring",
     emoji: "🛠️",
     title: "Authoring a widget",
-    d: "The configuration contract, the theming contract, the persistence contract — and how to add a component to the catalog.",
+    d: "The configuration contract, the theming contract, the persistence contract, and how to add a component to the catalog.",
   },
   {
     href: "/docs/recipes",
@@ -57,8 +57,8 @@ export default function DocsPage() {
       lede={
         <>
           Other component libraries document how to use their components. This one
-          documents the platform they run on, because Notion's constraints — not
-          our design choices — decide what is possible. Everything here is
+          documents the platform they run on, because Notion's constraints, not
+          our design choices, decide what is possible. Everything here is
           verified against the Notion API reference or the HTML block
           documentation, and every limit is cited.
         </>
@@ -72,18 +72,18 @@ export default function DocsPage() {
         </P>
         <UL>
           <LI>
-            <strong className="font-semibold text-foreground">Embed URL</strong> —{" "}
+            <strong className="font-semibold text-foreground">Embed URL</strong>:{" "}
             we host the widget, Notion iframes it. Zero setup, works on Free,
             picks up our updates, and dies if we do.
           </LI>
           <LI>
-            <strong className="font-semibold text-foreground">HTML block</strong> —{" "}
+            <strong className="font-semibold text-foreground">HTML block</strong>:{" "}
             you upload the same file to Notion's own storage. Offline forever,
             frozen at the version you took, and sandboxed hard enough that it
             cannot read the page it sits on.
           </LI>
           <LI>
-            <strong className="font-semibold text-foreground">Native recipe</strong> —{" "}
+            <strong className="font-semibold text-foreground">Native recipe</strong>:{" "}
             we call the Notion API to build real databases, relations, rollups,
             formulas and views. Data-driven and shared, and it needs an
             integration token plus four manual click-paths the API cannot cover.
@@ -91,7 +91,7 @@ export default function DocsPage() {
         </UL>
         <Note tone="yellow" title="The one rule that explains the catalog">
           A widget cannot read your Notion data. If a component needs to show
-          numbers from your workspace, it is a recipe — not because we preferred
+          numbers from your workspace, it is a recipe, not because we preferred
           it that way, but because the HTML block sandbox has no network access
           and no bridge to its parent page.
         </Note>
@@ -139,10 +139,10 @@ export default function DocsPage() {
             limitation that forces it.
           </LI>
           <LI>
-            Capability claims are booleans in the catalog —{" "}
+            Capability claims are booleans in the catalog,{" "}
             <code>interactive</code>, <code>offlineSafe</code>,{" "}
             <code>persistsLocally</code>, <code>writesToNotion</code>,{" "}
-            <code>needsNetwork</code> — and they are exposed in the registry so
+            <code>needsNetwork</code>, and they are exposed in the registry so
             an agent can filter on them instead of reading prose.
           </LI>
         </UL>

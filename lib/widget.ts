@@ -57,7 +57,7 @@ export function buildConfig(
  * Injects the config as an inline JSON script tag.
  *
  * This matters because a Notion HTML block is rendered from an uploaded file in
- * a sandboxed iframe with `srcdoc` semantics — there is no URL, so
+ * a sandboxed iframe with `srcdoc` semantics : there is no URL, so
  * `location.search` is empty. The `/embed/<slug>?work=25` path reads params at
  * runtime; the downloaded `.html` file carries them baked in. Same component,
  * two delivery channels.

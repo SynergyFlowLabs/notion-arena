@@ -16,7 +16,7 @@ export const COMPONENTS: CatalogComponent[] = [
     emoji: "🍅",
     tagline: "Work/break cycles with a progress ring, session counter and chime.",
     description:
-      "A focus timer that runs entirely inside the block. Configure work and break lengths from the URL, auto-cycle sessions, and keep a daily session tally. No account, no server, no network calls — which is exactly what Notion's HTML-block sandbox allows.",
+      "A focus timer that runs entirely inside the block. Configure work and break lengths from the URL, auto-cycle sessions, and keep a daily session tally. No account, no server, no network calls, which is exactly what Notion's HTML-block sandbox allows.",
     category: "time",
     kind: "widget",
     tier: "free",
@@ -121,7 +121,7 @@ export const COMPONENTS: CatalogComponent[] = [
     emoji: "🕰️",
     tagline: "Split-flap clock with timezone selection, in Notion's typography.",
     description:
-      "Notion shows today's date and never the time. This puts a real clock on the page — split-flap animation, 12/24-hour toggle, and a timezone picker for remote teams.",
+      "Notion shows today's date and never the time. This puts a real clock on the page: split-flap animation, 12/24-hour toggle, and a timezone picker for remote teams.",
     category: "dashboards",
     kind: "widget",
     tier: "free",
@@ -200,7 +200,7 @@ export const COMPONENTS: CatalogComponent[] = [
       ] },
     ],
     features: [
-      "Inline SVG sparklines — no charting library, no CDN",
+      "Inline SVG sparklines: no charting library, no CDN",
       "Delta arrows with up-is-good / down-is-good semantics per metric",
       "Target ring showing progress to a goal",
       "Configurable from the URL, so one embed can be reused everywhere",
@@ -252,7 +252,7 @@ export const COMPONENTS: CatalogComponent[] = [
       ] },
     ],
     features: [
-      "Animated stroke-dashoffset ring, 0–100%+ (over-target shown in accent)",
+      "Animated stroke-dashoffset ring, 0-100%+ (over-target shown in accent)",
       "Milestone track that auto-checks based on progress",
       "Percent + absolute readout, so it reads correctly in a narrow column",
     ],
@@ -275,7 +275,7 @@ export const COMPONENTS: CatalogComponent[] = [
     emoji: "🔥",
     tagline: "GitHub-style contribution grid for up to six habits, with streaks.",
     description:
-      "A 20-week grid per habit. Click a cell to log it, and the block keeps your longest and current streak. Everything is localStorage, which means it is private and instant — and it means it is per-browser, not synced across your devices or your team.",
+      "A 20-week grid per habit. Click a cell to log it, and the block keeps your longest and current streak. Everything is localStorage, which means it is private and instant, and it means it is per-browser, not synced across your devices or your team.",
     category: "trackers",
     kind: "widget",
     tier: "free",
@@ -352,7 +352,7 @@ export const COMPONENTS: CatalogComponent[] = [
     features: [
       "One-tap logging; the day cell shows the emoji you picked",
       "Rolling 30-day average drawn as an inline SVG line",
-      "Weekday pattern view — spot which days are consistently low",
+      "Weekday pattern view: spot which days are consistently low",
       "Nothing leaves the browser: no account, no analytics",
     ],
     useCases: [
@@ -374,7 +374,7 @@ export const COMPONENTS: CatalogComponent[] = [
     emoji: "🗃️",
     tagline: "A drag-and-drop board that lives inside a page, not a database.",
     description:
-      "Sometimes you want a small board inline — a reading list, a triage queue, a workshop wall — without creating a database and a view for it. This is a self-contained board with drag-and-drop, add-card, WIP limits and JSON export so you can paste the result back into a real database later.",
+      "Sometimes you want a small board inline (a reading list, a triage queue, a workshop wall) without creating a database and a view for it. This is a self-contained board with drag-and-drop, add-card, WIP limits and JSON export so you can paste the result back into a real database later.",
     category: "planning",
     kind: "widget",
     tier: "pro",
@@ -471,7 +471,7 @@ export const COMPONENTS: CatalogComponent[] = [
     emoji: "📅",
     tagline: "A dependency-aware timeline you can hand to a client.",
     description:
-      "Notion's Timeline view is bound to a database and to that database's date properties. This is a standalone timeline driven by a JSON array in the URL — so you can pin a fixed roadmap, a launch plan or a project schedule to any page, including a published one.",
+      "Notion's Timeline view is bound to a database and to that database's date properties. This is a standalone timeline driven by a JSON array in the URL, so you can pin a fixed roadmap, a launch plan or a project schedule to any page, including a published one.",
     category: "planning",
     kind: "widget",
     tier: "pro",
@@ -518,7 +518,7 @@ export const COMPONENTS: CatalogComponent[] = [
     slug: "roi-calculator",
     name: "ROI Calculator",
     emoji: "🧮",
-    tagline: "Sliders in, a payback chart out — for proposals and sales pages.",
+    tagline: "Sliders in, a payback chart out, for proposals and sales pages.",
     description:
       "An interactive calculator block for pricing pages, proposals and business cases. Three inputs, live outputs, and a cumulative-cashflow chart that shows the payback month. All the maths runs in the block.",
     category: "business",
@@ -570,7 +570,7 @@ export const COMPONENTS: CatalogComponent[] = [
     slug: "org-chart",
     name: "Org Chart",
     emoji: "🧑‍🤝‍🧑",
-    tagline: "A real, zoomable org chart — the one diagram Notion can't draw.",
+    tagline: "A real, zoomable org chart: the one diagram Notion can't draw.",
     description:
       "Feed it a flat list of people and managers and it lays out the tree, with collapsible branches, zoom/pan and click-to-expand profile cards. Exports to SVG so you can drop the same chart into a deck.",
     category: "visuals",
@@ -649,7 +649,7 @@ export const COMPONENTS: CatalogComponent[] = [
       "Pen with pressure-free smoothing, eraser, rect, ellipse, arrow, sticky note",
       "Full undo/redo stack",
       "Pan and zoom the canvas",
-      "PNG and JSON export — keep the JSON to reload later",
+      "PNG and JSON export: keep the JSON to reload later",
     ],
     useCases: [
       "Brainstorm pages captured next to the notes",
@@ -695,7 +695,7 @@ export const COMPONENTS: CatalogComponent[] = [
       ] },
     ],
     features: [
-      "Deterministic daily pick — same quote for the whole team on the same day",
+      "Deterministic daily pick: same quote for the whole team on the same day",
       "Built-in starter set of 30 public-domain quotes if you pass none",
       "Manual shuffle button for meeting openers",
     ],
@@ -720,7 +720,7 @@ export const COMPONENTS: CatalogComponent[] = [
     slug: "crm-pipeline",
     name: "CRM Pipeline",
     emoji: "💼",
-    tagline: "Companies, people and deals — related databases with a board and a pipeline chart.",
+    tagline: "Companies, people and deals: related databases with a board and a pipeline chart.",
     description:
       "Three related databases with the property schemas, status groups, rollups and formulas a working CRM needs, plus a board view grouped by deal stage, a chart view of weighted pipeline value, and a dashboard view that assembles both.",
     category: "business",
@@ -735,11 +735,11 @@ export const COMPONENTS: CatalogComponent[] = [
     recipe: "crm-pipeline",
     delivery: ["api", "duplicate", "guide"],
     creates: [
-      { icon: "🗄️", label: "3 databases", detail: "Companies, People, Deals — with relations both ways" },
+      { icon: "🗄️", label: "3 databases", detail: "Companies, People, Deals, with relations both ways" },
       { icon: "🧮", label: "6 formulas", detail: "Weighted value, days in stage, next-step-due, health score" },
       { icon: "📊", label: "5 views", detail: "Board by stage, chart of weighted value, calendar of follow-ups, dashboard" },
       { icon: "📄", label: "2 page templates", detail: "Call notes and deal-closed retro, with pre-filled properties" },
-      { icon: "⚡", label: "3 automations", detail: "Manual setup — the API cannot create database automations yet" },
+      { icon: "⚡", label: "3 automations", detail: "Manual setup: the API cannot create database automations yet" },
     ],
     features: [
       "Status property with Notion's native stage groups (To begin / In progress / Done / Blocked)",
@@ -749,7 +749,7 @@ export const COMPONENTS: CatalogComponent[] = [
     ],
     useCases: [
       "Solo founders tracking inbound",
-      "Agencies managing 10–100 client relationships",
+      "Agencies managing 10-100 client relationships",
       "Recruiters running a candidate pipeline",
     ],
     capabilities: {
@@ -784,7 +784,7 @@ export const COMPONENTS: CatalogComponent[] = [
       { icon: "📄", label: "1 database template", detail: "New story with acceptance criteria and QA checklist" },
     ],
     features: [
-      "Board configuration with a subtask toggle column — the API can set this",
+      "Board configuration with a subtask toggle column: the API can set this",
       "Chart view: line of points completed per sprint",
       "Timeline view across sprints for roadmap conversations",
       "Status groups mapped to Notion's native To begin / In progress / Done",
@@ -806,7 +806,7 @@ export const COMPONENTS: CatalogComponent[] = [
     slug: "okr-system",
     name: "OKR System",
     emoji: "🎯",
-    tagline: "Objectives, key results and confidence — rolled up to a company score.",
+    tagline: "Objectives, key results and confidence, rolled up to a company score.",
     description:
       "Objectives hold a quarter, an owner and a confidence level. Key results hold a start, a target and a current value, with a formula that computes progress as a percentage. A rollup on the Objective averages its key results, so the company score is never stale.",
     category: "business",
@@ -826,8 +826,8 @@ export const COMPONENTS: CatalogComponent[] = [
       { icon: "📄", label: "1 page template", detail: "Weekly OKR check-in with confidence prompts" },
     ],
     features: [
-      "Progress computed from start/target/current, clamped 0–100%",
-      "Confidence as a 1–10 number property with a colour-coded formula label",
+      "Progress computed from start/target/current, clamped 0-100%",
+      "Confidence as a 1-10 number property with a colour-coded formula label",
       "Quarter select property drives every filtered view",
       "Chart view of objective scores, grouped by team",
     ],
@@ -864,13 +864,13 @@ export const COMPONENTS: CatalogComponent[] = [
     delivery: ["api", "duplicate", "guide"],
     creates: [
       { icon: "🗄️", label: "2 databases", detail: "Meetings and Action Items, related both ways" },
-      { icon: "📄", label: "1 database template", detail: "Agenda, notes, decisions, action items — as real blocks" },
-      { icon: "🔘", label: "2 buttons", detail: "'New meeting' and 'Reset this week' — manual step, documented" },
+      { icon: "📄", label: "1 database template", detail: "Agenda, notes, decisions, action items, as real blocks" },
+      { icon: "🔘", label: "2 buttons", detail: "'New meeting' and 'Reset this week': manual step, documented" },
       { icon: "📊", label: "4 views", detail: "Calendar by date, list by team, upcoming, archive" },
       { icon: "⚡", label: "2 automations", detail: "Set status when date passes; assign owner from attendees" },
     ],
     features: [
-      "Template content is created with real block types — headings, toggles, to-dos, callouts",
+      "Template content is created with real block types: headings, toggles, to-dos, callouts",
       "Action items get their own due date and owner, and roll back up to the meeting",
       "Formula that renders 'Overdue', 'Due today' or 'Scheduled' from the due date",
       "Calendar view grouped by meeting type",
@@ -909,7 +909,7 @@ export const COMPONENTS: CatalogComponent[] = [
       { icon: "🗄️", label: "2 databases", detail: "Ideas and Pieces, with a promote-to-piece relation" },
       { icon: "📊", label: "5 views", detail: "Calendar, board by status, gallery with covers, chart by channel, list" },
       { icon: "🧮", label: "3 formulas", detail: "Days until publish, ready-to-publish flag, week number" },
-      { icon: "🔁", label: "1 recurring template", detail: "Weekly editorial slot seeder — manual step" },
+      { icon: "🔁", label: "1 recurring template", detail: "Weekly editorial slot seeder: manual step" },
     ],
     features: [
       "Chart view: pieces published per channel per month",
@@ -951,7 +951,7 @@ export const COMPONENTS: CatalogComponent[] = [
       { icon: "🗄️", label: "3 databases", detail: "Clients, Invoices, Line Items" },
       { icon: "🧮", label: "6 formulas", detail: "Line total, subtotal rollup, tax, grand total, due date, overdue flag" },
       { icon: "📄", label: "1 page template", detail: "Printable invoice layout built from columns and tables" },
-      { icon: "🔘", label: "1 button", detail: "'Duplicate for next month' — manual step, documented" },
+      { icon: "🔘", label: "1 button", detail: "'Duplicate for next month': manual step, documented" },
       { icon: "📊", label: "3 views", detail: "Board by status, chart of revenue by month, list of overdue" },
     ],
     features: [
@@ -977,7 +977,7 @@ export const COMPONENTS: CatalogComponent[] = [
     slug: "para-life-os",
     name: "PARA Life OS",
     emoji: "🧠",
-    tagline: "Projects, Areas, Resources, Archive — wired with relations and a home dashboard.",
+    tagline: "Projects, Areas, Resources, Archive, wired with relations and a home dashboard.",
     description:
       "Tiago Forte's PARA method as a real Notion system rather than four empty pages. Notes and Tasks relate into Projects and Areas, Resources hold reference material, and Archive is a filtered view rather than a fourth silo. Ships with the home dashboard page.",
     category: "docs",
@@ -991,14 +991,14 @@ export const COMPONENTS: CatalogComponent[] = [
     recipe: "para-life-os",
     delivery: ["api", "duplicate", "guide"],
     creates: [
-      { icon: "🗄️", label: "4 databases", detail: "Projects, Areas, Resources, Notes — plus a Tasks database" },
+      { icon: "🗄️", label: "4 databases", detail: "Projects, Areas, Resources, Notes, plus a Tasks database" },
       { icon: "🔗", label: "7 relations", detail: "Everything cross-linked so nothing is orphaned" },
       { icon: "📊", label: "6 views", detail: "Active projects board, areas gallery, note search, today list" },
       { icon: "📄", label: "3 page templates", detail: "Project kickoff, weekly review, fleeting note" },
       { icon: "🏠", label: "1 home dashboard", detail: "A page of synced blocks that is the entry point to the system" },
     ],
     features: [
-      "Archive is a status, not a place — so history stays searchable",
+      "Archive is a status, not a place, so history stays searchable",
       "Weekly review template prompts a project-by-project sweep",
       "Synced block header reused across every dashboard page",
       "Notes database supports a quick-capture form view for mobile",
@@ -1022,7 +1022,7 @@ export const COMPONENTS: CatalogComponent[] = [
     emoji: "✅",
     tagline: "Habits as database rows with streak formulas and a dashboard view.",
     description:
-      "The data-backed counterpart to the Habit Heatmap widget. A Habits database and a Logs database, with formulas that compute current streak, longest streak and 30-day completion rate directly from your rows — so it syncs across devices and teammates, unlike any widget.",
+      "The data-backed counterpart to the Habit Heatmap widget. A Habits database and a Logs database, with formulas that compute current streak, longest streak and 30-day completion rate directly from your rows, so it syncs across devices and teammates, unlike any widget.",
     category: "trackers",
     kind: "native",
     tier: "pro",
@@ -1038,14 +1038,14 @@ export const COMPONENTS: CatalogComponent[] = [
       { icon: "🗄️", label: "2 databases", detail: "Habits and Daily Logs, related with a rollup of completions" },
       { icon: "🧮", label: "5 formulas", detail: "30-day rate, current streak, longest streak, target hit, status emoji" },
       { icon: "📊", label: "4 views", detail: "Dashboard with number widgets, calendar of logs, board by habit, chart" },
-      { icon: "🔘", label: "1 button", detail: "'Log today' creates one row per active habit — manual step" },
-      { icon: "🔁", label: "1 recurring template", detail: "Daily log seeder at 06:00 — manual step" },
+      { icon: "🔘", label: "1 button", detail: "'Log today' creates one row per active habit: manual step" },
+      { icon: "🔁", label: "1 recurring template", detail: "Daily log seeder at 06:00: manual step" },
     ],
     features: [
       "Streaks computed in Notion, so they follow you to every device",
       "Dashboard view with up to 12 widgets across 4 rows",
       "Chart view: completions per habit per week",
-      "Target frequency per habit — daily habits and 3×/week habits coexist",
+      "Target frequency per habit: daily habits and 3×/week habits coexist",
     ],
     useCases: [
       "People who want habit data they can roll up into a life review",
@@ -1082,7 +1082,7 @@ export const COMPONENTS: CatalogComponent[] = [
       { icon: "📊", label: "4 views", detail: "Public form view, filtered board, timeline of deliverables, gallery" },
       { icon: "🔗", label: "1 synced block", detail: "Portal header reused across every client page" },
       { icon: "📄", label: "1 portal page", detail: "Assembled with columns, embeds and the countdown widget" },
-      { icon: "⚡", label: "2 automations", detail: "Notify on intake; set status on publish — manual steps" },
+      { icon: "⚡", label: "2 automations", detail: "Notify on intake; set status on publish: manual steps" },
     ],
     features: [
       "Form view configuration created through the Views API",
@@ -1151,7 +1151,7 @@ export const COMPONENTS: CatalogComponent[] = [
     emoji: "⚡",
     tagline: "Twelve database automations and button chains, documented and copy-pasteable.",
     description:
-      "Buttons and database automations cannot be created through the Notion API — they are configured in the app. This recipe installs the databases they act on, then hands you an exact click-path for each automation: trigger, conditions, actions. Twelve of them, covering the workflows people most often rebuild by hand.",
+      "Buttons and database automations cannot be created through the Notion API: they are configured in the app. This recipe installs the databases they act on, then hands you an exact click-path for each automation: trigger, conditions, actions. Twelve of them, covering the workflows people most often rebuild by hand.",
     category: "automations",
     kind: "native",
     tier: "free",

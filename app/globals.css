@@ -3,7 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ==================================================================
-   Blocksmith design tokens — modelled on notion.com
+   Blocksmith design tokens, modelled on notion.com
 
    Notion's marketing surface is a warm paper canvas, a near-black ink
    that is rgba(0,0,0,.95) rather than pure black, one saturated action
@@ -11,12 +11,12 @@
    pastel card palette lifted from its own database property colours.
 
    Two radii only: 12px for cards and containers, 8px for controls.
-   Pills are reserved for badges and tags — Notion's buttons are
+   Pills are reserved for badges and tags: Notion's buttons are
    rectangular-sober, never pill-shaped.
 ================================================================== */
 :root {
   /* --- surfaces: warm, never cool -------------------------------- */
-  --background: #f6f5f4; /* paper — the default page canvas      */
+  --background: #f6f5f4; /* paper: the default page canvas       */
   --surface-raised: #fbfbfa; /* inset panels, table stripes       */
   --card: #ffffff; /* elevated surfaces only                     */
   --card-foreground: #0d0d0c;
@@ -26,8 +26,8 @@
   /* --- ink ------------------------------------------------------- */
   --foreground: #0d0d0c; /* rgba(0,0,0,.95) composited on white  */
   --ink-soft: #5f5e5a; /* secondary text                        */
-  --ink-faint: #717069; /* metadata — 4.57 on paper, 4.97 on card */
-  --app-ink: #37352f; /* Notion's *app* text — used inside page mockups */
+  --ink-faint: #717069; /* metadata: 4.57 on paper, 4.97 on card */
+  --app-ink: #37352f; /* Notion's *app* text: used inside page mockups */
 
   --muted: #efeeec;
   --muted-foreground: #5f5e5a;
@@ -36,7 +36,7 @@
 
   /* --- the single action colour --------------------------------- */
   --primary: #006fd2; /* Signal Blue, darkened one step for AA   */
-  --primary-brand: #0075de; /* notion.com's exact blue — accents */
+  --primary-brand: #0075de; /* notion.com's exact blue: accents     */
   --primary-foreground: #ffffff;
   --primary-deep: #005fad; /* hover / pressed                    */
   --primary-wash: #e9f1fc; /* tinted background                  */
@@ -223,7 +223,7 @@
 }
 
 /* ==================================================================
-   Theme surface — Tailwind v4 reads these to build utilities.
+   Theme surface: Tailwind v4 reads these to build utilities.
    The type scale is Notion's: tracking tightens as size grows, and
    display sizes carry the ss01 alternates.
 ================================================================== */
@@ -499,7 +499,37 @@
     font-weight: 500;
   }
 
-  /* The one deep shadow in the system — reserved for product mockups */
+  /* The site header's hairline. Drawn by a scroll-driven animation so no
+     script listens to scroll events: the line fades in over the first 32px
+     and stays. Browsers without scroll timelines get a static hairline. */
+  .header-line {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--color-border);
+    opacity: 0;
+    animation: header-line-in 1ms linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 32px;
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    .header-line {
+      opacity: 1;
+    }
+  }
+
+  @keyframes header-line-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* The one deep shadow in the system, reserved for product mockups */
   .shadow-mockup {
     box-shadow: var(--shadow-mockup);
   }
@@ -546,7 +576,7 @@
     );
   }
 
-  /* The single orchestrated entrance. Applied to the hero only — not to
+  /* The single orchestrated entrance. Applied to the hero only, not to
      every section, which is the generic default. */
   .reveal {
     animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -586,7 +616,7 @@
   animation: marquee 42s linear infinite;
 }
 
-/* Code blocks — iA Writer Mono sits at 14px/1.5 in Notion's system */
+/* Code blocks: iA Writer Mono sits at 14px/1.5 in Notion's system */
 pre.code-block {
   font-family: var(--font-mono);
   font-size: 13px;

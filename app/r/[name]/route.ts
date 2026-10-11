@@ -52,7 +52,7 @@ export async function GET(
         $schema: "http://json-schema.org/draft-07/schema#",
         title: "Blocksmith widget configuration schemas",
         description:
-          "One JSON Schema per widget. Everything a widget accepts as configuration, with types, bounds and defaults — so an agent can configure one without reading its source.",
+          "One JSON Schema per widget. Everything a widget accepts as configuration, with types, bounds and defaults, so an agent can configure one without reading its source.",
         definitions: schemas,
       },
       { headers: JSON_HEADERS }

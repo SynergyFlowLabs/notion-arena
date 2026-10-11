@@ -165,7 +165,7 @@ align-items:center;justify-content:center;gap:1px;cursor:pointer;position:relati
       if(m){pts.push([29-i,m]);vals.push(m);}
     }
     var avg=vals.length?(vals.reduce(function(a,b){return a+b;},0)/vals.length):0;
-    avgEl.innerHTML='<b>'+(avg?avg.toFixed(1):'—')+'</b> / 5 · last 30 days · '+vals.length+' logged';
+    avgEl.innerHTML='<b>'+(avg?avg.toFixed(1):'n/a')+'</b> / 5 · last 30 days · '+vals.length+' logged';
     if(!pts.length){sparkEl.innerHTML='';return;}
     var W=120,H=30,padY=4;
     var xs=pts.map(function(p){return padY+(p[0]/29)*(W-padY*2);});

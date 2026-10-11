@@ -52,7 +52,7 @@ export async function installRecipe(opts: {
 
   if (opts.dryRun) {
     result.ok = true;
-    result.warnings.push("Dry run — no requests were sent to Notion.");
+    result.warnings.push("Dry run: no requests were sent to Notion.");
     result.databases = recipe.databases.map((d) => ({ ref: d.ref, title: d.title }));
     result.views = recipe.views.map((v) => ({ name: v.name, type: v.type }));
     result.pages = recipe.pages.map((p) => ({ title: p.title }));
@@ -159,7 +159,7 @@ export async function installRecipe(opts: {
       result.views.push({ name: v.name, type: v.type, id: created?.id });
       if (v.type === "dashboard") {
         result.warnings.push(
-          `“${v.name}” was created empty — dashboard layout is read-only in the API. Add widgets with further POST /v1/views calls using view_id ${created?.id}.`
+          `“${v.name}” was created empty: dashboard layout is read-only in the API. Add widgets with further POST /v1/views calls using view_id ${created?.id}.`
         );
       }
     } catch (err: any) {

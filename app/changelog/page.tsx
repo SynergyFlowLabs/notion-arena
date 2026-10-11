@@ -117,7 +117,7 @@ export default function ChangelogPage() {
           </h1>
           <p className="mt-5 max-w-2xl text-lede text-ink-soft">
             Two kinds of entry: things we changed, and things Notion changed that
-            we build on. The second kind matters more — a component library for
+            we build on. The second kind matters more: a component library for
             Notion is only as stable as the API version it pins.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-1.5 font-mono text-[12px] text-muted-foreground">

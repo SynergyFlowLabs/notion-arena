@@ -20,7 +20,7 @@ export const maxDuration = 60;
  *   "config": { … }                  // widget configuration, optional
  * }
  *
- * `mode: "plan"` needs no credentials and returns the exact request sequence —
+ * `mode: "plan"` needs no credentials and returns the exact request sequence:
  * that is what the detail page renders before you ever connect a workspace.
  *
  * The token is used for the duration of the request and never persisted. In
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
   }
   if (!parentPageId) {
     return Response.json(
-      { ok: false, error: "parentPageId is required — the page or block to install into." },
+      { ok: false, error: "parentPageId is required: the page or block to install into." },
       { status: 400 }
     );
   }

@@ -11,7 +11,7 @@ export const FAQS: { q: string; a: React.ReactNode }[] = [
       <>
         No. Embed URLs and HTML blocks work on every plan, including Free. You
         need Business or Enterprise only if you want Notion's AI to generate or
-        edit HTML inside a block — the blocks you install still render everywhere.
+        edit HTML inside a block: the blocks you install still render everywhere.
         Native recipes work on any plan that has API access, which includes Free.
       </>
     ),
@@ -25,8 +25,8 @@ export const FAQS: { q: string; a: React.ReactNode }[] = [
         cannot see the page it sits on, cannot call the Notion API, and cannot
         talk to any external service. Our widgets are therefore driven by URL
         parameters, baked-in configuration and{" "}
-        <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">localStorage</code>{" "}
-        — not by your database. For anything data-driven, use a native recipe or
+        <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">localStorage</code>,{" "}
+        not by your database. For anything data-driven, use a native recipe or
         Notion's own dashboard and chart views.
       </>
     ),
@@ -70,7 +70,7 @@ export const FAQS: { q: string; a: React.ReactNode }[] = [
     q: "Can I edit a component I installed?",
     a: (
       <>
-        The HTML file you download is yours — edit it, host it yourself, ship it
+        The HTML file you download is yours: edit it, host it yourself, ship it
         in your own templates. The embed URL keeps receiving our updates
         automatically; a downloaded HTML block is frozen at the version you took,
         which is exactly what you want for a template you sell.
@@ -94,7 +94,7 @@ export const FAQS: { q: string; a: React.ReactNode }[] = [
     q: "What happens if you shut down?",
     a: (
       <>
-        Embed URLs stop loading — that is the honest downside of hosted delivery,
+        Embed URLs stop loading. That is the honest downside of hosted delivery,
         and it is why every widget is downloadable as a single self-contained
         HTML file with no CDN dependencies. Download it once and the block works
         forever, offline, with no account and no server.

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 /**
  * Badges are the one place the system allows a near-pill radius, and they stay
  * tight: 5px, pale property tint, full-colour ink. Never a filled chromatic
- * block — that role belongs to the single blue CTA.
+ * block : that role belongs to the single blue CTA.
  */
 const VARIANTS = {
   default: "border-border-strong bg-secondary text-secondary-foreground",

@@ -112,7 +112,7 @@ export function SiteFooter() {
             ))}
           </div>
 
-          {/* categories — every one, not a curated four */}
+          {/* categories: every one, not a curated four */}
           <nav aria-label="Categories" className="mt-12 border-t border-white/10 pt-6">
             <h2 className="label-mono text-band-muted">Categories</h2>
             <ul className="mt-3.5 flex flex-wrap gap-x-5 gap-y-2.5">
@@ -132,7 +132,7 @@ export function SiteFooter() {
           <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-[12.5px] leading-relaxed text-band-muted sm:flex-row sm:items-start sm:justify-between">
             <p className="max-w-xl">
               © {new Date().getFullYear()} Blocksmith. Components ship under MIT
-              unless marked Pro. Not affiliated with Notion Labs, Inc. — Notion is
+              unless marked Pro. Not affiliated with Notion Labs, Inc. Notion is
               a trademark of Notion Labs, Inc.
             </p>
             <p className="shrink-0 font-mono text-[11.5px] text-band-muted/80">

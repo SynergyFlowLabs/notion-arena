@@ -1,7 +1,7 @@
 # Blocksmith
 
-**The component registry for Notion.** shadcn/ui's model — browse, configure,
-copy, own, install from code — applied to Notion dashboards.
+**The component registry for Notion.** shadcn/ui's model: browse, configure,
+copy, own, install from code, applied to Notion dashboards.
 
 25 components: **14 interactive widgets** that run inside a Notion page, and
 **11 native database recipes** that install through the Notion API. 14 are free.
@@ -36,12 +36,12 @@ every design decision here, with sources.
 | Network at render | Required | None | None |
 | Reads your Notion data | No | No | It *is* the data |
 | State shared with team | No | No | Yes |
-| Gets our updates | Automatically | No — frozen | n/a |
+| Gets our updates | Automatically | No. Frozen | n/a |
 | Min. plan | Free | Free | Free |
 
 One HTML file serves both widget channels, so they cannot drift. Configuration
 comes from the query string on the hosted path and from a baked-in
-`<script id="bk-config">` on the downloaded path — because a sandboxed block has
+`<script id="bk-config">` on the downloaded path, because a sandboxed block has
 no URL.
 
 ---
@@ -69,7 +69,7 @@ host, falling back to `http://localhost:3000`.
 ## Layout
 
 ```
-public/widgets/*.html      the products — 14 self-contained HTML files
+public/widgets/*.html      the products: 14 self-contained HTML files
 lib/catalog.ts             source of truth for all 25 components
 lib/types.ts               component/param types + the 8 categories
 lib/widget.ts              config coercion, injection, HTML rendering  (server)
@@ -104,7 +104,7 @@ GET /r/schema.json         JSON Schema of every widget's parameters
 ```
 
 ```bash
-# see exactly what an install will do — no credentials, touches nothing
+# see exactly what an install will do: no credentials, touches nothing
 curl -X POST localhost:3000/api/install \
   -H 'content-type: application/json' \
   -d '{"component":"crm-pipeline","mode":"plan"}'
@@ -125,7 +125,7 @@ before authorising any write to your workspace.
 
 **A widget cannot read your Notion data.** Notion's HTML block sandbox has no
 network access and no bridge to its parent page. If a component needs real
-numbers, it is a recipe — a database with views and rollups. Every shared tracker
+numbers, it is a recipe: a database with views and rollups. Every shared tracker
 here exists in both forms for exactly this reason.
 
 **Relations force a two-pass install.** Since Notion split databases from data
@@ -135,9 +135,9 @@ therefore emits: create databases with base properties → read back each data
 source id → patch in relations → patch in rollups → patch in formulas → views →
 seed rows → pages → block bodies in chunks of 100.
 
-Recipes also declare what they **cannot** do. Four real API gaps — no `button`
+Recipes also declare what they **cannot** do. Four real API gaps (no `button`
 block type, no automation endpoint, no recurring-template endpoint, no synced-block
-duplicates — appear as `manual[]` steps, each citing the limitation. A manual step
+duplicates) appear as `manual[]` steps, each citing the limitation. A manual step
 whose reason is "it's easier by hand" is rejected.
 
 ---
@@ -150,13 +150,13 @@ Every widget in `public/widgets/` implements the same four rules. See
 1. **Zero external requests.** No CDN, no webfont, no `fetch()`, no `@import`.
    The sandbox has no network, so a remote asset is a blank block.
 2. **Two config sources**, read in order: the baked-in `bk-config` script tag,
-   then `URLSearchParams` on top. Only declared parameters survive — unknown keys
+   then `URLSearchParams` on top. Only declared parameters survive; unknown keys
    are dropped by `buildConfig()`.
 3. **`theme` and `accent` on every widget.** `theme=auto|light|dark` sets
    `data-theme` on `<html>` and follows `prefers-color-scheme` when auto;
    `accent` writes `--accent`, with derived shades via `color-mix(in oklab, …)`.
 4. **Namespaced state** under `blocksmith.<slug>.v1`, wrapped in try/catch. Per
-   browser, never synced — which is why shared trackers are recipes.
+   browser, never synced, which is why shared trackers are recipes.
 
 Plus: `body { overflow: hidden }` with `.wrap` managing its own scroll (one
 scrollbar, not two), a `prefers-reduced-motion` escape hatch, and clipboard
@@ -168,9 +168,9 @@ exports that always also `console.log` the payload as a fallback.
 
 No fabricated install counts, star counts or customer logos. Badges are
 qualitative (`new`, `popular`, `staff-pick`) and derived from the catalog. Market
-numbers appear only where cited. Capability claims are booleans in the catalog —
+numbers appear only where cited. Capability claims are booleans in the catalog (
 `interactive`, `offlineSafe`, `persistsLocally`, `writesToNotion`,
-`needsNetwork` — exposed in the registry so an agent can filter on them instead of
+`needsNetwork`) exposed in the registry so an agent can filter on them instead of
 reading prose.
 
 ---

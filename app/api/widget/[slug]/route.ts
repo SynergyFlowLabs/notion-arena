@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
  *
  * Returns the widget as a single self-contained .html file with the current
  * configuration baked in. This is the artifact you upload to Notion as an HTML
- * block — the sandbox has no URL, so configuration cannot come from a query
+ * block : the sandbox has no URL, so configuration cannot come from a query
  * string and must live inside the file.
  */
 export async function GET(

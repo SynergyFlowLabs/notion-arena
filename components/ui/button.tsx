@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 /**
  * Notion's buttons are rectangular-sober: 8px radius, never pills, flat colour
  * with no drop shadow, and exactly one saturated fill (Signal Blue). Transitions
- * name their properties — `transition: all` is banned by the interface
+ * name their properties : `transition: all` is banned by the interface
  * guidelines and costs compositor work here.
  */
 const buttonVariants = cva(
@@ -19,7 +19,7 @@ const buttonVariants = cva(
         /** Alias kept for call sites that mean "the blue one" explicitly. */
         primary:
           "bg-primary text-primary-foreground hover:bg-primary-deep active:bg-primary-deep",
-        /** Notion's dark app-ink button — for surfaces that are already blue. */
+ /** Notion's dark app-ink button : for surfaces that are already blue. */
         notion:
           "bg-app-ink text-white hover:bg-app-ink/88 dark:bg-white dark:text-[#191919] dark:hover:bg-white/88",
         outline:
@@ -57,7 +57,7 @@ export interface ButtonProps
 }
 
 /**
- * React 19 passes `ref` as an ordinary prop, so `forwardRef` is gone — it is
+ * React 19 passes `ref` as an ordinary prop, so `forwardRef` is gone : it is
  * deprecated in 19 and adds a layer for no benefit.
  */
 export function Button({
