@@ -140,6 +140,19 @@ const ENTRIES: Entry[] = [
     components: ["packing-list", "chore-checklist", "pet-care-checklist", "plant-care-log", "home-maintenance-log", "expense-tracker", "savings-goal", "net-worth-snapshot", "portfolio-tracker", "class-timetable", "bookmark-library", "reading-list"],
   },
   {
+    version: "1.0.0",
+    date: "2026-10-11",
+    title: "Twelve more offline tools for learning, planning, and visualization",
+    kind: "release",
+    body: [
+      "Learning and reference: Assignment Tracker, Exam Planner, Study Session Log, Research Log, Glossary Builder, and Daily Journal. Coursework, notes, and journal text remain in browser-local storage; journal content is not encrypted, so avoid sensitive details.",
+      "Meeting and project planning: Meeting Agenda, Decision Log, Action Item Tracker, and Project Risk Register. Entries are local drafts without team collaboration, reminders, approvals, or an audit trail; risk scores are simple qualitative priorities, not forecasts or professional evaluations.",
+      "Visualization: Chart Builder plots manually entered values, and Concept Map Builder draws a small one-level personal diagram. Research links are user-entered http or https URLs with no fetching or previews.",
+      "All twelve additions are free and offline, bringing the catalog to 83 components: 72 widgets and 11 native recipes. Use a Notion database when records need shared access, collaboration, or sync.",
+    ],
+    components: ["assignment-tracker", "exam-planner", "study-session-log", "research-log", "glossary-builder", "daily-journal", "meeting-agenda", "decision-log", "action-item-tracker", "risk-register", "chart-builder", "concept-map-builder"],
+  },
+  {
     version: "platform",
     date: "2026-03-11",
     title: "Notion ships HTML blocks and the Views API",
