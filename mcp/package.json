@@ -1,0 +1,50 @@
+{
+  "name": "notion-arena-mcp",
+  "version": "0.2.0",
+  "description": "MCP server for Notion Arena — the component registry for Notion. Browse 143 components, configure widgets, and plan installs from your AI agent.",
+  "type": "module",
+  "bin": {
+    "notion-arena-mcp": "./dist/index.js",
+    "blocksmith-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && npm run copy:data",
+    "copy:data": "mkdir -p dist/data && cp src/data/catalog.json dist/data/ && cp src/data/catalog-lite.json dist/data/ || copyfiles -u 1 src/data/*.json dist/data/",
+    "dev": "tsx src/index.ts",
+    "prepublishOnly": "npm run build",
+    "generate:catalog": "node ../scripts/generate-mcp-catalog.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "notion",
+    "notion-arena",
+    "shadcn",
+    "components",
+    "widgets"
+  ],
+  "author": "Notion Arena",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SynergyFlowLabs/notion-components.git",
+    "directory": "mcp"
+  },
+  "homepage": "https://github.com/SynergyFlowLabs/notion-components#readme"
+}

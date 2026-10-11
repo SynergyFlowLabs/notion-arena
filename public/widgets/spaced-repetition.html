@@ -31,7 +31,7 @@ html[data-theme="dark"]{--bg:#191919;--fg:#e6e6e4;--muted:#9b9a97;--surface:#252
   String(c.cards||'').split('||').forEach(function(row){var cut=row.indexOf('::');if(cut<0)return;var front=row.slice(0,cut).trim(),back=row.slice(cut+2).trim();if(front&&back)cards.push({front:front,back:back});});if(!cards.length)cards=DEFAULT.slice(0);cards=cards.slice(0,100);
   document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=DECK;document.title=DECK;
   function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'd'+(h>>>0).toString(36);}
-  var KEY='blocksmith.spaced-repetition.v1',deckId=hash(DECK+'|'+cards.map(function(x){return x.front+'|'+x.back;}).join('||')),store={decks:{}};
+  var KEY='notion-arena.spaced-repetition.v1',deckId=hash(DECK+'|'+cards.map(function(x){return x.front+'|'+x.back;}).join('||')),store={decks:{}};
   try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');if(saved&&saved.decks)store=saved;}catch(e){}
   var state=store.decks&&store.decks[deckId];if(!state||typeof state!=='object')state={items:[]};if(!Array.isArray(state.items))state.items=[];
   while(state.items.length<cards.length)state.items.push({dueAt:0,interval:0,seen:0,lapses:0});state.items=state.items.slice(0,cards.length).map(function(r){r=r&&typeof r==='object'?r:{};return{dueAt:Math.max(0,Number(r.dueAt)||0),interval:Math.max(0,Number(r.interval)||0),seen:Math.max(0,Number(r.seen)||0),lapses:Math.max(0,Number(r.lapses)||0)};});

@@ -7,7 +7,7 @@ import { PageTransition } from "@/components/page-transition";
 export const metadata: Metadata = {
   title: "Changelog",
   description:
-    "What changed in Blocksmith, and which Notion API version it targets. Every entry says what shipped and what it depends on.",
+    "What changed in Notion Arena, and which Notion API version it targets. Every entry says what shipped and what it depends on.",
 };
 
 type Entry = {
@@ -21,6 +21,20 @@ type Entry = {
 };
 
 const ENTRIES: Entry[] = [
+  {
+    version: "1.3.0",
+    date: "2026-10-11",
+    title: "Twelve offline widgets for daily planning, finance, legal, events, and team workflows",
+    kind: "release",
+    body: [
+      "Planning and finance: Daily Time-Block Planner and Debt Payoff Tracker. Time blocks are manual and not tied to calendar events or reminders; debt entries are aliases and manual balances with no payoff dates, financial advice, or account numbers.",
+      "Legal and events: Legal Matter Tracker and Wedding Seating Planner. Matter aliases are not case management or legal advice; seating stores guest aliases and RSVP state, not contacts, invitations, or dietary safety.",
+      "Engineering and product: Sprint Retrospective Board, Customer Feedback Log, Changelog Builder, Pricing Tier Calculator, and User Story Map. Retro notes are private drafts, feedback stores no PII or auto-sentiment, changelog does not publish or tag code, pricing uses manual USD estimates with no tax or billing, and story map is not a Jira sync.",
+      "People and content: OKR Weekly Check-in, Employee Onboarding Tracker, and Content Repurposing Tracker. OKR check-ins are local drafts with confidence and blockers, onboarding avoids sensitive personal data and is not HR or compliance, and repurposing does not publish or fetch analytics.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 143 components: 132 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["daily-planner", "debt-payoff-tracker", "legal-matter-tracker", "wedding-seating-planner", "sprint-retrospective", "customer-feedback-log", "changelog-builder", "pricing-tier-calculator", "user-story-map", "okr-weekly-checkin", "employee-onboarding-tracker", "content-repurposing-tracker"],
+  },
   {
     version: "1.2.0",
     date: "2026-10-11",
@@ -136,7 +150,7 @@ const ENTRIES: Entry[] = [
     title: "Visual components",
     kind: "release",
     body: [
-      "Whiteboard: pan, zoom, freehand, shapes, sticky notes, and SVG export. State persists locally under blocksmith.whiteboard.v1.",
+      "Whiteboard: pan, zoom, freehand, shapes, sticky notes, and SVG export. State persists locally under notion-arena.whiteboard.v1.",
       "Org chart: delimited-string data model, collapsible branches, JSON and SVG export.",
       "Both export through the clipboard and always log the payload as a fallback, because clipboard writes need a user gesture and some WebViews block them.",
     ],
@@ -216,7 +230,7 @@ const ENTRIES: Entry[] = [
       "HTML blocks become installable through the API: reserve a file upload, send the bytes, append an embed block referencing the upload id.",
       "POST /v1/views lands, making board groups, timeline dates, chart axes, calendar ranges and form questions creatable from code for the first time.",
       "heading_4 and tab blocks are added; position replaces after for child placement; notifications gain a silent mode; database objects gain a typed database_type.",
-      "This is the version every request in Blocksmith pins, and the reason native recipes can provision a workspace end to end rather than stopping at the databases.",
+      "This is the version every request in Notion Arena pins, and the reason native recipes can provision a workspace end to end rather than stopping at the databases.",
     ],
     dependency: "developers.notion.com/page/changelog",
   },

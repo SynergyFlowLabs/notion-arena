@@ -1,5 +1,5 @@
 /**
- * Blocksmith component model.
+ * Notion Arena component model.
  *
  * A "component" is one of two things:
  *

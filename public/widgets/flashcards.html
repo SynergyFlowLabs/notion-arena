@@ -100,7 +100,7 @@ button.again{color:var(--muted)}
   document.getElementById('title').textContent=DECK;
   document.title=DECK;
 
-  var KEY='blocksmith.flashcards.v1';
+  var KEY='notion-arena.flashcards.v1';
   function fingerprint(value){var h=5381;for(var i=0;i<value.length;i++)h=((h<<5)-h+value.charCodeAt(i))|0;return 'd'+(h>>>0).toString(36);}
   var deckId=fingerprint(DECK+'\n'+cards.map(function(card){return card.front+'\n'+card.back;}).join('\n'));
   var store={version:1,decks:{}};

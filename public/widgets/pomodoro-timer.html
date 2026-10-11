@@ -86,7 +86,7 @@ button.primary:hover{filter:brightness(1.06)}
   document.documentElement.style.setProperty('--accent',ACCENT);
   document.getElementById('label').textContent=LABEL;
 
-  var KEY='blocksmith.pomodoro.v1';
+  var KEY='notion-arena.pomodoro.v1';
   var store={};
   try{store=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){}
   var todayKey=new Date().toDateString();

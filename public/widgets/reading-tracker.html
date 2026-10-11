@@ -33,7 +33,7 @@ button{min-height:30px;border:1px solid var(--border);border-radius:7px;backgrou
   var BOOK=String(c.book||'Reading progress').slice(0,60),TOTAL=Math.max(1,Math.min(100000,Math.round(num('pages',320)))),STEP=Math.max(1,Math.min(1000,Math.round(num('step',5))));
   document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.setProperty('--accent',ACCENT);document.getElementById('title').textContent=BOOK;document.title=BOOK;
   document.getElementById('back').textContent='−'+STEP;document.getElementById('forward').textContent='+'+STEP;
-  var KEY='blocksmith.reading.v1',store={books:{}};
+  var KEY='notion-arena.reading.v1',store={books:{}};
   function hash(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return 'b'+(h>>>0).toString(36);}
   var bookId=hash(BOOK+'|'+TOTAL),page=0;
   try{var parsed=JSON.parse(localStorage.getItem(KEY)||'{}');if(parsed&&parsed.books)store=parsed;}catch(e){}

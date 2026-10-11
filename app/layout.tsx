@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
   title: {
-    default: "Blocksmith: the component registry for Notion",
-    template: "%s · Blocksmith",
+    default: "Notion Arena: the component registry for Notion",
+    template: "%s · Notion Arena",
   },
   description:
     "Pre-built, embeddable components for Notion dashboards. Interactive widgets that run as /embed URLs or native HTML blocks, plus API-installable database recipes: the shadcn/ui model, applied to Notion.",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "notion registry",
   ],
   openGraph: {
-    title: "Blocksmith: the component registry for Notion",
+    title: "Notion Arena: the component registry for Notion",
     description:
       "Feature-rich components Notion doesn't ship: interactive widgets, HTML blocks, and API-installable database systems.",
     type: "website",
@@ -46,7 +46,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const themeScript = `(function(){try{var t=localStorage.getItem('blocksmith.theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
+const themeScript = `(function(){try{var t=localStorage.getItem('notion-arena.theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

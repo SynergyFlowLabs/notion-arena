@@ -1,10 +1,10 @@
-# Blocksmith
+# Notion Arena
 
 **The component registry for Notion.** shadcn/ui's model: browse, configure,
 copy, own, install from code, applied to Notion dashboards.
 
-131 components: **120 embeddable widgets** that run inside a Notion page, and
-**11 native database recipes** that install through the Notion API. 120 components
+143 components: **132 embeddable widgets** that run inside a Notion page, and
+**11 native database recipes** that install through the Notion API. 132 components
 are free; 11 are Pro.
 
 > Notion is a trademark of Notion Labs Inc. This is an independent project and is
@@ -21,7 +21,7 @@ and no draggable card that is not a database row.
 The ecosystem's answers are hosted embed galleries, one-off paid block bundles, or
 app builders that live outside Notion. None publish a machine-readable manifest.
 
-Blocksmith publishes one.
+Notion Arena publishes one.
 
 See **[`docs/RESEARCH.md`](docs/RESEARCH.md)** for the full research that drove
 every design decision here, with sources.
@@ -47,10 +47,56 @@ no URL.
 
 ---
 
+## For AI agents — MCP + Skill
+
+You work from your AI agent most of the time. Plug Notion Arena directly into Claude Code, Cursor, Windsurf, Claude Desktop.
+
+**MCP server** — gives your agent tools to list/search/configure/plan-install 143 components:
+
+```bash
+# Claude Code (project scope)
+claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp
+
+# Cursor — .cursor/mcp.json
+# Claude Desktop — claude_desktop_config.json
+# See docs/AGENT_SETUP.md for all clients
+```
+
+**Skill** — teaches your agent the Notion Arena workflow, delivery channels, widget contract:
+
+```bash
+# Via skills.sh (Vercel) — cross-agent
+npx skills add SynergyFlowLabs/notion-components --skill notion-arena
+
+# Via Claude Code plugin marketplace
+/plugin marketplace add SynergyFlowLabs/notion-components
+/plugin install notion-arena@notion-arena-marketplace
+
+# Manual
+cp -r skills/notion-arena .claude/skills/notion-arena
+```
+
+Once both are installed:
+
+> "Find me a pomodoro timer for Notion"
+> "Add a CRM pipeline to my Notion"
+> "I need a habit tracker that works offline"
+
+Your agent will use `search_components`, `get_component`, `build_embed_url`, `plan_install` automatically.
+
+See **[`docs/AGENT_SETUP.md`](docs/AGENT_SETUP.md)** for MCP+Skill setup and **[`docs/DEPLOY_AND_PUBLISH.md`](docs/DEPLOY_AND_PUBLISH.md)** for free deployment (Vercel) + publishing MCP to npm & registry and Skill to skills.sh & plugin marketplace.
+
+**MCP tools**: `list_components`, `search_components`, `get_component`, `get_widget_schema`, `build_embed_url`, `plan_install`, `get_registry_item`, `get_install_guide`, `get_categories`, `get_site_info`
+
+**Skill**: `skills/notion-arena/SKILL.md` + `.claude/skills/notion-arena/SKILL.md` + `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
+
+---
+
 ## Running it
 
 ```bash
 npm install
+npx skills experimental_install -y  # restore 13 design/dev skills into .agents/skills/
 npm run dev          # http://localhost:3000
 ```
 
@@ -60,6 +106,11 @@ Node 22+. Next.js 16 (Turbopack), React 19, Tailwind v4, TypeScript.
 npx tsc --noEmit     # type-check
 npm run check:widgets # offline HTML widget contract checks
 npm run build        # production build
+
+# MCP server
+npm run generate:mcp-catalog  # 143 components → mcp/src/data/catalog.json
+npm run build:mcp             # build notion-arena-mcp
+npm run dev:mcp               # run MCP server with tsx (stdio)
 ```
 
 Set `NEXT_PUBLIC_SITE_URL` in production so registry manifests emit absolute URLs
@@ -71,8 +122,8 @@ host, falling back to `http://localhost:3000`.
 ## Layout
 
 ```
-public/widgets/*.html      the products: 120 self-contained HTML files
-lib/catalog.ts             source of truth for all 131 components
+public/widgets/*.html      the products: 132 self-contained HTML files
+lib/catalog.ts             source of truth for all 143 components
 lib/types.ts               component/param types + the 8 categories
 lib/widget.ts              config coercion, injection, HTML rendering  (server)
 lib/widget-url.ts          URL builders                                (browser-safe)
@@ -102,7 +153,7 @@ GET /r/schema.json         JSON Schema of every widget's parameters
 
 ```jsonc
 // mcp config / components.json
-{ "registries": { "@blocksmith": "https://your-host/r/{name}.json" } }
+{ "registries": { "@notion-arena": "https://your-host/r/{name}.json" } }
 ```
 
 ```bash
@@ -159,7 +210,7 @@ Every widget in `public/widgets/` implements the same four rules. See
    `data-theme` on `<html>` and follows `prefers-color-scheme` when auto;
    `accent` writes `--accent`, with derived shades via `color-mix(in oklab, …)`.
 4. **Namespaced state, only when persisted.** Widgets that save browser state use
-   `blocksmith.<slug>.v1` and wrap storage access in try/catch. That state stays
+   `notion-arena.<slug>.v1` and wrap storage access in try/catch. That state stays
    in one browser and never syncs, so shared trackers belong in native recipes.
 
 Plus: `body { overflow: hidden }` with `.wrap` managing its own scroll (one

@@ -79,7 +79,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-14 w-full max-w-[1240px] items-center gap-3 px-4 sm:px-6">
         <Link
           href="/"
-          aria-label="Blocksmith home"
+          aria-label="Notion Arena home"
           className="rounded-lg shrink-0 focus-visible:outline-offset-4"
         >
           <Logo />
@@ -119,7 +119,7 @@ export function SiteHeader() {
             href="https://github.com/SynergyFlowLabs/notion-components"
             target="_blank"
             rel="noreferrer noopener"
-            aria-label="Blocksmith on GitHub"
+            aria-label="Notion Arena on GitHub"
             className="hidden size-8 place-items-center rounded-lg text-ink-soft transition-colors hover:bg-secondary hover:text-foreground sm:grid"
           >
             <IconGithub size={17} />
@@ -184,7 +184,7 @@ export function SiteHeader() {
                 href="https://github.com/SynergyFlowLabs/notion-components"
                 target="_blank"
                 rel="noreferrer noopener"
-                aria-label="Blocksmith on GitHub"
+                aria-label="Notion Arena on GitHub"
                 className="grid size-10 place-items-center rounded-lg border border-border text-ink-soft"
               >
                 <IconGithub size={18} />

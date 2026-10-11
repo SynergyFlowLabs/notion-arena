@@ -12,7 +12,7 @@ import { NotionTag, notionInk } from "@/components/ui/notion-tag";
 import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
-  title: "Blocksmith: the component registry for Notion",
+  title: "Notion Arena: the component registry for Notion",
   description:
     "Feature-rich components Notion doesn't ship: interactive widgets that run as /embed URLs or native HTML blocks, and database systems that install through the Notion API. Browse, copy, install.",
 };
@@ -437,7 +437,7 @@ export default function HomePage() {
 {`// components.json
 {
   "registries": {
-    "@blocksmith": "https://blocksmith.app/r/{name}.json"
+    "@notion-arena": "https://notionarena.vercel.app/r/{name}.json"
   }
 }`}
             </pre>
@@ -468,7 +468,7 @@ export default function HomePage() {
               </span>
             </div>
             <table className="w-full border-collapse text-left">
-              <caption className="sr-only">Blocksmith registry and API endpoints</caption>
+              <caption className="sr-only">Notion Arena registry and API endpoints</caption>
               <tbody>
                 {REGISTRY_ROWS.map((r) => (
                   <tr key={r.path} className="border-b border-border last:border-0">
@@ -612,7 +612,7 @@ export default function HomePage() {
           </div>
 
           <p className="mt-6 text-[13px] text-ink-faint">
-            Pricing is provisional while Blocksmith is in beta. No billing is
+            Pricing is provisional while Notion Arena is in beta. No billing is
             wired up yet, and nothing here charges you.{" "}
             <Link href="/pricing" className="font-medium text-primary underline underline-offset-4 hover:text-primary-deep">
               Full comparison on the pricing page

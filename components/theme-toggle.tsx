@@ -10,7 +10,7 @@ export function useTheme() {
   const [theme, setTheme] = React.useState<Theme>(() => {
     if (typeof window === "undefined") return "system";
     try {
-      const stored = localStorage.getItem("blocksmith.theme");
+      const stored = localStorage.getItem("notion-arena.theme");
       return stored === "dark" || stored === "light" ? stored : "system";
     } catch {
       return "system";
@@ -24,8 +24,8 @@ export function useTheme() {
       const dark = theme === "dark" || (theme === "system" && mq.matches);
       root.classList.toggle("dark", dark);
       root.style.colorScheme = dark ? "dark" : "light";
-      if (theme !== "system") localStorage.setItem("blocksmith.theme", theme);
-      else localStorage.removeItem("blocksmith.theme");
+      if (theme !== "system") localStorage.setItem("notion-arena.theme", theme);
+      else localStorage.removeItem("notion-arena.theme");
     };
     apply();
     mq.addEventListener("change", apply);

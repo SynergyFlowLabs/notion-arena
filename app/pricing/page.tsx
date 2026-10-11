@@ -10,7 +10,7 @@ import { IconArrowRight, IconCheck, IconClose } from "@/components/icons";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Blocksmith pricing. Free components with no account, Pro for the full catalog and API installs. Pro is free during the beta.",
+    "Notion Arena pricing. Free components with no account, Pro for the full catalog and API installs. Pro is free during the beta.",
 };
 
 const FREE_LIST = COMPONENTS.filter((c) => c.tier === "free");
@@ -288,7 +288,7 @@ export default function PricingPage() {
               </thead>
               <tbody>
                 {[
-                  ["Blocksmith", "$0-9/mo", "Widgets in three delivery channels, installable database recipes, a machine-readable registry", "Widgets cannot read your Notion data: that is a Notion limit, not ours"],
+                  ["Notion Arena", "$0-9/mo", "Widgets in three delivery channels, installable database recipes, a machine-readable registry", "Widgets cannot read your Notion data: that is a Notion limit, not ours"],
                   ["Widget galleries", "Free / donation", "Dozens of hosted embed widgets", "Embed-only: no offline HTML block, no API install, no database recipes"],
                   ["Paid block bundles", "$149-$449 one-off", "A large pack of hand-built Notion templates and synced blocks", "A one-time purchase you update by hand; nothing scriptable"],
                   ["Notion Apps / Super", "$20-$100/mo", "Turn a database into a real web app or site", "A separate product outside Notion, and a subscription that scales with traffic"],

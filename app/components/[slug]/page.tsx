@@ -30,7 +30,7 @@ export async function generateMetadata({
   return {
     title: c.name,
     description: `${c.tagline} ${c.description.slice(0, 120)}`,
-    openGraph: { title: `${c.name} · Blocksmith`, description: c.tagline, type: "article" },
+    openGraph: { title: `${c.name} · Notion Arena`, description: c.tagline, type: "article" },
   };
 }
 

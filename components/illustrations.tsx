@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import type { SVGProps } from "react";
 
 /**
- * Blocksmith illustration set, drawn as inline SVG.
+ * Notion Arena illustration set, drawn as inline SVG.
  *
  * Vectors rather than rasters wherever the art has to carry meaning: they
  * inherit `currentColor` and the token variables, so every piece redraws

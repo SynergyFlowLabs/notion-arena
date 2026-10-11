@@ -18,7 +18,7 @@ const JSON_HEADERS = {
  *   GET /r/<name>.json         one item, with file contents inlined
  *
  * Add this to a components.json and the stock shadcn CLI can pull items:
- *   "registries": { "@blocksmith": "https://<host>/r/{name}.json" }
+ *   "registries": { "@notion-arena": "https://<host>/r/{name}.json" }
  */
 /**
  * Every URL inside a manifest should point at the host that served it, so a
@@ -50,7 +50,7 @@ export async function GET(
     return Response.json(
       {
         $schema: "http://json-schema.org/draft-07/schema#",
-        title: "Blocksmith widget configuration schemas",
+        title: "Notion Arena widget configuration schemas",
         description:
           "One JSON Schema per widget. Everything a widget accepts as configuration, with types, bounds and defaults, so an agent can configure one without reading its source.",
         definitions: schemas,

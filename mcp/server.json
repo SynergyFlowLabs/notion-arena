@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.SynergyFlowLabs/notion-arena",
+  "description": "Notion Arena MCP server — the component registry for Notion. 143 components: 132 widgets + 11 native recipes. Browse, configure, and plan installs from your AI agent.",
+  "repository": {
+    "url": "https://github.com/SynergyFlowLabs/notion-components",
+    "source": "github"
+  },
+  "version": "0.2.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "notion-arena-mcp",
+      "version": "0.2.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "homepage": "https://github.com/SynergyFlowLabs/notion-components#readme",
+  "keywords": ["notion", "components", "widgets", "notion-arena", "shadcn", "registry", "dashboard"],
+  "license": "MIT"
+}

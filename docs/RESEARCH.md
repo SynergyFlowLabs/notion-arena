@@ -1,4 +1,4 @@
-# Research behind Blocksmith
+# Research behind Notion Arena
 
 Everything in this document was gathered before the first line of product code was
 written, and every consequential design decision in the repo traces back to a
@@ -28,7 +28,7 @@ Meanwhile the ecosystem's answer has been one of three things:
 | Paid block bundles | [nimblegot.com/blocks-for-notion](https://nimblegot.com/blocks-for-notion/) ($149 / $449 / $249) | One-off purchase, updated by hand, nothing scriptable. |
 | App builders | NotionApps, Super, Tapti (via [templatesfornotion.com/notion-tools](https://templatesfornotion.com/notion-tools)) | A separate product outside Notion, priced as SaaS. |
 
-None of them publish a machine-readable manifest. That is the gap Blocksmith
+None of them publish a machine-readable manifest. That is the gap Notion Arena
 fills: **shadcn/ui's model (copy, own, configure, install from code) applied to
 Notion.**
 
@@ -207,7 +207,7 @@ Compared
 | Granularity | Page-level | Block-level |
 | Best for | "Build me a CRM" in a chat | Deterministic, repeatable provisioning |
 
-Blocksmith supports both. The registry manifest is what an MCP server or agent
+Notion Arena supports both. The registry manifest is what an MCP server or agent
 reads; `POST /api/install` is what executes deterministically. **`mode: "plan"`
 requires no credentials at all** and returns the full ordered request sequence:
 so an agent can be shown exactly what will happen before anyone hands it a token.
@@ -265,7 +265,7 @@ Adopted from
 which classifies the ecosystem as Component, Template, Database Template, Page,
 Button, Feature, Formula, Database Automation.
 
-Blocksmith collapses this to two kinds, because the research in §2 and §3 makes
+Notion Arena collapses this to two kinds, because the research in §2 and §3 makes
 only two delivery mechanisms real:
 
 - **`widget`**: a self-contained HTML file. Channels: `embed`, `html-block`,

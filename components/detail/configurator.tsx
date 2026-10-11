@@ -438,7 +438,7 @@ ${embedHref}`;
 
                 <div>
                   <div className="mb-1.5 text-[12px] font-semibold text-foreground">
-                    Or let Blocksmith do it
+                    Or let Notion Arena do it
                   </div>
                   <Code lang="bash">{apiSnippet}</Code>
                 </div>

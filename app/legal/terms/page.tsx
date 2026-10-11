@@ -5,7 +5,7 @@ import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "Terms of service",
-  description: "The terms covering use of Blocksmith components, embed URLs, downloadable HTML and the install API.",
+  description: "The terms covering use of Notion Arena components, embed URLs, downloadable HTML and the install API.",
 };
 
 export default function TermsPage() {
@@ -24,13 +24,13 @@ export default function TermsPage() {
 
       <Section n="1" title="What this service is">
         <p>
-          Blocksmith publishes components for Notion workspaces in three forms: a
+          Notion Arena publishes components for Notion workspaces in three forms: a
           hosted URL that Notion can embed, a downloadable HTML file you upload to
           Notion as an HTML block, and a set of API calls that create databases,
           views and pages inside your workspace.
         </p>
         <p>
-          Blocksmith is an independent project. It is not made by, endorsed by, or
+          Notion Arena is an independent project. It is not made by, endorsed by, or
           affiliated with Notion Labs Inc. “Notion” and the Notion API are
           trademarks of Notion Labs Inc. and are used here to describe
           compatibility.
@@ -86,7 +86,7 @@ export default function TermsPage() {
         </p>
         <p>
           You may modify any component you have a copy of. You may not present a
-          modified component as an official Blocksmith release, and you may not
+          modified component as an official Notion Arena release, and you may not
           resell the catalog itself as a competing component library.
         </p>
       </Section>
@@ -131,7 +131,7 @@ export default function TermsPage() {
         <p>
           The service is provided without warranty of any kind, to the maximum
           extent permitted by law. Our total liability for any claim arising from
-          your use of Blocksmith is limited to the amount you paid us in the twelve
+          your use of Notion Arena is limited to the amount you paid us in the twelve
           months before the claim, which, during the beta, is nothing.
         </p>
         <p>

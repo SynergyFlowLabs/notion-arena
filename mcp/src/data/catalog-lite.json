@@ -1,0 +1,4284 @@
+{
+  "generatedAt": "2026-10-11T19:52:30.818Z",
+  "count": 143,
+  "components": [
+    {
+      "slug": "pomodoro-timer",
+      "name": "Pomodoro Focus Timer",
+      "emoji": "🍅",
+      "tagline": "Work/break cycles with a progress ring, session counter and chime.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "timer",
+        "focus",
+        "pomodoro",
+        "productivity"
+      ],
+      "plan": "Free",
+      "badge": "popular",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "breathing-timer",
+      "name": "Breathing Timer",
+      "emoji": "🌬️",
+      "tagline": "A gentle visual pace for box, 4 7 8, and equal breathing.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "breathing",
+        "wellbeing",
+        "mindfulness",
+        "timer",
+        "focus"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "stopwatch",
+      "name": "Stopwatch Timer",
+      "emoji": "⏱️",
+      "tagline": "Elapsed time with pause, resume, and lap splits.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "stopwatch",
+        "timer",
+        "laps",
+        "focus",
+        "elapsed time"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "countdown",
+      "name": "Event Countdown",
+      "emoji": "⏳",
+      "tagline": "Days, hours, minutes and seconds ticking down to any target date.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "countdown",
+        "deadline",
+        "launch",
+        "date"
+      ],
+      "plan": "Free",
+      "badge": null,
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "month-calendar",
+      "name": "Month Calendar",
+      "emoji": "🗓️",
+      "tagline": "A navigable month grid with a small static agenda for key dates.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "calendar",
+        "monthly",
+        "events",
+        "dates",
+        "schedule"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "date-calculator",
+      "name": "Date Difference Calculator",
+      "emoji": "🗓️",
+      "tagline": "Compare two dates and count the days between them.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "date calculator",
+        "days",
+        "deadline",
+        "calendar",
+        "planning"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "flip-clock",
+      "name": "Flip Clock",
+      "emoji": "🕰️",
+      "tagline": "Split-flap clock with timezone selection, in Notion's typography.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "clock",
+        "time",
+        "timezone",
+        "dashboard"
+      ],
+      "plan": "Free",
+      "badge": "staff-pick",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "world-clock",
+      "name": "World Clock Board",
+      "emoji": "🌐",
+      "tagline": "Compare local times and dates across up to six time zones.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "world clock",
+        "timezone",
+        "remote work",
+        "travel",
+        "time"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "kpi-strip",
+      "name": "KPI Strip",
+      "emoji": "📈",
+      "tagline": "Four metric tiles with sparklines, deltas and target rings.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "kpi",
+        "metrics",
+        "sparkline",
+        "dashboard",
+        "chart"
+      ],
+      "plan": "Free",
+      "badge": "popular",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "goal-ring",
+      "name": "Goal Progress Ring",
+      "emoji": "🎯",
+      "tagline": "One big number, one ring, and the milestones that feed it.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "goal",
+        "progress",
+        "ring",
+        "okr"
+      ],
+      "plan": "Free",
+      "badge": null,
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "year-progress",
+      "name": "Year Progress",
+      "emoji": "📆",
+      "tagline": "See the year as an elapsed-day ring with days remaining.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "year progress",
+        "calendar",
+        "days",
+        "goal",
+        "time"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "moon-phase",
+      "name": "Moon Phase",
+      "emoji": "🌙",
+      "tagline": "An approximate lunar phase and illumination for any date.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "moon",
+        "phase",
+        "lunar",
+        "date",
+        "sky"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "habit-grid",
+      "name": "Habit Heatmap Grid",
+      "emoji": "🔥",
+      "tagline": "GitHub-style contribution grid for up to six habits, with streaks.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "habit",
+        "streak",
+        "heatmap",
+        "tracker"
+      ],
+      "plan": "Free",
+      "badge": "popular",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "water-tracker",
+      "name": "Water Intake Tracker",
+      "emoji": "💧",
+      "tagline": "A one-tap daily drink counter with a goal ring and undo.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "water",
+        "hydration",
+        "daily",
+        "counter",
+        "wellbeing"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "mood-tracker",
+      "name": "Mood & Energy Tracker",
+      "emoji": "🌤️",
+      "tagline": "Log how you feel in one tap and see the month as a calendar heatmap.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "pro",
+      "tags": [
+        "mood",
+        "wellbeing",
+        "journal",
+        "calendar"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "mini-kanban",
+      "name": "Mini Kanban",
+      "emoji": "🗃️",
+      "tagline": "A drag-and-drop board that lives inside a page, not a database.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "pro",
+      "tags": [
+        "kanban",
+        "board",
+        "drag-drop",
+        "triage"
+      ],
+      "plan": "Free",
+      "badge": null,
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "eisenhower-matrix",
+      "name": "Eisenhower Matrix",
+      "emoji": "🧭",
+      "tagline": "Sort tasks by urgency and importance in four quadrants.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "prioritisation",
+        "matrix",
+        "gtd",
+        "planning"
+      ],
+      "plan": "Free",
+      "badge": null,
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "gantt-timeline",
+      "name": "Gantt Timeline",
+      "emoji": "📅",
+      "tagline": "A dependency-aware timeline you can hand to a client.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "pro",
+      "tags": [
+        "gantt",
+        "timeline",
+        "roadmap",
+        "project"
+      ],
+      "plan": "Free",
+      "badge": null,
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "roi-calculator",
+      "name": "ROI Calculator",
+      "emoji": "🧮",
+      "tagline": "Sliders in, a payback chart out, for proposals and sales pages.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "calculator",
+        "roi",
+        "sales",
+        "proposal"
+      ],
+      "plan": "Free",
+      "badge": null,
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "budget-planner",
+      "name": "Monthly Budget Planner",
+      "emoji": "💵",
+      "tagline": "Compare monthly income against four editable expense buckets.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "budget",
+        "finance",
+        "expenses",
+        "monthly",
+        "calculator"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "inventory-tracker",
+      "name": "Inventory Counter",
+      "emoji": "📦",
+      "tagline": "Adjust a small item list with plus and minus stock controls.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "inventory",
+        "stock",
+        "supplies",
+        "operations",
+        "counter"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "local-intake-form",
+      "name": "Local Intake Form",
+      "emoji": "📝",
+      "tagline": "Prepare a request as JSON without sending or storing it.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "form",
+        "intake",
+        "request",
+        "feedback",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "org-chart",
+      "name": "Org Chart",
+      "emoji": "🧑‍🤝‍🧑",
+      "tagline": "A real, zoomable org chart: the one diagram Notion can't draw.",
+      "category": "visuals",
+      "kind": "widget",
+      "tier": "pro",
+      "tags": [
+        "org-chart",
+        "team",
+        "diagram",
+        "hierarchy"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "whiteboard",
+      "name": "Mini Whiteboard",
+      "emoji": "🖍️",
+      "tagline": "Freehand drawing, shapes and sticky notes inside a Notion page.",
+      "category": "visuals",
+      "kind": "widget",
+      "tier": "pro",
+      "tags": [
+        "whiteboard",
+        "drawing",
+        "canvas",
+        "diagram"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "quote-card",
+      "name": "Daily Quote Card",
+      "emoji": "💬",
+      "tagline": "A typographic quote that rotates from your own curated list.",
+      "category": "visuals",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "quote",
+        "daily",
+        "typography",
+        "culture"
+      ],
+      "plan": "Free",
+      "badge": null,
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "reading-tracker",
+      "name": "Reading Progress Tracker",
+      "emoji": "📖",
+      "tagline": "Track pages read in one book, with progress saved on this device.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "reading",
+        "book",
+        "pages",
+        "progress",
+        "study"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "spaced-repetition",
+      "name": "Spaced Repetition Deck",
+      "emoji": "🧠",
+      "tagline": "A due-card queue with simple local review intervals.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "spaced repetition",
+        "flashcards",
+        "learning",
+        "study",
+        "recall"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "flashcards",
+      "name": "Flashcards",
+      "emoji": "🧠",
+      "tagline": "A focused question-and-answer deck with active-recall progress.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "flashcards",
+        "study",
+        "learning",
+        "active recall",
+        "education"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "count-up",
+      "name": "Event Count-Up",
+      "emoji": "⏱️",
+      "tagline": "See days, hours, and minutes elapsed since a chosen milestone.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "count-up",
+        "elapsed time",
+        "milestone",
+        "date",
+        "counter"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "interval-timer",
+      "name": "Interval Timer",
+      "emoji": "⏲️",
+      "tagline": "Alternate timed work and rest rounds with pause and skip controls.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "interval",
+        "timer",
+        "workout",
+        "focus",
+        "rounds"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "routine-checklist",
+      "name": "Daily Routine Checklist",
+      "emoji": "☑️",
+      "tagline": "Check off a small daily routine that resets with the local date.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "routine",
+        "checklist",
+        "daily",
+        "habits",
+        "tracker"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "workout-tracker",
+      "name": "Workout Set Tracker",
+      "emoji": "🏋️",
+      "tagline": "Log completed sets against a small configured exercise plan.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "workout",
+        "fitness",
+        "sets",
+        "exercise",
+        "tracker"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "currency-converter",
+      "name": "Manual Currency Converter",
+      "emoji": "💱",
+      "tagline": "Convert an amount using a rate you provide, with no rate feed.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "currency",
+        "converter",
+        "exchange rate",
+        "finance",
+        "calculator"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "sunrise-sunset",
+      "name": "Sunrise & Sunset",
+      "emoji": "🌅",
+      "tagline": "Approximate daylight times from configured coordinates and date.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "sunrise",
+        "sunset",
+        "daylight",
+        "location",
+        "weather"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "vocabulary-trainer",
+      "name": "Vocabulary Trainer",
+      "emoji": "🗣️",
+      "tagline": "Practice typed recall for a configurable vocabulary deck.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "vocabulary",
+        "language",
+        "learning",
+        "study",
+        "active recall"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "citation-builder",
+      "name": "Citation Builder",
+      "emoji": "📖",
+      "tagline": "Draft a book, article, or website citation in three common styles.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "citation",
+        "references",
+        "research",
+        "writing",
+        "study"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "ticket-queue",
+      "name": "Local Ticket Queue",
+      "emoji": "🎫",
+      "tagline": "Capture and triage a small browser-local request queue.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "ticket",
+        "support",
+        "queue",
+        "triage",
+        "operations"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "asset-checkout",
+      "name": "Local Asset Checkout",
+      "emoji": "🧰",
+      "tagline": "Record a simple equipment checkout in this browser only.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "asset",
+        "equipment",
+        "checkout",
+        "inventory",
+        "operations"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "white-noise",
+      "name": "Ambient Noise Generator",
+      "emoji": "🎧",
+      "tagline": "Generate brown, pink, or white noise locally after a user gesture.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "white noise",
+        "ambient audio",
+        "focus",
+        "sound",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "subscription-tracker",
+      "name": "Subscription Tracker",
+      "emoji": "🔁",
+      "tagline": "List recurring costs and compare monthly and annual estimates.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "subscriptions",
+        "recurring costs",
+        "finance",
+        "renewal",
+        "budget"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "bill-splitter",
+      "name": "Bill Split Calculator",
+      "emoji": "🧾",
+      "tagline": "Estimate an equal per-person share with editable tax and tip.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "bill split",
+        "tip calculator",
+        "tax",
+        "calculator",
+        "finance"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "grade-calculator",
+      "name": "Weighted Grade Calculator",
+      "emoji": "🎓",
+      "tagline": "Estimate a weighted average from scores and course components.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "grade calculator",
+        "weighted average",
+        "student",
+        "course",
+        "education"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "word-counter",
+      "name": "Word Counter & Writing Goal",
+      "emoji": "✍️",
+      "tagline": "Count words, characters, sentences, reading time, and goal progress.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "word count",
+        "writing",
+        "word goal",
+        "writer",
+        "reading time"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "meal-planner",
+      "name": "Weekly Meal Planner",
+      "emoji": "🍽️",
+      "tagline": "Plan a simple meal idea for each day of the week.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "meal planner",
+        "weekly plan",
+        "food",
+        "household",
+        "planning"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "grocery-list",
+      "name": "Grocery List",
+      "emoji": "🛒",
+      "tagline": "Check off a small shopping list saved in this browser.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "grocery",
+        "shopping list",
+        "checklist",
+        "household",
+        "food"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "trip-itinerary",
+      "name": "Trip Itinerary",
+      "emoji": "🧭",
+      "tagline": "Arrange travel stops by date and time without map or calendar sync.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "travel",
+        "itinerary",
+        "trip planner",
+        "schedule",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "billable-time-tracker",
+      "name": "Billable Time Tracker",
+      "emoji": "⏱️",
+      "tagline": "Log project sessions and calculate a manual hourly estimate locally.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "time tracking",
+        "billable hours",
+        "freelancer",
+        "project",
+        "estimate"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "sleep-duration",
+      "name": "Sleep Duration Calculator",
+      "emoji": "🌙",
+      "tagline": "Calculate a time window across midnight, with optional awake minutes.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "sleep",
+        "duration",
+        "time calculator",
+        "wellbeing",
+        "routine"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "packing-list",
+      "name": "Packing List",
+      "emoji": "🧳",
+      "tagline": "Prepare a travel checklist with quantities and packed-state tracking.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "travel",
+        "packing",
+        "checklist",
+        "trip",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "chore-checklist",
+      "name": "Household Chore Checklist",
+      "emoji": "🧹",
+      "tagline": "Assign household tasks by weekday and name in a local checklist.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "household",
+        "chores",
+        "checklist",
+        "home",
+        "planning"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "pet-care-checklist",
+      "name": "Pet Care Checklist",
+      "emoji": "🐾",
+      "tagline": "Track editable daily pet-care tasks without medical or medication claims.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "pets",
+        "care routine",
+        "checklist",
+        "daily",
+        "household"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "plant-care-log",
+      "name": "Plant Care Log",
+      "emoji": "🪴",
+      "tagline": "Record plant-care events and notes without generated schedules.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "plants",
+        "care log",
+        "garden",
+        "household",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "home-maintenance-log",
+      "name": "Home Maintenance Log",
+      "emoji": "🛠️",
+      "tagline": "Keep a local list of household maintenance tasks and due dates.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "home",
+        "maintenance",
+        "due dates",
+        "household",
+        "checklist"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "expense-tracker",
+      "name": "Expense Tracker",
+      "emoji": "🧾",
+      "tagline": "Log manual expenses and total the current month in this browser.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "expenses",
+        "budget",
+        "finance",
+        "monthly total",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "savings-goal",
+      "name": "Savings Goal Tracker",
+      "emoji": "🎯",
+      "tagline": "Compare local contributions with a target amount you set.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "savings",
+        "goal",
+        "progress",
+        "personal finance",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "net-worth-snapshot",
+      "name": "Net Worth Snapshot",
+      "emoji": "⚖️",
+      "tagline": "Add manual asset and debt amounts for a simple net snapshot.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "net worth",
+        "assets",
+        "liabilities",
+        "finance",
+        "manual"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "portfolio-tracker",
+      "name": "Manual Portfolio Tracker",
+      "emoji": "📊",
+      "tagline": "Total holdings from quantities and prices that you enter yourself.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "portfolio",
+        "holdings",
+        "manual prices",
+        "finance",
+        "calculator"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "class-timetable",
+      "name": "Class Timetable",
+      "emoji": "🏫",
+      "tagline": "Arrange recurring classes by weekday and start time.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "school",
+        "class schedule",
+        "timetable",
+        "student",
+        "weekly"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "bookmark-library",
+      "name": "Bookmark Library",
+      "emoji": "🔖",
+      "tagline": "Save titled web links and tags locally, with no page previews.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "bookmarks",
+        "links",
+        "reference",
+        "knowledge base",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "reading-list",
+      "name": "Reading List",
+      "emoji": "📚",
+      "tagline": "Keep a local queue of books and articles with three reading states.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "reading list",
+        "books",
+        "articles",
+        "library",
+        "learning"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "assignment-tracker",
+      "name": "Assignment Tracker",
+      "emoji": "📋",
+      "tagline": "A personal coursework list with due dates and simple progress states.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "assignments",
+        "school",
+        "coursework",
+        "due dates",
+        "student"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "exam-planner",
+      "name": "Exam Planner",
+      "emoji": "📝",
+      "tagline": "Upcoming exam dates with a local countdown and optional room note.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "exam",
+        "study",
+        "assessment",
+        "calendar",
+        "student"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "study-session-log",
+      "name": "Study Session Log",
+      "emoji": "⏱️",
+      "tagline": "Manually record study minutes by topic and date.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "study",
+        "sessions",
+        "time log",
+        "learning",
+        "student"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "research-log",
+      "name": "Research Log",
+      "emoji": "🔬",
+      "tagline": "Capture research questions, source notes, dates, and optional links.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "sources",
+        "notes",
+        "links",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "glossary-builder",
+      "name": "Glossary Builder",
+      "emoji": "📖",
+      "tagline": "Build a searchable, browser-local glossary of terms and definitions.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "glossary",
+        "definitions",
+        "vocabulary",
+        "knowledge",
+        "study"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "daily-journal",
+      "name": "Daily Journal",
+      "emoji": "📔",
+      "tagline": "Write and revisit short dated journal entries in this browser.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "journal",
+        "daily notes",
+        "reflection",
+        "personal",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "meeting-agenda",
+      "name": "Meeting Agenda",
+      "emoji": "🗒️",
+      "tagline": "Draft agenda points, estimate time, and mark topics covered.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "meeting",
+        "agenda",
+        "topics",
+        "minutes",
+        "planning"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "decision-log",
+      "name": "Decision Log",
+      "emoji": "🧭",
+      "tagline": "Keep a personal list of decisions, dates, and short rationales.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "decisions",
+        "rationale",
+        "notes",
+        "projects",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "action-item-tracker",
+      "name": "Action Item Tracker",
+      "emoji": "✅",
+      "tagline": "Track personal follow-ups by owner, due date, and status.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "action items",
+        "tasks",
+        "follow-up",
+        "status",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "risk-register",
+      "name": "Project Risk Register",
+      "emoji": "⚠️",
+      "tagline": "Prioritize entered risks with a simple likelihood-by-impact score.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "project risk",
+        "risk register",
+        "planning",
+        "likelihood",
+        "impact"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "chart-builder",
+      "name": "Chart Builder",
+      "emoji": "📊",
+      "tagline": "Turn manually entered categories and numbers into a simple bar chart.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "chart",
+        "bar chart",
+        "data visualization",
+        "manual data",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "concept-map-builder",
+      "name": "Concept Map Builder",
+      "emoji": "🧠",
+      "tagline": "Sketch a central idea and its related branches with editable connectors.",
+      "category": "visuals",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "concept map",
+        "mind map",
+        "diagram",
+        "learning",
+        "visual thinking"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "course-notes",
+      "name": "Course Notes",
+      "emoji": "🗒️",
+      "tagline": "Save short dated class notes by course and topic in this browser.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "course notes",
+        "lecture notes",
+        "class",
+        "student",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "literature-review-matrix",
+      "name": "Literature Review Matrix",
+      "emoji": "📑",
+      "tagline": "Compare manually entered source notes, methods, and review decisions.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "literature review",
+        "research",
+        "sources",
+        "matrix",
+        "notes"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "lab-notebook",
+      "name": "Lab Notebook",
+      "emoji": "🧪",
+      "tagline": "Keep dated, manually entered experiment questions and observations.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "lab notebook",
+        "experiment log",
+        "research",
+        "observations",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "protocol-checklist",
+      "name": "Protocol Checklist",
+      "emoji": "☑️",
+      "tagline": "Build a reusable checklist from steps you write yourself.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "protocol",
+        "checklist",
+        "research",
+        "steps",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "idea-inbox",
+      "name": "Idea Inbox",
+      "emoji": "💡",
+      "tagline": "Capture ideas quickly, then mark them new, exploring, or parked.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "ideas",
+        "inbox",
+        "brainstorm",
+        "writing",
+        "creative"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "manuscript-progress",
+      "name": "Manuscript Progress Tracker",
+      "emoji": "✍️",
+      "tagline": "Compare a manually entered word count with a writing goal.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "manuscript",
+        "writing progress",
+        "word count",
+        "author",
+        "goal"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "chapter-outliner",
+      "name": "Chapter Outliner",
+      "emoji": "📚",
+      "tagline": "Arrange chapter titles and short summaries in a movable outline.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "chapter outline",
+        "writing",
+        "book",
+        "structure",
+        "author"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "character-bible",
+      "name": "Character and Setting Bible",
+      "emoji": "🧙",
+      "tagline": "Collect fictional characters, places, objects, and descriptive notes.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "character bible",
+        "worldbuilding",
+        "fiction",
+        "settings",
+        "writing"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "submission-tracker",
+      "name": "Submission Tracker",
+      "emoji": "📮",
+      "tagline": "Manually track work, recipient, date, and submission status.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "submission tracker",
+        "writer",
+        "publication",
+        "agent",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "podcast-episode-planner",
+      "name": "Podcast Episode Planner",
+      "emoji": "🎙️",
+      "tagline": "Plan episode topics, guests, dates, and production stage.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "podcast",
+        "episode planner",
+        "production",
+        "show notes",
+        "creator"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "guest-prep-sheet",
+      "name": "Guest Prep Sheet",
+      "emoji": "🎤",
+      "tagline": "Organize a guest label, episode topic, talking points, and a link.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "podcast guest",
+        "interview prep",
+        "talking points",
+        "creator",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "episode-production-checklist",
+      "name": "Episode Production Checklist",
+      "emoji": "🎚️",
+      "tagline": "Track your own production steps for one episode at a time.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "podcast production",
+        "checklist",
+        "recording",
+        "editing",
+        "creator"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "weekly-planner",
+      "name": "Weekly Planner",
+      "emoji": "🗓️",
+      "tagline": "A Monday-start week of personal tasks, times, and priorities.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "weekly planner",
+        "tasks",
+        "priorities",
+        "schedule",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "media-watchlist",
+      "name": "Media Watchlist",
+      "emoji": "🎬",
+      "tagline": "Keep a local queue for films, series, books, games, and podcasts.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "watchlist",
+        "media",
+        "film",
+        "series",
+        "games",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "family-calendar",
+      "name": "Family Calendar",
+      "emoji": "🏠",
+      "tagline": "A local agenda of household, school, and family dates.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "family calendar",
+        "household",
+        "events",
+        "dates",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "team-directory",
+      "name": "Team Directory",
+      "emoji": "👥",
+      "tagline": "A small local reference for names, roles, teams, and time zones.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "team directory",
+        "people",
+        "roles",
+        "time zones",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "team-announcements",
+      "name": "Team Announcements",
+      "emoji": "📣",
+      "tagline": "Draft and pin team updates without sending or publishing them.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "announcements",
+        "team updates",
+        "drafts",
+        "communication",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "sop-runbook",
+      "name": "SOP Runbook",
+      "emoji": "📋",
+      "tagline": "Build and repeat a user-authored checklist for routine work.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "SOP",
+        "runbook",
+        "checklist",
+        "operations",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "product-roadmap",
+      "name": "Product Roadmap",
+      "emoji": "🛣️",
+      "tagline": "Arrange product milestones by horizon, area, month, and status.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "product roadmap",
+        "milestones",
+        "planning",
+        "product",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "weekly-status-report",
+      "name": "Weekly Status Report",
+      "emoji": "📈",
+      "tagline": "Save a manual weekly snapshot of progress, blockers, and next steps.",
+      "category": "dashboards",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "weekly report",
+        "status",
+        "progress",
+        "blockers",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "request-queue",
+      "name": "Request Queue",
+      "emoji": "📥",
+      "tagline": "Capture and manually triage small requests in a local queue.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "requests",
+        "triage",
+        "approvals",
+        "operations",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "campaign-planner",
+      "name": "Campaign Planner",
+      "emoji": "🎯",
+      "tagline": "Plan campaign channels, dates, objectives, and an estimated USD budget.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "campaign planner",
+        "marketing",
+        "channel",
+        "budget",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "interview-scorecard",
+      "name": "Interview Scorecard",
+      "emoji": "📝",
+      "tagline": "Capture job-related interview evidence without an overall candidate score.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "interview",
+        "scorecard",
+        "hiring",
+        "evidence",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "quote-builder",
+      "name": "Quote Builder",
+      "emoji": "🧾",
+      "tagline": "Calculate a manual estimate from line items, discount, and tax rate.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "quote",
+        "estimate",
+        "calculator",
+        "pricing",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "event-run-of-show",
+      "name": "Event Run of Show",
+      "emoji": "🎤",
+      "tagline": "A timed agenda of segments, cues, and leads for a live event.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "event agenda",
+        "run of show",
+        "cues",
+        "production",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "client-onboarding-tracker",
+      "name": "Client Onboarding Tracker",
+      "emoji": "🧭",
+      "tagline": "Track manual setup stages and next steps for a small client roster.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "client onboarding",
+        "agency",
+        "services",
+        "checklist",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "sales-follow-up-queue",
+      "name": "Sales Follow-up Queue",
+      "emoji": "📨",
+      "tagline": "Keep a personal list of account labels, next actions, and follow-up dates.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "sales",
+        "follow-up",
+        "lead queue",
+        "next action",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "seo-content-planner",
+      "name": "SEO Content Planner",
+      "emoji": "🔎",
+      "tagline": "Plan topics, keywords, intent, and draft stages without live SEO data.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "SEO",
+        "content planning",
+        "keywords",
+        "editorial",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "creator-sponsorship-tracker",
+      "name": "Creator Sponsorship Tracker",
+      "emoji": "🎬",
+      "tagline": "Track partner labels, deliverables, due dates, and manually noted fees.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "creator",
+        "sponsorship",
+        "brand deal",
+        "deliverables",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "property-viewing-log",
+      "name": "Property Viewing Log",
+      "emoji": "🏠",
+      "tagline": "Compare personal notes from property viewings by area, date, and fit.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "real estate",
+        "property",
+        "viewing",
+        "home search",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "construction-punch-list",
+      "name": "Construction Punch List",
+      "emoji": "🧰",
+      "tagline": "Track manual finish items by area, trade, date, and status.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "construction",
+        "punch list",
+        "field work",
+        "project",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "manufacturing-shift-handoff",
+      "name": "Manufacturing Shift Handoff",
+      "emoji": "🏭",
+      "tagline": "Keep short area notes and next-shift context in a local log.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "manufacturing",
+        "shift handoff",
+        "operations",
+        "notes",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "farm-crop-log",
+      "name": "Farm Crop Log",
+      "emoji": "🌱",
+      "tagline": "Record crop labels, field observations, growth stage, and next checks.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "agriculture",
+        "farm",
+        "crop log",
+        "field notes",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "restaurant-prep-log",
+      "name": "Restaurant Prep Log",
+      "emoji": "🍽️",
+      "tagline": "Track manual prep items, stations, quantities, and completion for a service.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "restaurant",
+        "prep list",
+        "service",
+        "kitchen",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "nonprofit-grant-tracker",
+      "name": "Nonprofit Grant Tracker",
+      "emoji": "💜",
+      "tagline": "Organize grant labels, application and report dates, stages, and next steps.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "nonprofit",
+        "grant tracking",
+        "fundraising",
+        "deadlines",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "ecommerce-margin-estimator",
+      "name": "Ecommerce Margin Estimator",
+      "emoji": "🛍️",
+      "tagline": "Estimate per-unit contribution after manually entered costs and platform fees.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "ecommerce",
+        "unit economics",
+        "margin",
+        "calculator",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "bug-triage-board",
+      "name": "Bug Triage Board",
+      "emoji": "🐛",
+      "tagline": "A private queue for sorting reproducible issues before they reach a shared tracker.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "engineering",
+        "QA",
+        "bug triage",
+        "issue queue",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "release-readiness-checklist",
+      "name": "Release Readiness Checklist",
+      "emoji": "🚀",
+      "tagline": "Keep a manual release checklist together without implying CI or approval status.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "release",
+        "software",
+        "checklist",
+        "deployment prep",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "access-review-log",
+      "name": "Access Review Log",
+      "emoji": "🔐",
+      "tagline": "Track a review cycle with counts and aliases, never individual account details.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "IT",
+        "security",
+        "access review",
+        "admin",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "vendor-register",
+      "name": "Vendor Register",
+      "emoji": "🏢",
+      "tagline": "A simple local index for vendors and upcoming review dates.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "operations",
+        "vendor",
+        "supplier",
+        "renewal date",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "fundraising-outreach-tracker",
+      "name": "Fundraising Outreach Tracker",
+      "emoji": "🌱",
+      "tagline": "A private map of investor conversations and the next manual step.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "founder",
+        "fundraising",
+        "investor outreach",
+        "pipeline",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "customer-qbr-prep",
+      "name": "Customer QBR Prep",
+      "emoji": "🧭",
+      "tagline": "A manual review outline for customer success conversations.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "customer success",
+        "QBR",
+        "account review",
+        "meeting prep",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "freelancer-proposal-tracker",
+      "name": "Freelancer Proposal Tracker",
+      "emoji": "📝",
+      "tagline": "Keep draft proposals and decision dates in one private queue.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "freelance",
+        "proposal",
+        "client work",
+        "estimate",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "coach-session-planner",
+      "name": "Coach Session Planner",
+      "emoji": "🎯",
+      "tagline": "Plan a session and one next step without turning the widget into a client file.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "coach",
+        "session planning",
+        "program",
+        "next step",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "lesson-plan-builder",
+      "name": "Lesson Plan Builder",
+      "emoji": "📚",
+      "tagline": "Draft lesson objectives and classroom activities without student records.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "teacher",
+        "lesson plan",
+        "classroom",
+        "education",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "research-conference-planner",
+      "name": "Research Conference Planner",
+      "emoji": "🎙️",
+      "tagline": "Keep conference deadlines, format, and preparation tasks together.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "conference",
+        "academic",
+        "deadline",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "volunteer-hours-log",
+      "name": "Volunteer Hours Log",
+      "emoji": "🤝",
+      "tagline": "A manual tally of planned and completed community shifts.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "nonprofit",
+        "volunteer",
+        "hours",
+        "community",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "film-shot-list",
+      "name": "Film Shot List",
+      "emoji": "🎬",
+      "tagline": "A compact shot plan for a shoot day, without becoming a production database.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "film",
+        "video",
+        "shot list",
+        "production",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "daily-planner",
+      "name": "Daily Time-Block Planner",
+      "emoji": "🗓️",
+      "tagline": "A private time-blocked plan for today that stays in this browser.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "daily planner",
+        "time blocking",
+        "schedule",
+        "productivity",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "debt-payoff-tracker",
+      "name": "Debt Payoff Tracker",
+      "emoji": "💳",
+      "tagline": "A local scratchpad for debt balances, rates, and payoff order.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "debt",
+        "payoff",
+        "finance",
+        "snowball",
+        "avalanche",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "legal-matter-tracker",
+      "name": "Legal Matter Tracker",
+      "emoji": "⚖️",
+      "tagline": "A private index for matters and deadlines that stays in this browser.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "legal",
+        "matter",
+        "deadline",
+        "client",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "wedding-seating-planner",
+      "name": "Wedding Seating Planner",
+      "emoji": "💒",
+      "tagline": "A local table plan for guest aliases and seating.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "wedding",
+        "seating",
+        "guest list",
+        "event",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "sprint-retrospective",
+      "name": "Sprint Retrospective Board",
+      "emoji": "🔄",
+      "tagline": "A private retro board for what went well, what to improve, and actions.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "retrospective",
+        "sprint",
+        "agile",
+        "engineering",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "customer-feedback-log",
+      "name": "Customer Feedback Log",
+      "emoji": "💬",
+      "tagline": "A private inbox for feedback, sentiment, and next step.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "customer feedback",
+        "sentiment",
+        "product",
+        "triage",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "changelog-builder",
+      "name": "Changelog Builder",
+      "emoji": "📝",
+      "tagline": "A local draft for version changes and release notes.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "changelog",
+        "release notes",
+        "versioning",
+        "engineering",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "pricing-tier-calculator",
+      "name": "Pricing Tier Calculator",
+      "emoji": "💰",
+      "tagline": "A private calculator for pricing tiers and comparison.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "pricing",
+        "saas",
+        "tiers",
+        "business",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "user-story-map",
+      "name": "User Story Map",
+      "emoji": "🗺️",
+      "tagline": "A local story map for epics, stories, and status.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "user story",
+        "story map",
+        "agile",
+        "product",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "okr-weekly-checkin",
+      "name": "OKR Weekly Check-in",
+      "emoji": "🎯",
+      "tagline": "A private weekly OKR check-in with confidence and blockers.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "okr",
+        "goals",
+        "check-in",
+        "business",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "employee-onboarding-tracker",
+      "name": "Employee Onboarding Tracker",
+      "emoji": "👋",
+      "tagline": "A private onboarding checklist for new hire aliases.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "onboarding",
+        "hr",
+        "people",
+        "checklist",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "content-repurposing-tracker",
+      "name": "Content Repurposing Tracker",
+      "emoji": "♻️",
+      "tagline": "A local map from source content to repurposed pieces.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "content",
+        "repurposing",
+        "marketing",
+        "creator",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "crm-pipeline",
+      "name": "CRM Pipeline",
+      "emoji": "💼",
+      "tagline": "Companies, people and deals: related databases with a board and a pipeline chart.",
+      "category": "business",
+      "kind": "native",
+      "tier": "pro",
+      "tags": [
+        "crm",
+        "sales",
+        "pipeline",
+        "database",
+        "rollup"
+      ],
+      "plan": "Plus",
+      "badge": "popular",
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "sprint-tracker",
+      "name": "Sprint Tracker",
+      "emoji": "🏃",
+      "tagline": "Epics, stories and sprints with a velocity chart and a burndown-ready schema.",
+      "category": "business",
+      "kind": "native",
+      "tier": "pro",
+      "tags": [
+        "agile",
+        "sprint",
+        "engineering",
+        "velocity",
+        "scrum"
+      ],
+      "plan": "Plus",
+      "badge": null,
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "okr-system",
+      "name": "OKR System",
+      "emoji": "🎯",
+      "tagline": "Objectives, key results and confidence, rolled up to a company score.",
+      "category": "business",
+      "kind": "native",
+      "tier": "free",
+      "tags": [
+        "okr",
+        "goals",
+        "strategy",
+        "rollup",
+        "formula"
+      ],
+      "plan": "Plus",
+      "badge": null,
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "meeting-notes-os",
+      "name": "Meeting Notes OS",
+      "emoji": "📝",
+      "tagline": "A meetings database with a template that writes its own action items.",
+      "category": "docs",
+      "kind": "native",
+      "tier": "free",
+      "tags": [
+        "meetings",
+        "notes",
+        "template",
+        "action-items",
+        "button"
+      ],
+      "plan": "Free",
+      "badge": "staff-pick",
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "content-calendar",
+      "name": "Content Calendar",
+      "emoji": "📣",
+      "tagline": "Idea → Draft → Review → Published, with a calendar and a channel breakdown.",
+      "category": "planning",
+      "kind": "native",
+      "tier": "free",
+      "tags": [
+        "content",
+        "marketing",
+        "calendar",
+        "editorial",
+        "social"
+      ],
+      "plan": "Plus",
+      "badge": null,
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "invoice-generator",
+      "name": "Invoice Generator",
+      "emoji": "🧾",
+      "tagline": "Line items that total themselves, and a button that clones the next invoice.",
+      "category": "business",
+      "kind": "native",
+      "tier": "pro",
+      "tags": [
+        "invoice",
+        "finance",
+        "freelance",
+        "formula",
+        "rollup"
+      ],
+      "plan": "Plus",
+      "badge": null,
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "para-life-os",
+      "name": "PARA Life OS",
+      "emoji": "🧠",
+      "tagline": "Projects, Areas, Resources, Archive, wired with relations and a home dashboard.",
+      "category": "docs",
+      "kind": "native",
+      "tier": "pro",
+      "tags": [
+        "para",
+        "second-brain",
+        "life-os",
+        "zettelkasten",
+        "dashboard"
+      ],
+      "plan": "Plus",
+      "badge": null,
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "habit-os-native",
+      "name": "Habit OS (native)",
+      "emoji": "✅",
+      "tagline": "Habits as database rows with streak formulas and a dashboard view.",
+      "category": "trackers",
+      "kind": "native",
+      "tier": "pro",
+      "tags": [
+        "habit",
+        "streak",
+        "database",
+        "formula",
+        "dashboard"
+      ],
+      "plan": "Plus",
+      "badge": "new",
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "client-portal",
+      "name": "Client Portal",
+      "emoji": "🚪",
+      "tagline": "A published page with intake form, status board and a synced header.",
+      "category": "docs",
+      "kind": "native",
+      "tier": "pro",
+      "tags": [
+        "portal",
+        "client",
+        "form",
+        "synced-block",
+        "publish"
+      ],
+      "plan": "Business",
+      "badge": null,
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "job-tracker",
+      "name": "Job Application Tracker",
+      "emoji": "🧳",
+      "tagline": "Applied → Interviewing → Offer, with outreach templates and a follow-up view.",
+      "category": "business",
+      "kind": "native",
+      "tier": "free",
+      "tags": [
+        "job-search",
+        "hiring",
+        "pipeline",
+        "templates",
+        "career"
+      ],
+      "plan": "Free",
+      "badge": null,
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "duplicate",
+        "guide"
+      ]
+    },
+    {
+      "slug": "automation-starter",
+      "name": "Automation Starter Pack",
+      "emoji": "⚡",
+      "tagline": "Twelve database automations and button chains, documented and copy-pasteable.",
+      "category": "automations",
+      "kind": "native",
+      "tier": "free",
+      "tags": [
+        "automation",
+        "button",
+        "trigger",
+        "workflow",
+        "recipe"
+      ],
+      "plan": "Plus",
+      "badge": "new",
+      "capabilities": {
+        "interactive": false,
+        "offlineSafe": true,
+        "persistsLocally": false,
+        "writesToNotion": true,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "api",
+        "guide"
+      ]
+    }
+  ]
+}

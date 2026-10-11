@@ -66,7 +66,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
           <div>
             <h2 className="text-h5 text-foreground">The install plan</h2>
             <p className="mt-1 max-w-2xl text-[13.5px] leading-relaxed text-muted-foreground">
-              Exactly what Blocksmith sends to Notion, in order. Notion's
+              Exactly what Notion Arena sends to Notion, in order. Notion's
               data-source model forces two passes: relations, rollups and the
               formulas that read them need{" "}
               <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">data_source_id</code>s

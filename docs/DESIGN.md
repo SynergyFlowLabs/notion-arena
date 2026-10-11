@@ -1,4 +1,4 @@
-# Blocksmith design plan
+# Notion Arena design plan
 
 Working notes for the visual redesign. Written before the build, per the
 `frontend-design` skill's process: plan → review against the brief → build →
@@ -6,7 +6,7 @@ critique. Revised sections say what changed and why.
 
 ## Brief
 
-Make Blocksmith read as a first-party Notion surface: its design system, branded
+Make Notion Arena read as a first-party Notion surface: its design system, branded
 icons, avatars, colours, contrast and typographic voice. Not "a SaaS site that
 mentions Notion": a site that looks like it belongs next to notion.com.
 

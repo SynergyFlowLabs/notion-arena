@@ -73,7 +73,7 @@ button:hover{color:var(--fg);border-color:color-mix(in oklab,var(--fg) 20%,var(-
 
   var habits=(c.habits||'Read,Move,Write,No screens,Sleep 8h').split(',').map(function(s){return s.trim();}).filter(Boolean).slice(0,6);
   var WEEKS=Math.max(4,Math.min(52,num('weeks',20)));
-  var KEY='blocksmith.habits.v1';
+  var KEY='notion-arena.habits.v1';
   var data={};
   try{data=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){data={};}
 

@@ -147,7 +147,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   return Response.json({
-    name: "Blocksmith install API",
+    name: "Notion Arena install API",
     usage: "POST with { component, token, parentPageId, mode, config }",
     modes: {
       plan: "No credentials. Returns the exact Notion request sequence.",

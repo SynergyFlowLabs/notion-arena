@@ -73,7 +73,7 @@ kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9.5px;bord
   var COLS=(c.columns||'Backlog,Today,Doing,Done').split(',').map(function(s){return s.trim();}).filter(Boolean).slice(0,6);
   if(!COLS.length)COLS=['Backlog','Doing','Done'];
   var WIP=Math.max(0,num('wip',3));
-  var KEY='blocksmith.kanban.v1';
+  var KEY='notion-arena.kanban.v1';
 
   var DEFAULT={};
   COLS.forEach(function(n){DEFAULT[n]=[];});

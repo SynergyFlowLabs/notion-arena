@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "notion-arena": {
+      "command": "node",
+      "args": ["mcp/dist/index.js"],
+      "env": {
+        "NOTION_ARENA_SITE_URL": "http://localhost:3000"
+      }
+    }
+  }
+}

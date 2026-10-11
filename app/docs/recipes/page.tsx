@@ -13,7 +13,7 @@ import { COMPONENTS } from "@/lib/catalog";
 export const metadata: Metadata = {
   title: "Authoring a recipe",
   description:
-    "How a Blocksmith native recipe is declared (databases, property refs, relation resolution, views, seed rows, page bodies and manual steps) and how planInstall turns it into an ordered request list.",
+    "How a Notion Arena native recipe is declared (databases, property refs, relation resolution, views, seed rows, page bodies and manual steps) and how planInstall turns it into an ordered request list.",
 };
 
 const recipeList = Object.values(RECIPES);
