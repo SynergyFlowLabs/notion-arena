@@ -22,6 +22,20 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    version: "1.1.0",
+    date: "2026-10-11",
+    title: "Twelve offline widgets for events, creators, and industry workflows",
+    kind: "release",
+    body: [
+      "Event and client work: Event Run of Show, Client Onboarding Tracker, and Sales Follow-up Queue. These are personal agendas and draft queues, not reminders, contact sync, a client portal, or a CRM.",
+      "Marketing and creator work: SEO Content Planner and Creator Sponsorship Tracker. Notes are manually entered; there are no search rankings, analytics, contracts, publishing, or payment connections.",
+      "Vertical logs: Property Viewing Log, Construction Punch List, Manufacturing Shift Handoff, Farm Crop Log, and Restaurant Prep Log. They are not valuation, safety, quality, agronomy, food-safety, or formal system-of-record tools.",
+      "Funding and commerce: Nonprofit Grant Tracker and Ecommerce Margin Estimator. Amounts are manual USD entries and arithmetic only; there is no eligibility, compliance, tax, currency conversion, or financial advice.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 119 components: 108 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["event-run-of-show", "client-onboarding-tracker", "sales-follow-up-queue", "seo-content-planner", "creator-sponsorship-tracker", "property-viewing-log", "construction-punch-list", "manufacturing-shift-handoff", "farm-crop-log", "restaurant-prep-log", "nonprofit-grant-tracker", "ecommerce-margin-estimator"],
+  },
+  {
     version: "1.0.0",
     date: "2026-10-11",
     title: "Twelve offline widgets for planning, people, and operations",

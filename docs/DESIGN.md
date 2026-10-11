@@ -233,7 +233,7 @@ Details that matter and are easy to get wrong:
   same-route dynamic segments reconcile in place and would otherwise animate
   nothing when you jump across the "pairs well with" row.
 - The list-side shared element carries `default="none"`, or every filter and
-  sort would crossfade all 107 cards at once.
+  sort would crossfade all 119 cards at once.
 - Persistent chrome (header, footer, the catalog's sticky bar) is isolated with
   `view-transition-name`. The header and bar use `backdrop-filter`, so their old
   snapshots are hidden rather than cross-faded: that is the documented
@@ -308,8 +308,9 @@ Two families, both built to work in both themes.
   stay identical while the canvas, outlines and tints move to their dark
   values. `components/illustrations.tsx` exports `ThemedIllustration`, which
   swaps the pair on the `dark` class, so artwork never sits on a canvas it was
-  not painted for. Headers (how it works, docs, pricing, and the planning
-  category) use the pairs; the dark band uses single dark-canvas pieces.
+  not painted for. Headers (how it works, docs, pricing, the planning
+  category, and the business category) use the pairs; the dark band uses
+  single dark-canvas pieces.
 
 What the artwork never does: carry text (the model's lettering is the tell),
 state a number the catalog owns, or stand where a live widget would prove
@@ -390,7 +391,7 @@ What the audit deliberately did not change, and why:
   themes. The image-free instruction no longer constrains asset creation. A
   separate product-proof guard still applies: generated art never replaces
   live widgets. The hero keeps real widgets in iframes; section art, including
-  the planning illustration pair, carries tone rather than serving as proof.
+  the planning and business illustration pairs, carries tone rather than proof.
   See "Generated artwork, in both themes" below.
 - **The dark band stays.** A full-bleed `#191918` band interrupting the paper
   canvas would read as a copy-paste accident on a generic page; on Notion's

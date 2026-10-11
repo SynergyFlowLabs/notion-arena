@@ -49,13 +49,13 @@ const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> 
     problem:
       "Notion's Timeline and Board views are database-bound: they only work on rows, they only show properties, and you cannot drop a card onto a quarter that has no row.",
     answer:
-      "Personal planners, checklists, and manual roadmaps are offline widgets with browser-local state. Structured, collaborative planning (such as sprints and content pipelines) is a recipe when it needs shared records, relations, or rollups.",
+      "Manual planners, event run sheets, and field punch lists are offline widgets with browser-local state. Structured, collaborative planning (such as sprints and content pipelines) is a recipe when it needs shared records, relations, or rollups.",
   },
   business: {
     problem:
       "This is the category where an iframe is actively the wrong answer. A pipeline, an invoice or an OKR tree needs relations, rollups, formulas and views that your whole team queries.",
     answer:
-      "Native recipes create real databases for workflows that need shared records, relations, and team views. Standalone widgets here are personal draft queues, planning aids, scorecards, and calculators only; they stay local and are not an approval, hiring, publishing, or accounting system.",
+      "Native recipes create real databases for workflows that need shared records, relations, and team views. Standalone widgets here are private drafts, queues, trackers, and manual estimates; they stay local and are not a CRM, client portal, approval or grant-compliance system, hiring tool, publishing service, payment system, or accounting record.",
   },
   visuals: {
     problem:
@@ -113,6 +113,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               <ThemedIllustration
                 name="planning"
                 alt="Paper-like planner, checklist, and milestone map in a Notion-inspired illustration"
+                className="hidden h-[120px] w-[180px] shrink-0 lg:block"
+              />
+            )}
+            {cat.slug === "business" && (
+              <ThemedIllustration
+                name="business"
+                alt="A project board, parcels, and calculator in a Notion-inspired business illustration"
                 className="hidden h-[120px] w-[180px] shrink-0 lg:block"
               />
             )}
