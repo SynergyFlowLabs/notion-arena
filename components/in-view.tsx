@@ -4,7 +4,7 @@ import * as React from "react";
 
 /**
  * Renders `children` only once the element has entered the viewport.
- * Used so a grid of 17 live widget iframes does not all mount at once.
+ * Used so a grid of 18 live widget iframes does not all mount at once.
  */
 export function InView<T extends HTMLElement>({
   children,

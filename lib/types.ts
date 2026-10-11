@@ -143,7 +143,7 @@ export const CATEGORIES: Category[] = [
     slug: "time",
     name: "Time & Focus",
     emoji: "⏱️",
-    blurb: "Pomodoro, countdowns and clocks. Notion shows the date, never the time.",
+    blurb: "Calendars, countdowns, clocks, Pomodoro, and breathing timers.",
     color: "orange",
   tint: "var(--tag-bg-orange)",
   },

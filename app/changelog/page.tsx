@@ -38,6 +38,18 @@ const ENTRIES: Entry[] = [
   {
     version: "1.0.0",
     date: "2026-10-11",
+    title: "Month Calendar",
+    kind: "release",
+    body: [
+      "An offline, read-only month grid with previous and next navigation, a jump-to-today control, selectable dates, and an agenda panel.",
+      "Optional dated notes are supplied in widget config. The calendar does not read or write Notion data, sync with external calendars, or send network requests.",
+      "Use a Notion database calendar for collaborative schedules. Keep private event details out of public embed URLs.",
+    ],
+    components: ["month-calendar"],
+  },
+  {
+    version: "1.0.0",
+    date: "2026-10-11",
     title: "Wellbeing and study widgets",
     kind: "release",
     body: [
