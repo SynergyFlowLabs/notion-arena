@@ -8,6 +8,7 @@ import { HeroDashboard } from "@/components/site/hero-dashboard";
 import { Faq } from "@/components/site/faq";
 import { Button } from "@/components/ui/button";
 import { NotionTag, notionInk } from "@/components/ui/notion-tag";
+import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "Blocksmith — the component registry for Notion",
@@ -119,7 +120,7 @@ export default function HomePage() {
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
   return (
-    <>
+    <PageTransition>
       {/* ══ HERO — paper canvas, left-aligned, one deep shadow ═══════ */}
       <section className="relative overflow-hidden bg-background">
         <div className="mx-auto grid w-full max-w-[1240px] items-center gap-x-12 gap-y-12 px-4 pt-14 pb-20 sm:px-6 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:pt-20 lg:pb-24">
@@ -693,6 +694,6 @@ export default function HomePage() {
           </ul>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/lib/types";
 import { STATS } from "@/lib/catalog";
+import { PageTransition } from "@/components/page-transition";
 
 export default function NotFound() {
   return (
+    <PageTransition>
     <div className="mx-auto flex w-full max-w-[720px] flex-col items-center px-4 py-24 text-center sm:px-6">
       <div className="grid size-14 place-items-center rounded-xl border border-border bg-card text-[26px] shadow-xs">
         🔍
@@ -72,5 +74,7 @@ export default function NotFound() {
         </div>
       </div>
     </div>
+  
+    </PageTransition>
   );
 }

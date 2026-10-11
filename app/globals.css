@@ -600,3 +600,161 @@ pre.code-block {
   white-space: pre;
   tab-size: 2;
 }
+
+/* ==================================================================
+   View transitions
+   Native document.startViewTransition via React's <ViewTransition>.
+   Motion is reserved for navigations that communicate something:
+   list -> detail is a slide (going deeper), detail -> list slides back,
+   and the component preview morphs so you can see it is the same thing.
+   Everything else stays instant. Unsupported browsers skip all of it.
+================================================================== */
+:root {
+  --duration-exit: 150ms;
+  --duration-enter: 210ms;
+  --duration-move: 400ms;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-slide {
+  from {
+    translate: var(--slide-offset);
+  }
+  to {
+    translate: 0;
+  }
+}
+
+@keyframes vt-slide-y {
+  from {
+    transform: translateY(var(--slide-y-offset, 10px));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ── directional navigation: hierarchical only ─────────────────── */
+::view-transition-old(.nav-forward) {
+  --slide-offset: -60px;
+  animation:
+    var(--duration-exit) ease-in both vt-fade reverse,
+    var(--duration-move) ease-in-out both vt-slide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --slide-offset: 60px;
+  animation:
+    var(--duration-enter) ease-out var(--duration-exit) both vt-fade,
+    var(--duration-move) ease-in-out both vt-slide;
+}
+
+::view-transition-old(.nav-back) {
+  --slide-offset: 60px;
+  animation:
+    var(--duration-exit) ease-in both vt-fade reverse,
+    var(--duration-move) ease-in-out both vt-slide reverse;
+}
+::view-transition-new(.nav-back) {
+  --slide-offset: -60px;
+  animation:
+    var(--duration-enter) ease-out var(--duration-exit) both vt-fade,
+    var(--duration-move) ease-in-out both vt-slide;
+}
+
+/* ── lateral navigation: a quiet crossfade, no implied depth ───── */
+::view-transition-old(.fade-out) {
+  animation: var(--duration-exit) ease-in vt-fade reverse;
+}
+::view-transition-new(.fade-in) {
+  animation: var(--duration-enter) ease-out var(--duration-exit) both vt-fade;
+}
+
+/* ── Suspense reveal on /components ────────────────────────────── */
+::view-transition-old(.slide-down) {
+  animation:
+    var(--duration-exit) ease-out both vt-fade reverse,
+    var(--duration-exit) ease-out both vt-slide-y reverse;
+}
+::view-transition-new(.slide-up) {
+  --slide-y-offset: 10px;
+  animation:
+    var(--duration-enter) ease-in var(--duration-exit) both vt-fade,
+    var(--duration-move) ease-in both vt-slide-y;
+}
+
+/* ── shared element: card preview -> detail preview ────────────── */
+::view-transition-group(.morph) {
+  animation-duration: var(--duration-move);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-via-blur;
+}
+@keyframes vt-via-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+/* ── live root: unnamed content keeps rendering and staying
+      interactive instead of freezing behind a stale snapshot ────── */
+::view-transition-old(root) {
+  display: none;
+}
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition {
+  pointer-events: none;
+}
+
+/* ── persistent chrome must not slide with the page. The header
+      uses backdrop-filter, so its old snapshot is hidden to avoid
+      the flash that workaround exists for. ─────────────────────── */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-group(site-footer) {
+  animation: none;
+}
+::view-transition-old(site-footer),
+::view-transition-new(site-footer) {
+  animation: none;
+}
+
+/* The catalog's sticky filter bar, which also blurs. */
+::view-transition-group(catalog-bar) {
+  animation: none;
+  z-index: 90;
+}
+::view-transition-old(catalog-bar) {
+  display: none;
+}
+::view-transition-new(catalog-bar) {
+  animation: none;
+}
+
+/* ── reduced motion: collapse every transition to zero ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

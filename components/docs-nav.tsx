@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { IconCompass, IconDatabase, IconWrench } from "@/components/icons";
 
 export const DOC_NAV: { group: string; items: { href: string; label: string }[] }[] = [
   {
@@ -29,13 +30,22 @@ export const DOC_NAV: { group: string; items: { href: string; label: string }[] 
   },
 ];
 
+const GROUP_ICONS = {
+  "Start here": IconCompass,
+  "Notion platform": IconDatabase,
+  Building: IconWrench,
+} as const;
+
 export function DocsNav() {
   const pathname = usePathname();
   return (
     <nav aria-label="Documentation" className="flex flex-col gap-6">
-      {DOC_NAV.map((group) => (
+      {DOC_NAV.map((group) => {
+        const Icon = GROUP_ICONS[group.group as keyof typeof GROUP_ICONS];
+        return (
         <div key={group.group}>
-          <h2 className="px-2.5 label-mono text-ink-faint">
+          <h2 className="flex items-center gap-1.5 px-2.5 label-mono text-ink-faint">
+            {Icon ? <Icon size={12} className="shrink-0" /> : null}
             {group.group}
           </h2>
           <ul className="mt-1.5 flex flex-col gap-0.5">
@@ -62,7 +72,8 @@ export function DocsNav() {
             })}
           </ul>
         </div>
-      ))}
+        );
+      })}
     </nav>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { COMPONENTS, STATS } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
+import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "Changelog",
@@ -105,7 +106,7 @@ export default function ChangelogPage() {
     .slice(0, 8);
 
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-border bg-raised">
         <div className="mx-auto w-full max-w-[900px] px-4 pb-10 pt-14 sm:px-6">
           <p className="label-mono text-primary">
@@ -223,6 +224,6 @@ export default function ChangelogPage() {
           </p>
         </section>
       </div>
-    </>
+    </PageTransition>
   );
 }

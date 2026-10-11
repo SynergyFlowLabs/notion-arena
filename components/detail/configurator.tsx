@@ -4,6 +4,8 @@ import * as React from "react";
 import type { WidgetComponent, WidgetParam } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { CopyButton } from "@/components/copy-button";
+import { IconDownload, IconExternal, IconRefresh } from "@/components/icons";
+import { ComponentPreviewTransition } from "@/components/page-transition";
 
 type Config = Record<string, string | number | boolean>;
 
@@ -217,12 +219,17 @@ ${embedHref}`;
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
       {/* ---------------- preview ---------------- */}
       <div className="min-w-0">
-        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[0_1px_2px_rgba(15,15,15,0.04),0_16px_40px_-24px_rgba(15,15,15,0.3)]">
-          <div className="flex items-center gap-2 border-b border-border bg-secondary/50 px-3 py-2">
+        <ComponentPreviewTransition slug={widget.slug}>
+        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-pop">
+          <div className="flex items-center gap-2 border-b border-border bg-raised px-3 py-2">
+            {/* Decorative window chrome, not status — hidden from AT and so
+                exempt from the 3:1 graphic threshold. */}
+            <span aria-hidden className="flex items-center gap-1.5">
             <span className="size-2.5 rounded-full bg-[#e03e3e]/70" />
             <span className="size-2.5 rounded-full bg-[#dfab01]/70" />
             <span className="size-2.5 rounded-full bg-[#0f7b6c]/70" />
-            <span className="ml-2 truncate font-mono text-[11px] text-muted-foreground">
+            </span>
+            <span className="ml-2 truncate font-mono text-[11px] text-ink-soft">
               notion.so/your-dashboard
             </span>
             <span className="ml-auto flex items-center gap-1">
@@ -230,12 +237,10 @@ ${embedHref}`;
                 type="button"
                 onClick={() => setNonce((n) => n + 1)}
                 title="Reload preview"
-                className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-background hover:text-foreground"
+                aria-label="Reload preview"
+                className="grid size-6 place-items-center rounded-[6px] text-ink-soft transition-colors duration-150 hover:bg-secondary hover:text-foreground"
               >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 12a9 9 0 0 1 15.5-6.2M21 12a9 9 0 0 1-15.5 6.2" />
-                  <path d="M18 3v4h-4M6 21v-4h4" />
-                </svg>
+                <IconRefresh size={13} />
               </button>
               <a
                 href={embedHref}
@@ -244,9 +249,7 @@ ${embedHref}`;
                 title="Open the widget on its own"
                 className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-background hover:text-foreground"
               >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                </svg>
+                <IconExternal size={13} />
               </a>
             </span>
           </div>
@@ -260,8 +263,9 @@ ${embedHref}`;
             className="block w-full border-0 bg-white dark:bg-[#191919]"
           />
         </div>
+        </ComponentPreviewTransition>
 
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-muted-foreground">
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-ink-soft">
           <label className="flex items-center gap-2">
             Block height
             <input
@@ -362,9 +366,7 @@ ${embedHref}`;
                     className="flex items-center justify-between gap-2 rounded-lg border border-border-strong bg-background px-3 py-2.5 text-[13px] font-medium transition-colors hover:bg-secondary"
                   >
                     <span>Download {widget.slug}.html</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 3v12M7 11l5 5 5-5M5 21h14" />
-                    </svg>
+                    <IconDownload size={14} className="shrink-0" />
                   </a>
                   <CopyButton
                     className="h-auto justify-between px-3 py-2.5 text-[13px]"

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { startTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { COMPONENTS } from "@/lib/catalog";
 import { CATEGORIES, type CategorySlug } from "@/lib/types";
@@ -108,7 +109,13 @@ export function CatalogBrowser() {
     if (live) params.set("live", "1");
     if (sort !== "featured") params.set("sort", sort);
     const qs = params.toString();
-    const t = setTimeout(() => router.replace(qs ? `/components?${qs}` : "/components", { scroll: false }), 220);
+    const t = setTimeout(
+      () =>
+        startTransition(() => {
+          router.replace(qs ? `/components?${qs}` : "/components", { scroll: false });
+        }),
+      220
+    );
     return () => clearTimeout(t);
   }, [query, kind, tier, cats, interactiveOnly, live, sort, router]);
 
@@ -163,7 +170,10 @@ export function CatalogBrowser() {
   return (
     <div className="mx-auto w-full max-w-[1240px] px-4 pb-20 sm:px-6">
       {/* search + sort */}
-      <div className="sticky top-14 z-30 -mx-4 border-b border-border bg-background/90 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6">
+      <div
+        style={{ viewTransitionName: "catalog-bar" }}
+        className="sticky top-14 z-30 -mx-4 border-b border-border bg-background/90 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6"
+      >
         <div className="flex flex-wrap items-center gap-2">
           <div className="relative min-w-[200px] flex-1">
             <IconSearch

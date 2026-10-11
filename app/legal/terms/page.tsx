@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "Terms of service",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
+    <PageTransition>
     <article className="flex flex-col gap-8">
       <header>
         <h1 className="font-display text-h2 text-foreground">Terms of service</h1>
@@ -158,6 +160,8 @@ export default function TermsPage() {
         private inbox.
       </footer>
     </article>
+  
+    </PageTransition>
   );
 }
 

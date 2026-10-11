@@ -5,6 +5,7 @@ import { COMPONENTS, STATS } from "@/lib/catalog";
 import { RegistryExplorer } from "@/components/registry-explorer";
 import { CopyButton } from "@/components/copy-button";
 import { cn } from "@/lib/utils";
+import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "Registry",
@@ -149,7 +150,7 @@ curl -s -X POST ${origin}/api/install \\
   }'`;
 
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-border bg-raised">
         <div className="mx-auto w-full max-w-[1000px] px-4 pb-12 pt-14 sm:px-6">
           <p className="label-mono text-primary">
@@ -379,7 +380,7 @@ curl -s -X POST ${origin}/api/install \\
           </div>
         </section>
       </div>
-    </>
+    </PageTransition>
   );
 }
 

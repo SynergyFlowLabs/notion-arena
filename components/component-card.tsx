@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { NotionTag, notionInk } from "@/components/ui/notion-tag";
 import { InView } from "@/components/in-view";
 import { CATEGORY_ICONS, IconArrowRight } from "@/components/icons";
+import { ComponentPreviewTransition } from "@/components/page-transition";
 import { cn } from "@/lib/utils";
 
 /**
@@ -109,11 +110,14 @@ export function ComponentCard({
     >
       <Link
         href={`/components/${c.slug}`}
+        // Hierarchical: catalog -> detail. The slide direction says "deeper".
+        transitionTypes={["nav-forward"]}
         className="absolute inset-0 z-10 rounded-xl focus-visible:outline-offset-2"
         aria-label={`${c.name} — ${c.tagline}`}
       />
 
       <div className="relative border-b border-border bg-raised">
+        <ComponentPreviewTransition slug={c.slug}>
         {widget && live && src ? (
           <InView
             className="block"
@@ -148,6 +152,7 @@ export function ComponentCard({
           <RecipeMock c={c} />
         )}
 
+        </ComponentPreviewTransition>
         <div className="absolute top-2 right-2 z-20 flex gap-1">
           {c.badge === "new" && <Badge variant="new">New</Badge>}
           {c.badge === "popular" && <Badge variant="primary">Popular</Badge>}

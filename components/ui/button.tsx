@@ -45,32 +45,47 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends React.ComponentProps<"button">,
     VariantProps<typeof buttonVariants> {
-  /** Render as a child element (usually next/link) instead of a <button>. */
+  /**
+   * Render as the child element (usually next/link) instead of a <button>,
+   * keeping this component's styling. A boolean, but it is the shadcn/Radix
+   * convention this library deliberately mirrors, so the familiar name wins
+   * over a bespoke API.
+   */
   asChild?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild, children, ...props }, ref) => {
-    const classes = cn(buttonVariants({ variant, size, className }));
+/**
+ * React 19 passes `ref` as an ordinary prop, so `forwardRef` is gone — it is
+ * deprecated in 19 and adds a layer for no benefit.
+ */
+export function Button({
+  className,
+  variant,
+  size,
+  asChild,
+  children,
+  ref,
+  ...props
+}: ButtonProps) {
+  const classes = cn(buttonVariants({ variant, size, className }));
 
-    // asChild: the child is a link, so adopt its element and keep our styling.
-    // Implemented without an extra dependency by cloning the single child.
-    if (asChild && React.isValidElement(children)) {
-      return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
-        className: cn(classes, (children as React.ReactElement<{ className?: string }>).props.className),
-        ref,
-      });
-    }
-
-    return (
-      <button ref={ref} className={classes} {...props}>
-        {children}
-      </button>
-    );
+  // asChild: adopt the child's element (an <a> from next/link) and keep our
+  // styling, without pulling in a Slot dependency for one code path.
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<{ className?: string }>;
+    return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, {
+      className: cn(classes, child.props.className),
+      ref,
+    });
   }
-);
-Button.displayName = "Button";
 
-export { Button, buttonVariants };
+  return (
+    <button ref={ref} className={classes} {...props}>
+      {children}
+    </button>
+  );
+}
+
+export { buttonVariants };

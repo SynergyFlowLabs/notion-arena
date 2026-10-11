@@ -75,6 +75,10 @@ export function SiteHeader() {
 
   return (
     <header
+      // Pulled out of the page snapshot so the header stays pinned while the
+      // page content slides beneath it. It uses backdrop-filter, which is why
+      // globals.css hides its old snapshot rather than cross-fading it.
+      style={{ viewTransitionName: "site-header" }}
       className={cn(
         "sticky top-0 z-50 w-full border-b transition-[background-color,border-color,box-shadow] duration-200",
         scrolled

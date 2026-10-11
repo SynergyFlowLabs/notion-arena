@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DocPage, H2, P, Note, UL, LI } from "@/components/docs/prose";
 import { STATS } from "@/lib/catalog";
+import { IconArrowRight } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Documentation",
@@ -116,9 +117,7 @@ export default function DocsPage() {
               <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">{p.d}</p>
               <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-medium text-primary">
                 Open
-                <svg className="transition-transform group-hover:translate-x-0.5" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
+                <IconArrowRight size={12} className="transition-transform duration-150 group-hover:translate-x-0.5" />
               </span>
             </Link>
           ))}

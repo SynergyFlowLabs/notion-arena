@@ -93,41 +93,10 @@ export function LogoMark({ size = 22, ...rest }: P) {
 /* Navigation & sections                                               */
 /* ------------------------------------------------------------------ */
 
-export const IconGrid = (p: P) => (
-  <Base {...p}>
-    <rect x="3.5" y="3.5" width="7" height="7" rx="1.6" />
-    <rect x="13.5" y="3.5" width="7" height="7" rx="1.6" />
-    <rect x="3.5" y="13.5" width="7" height="7" rx="1.6" />
-    <rect x="13.5" y="13.5" width="7" height="7" rx="1.6" fill="currentColor" stroke="none" />
-  </Base>
-);
-
 export const IconCompass = (p: P) => (
   <Base {...p}>
     <circle cx="12" cy="12" r="8.5" />
     <path d="m14.9 9.1-1.7 4.1-4.1 1.7 1.7-4.1z" fill="currentColor" stroke="none" />
-  </Base>
-);
-
-export const IconRegistry = (p: P) => (
-  <Base {...p}>
-    <path d="M4 6.5h16M4 12h16M4 17.5h10" />
-    <circle cx="18.5" cy="17.5" r="2" fill="currentColor" stroke="none" />
-  </Base>
-);
-
-export const IconBook = (p: P) => (
-  <Base {...p}>
-    <path d="M4 5.2A1.7 1.7 0 0 1 5.7 3.5H19v14H5.7A1.7 1.7 0 0 0 4 19.2z" />
-    <path d="M4 19.2a1.7 1.7 0 0 1 1.7-1.7H19v3H5.7A1.7 1.7 0 0 1 4 18.8z" />
-    <path d="M8 7.6h7" />
-  </Base>
-);
-
-export const IconTag = (p: P) => (
-  <Base {...p}>
-    <path d="M11.4 3.5H20v8.6l-8.9 8.9a1.4 1.4 0 0 1-2 0l-6.6-6.6a1.4 1.4 0 0 1 0-2z" />
-    <circle cx="16.2" cy="7.8" r="1.5" fill="currentColor" stroke="none" />
   </Base>
 );
 
@@ -288,14 +257,6 @@ export const IconAlert = (p: P) => (
     <path d="M12 4.4 21 19.6H3z" />
     <path d="M12 10v4" strokeWidth={1.9} />
     <circle cx="12" cy="16.8" r="0.9" fill="currentColor" stroke="none" />
-  </Base>
-);
-
-export const IconInfo = (p: P) => (
-  <Base {...p}>
-    <circle cx="12" cy="12" r="8.5" />
-    <path d="M12 11.2v5" strokeWidth={1.9} />
-    <circle cx="12" cy="8.2" r="0.9" fill="currentColor" stroke="none" />
   </Base>
 );
 

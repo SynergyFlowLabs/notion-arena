@@ -2,6 +2,7 @@ import type { Recipe } from "@/lib/recipes";
 import { planInstall } from "@/lib/recipes";
 import { CopyButton } from "@/components/copy-button";
 import { cn } from "@/lib/utils";
+import { IconAlert, IconCheck, IconChevron, IconWrench } from "@/components/icons";
 
 const TYPE_COLORS: Record<string, string> = {
   title: "text-[var(--tag-ink-gray)]",
@@ -120,7 +121,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
                 key={i}
                 className="rounded-lg border border-[var(--notion-yellow)]/30 bg-[color-mix(in_oklab,var(--notion-yellow)_8%,transparent)] px-3 py-2 text-[12.5px] leading-relaxed text-foreground"
               >
-                <span className="mr-1.5">⚠️</span>
+                <IconAlert size={14} className="mr-1.5 mt-px shrink-0" />
                 {w}
               </p>
             ))}
@@ -266,9 +267,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
                   <span className="ml-auto rounded border border-border bg-secondary px-1.5 py-px font-mono text-[10.5px] text-muted-foreground">
                     {p.blocks.length} blocks
                   </span>
-                  <svg className="text-muted-foreground transition-transform group-open:rotate-90" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m9 6 6 6-6 6" />
-                  </svg>
+                  <IconChevron size={13} className="text-ink-soft transition-transform duration-150 group-open:rotate-90" />
                 </summary>
                 <div className="border-t border-border px-3.5 py-3">
                   <BlockPreview blocks={p.blocks} />
@@ -293,7 +292,7 @@ export function RecipePanel({ recipe, origin }: { recipe: Recipe; origin: string
             {recipe.manual.map((m) => (
               <div key={m.title} className="rounded-xl border border-[var(--notion-red)]/25 bg-[color-mix(in_oklab,var(--notion-red)_4%,transparent)] p-3.5">
                 <div className="flex items-start gap-2">
-                  <span className="mt-0.5 text-[15px]">🔧</span>
+                  <IconWrench size={15} className="mt-0.5 shrink-0 text-tag-ink-red" />
                   <div className="min-w-0">
                     <h3 className="text-[14px] font-semibold">{m.title}</h3>
                     <p className="mt-1 text-[12.5px] leading-relaxed text-muted-foreground">{m.reason}</p>
@@ -369,7 +368,7 @@ function BlockPreview({ blocks, depth = 0 }: { blocks: any[]; depth?: number }) 
               <div key={i} className="flex items-start gap-2 text-[13px] leading-relaxed">
                 <span className={cn("mt-[3px] grid size-[13px] shrink-0 place-items-center rounded-[3px] border", body.checked ? "border-primary bg-primary text-white" : "border-border-strong")}>
                   {body.checked && (
-                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+                    <IconCheck size={8} strokeWidth={4} />
                   )}
                 </span>
                 <span className={cn("text-muted-foreground", body.checked && "line-through opacity-60")}>{textOf(body.rich_text)}</span>
@@ -386,7 +385,7 @@ function BlockPreview({ blocks, depth = 0 }: { blocks: any[]; depth?: number }) 
             return (
               <div key={i}>
                 <div className="flex items-center gap-1.5 text-[13px] font-medium">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m9 6 6 6-6 6" /></svg>
+                  <IconChevron size={11} />
                   {textOf(body.rich_text)}
                 </div>
                 {b.children ? <BlockPreview blocks={b.children} depth={depth + 1} /> : null}

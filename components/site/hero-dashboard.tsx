@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { InitialsAvatar } from "@/components/avatar";
 import { planInstall, RECIPES } from "@/lib/recipes";
 
 /**
@@ -75,14 +76,13 @@ export function HeroDashboard() {
 
           <div className="ml-auto flex items-center gap-2 text-app-ink/75">
             <span className="hidden font-mono text-[10px] sm:inline">⌘K</span>
+            {/* Generated branded avatars: a stable hash of the name picks the
+                tint and block arrangement, so these match the ones an author
+                would get elsewhere on the site. */}
             <span className="flex -space-x-1.5">
-              {["MK", "JR", "AO"].map((s, i) => (
-                <span
-                  key={s}
-                  className="grid size-[18px] place-items-center rounded-full border border-white text-[8px] font-semibold text-white"
-                  style={{ background: ["#0b6e99", "#6940a5", "#0f7b6c"][i] }}
-                >
-                  {s}
+              {["Mira Kovač", "Jonas Rey", "Ada Okonkwo"].map((name) => (
+                <span key={name} className="rounded-[6px] ring-2 ring-white">
+                  <InitialsAvatar name={name} size={18} />
                 </span>
               ))}
             </span>
@@ -116,7 +116,7 @@ export function HeroDashboard() {
           {/* property rows, exactly how a Notion page header reads */}
           <dl className="mt-2.5 flex flex-col gap-1 text-[12.5px]">
             {[
-              ["Owner", <span key="v" className="inline-flex items-center gap-1.5"><span className="grid size-[17px] place-items-center rounded-full bg-[#0b6e99] text-[8px] font-semibold text-white">MK</span><span className="text-app-ink">Mira Kovač</span></span>],
+              ["Owner", <span key="v" className="inline-flex items-center gap-1.5"><InitialsAvatar name="Mira Kovač" size={17} /><span className="text-app-ink">Mira Kovač</span></span>],
               ["Status", <span key="v" className="inline-flex items-center rounded-[4px] bg-[#ebf5f0] px-1.5 py-px text-[11.5px] font-medium text-[#14715f]">● On track</span>],
               ["Quarter", <span key="v" className="text-app-ink">Oct 1 → Dec 31, 2026</span>],
             ].map(([k, v]) => (

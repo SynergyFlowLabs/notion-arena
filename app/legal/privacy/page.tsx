@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { PageTransition } from "@/components/page-transition";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
+    <PageTransition>
     <article className="flex flex-col gap-8">
       <header>
         <h1 className="font-display text-h2 text-foreground">Privacy policy</h1>
@@ -167,6 +169,8 @@ export default function PrivacyPage() {
         components can and cannot do rather than what we collect.
       </footer>
     </article>
+  
+    </PageTransition>
   );
 }
 

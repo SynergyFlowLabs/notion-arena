@@ -50,7 +50,7 @@ const COLS: { title: string; links: { href: string; label: string }[] }[] = [
 
 export function SiteFooter() {
   return (
-    <footer className="band mt-auto">
+    <footer className="band mt-auto" style={{ viewTransitionName: "site-footer" }}>
       {/* hairline top edge, not a shadow */}
       <div className="border-t border-white/10">
         <div className="mx-auto w-full max-w-[1240px] px-4 py-14 sm:px-6">

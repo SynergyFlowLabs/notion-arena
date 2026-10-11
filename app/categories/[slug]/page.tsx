@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { COMPONENTS, componentsByCategory } from "@/lib/catalog";
 import { CATEGORIES, type CategorySlug } from "@/lib/types";
 import { ComponentCard } from "@/components/component-card";
+import { PageTransition } from "@/components/page-transition";
 
 export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ slug: c.slug }));
@@ -86,9 +87,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const note = CATEGORY_NOTES[cat.slug];
 
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-border bg-raised">
-        <div className="mx-auto w-full max-w-[1200px] px-4 pb-9 pt-8 sm:px-6">
+        <div className="mx-auto w-full max-w-[1240px] px-4 pb-9 pt-8 sm:px-6">
           <div className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
             <Link href="/components" className="hover:text-foreground">Components</Link>
             <span aria-hidden>/</span>
@@ -123,7 +124,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      <div className="mx-auto w-full max-w-[1200px] px-4 pb-20 pt-8 sm:px-6">
+      <div className="mx-auto w-full max-w-[1240px] px-4 pb-20 pt-8 sm:px-6">
         <div className="grid gap-4 rounded-xl border border-border bg-card p-4 sm:grid-cols-2">
           <div>
             <h2 className="label-mono text-[var(--tag-ink-red)]">
@@ -182,6 +183,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           ))}
         </div>
       </div>
-    </>
+    </PageTransition>
   );
 }

@@ -11,8 +11,9 @@ import { RecipePanel } from "@/components/detail/recipe-panel";
 import { ComponentCard } from "@/components/component-card";
 import { getRecipe } from "@/lib/recipes";
 import { htmlBlockInstallSnippet } from "@/lib/widget";
-import { IconArrowRight } from "@/components/icons";
+import { IconArrowRight, IconCheck, IconDatabase, IconFrame } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { PageTransition } from "@/components/page-transition";
 
 export function generateStaticParams() {
   return COMPONENTS.map((c) => ({ slug: c.slug }));
@@ -66,13 +67,24 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
     : COMPONENTS.filter((x) => x.slug !== c.slug && x.kind === c.kind).slice(0, 3);
 
   return (
-    <>
+    // Keyed so navigating between two components (the "pairs well with" row)
+    // remounts the page and fires enter/exit — the router would otherwise
+    // reconcile this same-route dynamic segment in place and animate nothing.
+    <PageTransition key={c.slug}>
       {/* breadcrumb */}
       <div className="border-b border-border bg-raised">
-        <div className="mx-auto flex w-full max-w-[1200px] items-center gap-1.5 px-4 py-2.5 text-[12.5px] text-muted-foreground sm:px-6">
-          <Link href="/" className="hover:text-foreground">Home</Link>
+        <div className="mx-auto flex w-full max-w-[1240px] items-center gap-1.5 px-4 py-2.5 text-[12.5px] text-muted-foreground sm:px-6">
+          <Link href="/" transitionTypes={["nav-back"]} className="transition-colors duration-150 hover:text-foreground">
+            Home
+          </Link>
           <span aria-hidden>/</span>
-          <Link href="/components" className="hover:text-foreground">Components</Link>
+          <Link
+            href="/components"
+            transitionTypes={["nav-back"]}
+            className="transition-colors duration-150 hover:text-foreground"
+          >
+            Components
+          </Link>
           <span aria-hidden>/</span>
           <Link href={`/categories/${cat.slug}`} className="hover:text-foreground">{cat.name}</Link>
           <span aria-hidden>/</span>
@@ -82,7 +94,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       {/* header */}
       <section className="border-b border-border bg-raised">
-        <div className="mx-auto w-full max-w-[1200px] px-4 pb-9 pt-8 sm:px-6">
+        <div className="mx-auto w-full max-w-[1240px] px-4 pb-9 pt-8 sm:px-6">
           <div className="flex flex-wrap items-start gap-4">
             <span className="grid size-12 shrink-0 place-items-center rounded-xl border border-border bg-background text-[26px] shadow-xs">
               {c.emoji}
@@ -91,7 +103,10 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
               <div className="flex flex-wrap items-center gap-1.5">
                 <NotionTag color={cat.color}>{cat.emoji} {cat.name}</NotionTag>
                 <Badge variant={c.tier === "pro" ? "pro" : "free"}>{c.tier === "pro" ? "Pro" : "Free"}</Badge>
-                <Badge variant="outline">{c.kind === "widget" ? "Widget" : "Native recipe"}</Badge>
+                <Badge variant="outline">
+                  {c.kind === "widget" ? <IconFrame size={12} /> : <IconDatabase size={12} />}
+                  {c.kind === "widget" ? "Widget" : "Native recipe"}
+                </Badge>
                 {c.badge === "new" && <Badge variant="new">New</Badge>}
                 {c.badge === "popular" && <Badge variant="primary">Popular</Badge>}
                 {c.badge === "staff-pick" && <Badge variant="pro">Staff pick</Badge>}
@@ -121,7 +136,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         </div>
       </section>
 
-      <div className="mx-auto w-full max-w-[1200px] px-4 py-9 sm:px-6">
+      <div className="mx-auto w-full max-w-[1240px] px-4 py-9 sm:px-6">
         {widget ? (
           <Configurator
             widget={widget}
@@ -159,9 +174,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
               {c.features.map((f) => (
                 <li key={f} className="flex gap-2.5 text-[13.5px] leading-relaxed">
                   <span className="mt-[3px] grid size-[15px] shrink-0 place-items-center rounded-full bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--tag-ink-green)]">
-                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M20 6 9 17l-5-5" />
-                    </svg>
+                    <IconCheck size={8} strokeWidth={4} />
                   </span>
                   <span className="text-muted-foreground">{f}</span>
                 </li>
@@ -271,6 +284,6 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           </section>
         )}
       </div>
-    </>
+    </PageTransition>
   );
 }

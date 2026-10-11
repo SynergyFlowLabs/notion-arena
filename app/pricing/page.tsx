@@ -3,6 +3,8 @@ import Link from "next/link";
 import { STATS, COMPONENTS } from "@/lib/catalog";
 import { Faq } from "@/components/site/faq";
 import { cn } from "@/lib/utils";
+import { PageTransition } from "@/components/page-transition";
+import { IconArrowRight } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -80,7 +82,7 @@ const PLANS = [
 
 export default function PricingPage() {
   return (
-    <>
+    <PageTransition>
       <section className="border-b border-border bg-raised">
         <div className="mx-auto w-full max-w-[1100px] px-4 pb-12 pt-14 text-center sm:px-6">
           <p className="label-mono text-primary">
@@ -308,9 +310,7 @@ export default function PricingPage() {
               className="inline-flex h-10 items-center gap-2 rounded-xl bg-foreground px-4 text-[14px] font-semibold text-background transition-opacity hover:opacity-88"
             >
               Browse free components
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
+              <IconArrowRight size={14} />
             </Link>
             <Link
               href="/how-it-works"
@@ -321,6 +321,6 @@ export default function PricingPage() {
           </div>
         </section>
       </div>
-    </>
+    </PageTransition>
   );
 }

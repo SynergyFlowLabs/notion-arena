@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { CopyButton } from "@/components/copy-button";
 import { cn } from "@/lib/utils";
+import { PageTransition } from "@/components/page-transition";
+import { IconExternal } from "@/components/icons";
 
 /* A small set of server-rendered primitives so every docs page reads the same. */
 
@@ -16,6 +18,7 @@ export function DocPage({
   children: ReactNode;
 }) {
   return (
+    <PageTransition>
     <article className="min-w-0">
       <header className="border-b border-border pb-6">
         <p className="label-mono text-primary">{eyebrow}</p>
@@ -24,6 +27,7 @@ export function DocPage({
       </header>
       <div className="mt-8 flex flex-col gap-9">{children}</div>
     </article>
+    </PageTransition>
   );
 }
 
@@ -224,9 +228,10 @@ export function Cite({ href, children }: { href: string; children: ReactNode }) 
       href={href}
       target="_blank"
       rel="noreferrer noopener"
-      className="text-primary underline decoration-[color-mix(in_oklab,var(--primary)_35%,transparent)] underline-offset-2 transition-colors duration-150 hover:text-primary-deep hover:decoration-primary-deep"
+      className="inline-flex items-center gap-1 text-primary underline decoration-[color-mix(in_oklab,var(--primary)_35%,transparent)] underline-offset-2 transition-colors duration-150 hover:text-primary-deep hover:decoration-primary-deep"
     >
       {children}
+      <IconExternal size={11} className="shrink-0 self-start opacity-70" />
     </a>
   );
 }
