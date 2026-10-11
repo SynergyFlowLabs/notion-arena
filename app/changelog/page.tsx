@@ -22,6 +22,22 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    version: "1.2.0",
+    date: "2026-10-11",
+    title: "Twelve offline tools for engineering, service work, and creative planning",
+    kind: "release",
+    body: [
+      "Engineering and IT: Bug Triage Board, Release Readiness Checklist, and Access Review Log. These are private notes, not a ticket system, CI or deploy gate, security audit, or compliance certification.",
+      "Operations and founders: Vendor Register and Fundraising Outreach Tracker. They store aliases and manual dates only; they do not hold contracts, contacts, payments, valuations, or messages.",
+      "Customer and freelance work: Customer QBR Prep and Freelancer Proposal Tracker. QBR notes are manual, proposal amounts are rough USD estimates, and neither tool reads customer data, sends reminders, creates invoices, or calculates tax.",
+      "Teaching, coaching, and research: Coach Session Planner, Lesson Plan Builder, and Research Conference Planner. Keep sensitive client details and student records out; none provide professional advice, submissions, registration, or travel booking.",
+      "Community and production: Volunteer Hours Log and Film Shot List. Hours are unverified manual estimates; the shot list stores no footage, releases, crew records, or publishing state.",
+      "The Docs & Systems category gains a matched light/dark workflow illustration, and an explicit theme choice now survives full-page navigation.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 131 components: 120 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["bug-triage-board", "release-readiness-checklist", "access-review-log", "vendor-register", "fundraising-outreach-tracker", "customer-qbr-prep", "freelancer-proposal-tracker", "coach-session-planner", "lesson-plan-builder", "research-conference-planner", "volunteer-hours-log", "film-shot-list"],
+  },
+  {
     version: "1.1.0",
     date: "2026-10-11",
     title: "Twelve offline widgets for events, creators, and industry workflows",

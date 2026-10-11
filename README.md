@@ -3,8 +3,9 @@
 **The component registry for Notion.** shadcn/ui's model: browse, configure,
 copy, own, install from code, applied to Notion dashboards.
 
-119 components: **108 embeddable widgets** that run inside a Notion page, and
-**11 native database recipes** that install through the Notion API. 108 components are free; 11 are Pro.
+131 components: **120 embeddable widgets** that run inside a Notion page, and
+**11 native database recipes** that install through the Notion API. 120 components
+are free; 11 are Pro.
 
 > Notion is a trademark of Notion Labs Inc. This is an independent project and is
 > not affiliated with or endorsed by Notion.
@@ -70,8 +71,8 @@ host, falling back to `http://localhost:3000`.
 ## Layout
 
 ```
-public/widgets/*.html      the products: 108 self-contained HTML files
-lib/catalog.ts             source of truth for all 119 components
+public/widgets/*.html      the products: 120 self-contained HTML files
+lib/catalog.ts             source of truth for all 131 components
 lib/types.ts               component/param types + the 8 categories
 lib/widget.ts              config coercion, injection, HTML rendering  (server)
 lib/widget-url.ts          URL builders                                (browser-safe)

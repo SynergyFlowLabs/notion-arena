@@ -233,7 +233,7 @@ Details that matter and are easy to get wrong:
   same-route dynamic segments reconcile in place and would otherwise animate
   nothing when you jump across the "pairs well with" row.
 - The list-side shared element carries `default="none"`, or every filter and
-  sort would crossfade all 119 cards at once.
+  sort would crossfade all 131 cards at once.
 - Persistent chrome (header, footer, the catalog's sticky bar) is isolated with
   `view-transition-name`. The header and bar use `backdrop-filter`, so their old
   snapshots are hidden rather than cross-faded: that is the documented
@@ -242,7 +242,7 @@ Details that matter and are easy to get wrong:
   unnamed content keeps rendering and stays interactive instead of freezing
   behind a stale snapshot.
 - **Deliberately skipped:** list-identity reorder animation. The catalog filters
-  71 items client-side and instantly; a 400ms move on every keystroke would read
+  131 components client-side and instantly; a 400ms move on every keystroke would read
   as latency, not polish. The skill's own test is "if you can't articulate what
   it communicates, don't add it."
 
@@ -300,7 +300,9 @@ Two families, both built to work in both themes.
   vector re-themes with the page for free. The one exception is the dark
   campaign band, which stays dark in both themes; `.band-art` in
   `globals.css` pins the light pastel values for artwork placed inside it.
-- **Rasters** live in `public/illustrations/` as pixel-matched pairs,
+  Each eleventh-pass standalone widget also carries an original inline SVG
+  mark, drawn with its theme-aware ink so the downloaded file stays self-contained.
+- **Rasters** live in `public/illustrations/` as composition-matched pairs,
   `<name>-light.png` and `<name>-dark.png`. The light master is painted on
   the paper canvas in the house editorial style (1.5px ink outlines, signal
   blue, four pastel tints, no lettering); the dark twin is then edited from
@@ -309,8 +311,8 @@ Two families, both built to work in both themes.
   values. `components/illustrations.tsx` exports `ThemedIllustration`, which
   swaps the pair on the `dark` class, so artwork never sits on a canvas it was
   not painted for. Headers (how it works, docs, pricing, the planning
-  category, and the business category) use the pairs; the dark band uses
-  single dark-canvas pieces.
+  category, the business category, and the knowledge-workflows category page) use the pairs;
+  the dark band uses single dark-canvas pieces.
 
 What the artwork never does: carry text (the model's lettering is the tell),
 state a number the catalog owns, or stand where a live widget would prove

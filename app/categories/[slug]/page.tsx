@@ -49,13 +49,13 @@ const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> 
     problem:
       "Notion's Timeline and Board views are database-bound: they only work on rows, they only show properties, and you cannot drop a card onto a quarter that has no row.",
     answer:
-      "Manual planners, event run sheets, and field punch lists are offline widgets with browser-local state. Structured, collaborative planning (such as sprints and content pipelines) is a recipe when it needs shared records, relations, or rollups.",
+      "Manual event run sheets, release checklists, coach session plans, and shot or field lists are offline widgets with browser-local state. They are not a deployment gate, booking service, or team queue. Structured, collaborative planning (such as sprints and content pipelines) is a recipe when it needs shared records, relations, or rollups.",
   },
   business: {
     problem:
       "This is the category where an iframe is actively the wrong answer. A pipeline, an invoice or an OKR tree needs relations, rollups, formulas and views that your whole team queries.",
     answer:
-      "Native recipes create real databases for workflows that need shared records, relations, and team views. Standalone widgets here are private drafts, queues, trackers, and manual estimates; they stay local and are not a CRM, client portal, approval or grant-compliance system, hiring tool, publishing service, payment system, or accounting record.",
+      "Native recipes create real databases for workflows that need shared records, relations, and team views. Standalone widgets here are private drafts, queues, trackers, and manual estimates; they stay local and are not a CRM, client portal, procurement workflow, security audit, approval or grant-compliance system, hiring tool, publishing service, payment system, or accounting record.",
   },
   visuals: {
     problem:
@@ -67,7 +67,7 @@ const CATEGORY_NOTES: Record<CategorySlug, { problem: string; answer: string }> 
     problem:
       "Documentation systems are mostly structure: the right databases, the right relations, the right template bodies, repeated consistently for months.",
     answer:
-      "Recipes build that structure with real block trees (headings, toggles, callouts, synced blocks, column lists) so the workspace arrives already written rather than empty and hopeful.",
+      "Recipes build that structure with real block trees (headings, toggles, callouts, synced blocks, column lists) so the workspace arrives already written rather than empty and hopeful. Personal lesson outlines and conference-preparation notes stay in local widgets; they do not create student records, submit research, or replace shared academic systems.",
   },
   automations: {
     problem:
@@ -120,6 +120,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               <ThemedIllustration
                 name="business"
                 alt="A project board, parcels, and calculator in a Notion-inspired business illustration"
+                className="hidden h-[120px] w-[180px] shrink-0 lg:block"
+              />
+            )}
+            {cat.slug === "docs" && (
+              <ThemedIllustration
+                name="workflows"
+                alt="A paper task board, notebook, and planning calendar for knowledge work"
                 className="hidden h-[120px] w-[180px] shrink-0 lg:block"
               />
             )}

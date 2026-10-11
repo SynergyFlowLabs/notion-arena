@@ -7,12 +7,15 @@ import { IconMoon, IconSun } from "@/components/icons";
 type Theme = "light" | "dark" | "system";
 
 export function useTheme() {
-  const [theme, setTheme] = React.useState<Theme>("system");
-
-  React.useEffect(() => {
-    const stored = (localStorage.getItem("blocksmith.theme") as Theme | null) ?? "system";
-    setTheme(stored);
-  }, []);
+  const [theme, setTheme] = React.useState<Theme>(() => {
+    if (typeof window === "undefined") return "system";
+    try {
+      const stored = localStorage.getItem("blocksmith.theme");
+      return stored === "dark" || stored === "light" ? stored : "system";
+    } catch {
+      return "system";
+    }
+  });
 
   React.useEffect(() => {
     const root = document.documentElement;
