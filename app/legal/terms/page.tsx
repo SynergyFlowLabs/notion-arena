@@ -153,7 +153,7 @@ export default function TermsPage() {
       <footer className="rounded-xl border border-border bg-raised p-4 text-[13.5px] leading-relaxed text-muted-foreground">
         Questions about these terms, or about whether a specific use is covered:
         open an issue on{" "}
-        <Link href="https://github.com/SynergyFlowLabs/notion-components">
+        <Link href="https://github.com/SynergyFlowLabs/notion-arena">
           the repository
         </Link>
         . Public questions get public answers, which is better for everyone than a

@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://notionarena.vercel.app"
   ),
   title: {
     default: "Notion Arena: the component registry for Notion",
@@ -23,12 +23,16 @@ export const metadata: Metadata = {
     "notion embed",
     "notion templates",
     "notion registry",
+    "notion arena",
+    "mcp",
+    "model context protocol",
   ],
   openGraph: {
     title: "Notion Arena: the component registry for Notion",
     description:
       "Feature-rich components Notion doesn't ship: interactive widgets, HTML blocks, and API-installable database systems.",
     type: "website",
+    url: "https://notionarena.vercel.app",
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },

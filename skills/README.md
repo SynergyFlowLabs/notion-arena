@@ -15,12 +15,12 @@ This directory contains distributable Agent Skills for Notion Arena.
 **Install via skills.sh (Vercel):**
 
 ```bash
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent claude-code --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent claude-code --yes
 # or all agents
-npx skills add SynergyFlowLabs/notion-components --skill notion-arena --agent '*' --yes
+npx skills add SynergyFlowLabs/notion-arena --skill notion-arena --agent '*' --yes
 
 # list available
-npx skills add SynergyFlowLabs/notion-components --list
+npx skills add SynergyFlowLabs/notion-arena --list
 ```
 
 **Manual:**
@@ -58,7 +58,7 @@ For Claude Code plugin marketplace distribution, see:
 Install:
 
 ```bash
-/plugin marketplace add SynergyFlowLabs/notion-components
+/plugin marketplace add SynergyFlowLabs/notion-arena
 /plugin install notion-arena@notion-arena-marketplace
 ```
 

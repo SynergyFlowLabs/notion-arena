@@ -161,7 +161,7 @@ export default function PrivacyPage() {
       <footer className="rounded-xl border border-border bg-raised p-4 text-[13.5px] leading-relaxed text-muted-foreground">
         Concerns about this policy belong in public, where the answer helps everyone
         else too:{" "}
-        <Link href="https://github.com/SynergyFlowLabs/notion-components">
+        <Link href="https://github.com/SynergyFlowLabs/notion-arena">
           open an issue on the repository
         </Link>
         . See also the{" "}

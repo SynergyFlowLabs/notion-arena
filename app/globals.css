@@ -3,7 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ==================================================================
-   Blocksmith design tokens, modelled on notion.com
+   Notion Arena design tokens, modelled on notion.com
 
    Notion's marketing surface is a warm paper canvas, a near-black ink
    that is rgba(0,0,0,.95) rather than pure black, one saturated action

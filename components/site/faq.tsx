@@ -84,9 +84,13 @@ export const FAQS: { q: string; a: React.ReactNode }[] = [
         A machine-readable manifest at{" "}
         <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">/r/index.json</code>{" "}
         in the shadcn registry-item schema, plus per-component files that inline
-        the full HTML. Point Notion's MCP server, Claude Code, Codex or Cursor at
-        it and the agent can list, fetch and install components without a human
-        clicking anything.
+        the full HTML. Point Claude Code, Cursor, or Claude Desktop at our MCP server (
+        <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">claude mcp add --scope project notion-arena -- npx -y notion-arena-mcp</code>
+        {" "}or{" "}
+        <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">npx -y notion-arena-mcp@0.2.2</code>
+        ) and Agent Skill (
+        <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">npx skills add SynergyFlowLabs/notion-arena --skill notion-arena</code>
+        ) and the agent can list, fetch and plan-install components directly from chat.
       </>
     ),
   },
