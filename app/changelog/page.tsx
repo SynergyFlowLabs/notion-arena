@@ -153,6 +153,18 @@ const ENTRIES: Entry[] = [
     components: ["assignment-tracker", "exam-planner", "study-session-log", "research-log", "glossary-builder", "daily-journal", "meeting-agenda", "decision-log", "action-item-tracker", "risk-register", "chart-builder", "concept-map-builder"],
   },
   {
+    version: "1.0.0",
+    date: "2026-10-11",
+    title: "Twelve offline tools for research and creative production",
+    kind: "release",
+    body: [
+      "Research and writing: Course Notes, Literature Review Matrix, Lab Notebook, Protocol Checklist, Idea Inbox, Manuscript Progress Tracker, Chapter Outliner, Character and Setting Bible, and Submission Tracker. Notes and outlines stay in browser-local storage, which is not encrypted; the research tools do not verify sources or create regulated records.",
+      "Podcasting: Podcast Episode Planner, Guest Prep Sheet, and Episode Production Checklist. Guest links are user-entered http or https URLs and are not fetched; nothing is published or sent.",
+      "All twelve additions are free and offline, bringing the catalog to 95 components: 84 widgets and 11 native recipes. Manuscript Progress stores counts only, not manuscript text; use shared Notion databases when collaboration or permissions are needed.",
+    ],
+    components: ["course-notes", "literature-review-matrix", "lab-notebook", "protocol-checklist", "idea-inbox", "manuscript-progress", "chapter-outliner", "character-bible", "submission-tracker", "podcast-episode-planner", "guest-prep-sheet", "episode-production-checklist"],
+  },
+  {
     version: "platform",
     date: "2026-03-11",
     title: "Notion ships HTML blocks and the Views API",
