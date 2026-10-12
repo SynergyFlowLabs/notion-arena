@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T08:42:07.036Z",
-  "count": 155,
+  "generatedAt": "2026-10-12T09:05:05.274Z",
+  "count": 167,
   "components": [
     {
       "slug": "pomodoro-timer",
@@ -4295,6 +4295,366 @@
         "video",
         "shot-list",
         "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "purchase-tracker",
+      "name": "Purchase Request Tracker",
+      "emoji": "🛒",
+      "tagline": "Purchase requests with vendor aliases, amounts, and status.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "operations",
+        "procurement",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "equipment-inventory",
+      "name": "Equipment Inventory Log",
+      "emoji": "🖥️",
+      "tagline": "Equipment items with locations, status, and last-check dates.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "operations",
+        "inventory",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "approvals-log",
+      "name": "Approvals Request Log",
+      "emoji": "✅",
+      "tagline": "Approval requests with status, dates, and decision notes.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "operations",
+        "approvals",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "helpdesk-intake",
+      "name": "Helpdesk Intake Log",
+      "emoji": "🎧",
+      "tagline": "Internal support tickets with priority, status, and aging.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "IT",
+        "helpdesk",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "editorial-calendar",
+      "name": "Editorial and Publishing Calendar",
+      "emoji": "📅",
+      "tagline": "Publication dates, platforms, and content status.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "marketing",
+        "editorial",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "show-notes",
+      "name": "Podcast Show Notes Log",
+      "emoji": "🎙️",
+      "tagline": "Episode notes with timestamps, links, and guest aliases.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "docs",
+        "podcast",
+        "show-notes",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "listener-feedback-log",
+      "name": "Listener Feedback Log",
+      "emoji": "💬",
+      "tagline": "Listener feedback with source, theme, and response status.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "docs",
+        "podcast",
+        "feedback",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "site-diary",
+      "name": "Construction Site Diary",
+      "emoji": "🏗️",
+      "tagline": "Daily site logs with weather, workers, and activity notes.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "construction",
+        "site-diary",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "reservation-notes",
+      "name": "Restaurant Reservation Log",
+      "emoji": "🍽️",
+      "tagline": "Reservation log with party size, time, and notes.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "restaurant",
+        "reservations",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "donor-crm",
+      "name": "Donor Relationship Log",
+      "emoji": "🤝",
+      "tagline": "Donor aliases with pledges, contact dates, and notes.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "nonprofit",
+        "fundraising",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "guest-list-rsvp",
+      "name": "Event Guest List and RSVP Log",
+      "emoji": "👥",
+      "tagline": "Guest aliases with RSVP status and plus-one counts.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "planning",
+        "events",
+        "guest-list",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "gear-database",
+      "name": "Photography Gear Database",
+      "emoji": "📷",
+      "tagline": "Gear items with condition, category, and notes.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "trackers",
+        "photography",
+        "gear",
+        "offline",
+        "local-storage"
       ],
       "plan": "Free",
       "badge": "new",

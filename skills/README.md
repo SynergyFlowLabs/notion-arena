@@ -9,7 +9,7 @@ This directory contains distributable Agent Skills for Notion Arena.
 **The component registry for Notion — for your AI agent.**
 
 - **File**: `notion-arena/SKILL.md`
-- **Description**: Use Notion Arena to browse, configure, and install 155 Notion components (144 widgets + 11 native recipes)
+- **Description**: Use Notion Arena to browse, configure, and install 167 Notion components (156 widgets + 11 native recipes)
 - **Triggers**: Notion widget, embed, HTML block, dashboard component, timer, tracker, kanban, CRM, "add to Notion", etc.
 
 **Install via skills.sh (Vercel):**

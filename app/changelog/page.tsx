@@ -22,6 +22,21 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    version: "1.5.0",
+    date: "2026-10-12",
+    title: "Twelve offline widgets for operations, logistics, service, and creative work",
+    kind: "release",
+    body: [
+      "Operations and procurement: Purchase Request Tracker, Equipment Inventory Log, Approvals Request Log, and Helpdesk Intake Log. Purchase requests use vendor aliases and manual USD estimates with no procurement system or approval workflow. Equipment inventory stores asset aliases and locations only, with no serial numbers, purchase records, or depreciation. Approvals and helpdesk logs are manual drafts with no real approvals, signatures, audit trails, or ticket IDs.",
+      "Marketing and podcasting: Editorial and Publishing Calendar, Podcast Show Notes Log, and Listener Feedback Log. Editorial entries use manual dates and word counts with no CMS, social scheduler, or publishing platform. Show notes and listener feedback logs store episode aliases and feedback summaries only, with no audio, transcripts, PII, or sentiment analysis.",
+      "Construction and restaurants: Construction Site Diary and Restaurant Reservation Log. Site diary entries are manual daily logs with no safety records or compliance data. Restaurant reservations use party sizes and times with no guest names, contact info, or payment data.",
+      "Nonprofits and events: Donor Relationship Log and Event Guest List and RSVP Log. Donor logs store donor aliases and manual pledge amounts only, with no donor contact, payment records, or tax receipts, and are not a CRM or fundraising platform. Event guest lists use guest aliases and plus-one counts with no guest contact, addresses, or dietary info, and are not an invitation system or catering tool.",
+      "Photography: Photography Gear Database, which stores gear aliases, categories, and condition only, with no serial numbers, purchase records, or values, and is not an inventory system, insurance catalog, or rental platform.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 167 components: 156 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["purchase-tracker", "equipment-inventory", "approvals-log", "helpdesk-intake", "editorial-calendar", "show-notes", "listener-feedback-log", "site-diary", "reservation-notes", "donor-crm", "guest-list-rsvp", "gear-database"],
+  },
+  {
     version: "1.4.0",
     date: "2026-10-12",
     title: "Twelve offline widgets for projects, quality, service work, and research",

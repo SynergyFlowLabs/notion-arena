@@ -51,7 +51,7 @@
   <g transform="translate(220, 280)">
     <g transform="translate(0, 0)">
       <rect x="0" y="0" width="180" height="48" rx="24" fill="#1f2937" stroke="#374151"/>
-      <text x="90" y="32" font-size="16" font-weight="700" fill="white" text-anchor="middle">144 Widgets</text>
+      <text x="90" y="32" font-size="16" font-weight="700" fill="white" text-anchor="middle">156 Widgets</text>
     </g>
     <g transform="translate(200, 0)">
       <rect x="0" y="0" width="160" height="48" rx="24" fill="#1f2937" stroke="#374151"/>

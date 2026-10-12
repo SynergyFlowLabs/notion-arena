@@ -10,6 +10,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- Added Purchase Request Tracker widget (business)
+- Added Equipment Inventory Log widget (business)
+- Added Approvals Request Log widget (business)
+- Added Helpdesk Intake Log widget (business)
+- Added Editorial and Publishing Calendar widget (business)
+- Added Podcast Show Notes Log widget (docs)
+- Added Listener Feedback Log widget (docs)
+- Added Construction Site Diary widget (business)
+- Added Restaurant Reservation Log widget (business)
+- Added Donor Relationship Log widget (business)
+- Added Event Guest List and RSVP Log widget (planning)
+- Added Photography Gear Database widget (trackers)
+
+### Added
 - New widget: `milestone-tracker` — Dated project milestones with owners, phases, and exit criteria
 - New widget: `incident-log` — Severity, owner, and a postmortem checklist per incident
 - New widget: `test-run-log` — Manual pass, fail, and blocked results with a retest column

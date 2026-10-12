@@ -7105,6 +7105,487 @@ export const COMPONENTS: CatalogComponent[] = [
       needsNetwork: false,
     },
   },
+// ── Pass 14 ──────────────────────────────────────────────────────────
+  {
+    slug: 'purchase-tracker',
+    name: 'Purchase Request Tracker',
+    emoji: '🛒',
+    tagline: 'Purchase requests with vendor aliases, amounts, and status.',
+    description: 'A browser-local purchase request tracker that stores vendor aliases, manual amounts, and request status only. It holds no purchase orders, contracts, or payment records and is not a procurement system or approval workflow.',
+    kind: 'widget',
+    category: 'business',
+    color: 'blue',
+    tier: 'free',
+    tags: ['business', 'operations', 'procurement', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/purchase-tracker.html',
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Purchase requests" },
+      { key: "accent", label: "Accent", type: "color", default: "#6b8cae" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Tracks vendor aliases, estimated USD amounts, requester, and priority.',
+      'Status flow from Draft to Received with approval and rejection states.',
+      'Header metrics for total count, sum of USD, approved, and rejected counts.',
+      'Filter by item or vendor. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Operations teams tracking procurement drafts before they become orders.',
+      'Managers reviewing pending approvals and amounts by priority.',
+      'Anyone keeping a personal log of purchases they want to track locally.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'equipment-inventory',
+    name: 'Equipment Inventory Log',
+    emoji: '🖥️',
+    tagline: 'Equipment items with locations, status, and last-check dates.',
+    description: 'A browser-local equipment inventory that stores asset aliases, locations, and status only. It holds no serial numbers, purchase records, or maintenance schedules and is not an asset management system or depreciation tool.',
+    kind: 'widget',
+    category: 'business',
+    color: 'brown',
+    tier: 'free',
+    tags: ['business', 'operations', 'inventory', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/equipment-inventory.html',
+    height: 490,
+    minHeight: 360,
+    maxHeight: 670,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Equipment inventory" },
+      { key: "accent", label: "Accent", type: "color", default: "#8b7355" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Logs equipment aliases, location aliases, category, condition, and quantity.',
+      'Status flow for in-use, available, in-repair, and retired items.',
+      'Header metrics for total items, total units, repairs, and retired counts.',
+      'Filter by equipment or location. Records stay in this browser only.'
+    ],
+    useCases: [
+      'IT teams tracking equipment locations and status without serial numbers.',
+      'Office managers maintaining a local equipment inventory draft.',
+      'Anyone keeping a personal log of gear or tools they own.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'approvals-log',
+    name: 'Approvals Request Log',
+    emoji: '✅',
+    tagline: 'Approval requests with status, dates, and decision notes.',
+    description: 'A browser-local approvals log that stores request aliases, status, and decision notes only. It holds no real approvals, signatures, or audit trails and is not a compliance or authorization system.',
+    kind: 'widget',
+    category: 'business',
+    color: 'purple',
+    tier: 'free',
+    tags: ['business', 'operations', 'approvals', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/approvals-log.html',
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Approvals log" },
+      { key: "accent", label: "Accent", type: "color", default: "#7a6b9e" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Tracks requester and approver aliases, priority, and manual USD amounts.',
+      'Status flow from Pending through Approved, Rejected, On hold, and Cancelled.',
+      'Header metrics for total count, pending, approved, and overdue counts.',
+      'Filter by request or approver. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Operations teams tracking approval drafts before they become official.',
+      'Managers reviewing pending requests and amounts by priority.',
+      'Anyone keeping a personal log of approvals they want to track locally.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'helpdesk-intake',
+    name: 'Helpdesk Intake Log',
+    emoji: '🎧',
+    tagline: 'Internal support tickets with priority, status, and aging.',
+    description: 'A browser-local helpdesk intake log that stores ticket aliases, priority, and status only. It holds no customer contact, PII, or real ticket IDs and is not a ticketing system, SLA tracker, or support platform.',
+    kind: 'widget',
+    category: 'business',
+    color: 'orange',
+    tier: 'free',
+    tags: ['business', 'IT', 'helpdesk', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/helpdesk-intake.html',
+    height: 510,
+    minHeight: 380,
+    maxHeight: 690,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Helpdesk tickets" },
+      { key: "accent", label: "Accent", type: "color", default: "#c1642f" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Logs ticket aliases, requester, category, priority, and assignee.',
+      'Status flow from Open through In progress, Waiting, Resolved, and Closed.',
+      'Header metrics for total count, open, in-progress, and aging tickets.',
+      'Filter by ticket or assignee. Records stay in this browser only.'
+    ],
+    useCases: [
+      'IT teams tracking internal support drafts without real ticket IDs.',
+      'Office managers maintaining a local helpdesk log for small teams.',
+      'Anyone keeping a personal log of support requests they want to track.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'editorial-calendar',
+    name: 'Editorial and Publishing Calendar',
+    emoji: '📅',
+    tagline: 'Publication dates, platforms, and content status.',
+    description: 'A browser-local editorial calendar that stores content titles, dates, and status only. It holds no published URLs, analytics, or scheduling and is not a CMS, social scheduler, or publishing platform.',
+    kind: 'widget',
+    category: 'business',
+    color: 'pink',
+    tier: 'free',
+    tags: ['business', 'marketing', 'editorial', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/editorial-calendar.html',
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Editorial calendar" },
+      { key: "accent", label: "Accent", type: "color", default: "#b06aa0" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Tracks content titles, platforms, author aliases, and word counts.',
+      'Status flow from Idea through Drafting, Review, Scheduled, Published, and Archived.',
+      'Header metrics for total count, total words, scheduled, and next 30 days.',
+      'Filter by content or platform. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Marketing teams planning content across platforms without a CMS.',
+      'Writers tracking publication drafts and word counts locally.',
+      'Anyone keeping a personal editorial calendar for their content.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'show-notes',
+    name: 'Podcast Show Notes Log',
+    emoji: '🎙️',
+    tagline: 'Episode notes with timestamps, links, and guest aliases.',
+    description: 'A browser-local show notes log that stores episode titles, timestamps, and links only. It holds no audio, transcripts, or published episodes and is not a podcast host, editing tool, or transcription service.',
+    kind: 'widget',
+    category: 'docs',
+    color: 'blue',
+    tier: 'free',
+    tags: ['docs', 'podcast', 'show-notes', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/show-notes.html',
+    height: 510,
+    minHeight: 380,
+    maxHeight: 690,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Show notes" },
+      { key: "accent", label: "Accent", type: "color", default: "#5a8fbf" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Logs episode titles, numbers, guest aliases, timestamps, and links.',
+      'Status flow from Draft through Recorded, Editing, Ready, and Published.',
+      'Header metrics for total count, published, editing, and published percentage.',
+      'Filter by episode or guest. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Podcasters tracking episode notes and timestamps before publishing.',
+      'Editors maintaining a local log of episodes in production.',
+      'Anyone keeping a personal show notes log for their podcast.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'listener-feedback-log',
+    name: 'Listener Feedback Log',
+    emoji: '💬',
+    tagline: 'Listener feedback with source, theme, and response status.',
+    description: 'A browser-local listener feedback log that stores feedback summaries, sources, and themes only. It holds no listener contact, PII, or analytics and is not a feedback platform, survey tool, or sentiment analysis system.',
+    kind: 'widget',
+    category: 'docs',
+    color: 'purple',
+    tier: 'free',
+    tags: ['docs', 'podcast', 'feedback', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/listener-feedback-log.html',
+    height: 490,
+    minHeight: 360,
+    maxHeight: 670,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Listener feedback" },
+      { key: "accent", label: "Accent", type: "color", default: "#7f6bb5" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Tracks feedback summaries, sources, episode references, and themes.',
+      'Status flow from New through Reviewed, Responded, and Archived.',
+      'Header metrics for total count, new, responded, and response rate.',
+      'Filter by feedback or theme. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Podcasters tracking listener feedback and response status locally.',
+      'Content creators maintaining a feedback log without a survey tool.',
+      'Anyone keeping a personal log of feedback they receive.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'site-diary',
+    name: 'Construction Site Diary',
+    emoji: '🏗️',
+    tagline: 'Daily site logs with weather, workers, and activity notes.',
+    description: 'A browser-local site diary that stores daily activity summaries, weather notes, and worker counts only. It holds no safety records, compliance data, or official construction logs and is not a site management or regulatory system.',
+    kind: 'widget',
+    category: 'business',
+    color: 'brown',
+    tier: 'free',
+    tags: ['business', 'construction', 'site-diary', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/site-diary.html',
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Site diary" },
+      { key: "accent", label: "Accent", type: "color", default: "#9a7b4f" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Logs daily activity with weather, worker counts, hours, and work areas.',
+      'Status flow for Normal, Delayed, Stopped, and Inspection days.',
+      'Header metrics for total days, total workers, total hours, and delayed count.',
+      'Filter by date or area. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Construction teams tracking daily site activity without official logs.',
+      'Project managers maintaining a local diary of site progress.',
+      'Anyone keeping a personal log of daily work they want to track.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'reservation-notes',
+    name: 'Restaurant Reservation Log',
+    emoji: '🍽️',
+    tagline: 'Reservation log with party size, time, and notes.',
+    description: 'A browser-local reservation log that stores reservation times, party sizes, and notes only. It holds no guest names, contact info, or payment data and is not a booking system, POS, or table management tool.',
+    kind: 'widget',
+    category: 'business',
+    color: 'orange',
+    tier: 'free',
+    tags: ['business', 'restaurant', 'reservations', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/reservation-notes.html',
+    height: 490,
+    minHeight: 360,
+    maxHeight: 670,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Reservations" },
+      { key: "accent", label: "Accent", type: "color", default: "#c1642f" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Tracks reservation labels, party sizes, times, and table aliases.',
+      'Status flow from Confirmed through Arrived, Seated, Completed, No-show, and Cancelled.',
+      'Header metrics for total reservations, total guests, no-shows, and completed.',
+      'Filter by reservation or time. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Restaurant staff tracking reservation drafts without a booking system.',
+      'Event planners maintaining a local reservation log for small events.',
+      'Anyone keeping a personal log of reservations they want to track.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'donor-crm',
+    name: 'Donor Relationship Log',
+    emoji: '🤝',
+    tagline: 'Donor aliases with pledges, contact dates, and notes.',
+    description: 'A browser-local donor log that stores donor aliases, manual pledge amounts, and contact notes only. It holds no donor contact, payment records, or tax receipts and is not a CRM, fundraising platform, or financial system.',
+    kind: 'widget',
+    category: 'business',
+    color: 'green',
+    tier: 'free',
+    tags: ['business', 'nonprofit', 'fundraising', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/donor-crm.html',
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Donor log" },
+      { key: "accent", label: "Accent", type: "color", default: "#5f7f4f" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Logs donor aliases, manual pledge amounts, tiers, and contact methods.',
+      'Status flow from Prospect through Contacted, Pledged, Received, and Declined.',
+      'Header metrics for total donors, total pledges, received, and prospects.',
+      'Filter by donor or tier. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Nonprofit teams tracking donor drafts without a CRM or fundraising platform.',
+      'Fundraisers maintaining a local log of donor relationships.',
+      'Anyone keeping a personal log of pledges they want to track.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'guest-list-rsvp',
+    name: 'Event Guest List and RSVP Log',
+    emoji: '👥',
+    tagline: 'Guest aliases with RSVP status and plus-one counts.',
+    description: 'A browser-local guest list that stores guest aliases, RSVP status, and plus-one counts only. It holds no guest contact, addresses, or dietary info and is not an invitation system, event platform, or catering tool.',
+    kind: 'widget',
+    category: 'planning',
+    color: 'pink',
+    tier: 'free',
+    tags: ['planning', 'events', 'guest-list', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/guest-list-rsvp.html',
+    height: 490,
+    minHeight: 360,
+    maxHeight: 670,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Guest list" },
+      { key: "accent", label: "Accent", type: "color", default: "#b06aa0" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Tracks guest aliases, plus-one counts, table aliases, and group tiers.',
+      'RSVP status from Invited through Accepted, Declined, Pending, and Attended.',
+      'Header metrics for total guests, total plus-ones, accepted, and declined.',
+      'Filter by guest or group. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Event planners tracking guest drafts without an invitation system.',
+      'Wedding planners maintaining a local RSVP log for their event.',
+      'Anyone keeping a personal guest list for their event.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
+  {
+    slug: 'gear-database',
+    name: 'Photography Gear Database',
+    emoji: '📷',
+    tagline: 'Gear items with condition, category, and notes.',
+    description: 'A browser-local gear database that stores gear aliases, categories, and condition only. It holds no serial numbers, purchase records, or values and is not an inventory system, insurance catalog, or rental platform.',
+    kind: 'widget',
+    category: 'trackers',
+    color: 'blue',
+    tier: 'free',
+    tags: ['trackers', 'photography', 'gear', 'offline', 'local-storage'],
+    plan: 'Free',
+    version: '1.0.0',
+    updatedAt: '2026-10-12',
+    badge: 'new',
+    file: '/widgets/gear-database.html',
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Gear database" },
+      { key: "accent", label: "Accent", type: "color", default: "#4f7fbf" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" }, { value: "light", label: "Light" }, { value: "dark", label: "Dark" },
+      ] },
+    ],
+    features: [
+      'Logs gear aliases, categories, condition, quantity, and location aliases.',
+      'Status flow for Available, In use, In repair, and Retired items.',
+      'Header metrics for total gear, total items, in-repair, and available counts.',
+      'Filter by gear or category. Records stay in this browser only.'
+    ],
+    useCases: [
+      'Photographers tracking gear without an inventory or insurance system.',
+      'Videographers maintaining a local database of their equipment.',
+      'Anyone keeping a personal log of gear they own.'
+    ],
+    capabilities: { interactive: true, offlineSafe: true, persistsLocally: true, writesToNotion: false, needsNetwork: false }
+  },
   /* ------------------------------------------------------------------ */
   /* NATIVE RECIPES                                                      */
   /* ------------------------------------------------------------------ */

@@ -12,7 +12,7 @@
     {
       "name": "notion-arena",
       "source": "./",
-      "description": "Notion Arena — the component registry for Notion. 155 components: 144 widgets + 11 native recipes. Browse, configure, and install from your AI agent.",
+      "description": "Notion Arena — the component registry for Notion. 167 components: 156 widgets + 11 native recipes. Browse, configure, and install from your AI agent.",
       "version": "0.1.0",
       "author": {
         "name": "SynergyFlowLabs"

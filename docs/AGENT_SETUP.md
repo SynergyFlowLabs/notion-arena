@@ -6,7 +6,7 @@
 
 ## TL;DR
 
-**MCP server** — gives your agent tools to list/search/configure/plan-install 155 Notion components.
+**MCP server** — gives your agent tools to list/search/configure/plan-install 167 Notion components.
 
 ```bash
 # Claude Code (project scope, recommended)
@@ -43,7 +43,7 @@ Your agent will use `search_components`, `get_component`, `build_embed_url`, `pl
 
 ### What it is
 
-`notion-arena-mcp` is an MCP server (Model Context Protocol) that exposes Notion Arena's 155-component registry as tools your AI agent can call.
+`notion-arena-mcp` is an MCP server (Model Context Protocol) that exposes Notion Arena's 167-component registry as tools your AI agent can call.
 
 - **Package**: `notion-arena-mcp@0.2.2` on npm (or local `mcp/` folder in this repo)
 - **MCP Registry**: Published as `io.github.imgul/notion-arena@0.2.2` on `registry.modelcontextprotocol.io`. Note: publishing under the org namespace `io.github.SynergyFlowLabs/notion-arena` requires public GitHub organization membership during publisher OAuth verification.
@@ -54,7 +54,7 @@ Your agent will use `search_components`, `get_component`, `build_embed_url`, `pl
 
 | Tool | What it does |
 |------|--------------|
-| `list_components` | List all 155 components, filter by category/kind/tier/delivery |
+| `list_components` | List all 167 components, filter by category/kind/tier/delivery |
 | `search_components` | Keyword search: "pomodoro", "CRM", "habit tracker", "budget" |
 | `get_component` | Full detail for a slug: params, features, useCases, capabilities, URLs |
 | `get_widget_schema` | JSON Schema for widget params (theme, accent, etc.) |
@@ -222,7 +222,7 @@ Any client that speaks MCP stdio:
 ```bash
 # From repo root
 npm install
-node scripts/generate-mcp-catalog.mjs   # generates mcp/src/data/catalog.json (155 components)
+node scripts/generate-mcp-catalog.mjs   # generates mcp/src/data/catalog.json (167 components)
 cd mcp
 npm install
 npm run build                           # tsc + copy data
@@ -423,7 +423,7 @@ npm install
 npx skills experimental_install -y
 # -> .agents/skills/
 
-# Generate MCP catalog snapshot (155 components)
+# Generate MCP catalog snapshot (167 components)
 node scripts/generate-mcp-catalog.mjs
 # -> mcp/src/data/catalog.json
 
