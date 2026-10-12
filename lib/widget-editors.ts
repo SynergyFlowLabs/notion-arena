@@ -13,6 +13,11 @@ export interface JsonField {
   multiline?: boolean;
   /** Help text shown below the field. */
   hint?: string;
+  /**
+   * Comma-separated list of numbers, stored in the JSON as a real number
+   * array and displayed as a text field (e.g. KPI sparklines).
+   */
+  arrayOfNumbers?: boolean;
 }
 
 export interface JsonArraySpec {
@@ -50,6 +55,7 @@ const SPECS: Record<string, JsonArraySpec> = {
         placeholder: "12,18,14,22",
         default: "",
         multiline: true,
+        arrayOfNumbers: true,
         hint: "Optional. Comma-separated numbers for the sparkline.",
       },
     ],

@@ -7,7 +7,7 @@ import {
 } from "@/components/icons";
 import { Input, Textarea, ColorField } from "@/components/ui/form";
 import type { JsonArraySpec, JsonField } from "@/lib/widget-editors";
-import { parseJsonArray, serializeJsonArray, coerceField } from "@/lib/widget-editors";
+import { parseJsonArray, serializeJsonArray } from "@/lib/widget-editors";
 
 /** A button used for add/remove/reorder — 28px, rounded, icon-only. */
 function RowBtn({
@@ -30,10 +30,33 @@ function RowBtn({
   );
 }
 
+function fieldToInputValue(field: JsonField, value: unknown): string {
+  if (value == null) return "";
+  if (field.arrayOfNumbers && Array.isArray(value)) {
+    return value.map((n) => (typeof n === "number" ? String(n) : "")).filter(Boolean).join(",");
+  }
+  return String(value);
+}
+
+function inputValueToField(field: JsonField, raw: string): unknown {
+  if (field.type === "number") {
+    const n = Number(raw);
+    return Number.isFinite(n) ? n : field.default ?? 0;
+  }
+  if (field.arrayOfNumbers) {
+    if (!raw.trim()) return [];
+    return raw
+      .split(/[\s,]+/)
+      .map((s) => Number(s))
+      .filter((n) => Number.isFinite(n));
+  }
+  return raw;
+}
+
 function FieldCell({
   field, value, onChange,
 }: { field: JsonField; value: unknown; onChange: (v: unknown) => void }) {
-  const str = value == null ? "" : String(value);
+  const str = fieldToInputValue(field, value);
   if (field.type === "color") {
     return (
       <ColorField
@@ -48,7 +71,7 @@ function FieldCell({
         type="number"
         value={str}
         placeholder={field.placeholder}
-        onChange={(e) => onChange(coerceField(field, e.target.value))}
+        onChange={(e) => onChange(inputValueToField(field, e.target.value))}
       />
     );
   }
@@ -58,7 +81,7 @@ function FieldCell({
         value={str}
         rows={2}
         placeholder={field.placeholder}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(inputValueToField(field, e.target.value))}
       />
     );
   }
@@ -67,7 +90,7 @@ function FieldCell({
       type="text"
       value={str}
       placeholder={field.placeholder}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => onChange(inputValueToField(field, e.target.value))}
     />
   );
 }
