@@ -25,6 +25,7 @@ export const DOC_NAV: { group: string; items: { href: string; label: string }[] 
     group: "Notion platform",
     items: [
       { href: "/docs/sandbox", label: "HTML block sandbox" },
+      { href: "/docs/sync", label: "Two-way data sync" },
       { href: "/docs/api-limits", label: "API limits, cited" },
     ],
   },

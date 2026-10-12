@@ -2,6 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // The injected bridge is read from disk at render time so that
+  // public/widgets/*.html stay byte-for-byte sandbox-pure (the contract
+  // scripts/check-widgets.mjs enforces). File tracing cannot see a path built
+  // with path.join(process.cwd(), ...), so it is declared here by hand.
+  outputFileTracingIncludes: {
+    "/api/sync/**": ["./lib/bridge/client.js"],
+    "/embed/**": ["./lib/bridge/client.js"],
+  },
   // The Arena preview proxies the dev server under https://{port}-{sandboxId}.e2b.app
   allowedDevOrigins: ["*.e2b.app", "localhost", "127.0.0.1"],
   async headers() {

@@ -10,6 +10,11 @@ next-env.d.ts
 .DS_Store
 .vercel
 
+# Runtime state for the sync slice: the workspace cache, sealed instance keys and
+# the change log. Never committed — it holds connection tokens. In production this
+# is a Postgres table, see docs/SYNC_PLAN.md.
+.arena-data/
+
 # Agent skill tooling, installed by `npx skills add`. Third-party content and
 # ~6 MB of bundled fonts; skills-lock.json is committed instead as provenance.
 .agents/

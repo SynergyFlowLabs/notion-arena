@@ -56,7 +56,7 @@ These are for building the site itself, not for Notion Arena users.
 ## Key constraints
 
 - **Widget contract**: zero external requests, two config sources (`bk-config` script tag + URLSearchParams), theme+accent on every widget, namespaced state `notion-arena.<slug>.v1`, `overflow: hidden` + `.wrap` scroll, `prefers-reduced-motion`, clipboard also `console.log`
-- **Widgets cannot read/write Notion data** — sandbox has no network. If workflow needs workspace records, use native recipe.
+- **A widget file itself still cannot read or write Notion** (no network in the sandbox), **but a bound instance can**: the data plane is injected at render time by the server, never by the widget. A component becomes data-bound through `lib/sync` and `lib/bridge`, and the widget source stays sandbox-pure. See `docs/SYNC_PLAN.md`.
 - **Relations force two-pass install** — create DBs without relations → read back data_source_ids → patch relations → rollups → formulas → views → seed rows → pages → blocks in chunks of 100
 - **Honesty policy**: no fabricated counts, badges qualitative, capability flags booleans, manual steps cite real API gaps only (button, automation, recurring-template, synced-block duplicates)
 
@@ -68,6 +68,7 @@ npx skills experimental_install -y
 npm run dev                 # http://localhost:3000
 npx tsc --noEmit
 npm run check:widgets
+npm run check:sync          # data plane: protocol + injected runtime (needs npm run dev)
 npm run generate:mcp-catalog
 npm run build:mcp
 npm run dev:mcp
@@ -76,6 +77,8 @@ npm run dev:mcp
 ## Docs
 
 - `docs/RESEARCH.md` — research with sources
+- `docs/DATA_SYNC_RESEARCH.md` — two-way sync research, with platform citations
+- `docs/SYNC_PLAN.md` — the plan for the data plane, and what ships today
 - `docs/DESIGN.md` — design system
 - `docs/AGENT_SETUP.md` — MCP + skill setup for users
 - `app/docs/authoring/page.tsx` — widget authoring guide
