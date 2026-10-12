@@ -17,6 +17,8 @@ const files = readdirSync(dir).filter((f) => f.endsWith(".html")).sort();
 
 let issues = 0;
 const rows = [];
+const problemsByFile = new Map();
+let byFile = new Map();
 
 for (const file of files) {
   const slug = file.replace(/\.html$/, "");
@@ -58,18 +60,45 @@ for (const file of files) {
   need(/overflow:hidden/, "body scroll not locked");
   need(/height:100%/, "no full-height frame");
 
-  // persistence contract
-  if (/localStorage/.test(src)) {
+  // persistence contract: one storage key per widget, named after its slug.
+  // Two widgets sharing a key overwrite each other's records on the same host.
+  const keys = [...src.matchAll(/["'](notion-arena\.[a-z0-9.-]+)["']/g)].map((m) => m[1]);
+  if (keys.length) {
     need(/['"]notion-arena\.[a-z0-9.-]+['"]/, "state key not namespaced under notion-arena.");
+    if (/var SPEC=/.test(src)) {
+      need(new RegExp(`KEY="notion-arena\\.${slug}\\.v1"`), "SPEC widget key must be notion-arena.<slug>.v1");
+    }
   }
+  byFile.set(file, [...new Set(keys)]);
 
   // copy contract: the em/en-dash ban covers the widgets too
   ban(/—|–/, "em/en dash in widget");
 
-  const kb = (Buffer.byteLength(src) / 1024).toFixed(1);
+  problemsByFile.set(file, problems);
+}
+
+// cross-file check: a storage key may only belong to one widget
+const owners = new Map();
+for (const [file, keys] of byFile) {
+  for (const key of keys) {
+    if (!owners.has(key)) owners.set(key, []);
+    owners.get(key).push(file);
+  }
+}
+for (const [key, keyOwners] of owners) {
+  if (keyOwners.length > 1) {
+    for (const file of keyOwners) {
+      problemsByFile.get(file).push(`storage key ${key} also used by ${keyOwners.filter((f) => f !== file).join(", ")}`);
+    }
+  }
+}
+
+for (const file of files) {
+  const problems = problemsByFile.get(file);
+  const kb = (Buffer.byteLength(readFileSync(join(dir, file))) / 1024).toFixed(1);
   rows.push(
-    ` ${problems.length ? "FAIL" : " ok "}  ${file.padEnd(26)} ${String(kb).padStart(5)} KB` +
-      (problems.length ? `\n        ${problems.join("; ")}` : "")
+    ` ${problems.length ? "FAIL" : " ok "}  ${file.padEnd(34)} ${String(kb).padStart(5)} KB` +
+      (problems.length ? `\n        ${[...new Set(problems)].join("; ")}` : "")
   );
   if (problems.length) issues++;
 }

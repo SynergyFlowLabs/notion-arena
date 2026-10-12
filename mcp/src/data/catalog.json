@@ -11954,6 +11954,5094 @@
       "creates": []
     },
     {
+      "slug": "milestone-tracker",
+      "name": "Project Milestone Tracker",
+      "emoji": "🚩",
+      "tagline": "Target dates, owners, and exit criteria for the milestones that matter.",
+      "description": "A browser-local milestone list for project alias, owner alias, target date, and phase. It is a private planning aid: it sends no reminders, notifies nobody, and is not a commitment or approval record.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "milestones",
+        "project",
+        "dates",
+        "planning",
+        "offline"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Due-soon window, overdue count, and at-risk total in the header",
+        "Phase select: Discovery, Design, Build, Launch, Review",
+        "At-risk milestones sort to the top, then by nearest target date",
+        "Exit criteria and state stay in browser-local storage only"
+      ],
+      "useCases": [
+        "A project page that needs dated milestones above a task board",
+        "A launch plan summary where everyone needs the same target dates",
+        "A personal study or relocation plan with fixed checkpoints"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/milestone-tracker.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Milestones"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5a8fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "incident-log",
+      "name": "Incident Log",
+      "emoji": "🚨",
+      "tagline": "Severity, owner, and a postmortem checklist for each incident.",
+      "description": "A browser-local incident log for system alias, severity, owner alias, detection date, and a five-step postmortem checklist. It is not a ticket system, status page, pager, or incident review record.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "incident",
+        "postmortem",
+        "engineering",
+        "on-call",
+        "offline"
+      ],
+      "color": "orange",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Sev1 to Sev4 priority chips sorted worst-first",
+        "Postmortem checklist per incident with a completion bar",
+        "Live totals for open incidents and open Sev1s",
+        "States: Detected, Mitigating, Monitoring, Resolved, Postmortem done"
+      ],
+      "useCases": [
+        "An on-call page that keeps a running private timeline",
+        "A retrospective aid: which incidents still owe a review",
+        "A small team that wants severity triage without another tool"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/incident-log.html",
+      "height": 530,
+      "minHeight": 390,
+      "maxHeight": 700,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Incidents"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c1642f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "test-run-log",
+      "name": "QA Test Run Log",
+      "emoji": "🧪",
+      "tagline": "Manual pass, fail, and blocked results with a retest column.",
+      "description": "A browser-local test run sheet for case alias, area, environment, tester alias, and the result a person observed. It is not a CI result, a test management system, or a release gate.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "qa",
+        "testing",
+        "release",
+        "engineering",
+        "offline"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Result select: Pass, Fail, Blocked, Skipped, sorted failures-first",
+        "Environment field for Local, Staging, Production, or Device lab",
+        "Live fail, blocked, and pass-rate counts",
+        "Retest and Verified states keep the sheet usable after a fix"
+      ],
+      "useCases": [
+        "A release checklist page that needs today's manual run",
+        "A device-lab smoke test log for a web or mobile build",
+        "A solo developer tracking which cases still fail"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/test-run-log.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Test run"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f7f4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "invoice-tracker",
+      "name": "Invoice Status Tracker",
+      "emoji": "🧾",
+      "tagline": "Draft, sent, paid: a local ledger of what is still outstanding.",
+      "description": "A browser-local invoice status list for client alias, manual USD amount, issue date, and due date. It does not send invoices, take payment, reconcile bank records, or calculate tax.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "invoice",
+        "finance",
+        "freelance",
+        "receivables",
+        "offline"
+      ],
+      "color": "yellow",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Outstanding and paid USD totals from manually entered amounts",
+        "Past-due count from the due date, separate from the state select",
+        "Overdue invoices sort to the top, then by nearest due date",
+        "Client aliases only: no bank details, tax IDs, or payment links"
+      ],
+      "useCases": [
+        "A freelancer's page for chasing unpaid invoices",
+        "A small studio tracking which retainers are still open",
+        "A bookkeeping aid before entering figures into real accounting software"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/invoice-tracker.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Invoices"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b08248"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "leave-tracker",
+      "name": "Leave and Time-Off Log",
+      "emoji": "🌴",
+      "tagline": "Requested, approved, taken: days away in one local view.",
+      "description": "A browser-local leave log for person alias, leave type, start and end dates, and working-day counts. It stores aliases only and is not an HR system, approval workflow, payroll record, or entitlement calculator.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "leave",
+        "pto",
+        "hr",
+        "people",
+        "offline"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Approved day totals plus a count of requests starting in 14 days",
+        "Leave type select: Vacation, Sick, Personal, Unpaid, Other",
+        "Aliases only: initials or role, no medical or personal details",
+        "States: Requested, Approved, Declined, Taken, Cancelled"
+      ],
+      "useCases": [
+        "A team page that needs a rough view of who is away",
+        "A manager planning coverage before approving time off",
+        "A freelance parent logging school-holiday breaks"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/leave-tracker.html",
+      "height": 500,
+      "minHeight": 360,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Time off"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "renewal-tracker",
+      "name": "Renewal and Account Health Board",
+      "emoji": "🔄",
+      "tagline": "Health, owner, and renewal date for every account on the list.",
+      "description": "A browser-local renewal list for account alias, owner alias, health rating, annual value, and renewal date. It is not a CRM, contract system, revenue forecast, or customer-health score.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "renewal",
+        "customer-success",
+        "accounts",
+        "retention",
+        "offline"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Red and amber accounts sort first, so risk leads the list",
+        "Renewals inside 30 days, at-risk count, and manual value at risk",
+        "Annual values are entered USD estimates, never synced from billing",
+        "States: Not started, In review, Proposed, Renewed, Churned"
+      ],
+      "useCases": [
+        "A customer-success page for the next quarter's renewals",
+        "A founder rating account health before a board update",
+        "An agency tracking retainer renewal dates"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/renewal-tracker.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Renewals"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#4f8f8f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "escalation-tracker",
+      "name": "Escalation Tracker",
+      "emoji": "⏫",
+      "tagline": "Who owns each escalation, how severe it is, and where it stands.",
+      "description": "A browser-local escalation list for issue alias, account alias, severity, owner alias, and open date. It is not a ticket system, SLA clock, customer record, or notification service.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "escalation",
+        "support",
+        "customer-success",
+        "queue",
+        "offline"
+      ],
+      "color": "red",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Critical escalations sort first, then High, then Normal",
+        "Open, critical, waiting, and new-this-week totals",
+        "Waiting-on-customer state keeps blocked items visible",
+        "Account aliases and next steps only: no customer contact details"
+      ],
+      "useCases": [
+        "A support lead's standup view of what is on fire",
+        "An account manager tracking escalated renewals",
+        "A small team without a ticketing system"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/escalation-tracker.html",
+      "height": 500,
+      "minHeight": 360,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Escalations"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c26a58"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "usability-findings",
+      "name": "Usability Findings Log",
+      "emoji": "🔍",
+      "tagline": "Findings by study, coded participant, severity, and screen.",
+      "description": "A browser-local findings log for study alias, participant code, severity, screen, and a short evidence note. It stores codes rather than names, and it is not a research repository, ticketing system, or accessibility certification.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "usability",
+        "design",
+        "findings",
+        "offline"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Severity select: Blocker, Major, Minor, Observation, ranking blockers first",
+        "Participant codes (P04) instead of names, ready for a study readout",
+        "Open blockers, fixed count, and an addressed rate in the header",
+        "States: New, Triaged, Fixing, Fixed, Won't fix"
+      ],
+      "useCases": [
+        "A designer triaging findings straight after a test session",
+        "A researcher logging evidence per screen during analysis",
+        "A product team tracking fixes without a research tool subscription"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/usability-findings.html",
+      "height": 520,
+      "minHeight": 380,
+      "maxHeight": 700,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Usability findings"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7f6bb5"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "scholarship-tracker",
+      "name": "Scholarship and Application Tracker",
+      "emoji": "🎓",
+      "tagline": "Deadlines, award values, and stages for every application.",
+      "description": "A browser-local application list for programme, provider alias, deadline, manual award value, and stage. It does not submit applications, check eligibility, verify providers, or send reminders.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "scholarship",
+        "applications",
+        "students",
+        "career",
+        "offline"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Deadlines inside 30 days, submitted count, and awarded count",
+        "Stages sort interview and submitted applications to the top",
+        "Programme types: Scholarship, University, Grant, Fellowship, Other",
+        "Documents-required notes stay local; never paste ID numbers"
+      ],
+      "useCases": [
+        "A student managing several scholarship deadlines in one term",
+        "A mentor helping someone organise programme applications",
+        "A career-changer tracking fellowships and grant calls"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/scholarship-tracker.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Applications"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#4f7fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "attendance-register",
+      "name": "Attendance Register",
+      "emoji": "📋",
+      "tagline": "Present, absent, and late counts per session, with no names.",
+      "description": "A browser-local attendance register that stores session labels and aggregate counts only. It holds no student names or records, and it is not an official register, absence policy, safeguarding log, or reporting system.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "attendance",
+        "teaching",
+        "education",
+        "counts",
+        "offline"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Aggregate head counts only: no names, contact details, or reasons",
+        "Session totals for present, absent, and late, plus an attendance rate",
+        "Class aliases keep several cohorts on one page",
+        "States: Draft, Logged, Reviewed, Archived"
+      ],
+      "useCases": [
+        "A tutor logging how many learners joined each session",
+        "A workshop host tracking no-show rates across a series",
+        "A coach keeping counts separate from any student records"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/attendance-register.html",
+      "height": 490,
+      "minHeight": 350,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Attendance"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f8f6f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "collection-catalog",
+      "name": "Collection Catalog",
+      "emoji": "🏺",
+      "tagline": "Owned, wishlisted, lent, or sold: a local index of a collection.",
+      "description": "A browser-local catalog for item, category, condition, acquisition date, and a manually entered value. It does not look up market prices, appraise items, or produce provenance or insurance records.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "collection",
+        "hobby",
+        "catalog",
+        "collectors",
+        "offline"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Owned, wishlist, on-loan, sold, and lost states in one list",
+        "Shelved value from manual figures, kept separate from appraisals",
+        "Category, condition, and acquisition date fields per item",
+        "Storage-spot notes help find the item again"
+      ],
+      "useCases": [
+        "A record collector cataloguing a shelf before a swap meet",
+        "A game or card collector tracking what is lent out",
+        "A wishlist that runs alongside the owned items"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/collection-catalog.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Collection"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#9a7b4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "storyboard-planner",
+      "name": "Storyboard Shot Log",
+      "emoji": "🎞️",
+      "tagline": "Panels in order, with shot size, estimated seconds, and notes.",
+      "description": "A browser-local shot log for panel, scene alias, shot size, estimated duration, lens note, and framing note. It is a planning list, not a drawing tool, editing timeline, or release record.",
+      "category": "visuals",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "storyboard",
+        "film",
+        "video",
+        "shot-list",
+        "offline"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Estimated runtime from per-panel seconds, shown as m:ss",
+        "Shot size select: Wide, Medium, Close-up, Insert, B-roll, Transition",
+        "Progress rate across boarded, shot, edited, and approved panels",
+        "Pairs with Film Shot List for the production round itself"
+      ],
+      "useCases": [
+        "A videographer sequencing a short film before the shoot day",
+        "A creator planning a product video panel by panel",
+        "A student animator estimating total runtime"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/storyboard-planner.html",
+      "height": 490,
+      "minHeight": 350,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Storyboard"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#9a5f7f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "purchase-tracker",
+      "name": "Purchase Request Tracker",
+      "emoji": "🛒",
+      "tagline": "Purchase requests with vendor aliases, amounts, and status.",
+      "description": "A browser-local purchase request tracker that stores vendor aliases, manual amounts, and request status only. It holds no purchase orders, contracts, or payment records and is not a procurement system or approval workflow.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "operations",
+        "procurement",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks vendor aliases, estimated USD amounts, requester, and priority.",
+        "Status flow from Draft to Received with approval and rejection states.",
+        "Header metrics for total count, sum of USD, approved, and rejected counts.",
+        "Filter by item or vendor. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Operations teams tracking procurement drafts before they become orders.",
+        "Managers reviewing pending approvals and amounts by priority.",
+        "Anyone keeping a personal log of purchases they want to track locally."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/purchase-tracker.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Purchase requests"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#6b8cae"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "equipment-inventory",
+      "name": "Equipment Inventory Log",
+      "emoji": "🖥️",
+      "tagline": "Equipment items with locations, status, and last-check dates.",
+      "description": "A browser-local equipment inventory that stores asset aliases, locations, and status only. It holds no serial numbers, purchase records, or maintenance schedules and is not an asset management system or depreciation tool.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "operations",
+        "inventory",
+        "offline",
+        "local-storage"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs equipment aliases, location aliases, category, condition, and quantity.",
+        "Status flow for in-use, available, in-repair, and retired items.",
+        "Header metrics for total items, total units, repairs, and retired counts.",
+        "Filter by equipment or location. Records stay in this browser only."
+      ],
+      "useCases": [
+        "IT teams tracking equipment locations and status without serial numbers.",
+        "Office managers maintaining a local equipment inventory draft.",
+        "Anyone keeping a personal log of gear or tools they own."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/equipment-inventory.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Equipment inventory"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#8b7355"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "approvals-log",
+      "name": "Approvals Request Log",
+      "emoji": "✅",
+      "tagline": "Approval requests with status, dates, and decision notes.",
+      "description": "A browser-local approvals log that stores request aliases, status, and decision notes only. It holds no real approvals, signatures, or audit trails and is not a compliance or authorization system.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "operations",
+        "approvals",
+        "offline",
+        "local-storage"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks requester and approver aliases, priority, and manual USD amounts.",
+        "Status flow from Pending through Approved, Rejected, On hold, and Cancelled.",
+        "Header metrics for total count, pending, approved, and overdue counts.",
+        "Filter by request or approver. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Operations teams tracking approval drafts before they become official.",
+        "Managers reviewing pending requests and amounts by priority.",
+        "Anyone keeping a personal log of approvals they want to track locally."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/approvals-log.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Approvals log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7a6b9e"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "helpdesk-intake",
+      "name": "Helpdesk Intake Log",
+      "emoji": "🎧",
+      "tagline": "Internal support tickets with priority, status, and aging.",
+      "description": "A browser-local helpdesk intake log that stores ticket aliases, priority, and status only. It holds no customer contact, PII, or real ticket IDs and is not a ticketing system, SLA tracker, or support platform.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "IT",
+        "helpdesk",
+        "offline",
+        "local-storage"
+      ],
+      "color": "orange",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs ticket aliases, requester, category, priority, and assignee.",
+        "Status flow from Open through In progress, Waiting, Resolved, and Closed.",
+        "Header metrics for total count, open, in-progress, and aging tickets.",
+        "Filter by ticket or assignee. Records stay in this browser only."
+      ],
+      "useCases": [
+        "IT teams tracking internal support drafts without real ticket IDs.",
+        "Office managers maintaining a local helpdesk log for small teams.",
+        "Anyone keeping a personal log of support requests they want to track."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/helpdesk-intake.html",
+      "height": 510,
+      "minHeight": 380,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Helpdesk tickets"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c1642f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "editorial-calendar",
+      "name": "Editorial and Publishing Calendar",
+      "emoji": "📅",
+      "tagline": "Publication dates, platforms, and content status.",
+      "description": "A browser-local editorial calendar that stores content titles, dates, and status only. It holds no published URLs, analytics, or scheduling and is not a CMS, social scheduler, or publishing platform.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "marketing",
+        "editorial",
+        "offline",
+        "local-storage"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks content titles, platforms, author aliases, and word counts.",
+        "Status flow from Idea through Drafting, Review, Scheduled, Published, and Archived.",
+        "Header metrics for total count, total words, scheduled, and next 30 days.",
+        "Filter by content or platform. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Marketing teams planning content across platforms without a CMS.",
+        "Writers tracking publication drafts and word counts locally.",
+        "Anyone keeping a personal editorial calendar for their content."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/editorial-calendar.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Editorial calendar"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "show-notes",
+      "name": "Podcast Show Notes Log",
+      "emoji": "🎙️",
+      "tagline": "Episode notes with timestamps, links, and guest aliases.",
+      "description": "A browser-local show notes log that stores episode titles, timestamps, and links only. It holds no audio, transcripts, or published episodes and is not a podcast host, editing tool, or transcription service.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "docs",
+        "podcast",
+        "show-notes",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs episode titles, numbers, guest aliases, timestamps, and links.",
+        "Status flow from Draft through Recorded, Editing, Ready, and Published.",
+        "Header metrics for total count, published, editing, and published percentage.",
+        "Filter by episode or guest. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Podcasters tracking episode notes and timestamps before publishing.",
+        "Editors maintaining a local log of episodes in production.",
+        "Anyone keeping a personal show notes log for their podcast."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/show-notes.html",
+      "height": 510,
+      "minHeight": 380,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Show notes"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5a8fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "listener-feedback-log",
+      "name": "Listener Feedback Log",
+      "emoji": "💬",
+      "tagline": "Listener feedback with source, theme, and response status.",
+      "description": "A browser-local listener feedback log that stores feedback summaries, sources, and themes only. It holds no listener contact, PII, or analytics and is not a feedback platform, survey tool, or sentiment analysis system.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "docs",
+        "podcast",
+        "feedback",
+        "offline",
+        "local-storage"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks feedback summaries, sources, episode references, and themes.",
+        "Status flow from New through Reviewed, Responded, and Archived.",
+        "Header metrics for total count, new, responded, and response rate.",
+        "Filter by feedback or theme. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Podcasters tracking listener feedback and response status locally.",
+        "Content creators maintaining a feedback log without a survey tool.",
+        "Anyone keeping a personal log of feedback they receive."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/listener-feedback-log.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Listener feedback"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7f6bb5"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "site-diary",
+      "name": "Construction Site Diary",
+      "emoji": "🏗️",
+      "tagline": "Daily site logs with weather, workers, and activity notes.",
+      "description": "A browser-local site diary that stores daily activity summaries, weather notes, and worker counts only. It holds no safety records, compliance data, or official construction logs and is not a site management or regulatory system.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "construction",
+        "site-diary",
+        "offline",
+        "local-storage"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs daily activity with weather, worker counts, hours, and work areas.",
+        "Status flow for Normal, Delayed, Stopped, and Inspection days.",
+        "Header metrics for total days, total workers, total hours, and delayed count.",
+        "Filter by date or area. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Construction teams tracking daily site activity without official logs.",
+        "Project managers maintaining a local diary of site progress.",
+        "Anyone keeping a personal log of daily work they want to track."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/site-diary.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Site diary"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#9a7b4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "reservation-notes",
+      "name": "Restaurant Reservation Log",
+      "emoji": "🍽️",
+      "tagline": "Reservation log with party size, time, and notes.",
+      "description": "A browser-local reservation log that stores reservation times, party sizes, and notes only. It holds no guest names, contact info, or payment data and is not a booking system, POS, or table management tool.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "restaurant",
+        "reservations",
+        "offline",
+        "local-storage"
+      ],
+      "color": "orange",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks reservation labels, party sizes, times, and table aliases.",
+        "Status flow from Confirmed through Arrived, Seated, Completed, No-show, and Cancelled.",
+        "Header metrics for total reservations, total guests, no-shows, and completed.",
+        "Filter by reservation or time. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Restaurant staff tracking reservation drafts without a booking system.",
+        "Event planners maintaining a local reservation log for small events.",
+        "Anyone keeping a personal log of reservations they want to track."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/reservation-notes.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Reservations"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c1642f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "donor-crm",
+      "name": "Donor Relationship Log",
+      "emoji": "🤝",
+      "tagline": "Donor aliases with pledges, contact dates, and notes.",
+      "description": "A browser-local donor log that stores donor aliases, manual pledge amounts, and contact notes only. It holds no donor contact, payment records, or tax receipts and is not a CRM, fundraising platform, or financial system.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "business",
+        "nonprofit",
+        "fundraising",
+        "offline",
+        "local-storage"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs donor aliases, manual pledge amounts, tiers, and contact methods.",
+        "Status flow from Prospect through Contacted, Pledged, Received, and Declined.",
+        "Header metrics for total donors, total pledges, received, and prospects.",
+        "Filter by donor or tier. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Nonprofit teams tracking donor drafts without a CRM or fundraising platform.",
+        "Fundraisers maintaining a local log of donor relationships.",
+        "Anyone keeping a personal log of pledges they want to track."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/donor-crm.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Donor log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f7f4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "guest-list-rsvp",
+      "name": "Event Guest List and RSVP Log",
+      "emoji": "👥",
+      "tagline": "Guest aliases with RSVP status and plus-one counts.",
+      "description": "A browser-local guest list that stores guest aliases, RSVP status, and plus-one counts only. It holds no guest contact, addresses, or dietary info and is not an invitation system, event platform, or catering tool.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "planning",
+        "events",
+        "guest-list",
+        "offline",
+        "local-storage"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks guest aliases, plus-one counts, table aliases, and group tiers.",
+        "RSVP status from Invited through Accepted, Declined, Pending, and Attended.",
+        "Header metrics for total guests, total plus-ones, accepted, and declined.",
+        "Filter by guest or group. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Event planners tracking guest drafts without an invitation system.",
+        "Wedding planners maintaining a local RSVP log for their event.",
+        "Anyone keeping a personal guest list for their event."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/guest-list-rsvp.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Guest list"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "gear-database",
+      "name": "Photography Gear Database",
+      "emoji": "📷",
+      "tagline": "Gear items with condition, category, and notes.",
+      "description": "A browser-local gear database that stores gear aliases, categories, and condition only. It holds no serial numbers, purchase records, or values and is not an inventory system, insurance catalog, or rental platform.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "trackers",
+        "photography",
+        "gear",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs gear aliases, categories, condition, quantity, and location aliases.",
+        "Status flow for Available, In use, In repair, and Retired items.",
+        "Header metrics for total gear, total items, in-repair, and available counts.",
+        "Filter by gear or category. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Photographers tracking gear without an inventory or insurance system.",
+        "Videographers maintaining a local database of their equipment.",
+        "Anyone keeping a personal log of gear they own."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/gear-database.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Gear database"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#4f7fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "student-course-dashboard",
+      "name": "Student Course Dashboard",
+      "emoji": "🎓",
+      "tagline": "Course overview with grades, timetable, and progress.",
+      "description": "A browser-local student course dashboard that stores course aliases, grades, and timetable notes only. It holds no student records, transcripts, or official schedules and is not a learning management system, gradebook, or school administration tool.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "students",
+        "education",
+        "courses",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks course aliases, instructor aliases, credits, grades, and schedules.",
+        "Status flow for In progress, Completed, Withdrawn, and Planned courses.",
+        "Header metrics for total courses, total credits, completed count, and in-progress count.",
+        "Filter by course or instructor. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Students tracking their courses without a learning management system.",
+        "Learners maintaining a local dashboard of their studies.",
+        "Anyone keeping a personal course log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/student-course-dashboard.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Course dashboard"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5a8fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "dissertation-milestones",
+      "name": "Dissertation Milestones Tracker",
+      "emoji": "📝",
+      "tagline": "Dissertation milestones with deadlines and progress.",
+      "description": "A browser-local dissertation tracker that stores milestone aliases, deadlines, and progress notes only. It holds no dissertation content, submissions, or official records and is not a dissertation management system, submission tracker, or academic registry.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "researchers",
+        "academia",
+        "dissertation",
+        "offline",
+        "local-storage"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks milestone aliases, chapters, deadlines, progress percentages, and advisor aliases.",
+        "Status flow from Not started through In progress, Submitted, Approved, and Deferred.",
+        "Header metrics for total milestones, total progress, approved count, and overdue count.",
+        "Filter by milestone or chapter. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Researchers tracking dissertation milestones without a management system.",
+        "Academics maintaining a local log of deadlines and progress.",
+        "Students keeping a personal dissertation tracker."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/dissertation-milestones.html",
+      "height": 510,
+      "minHeight": 380,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Dissertation milestones"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7f6bb5"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "impact-log",
+      "name": "Impact and Outcomes Log",
+      "emoji": "🌱",
+      "tagline": "Program outcomes with beneficiaries and metrics.",
+      "description": "A browser-local impact log that stores program aliases, beneficiary counts, and outcome notes only. It holds no beneficiary data, financial records, or official impact reports and is not an impact measurement system, grant reporting tool, or evaluation framework.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "nonprofits",
+        "impact",
+        "outcomes",
+        "offline",
+        "local-storage"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks program aliases, categories, beneficiary counts, metrics, and values.",
+        "Status flow from Planned through In progress, Completed, and Reported.",
+        "Header metrics for total programs, total beneficiaries, completed count, and reported count.",
+        "Filter by program or category. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Nonprofits tracking program outcomes without an impact measurement system.",
+        "Organizations maintaining a local log of impact and beneficiaries.",
+        "Anyone keeping a personal impact log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/impact-log.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Impact log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f7f4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "board-meeting-notes",
+      "name": "Board Meeting Notes",
+      "emoji": "📋",
+      "tagline": "Board meetings with agenda, decisions, and action items.",
+      "description": "A browser-local board meeting log that stores meeting aliases, agenda items, and decision notes only. It holds no confidential information, financial data, or official board records and is not a board portal, governance system, or compliance record.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "nonprofits",
+        "boards",
+        "meetings",
+        "offline",
+        "local-storage"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks meeting aliases, attendee counts, agenda items, decision counts, and action item counts.",
+        "Status flow from Scheduled through Completed, Follow-up, and Archived.",
+        "Header metrics for total meetings, total attendees, total decisions, and total actions.",
+        "Filter by meeting or agenda items. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Nonprofits tracking board meetings without a governance system.",
+        "Organizations maintaining a local log of board notes and decisions.",
+        "Anyone keeping a personal board meeting log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/board-meeting-notes.html",
+      "height": 510,
+      "minHeight": 380,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Board meetings"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#8b7355"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "travel-journal",
+      "name": "Travel Journal",
+      "emoji": "📔",
+      "tagline": "Travel reflections with locations, dates, and notes.",
+      "description": "A browser-local travel journal that stores location aliases, dates, and reflection notes only. It holds no photos, itineraries, or booking data and is not a travel blog, photo management system, or itinerary planner.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "travelers",
+        "journal",
+        "reflections",
+        "offline",
+        "local-storage"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks entry titles, location aliases, durations, ratings, and highlights.",
+        "Status flow from Draft through Completed, Published, and Archived.",
+        "Header metrics for total entries, total days, completed count, and published count.",
+        "Filter by entry or location. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Travelers maintaining a personal travel journal without a blog platform.",
+        "Remote workers keeping a local log of travel reflections.",
+        "Anyone keeping a personal travel diary."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/travel-journal.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Travel journal"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#9a7b4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "review-log",
+      "name": "Review and Rating Log",
+      "emoji": "⭐",
+      "tagline": "Media reviews with ratings, dates, and notes.",
+      "description": "A browser-local review log that stores media aliases, ratings, and review notes only. It holds no media content, purchase records, or recommendation data and is not a review platform, recommendation system, or media library.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "readers",
+        "collectors",
+        "reviews",
+        "offline",
+        "local-storage"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks media aliases, types, ratings, genres, and consumed dates.",
+        "Status flow from To review through Reviewed, Favorite, and Not recommended.",
+        "Header metrics for total reviews, favorites count, to-review count, and reviewed rate.",
+        "Filter by review or type. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Readers maintaining a personal review log without a review platform.",
+        "Collectors keeping a local log of media reviews and ratings.",
+        "Anyone keeping a personal review diary."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/review-log.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Review log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "wishlist",
+      "name": "Wish List and Collector Log",
+      "emoji": "💫",
+      "tagline": "Wish list items with priorities and notes.",
+      "description": "A browser-local wish list that stores item aliases, priorities, and notes only. It holds no purchase records, price data, or shopping carts and is not a shopping platform, price tracker, or e-commerce tool.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "hobbyists",
+        "wishlist",
+        "collectors",
+        "offline",
+        "local-storage"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks item aliases, categories, priorities, sources, and estimated costs.",
+        "Status flow from Wanted through Researching, Acquired, and Passed.",
+        "Header metrics for total items, total estimated cost, acquired count, and wanted count.",
+        "Filter by item or category. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Hobbyists maintaining a personal wish list without a shopping platform.",
+        "Collectors keeping a local log of items they want to acquire.",
+        "Anyone keeping a personal wish list."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/wishlist.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Wish list"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7f6bb5"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "listing-catalog",
+      "name": "Property Listing Catalog",
+      "emoji": "🏘️",
+      "tagline": "Property listings with details, status, and notes.",
+      "description": "A browser-local listing catalog that stores property aliases, listing details, and status notes only. It holds no property addresses, financial data, or ownership records and is not a real estate platform, MLS system, or property management tool.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "real-estate",
+        "listings",
+        "properties",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks listing aliases, types, bedrooms, bathrooms, and listed prices.",
+        "Status flow from Active through Pending, Sold, Withdrawn, and Archived.",
+        "Header metrics for total listings, total listed price, active count, and sold count.",
+        "Filter by listing or type. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Real estate agents tracking listings without a platform or MLS system.",
+        "Landlords maintaining a local catalog of property listings.",
+        "Anyone keeping a personal listing log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/listing-catalog.html",
+      "height": 510,
+      "minHeight": 380,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Listing catalog"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#6b8cae"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "showing-schedule",
+      "name": "Property Showing Schedule",
+      "emoji": "🔑",
+      "tagline": "Property showings with clients, dates, and feedback.",
+      "description": "A browser-local showing schedule that stores property aliases, client aliases, and showing notes only. It holds no client contact, property addresses, or financial data and is not a showing platform, CRM, or property management tool.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "real-estate",
+        "showings",
+        "scheduling",
+        "offline",
+        "local-storage"
+      ],
+      "color": "orange",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks property aliases, client aliases, times, durations, and interest levels.",
+        "Status flow from Scheduled through Completed, Cancelled, and Follow-up.",
+        "Header metrics for total showings, total minutes, follow-up count, and completed count.",
+        "Filter by showing or client. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Real estate agents tracking showings without a CRM or scheduling platform.",
+        "Landlords maintaining a local log of property showings.",
+        "Anyone keeping a personal showing schedule."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/showing-schedule.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Showing schedule"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c1642f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "tenant-lease-log",
+      "name": "Tenant and Lease Log",
+      "emoji": "🏢",
+      "tagline": "Tenant aliases with lease dates and notes.",
+      "description": "A browser-local tenant log that stores tenant aliases, lease dates, and notes only. It holds no tenant contact, rent payments, or property addresses and is not a property management system, rent collection tool, or lease management platform.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "real-estate",
+        "tenants",
+        "leases",
+        "offline",
+        "local-storage"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks tenant aliases, property aliases, lease start and end dates, and monthly rent.",
+        "Status flow for Active, Expiring soon, Expired, and Terminated leases.",
+        "Header metrics for total tenants, total monthly rent, active count, and expiring count.",
+        "Filter by tenant or property. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Landlords tracking tenants without a property management system.",
+        "Property managers maintaining a local log of leases.",
+        "Anyone keeping a personal tenant log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/tenant-lease-log.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Tenant log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f7f4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "work-order-tracker",
+      "name": "Manufacturing Work Order Tracker",
+      "emoji": "🔧",
+      "tagline": "Work orders with products, quantities, and status.",
+      "description": "A browser-local work order tracker that stores product aliases, quantities, and status notes only. It holds no production data, inventory records, or financial data and is not a manufacturing execution system, inventory tool, or production management platform.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "manufacturing",
+        "work-orders",
+        "production",
+        "offline",
+        "local-storage"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks product aliases, order numbers, quantities, completed counts, and priorities.",
+        "Status flow from Planned through In progress, Completed, On hold, and Cancelled.",
+        "Header metrics for total work orders, total quantity, total completed, and in-progress count.",
+        "Filter by work order or product. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Manufacturing teams tracking work orders without an execution system.",
+        "Production managers maintaining a local log of work orders.",
+        "Anyone keeping a personal work order tracker."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/work-order-tracker.html",
+      "height": 510,
+      "minHeight": 380,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Work orders"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#8b7355"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "shipment-tracker",
+      "name": "Shipment and Logistics Tracker",
+      "emoji": "📦",
+      "tagline": "Shipments with carriers, dates, and status.",
+      "description": "A browser-local shipment tracker that stores shipment aliases, carrier aliases, and status notes only. It holds no tracking numbers, financial data, or inventory records and is not a logistics platform, shipping tool, or inventory management system.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "logistics",
+        "shipments",
+        "tracking",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks shipment aliases, carrier aliases, origins, destinations, and weights.",
+        "Status flow from Preparing through In transit, Delivered, Delayed, and Returned.",
+        "Header metrics for total shipments, total weight, in-transit count, and delivered count.",
+        "Filter by shipment or carrier. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Logistics teams tracking shipments without a platform or shipping tool.",
+        "Operations managers maintaining a local log of shipments.",
+        "Anyone keeping a personal shipment tracker."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/shipment-tracker.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Shipment tracker"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5a8fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "travel-itinerary-planner",
+      "name": "Travel Itinerary Planner",
+      "emoji": "🧳",
+      "tagline": "Trip stops, dates, and reservation links.",
+      "description": "A browser-local travel itinerary that stores destination aliases, dates, and reservation links only. It holds no booking confirmations, payment data, or live updates and is not a booking platform, flight tracker, or travel insurance system.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "travel",
+        "itinerary",
+        "planning",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks destination aliases, dates, costs, and reservation links.",
+        "Status flow from Planned through Confirmed, In progress, Completed, and Cancelled.",
+        "Header metrics for total stops, total USD, confirmed count, and past-due count.",
+        "Filter by destination or type. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Travelers planning trips without a booking platform or flight tracker.",
+        "Remote workers organizing itineraries with reservation links.",
+        "Anyone keeping a personal travel log locally."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/travel-itinerary-planner.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Travel itinerary"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5a8fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "household-inventory",
+      "name": "Household Inventory Log",
+      "emoji": "🏠",
+      "tagline": "Home items with locations, quantities, and notes.",
+      "description": "A browser-local household inventory that stores item aliases, locations, and quantities only. It holds no values, receipts, or insurance data and is not an insurance catalog, depreciation tool, or asset management system.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "household",
+        "inventory",
+        "trackers",
+        "offline",
+        "local-storage"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs item aliases, categories, locations, quantities, and conditions.",
+        "Status flow for In use, Stored, Needs repair, and Discarded items.",
+        "Header metrics for total items, total quantity, needs-repair, and stored counts.",
+        "Filter by item or location. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Households tracking home inventory without an insurance catalog.",
+        "Roommates maintaining a local log of shared items.",
+        "Anyone keeping a personal inventory of possessions."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/household-inventory.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Household inventory"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#9a7b4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "car-log",
+      "name": "Car Maintenance and Trip Log",
+      "emoji": "🚗",
+      "tagline": "Maintenance records and trip summaries.",
+      "description": "A browser-local car log that stores maintenance aliases, trip summaries, and mileage only. It holds no vehicle identification, service records, or financial data and is not a vehicle management system, insurance log, or odometer record.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "vehicle",
+        "car",
+        "maintenance",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs maintenance, repairs, trips, and fuel entries with mileage and cost.",
+        "Status flow for Completed, Pending, and Scheduled records.",
+        "Header metrics for total records, total cost, total miles, and pending count.",
+        "Filter by record or type. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Car owners tracking maintenance and trips without a vehicle management system.",
+        "Families maintaining a local log of car expenses.",
+        "Anyone keeping a personal vehicle log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/car-log.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Car log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#6b8cae"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "warranty-tracker",
+      "name": "Warranty and Service Log",
+      "emoji": "🛡️",
+      "tagline": "Item warranties with purchase dates and expiry.",
+      "description": "A browser-local warranty log that stores item aliases, purchase dates, and warranty notes only. It holds no serial numbers, receipts, or claims and is not a warranty registration system, insurance catalog, or claims tracker.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "warranty",
+        "household",
+        "trackers",
+        "offline",
+        "local-storage"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks item aliases, purchase dates, warranty months, and vendor aliases.",
+        "Status flow for Active, Expiring soon, Expired, and Claimed warranties.",
+        "Header metrics for total items, active count, expiring count, and expired count.",
+        "Filter by item or vendor. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Homeowners tracking warranties without a registration system.",
+        "Anyone keeping a personal log of product warranties.",
+        "Families maintaining a local warranty database."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/warranty-tracker.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Warranty log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#8b7355"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "game-catalog",
+      "name": "Game Collection Catalog",
+      "emoji": "🎮",
+      "tagline": "Game collection with play status and notes.",
+      "description": "A browser-local game catalog that stores game aliases, play status, and notes only. It holds no game keys, purchase records, or achievements and is not a game library, achievement tracker, or gaming platform.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "gaming",
+        "collection",
+        "trackers",
+        "offline",
+        "local-storage"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs game aliases, platforms, genres, hours played, and ratings.",
+        "Status flow from Backlog through Playing, Completed, Paused, and Abandoned.",
+        "Header metrics for total games, total hours, playing count, and completed count.",
+        "Filter by game or platform. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Gamers tracking their collection without a game library or platform.",
+        "Collectors maintaining a local catalog of games played.",
+        "Anyone keeping a personal gaming log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/game-catalog.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Game catalog"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7f6bb5"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "recipe-library",
+      "name": "Recipe and Meal Library",
+      "emoji": "🍳",
+      "tagline": "Recipe aliases with servings, prep time, and notes.",
+      "description": "A browser-local recipe library that stores recipe aliases, servings, and prep notes only. It holds no meal plans, nutritional data, or grocery lists and is not a meal planning system, nutrition tracker, or grocery tool.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "recipes",
+        "cooking",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "color": "orange",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks recipe aliases, categories, servings, prep time, and cook time.",
+        "Status flow for Tried, Favorites, To try, and Not recommended recipes.",
+        "Header metrics for total recipes, favorites count, to-try count, and total servings.",
+        "Filter by recipe or category. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Home cooks maintaining a personal recipe library.",
+        "Families tracking favorite meals and new recipes to try.",
+        "Anyone keeping a local collection of recipes."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/recipe-library.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Recipe library"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c1642f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "class-homepage",
+      "name": "Class Homepage",
+      "emoji": "📚",
+      "tagline": "Class info with schedule, topics, and resources.",
+      "description": "A browser-local class homepage that stores class aliases, schedules, and topic notes only. It holds no student records, grades, or official schedules and is not a learning management system, gradebook, or school administration tool.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "education",
+        "teaching",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs class aliases, levels, schedules, rooms, and student counts.",
+        "Status flow for Active, Archived, and Planned classes.",
+        "Header metrics for total classes, total students, active count, and archived count.",
+        "Filter by class or level. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Teachers maintaining a local class homepage without an LMS.",
+        "Tutors tracking their classes and schedules.",
+        "Anyone keeping a personal log of classes they teach."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/class-homepage.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Class homepage"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f7f4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "parent-communication-log",
+      "name": "Parent Communication Log",
+      "emoji": "💌",
+      "tagline": "Parent communication with method, topic, and notes.",
+      "description": "A browser-local parent communication log that stores parent aliases, communication methods, and topic notes only. It holds no student records, grades, or sensitive information and is not a parent portal, gradebook, or school administration tool.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "education",
+        "communication",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks parent and student aliases, communication methods, and topics.",
+        "Status flow from Logged through Follow-up needed and Resolved.",
+        "Header metrics for total communications, follow-up count, resolved count, and resolution rate.",
+        "Filter by parent or topic. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Teachers maintaining a local log of parent communications.",
+        "School administrators tracking communication drafts.",
+        "Anyone keeping a personal record of parent interactions."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/parent-communication-log.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Parent communication"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "tutoring-session-log",
+      "name": "Tutoring Session Log",
+      "emoji": "🎓",
+      "tagline": "Tutoring sessions with student aliases and topics.",
+      "description": "A browser-local tutoring log that stores session aliases, student aliases, and topic notes only. It holds no student records, grades, or payment data and is not a tutoring platform, gradebook, or payment system.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "education",
+        "tutoring",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs session aliases, student aliases, subjects, duration, and rate.",
+        "Status flow from Scheduled through Completed, Cancelled, and No-show.",
+        "Header metrics for total sessions, total minutes, completed count, and no-shows.",
+        "Filter by session or subject. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Tutors maintaining a local log of sessions without a tutoring platform.",
+        "Educators tracking session drafts and notes.",
+        "Anyone keeping a personal tutoring log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/tutoring-session-log.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Tutoring sessions"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#4f7fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "research-question-log",
+      "name": "Research Question Log",
+      "emoji": "🔬",
+      "tagline": "Research questions with status, sources, and notes.",
+      "description": "A browser-local research question log that stores question aliases, status, and source notes only. It holds no research data, citations, or findings and is not a research management system, citation tool, or findings repository.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "academia",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks research question aliases, areas, priorities, source counts, and complexity.",
+        "Status flow from Open through In progress, Answered, and Abandoned.",
+        "Header metrics for total questions, total sources, answered count, and answered rate.",
+        "Filter by question or area. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Researchers tracking research questions without a research management system.",
+        "Academics maintaining a local log of questions and sources.",
+        "Students keeping a personal research question log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/research-question-log.html",
+      "height": 510,
+      "minHeight": 380,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Research questions"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7f6bb5"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "sample-log",
+      "name": "Lab Equipment and Sample Log",
+      "emoji": "🧪",
+      "tagline": "Lab samples with equipment aliases and notes.",
+      "description": "A browser-local sample log that stores sample aliases, equipment aliases, and notes only. It holds no sample data, measurements, or research records and is not a lab information system, sample management tool, or research repository.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "lab",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Logs sample aliases, types, equipment aliases, quantities, and units.",
+        "Status flow for Active, Stored, Disposed, and In use samples.",
+        "Header metrics for total samples, in-use count, stored count, and disposed count.",
+        "Filter by sample or equipment. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Lab teams tracking samples without a lab information system.",
+        "Researchers maintaining a local log of samples and equipment.",
+        "Students keeping a personal sample log."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/sample-log.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Sample log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f8f6f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "discovery-call-pipeline",
+      "name": "Discovery Call Pipeline",
+      "emoji": "📞",
+      "tagline": "Discovery calls with prospect aliases and notes.",
+      "description": "A browser-local discovery call log that stores prospect aliases, call status, and notes only. It holds no client contact, payment data, or coaching records and is not a CRM, booking system, or client management platform.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "coaching",
+        "sales",
+        "business",
+        "offline",
+        "local-storage"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Tracks prospect and company aliases, sources, call duration, and fit scores.",
+        "Status flow from Scheduled through Completed, Follow-up, Not a fit, and Converted.",
+        "Header metrics for total calls, follow-up count, converted count, and conversion rate.",
+        "Filter by prospect or company. Records stay in this browser only."
+      ],
+      "useCases": [
+        "Coaches tracking discovery calls without a CRM or booking system.",
+        "Consultants maintaining a local pipeline of prospects.",
+        "Anyone keeping a personal log of discovery calls."
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/discovery-call-pipeline.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Discovery calls"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "therapist-session-admin",
+      "name": "Therapist Session Administration",
+      "emoji": "🧠",
+      "tagline": "Session administration with notes, resources, and supervision prompts.",
+      "description": "A browser-local session admin log that stores session aliases, supervision prompts, and resource notes only. It holds no client contact, protected health information, or treatment records and is not a clinical system, electronic health record, or compliance tool. Do not use for protected health information without appropriate jurisdictional configuration.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "therapy",
+        "sessions",
+        "administration",
+        "notes"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track session aliases, client aliases, duration, and modality",
+        "Filter by session or client alias",
+        "Status workflow: Scheduled → Completed → Cancelled → No-show",
+        "Header metrics: total sessions, total minutes, completed count, cancelled count"
+      ],
+      "useCases": [
+        "Therapists managing session administration without an EHR system",
+        "Mental health practitioners tracking supervision prompts locally",
+        "Counselors maintaining private session notes offline"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/therapist-session-admin.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Session Admin"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7a6b9e"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "healthcare-supply-inventory",
+      "name": "Healthcare Supply Inventory",
+      "emoji": "🏥",
+      "tagline": "Supply inventory with categories, quantities, and restock alerts.",
+      "description": "A browser-local supply inventory that stores supply aliases, categories, and quantities only. It holds no patient data, medication details, or financial records and is not an inventory management system, pharmacy tool, or medical record system.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "healthcare",
+        "inventory",
+        "supplies",
+        "tracking"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track supply aliases, categories, quantities, minimum stock, and units",
+        "Filter by supply or category",
+        "Status workflow: In stock → Low stock → Out of stock → On order",
+        "Header metrics: total supplies, total on hand, low stock count, out of stock count"
+      ],
+      "useCases": [
+        "Healthcare administrators tracking supply inventory without an IMS",
+        "Clinic managers maintaining local supply logs offline",
+        "Medical staff monitoring restock needs locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/healthcare-supply-inventory.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Supply Inventory"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f7f4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "healthcare-training-log",
+      "name": "Healthcare Staff Training Log",
+      "emoji": "📚",
+      "tagline": "Staff training with modules, completion dates, and renewal tracking.",
+      "description": "A browser-local training log that stores staff aliases, training modules, and completion dates only. It holds no personnel records, certifications, or compliance data and is not a learning management system, HR system, or compliance certification tool.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "healthcare",
+        "training",
+        "staff",
+        "compliance"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track training modules, staff aliases, categories, duration, and renewal periods",
+        "Filter by training or staff alias",
+        "Status workflow: Completed → Due for renewal → Overdue → Exempt",
+        "Header metrics: total trainings, total hours, completed count, overdue count"
+      ],
+      "useCases": [
+        "Healthcare administrators tracking staff training without an LMS",
+        "Compliance officers maintaining local training logs offline",
+        "Department heads monitoring renewal schedules locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/healthcare-training-log.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Training Log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#6b8cae"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "seasonal-crop-calendar",
+      "name": "Seasonal Crop Calendar",
+      "emoji": "🌱",
+      "tagline": "Seasonal crop calendar with planting windows and notes.",
+      "description": "A browser-local seasonal calendar that stores crop aliases, planting windows, and season notes only. It holds no agronomic data, weather forecasts, or yield records and is not a farming platform, agronomy tool, or weather service.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "farming",
+        "crops",
+        "seasonal",
+        "planning"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track crop aliases, seasons, planting windows, and field areas",
+        "Filter by crop or season",
+        "Status workflow: Planned → Planting → Growing → Harvested → Fallow",
+        "Header metrics: total crops, planting count, growing count, harvested count"
+      ],
+      "useCases": [
+        "Farmers planning seasonal crops without a farming platform",
+        "Agricultural teams maintaining local planting calendars offline",
+        "Gardeners tracking crop cycles locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/seasonal-crop-calendar.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Crop Calendar"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f8f6f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "harvest-timeline",
+      "name": "Harvest Timeline and Yield Log",
+      "emoji": "🌾",
+      "tagline": "Harvest timeline with crop yields and cost notes.",
+      "description": "A browser-local harvest log that stores crop aliases, harvest dates, and manual yield estimates only. It holds no agronomic data, financial records, or yield forecasts and is not a farming platform, accounting tool, or yield prediction system.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "farming",
+        "harvest",
+        "yields",
+        "tracking"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track crop aliases, field aliases, yield estimates, units, and harvest costs",
+        "Filter by harvest or field",
+        "Status workflow: In progress → Completed → Delayed → Lost",
+        "Header metrics: total harvests, total yield, total cost, completed count"
+      ],
+      "useCases": [
+        "Farmers logging harvest yields without a farming platform",
+        "Agricultural teams maintaining local yield records offline",
+        "Gardeners tracking harvest outcomes locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/harvest-timeline.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Harvest Log"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#9a7b4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "wedding-budget",
+      "name": "Wedding Budget Tracker",
+      "emoji": "💰",
+      "tagline": "Wedding budget categories with estimated and actual costs.",
+      "description": "A browser-local wedding budget tracker that stores category aliases, estimated costs, and actual costs only. It holds no vendor contracts, payment records, or financial data and is not a budgeting system, accounting tool, or financial planning service.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "wedding",
+        "budget",
+        "costs",
+        "tracking"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track budget categories, estimated costs, actual costs, and payment status",
+        "Filter by category or type",
+        "Status workflow: Planned → Booked → Paid → Cancelled",
+        "Header metrics: total categories, total estimated, total actual, paid count"
+      ],
+      "useCases": [
+        "Couples planning wedding budgets without an accounting tool",
+        "Wedding planners maintaining local budget trackers offline",
+        "Event coordinators tracking category costs locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/wedding-budget.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Wedding Budget"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "wedding-vendor-directory",
+      "name": "Wedding Vendor Directory",
+      "emoji": "📇",
+      "tagline": "Wedding vendors with categories, quotes, and notes.",
+      "description": "A browser-local vendor directory that stores vendor aliases, categories, and manual quote estimates only. It holds no vendor contracts, payment records, or contact information and is not a vendor management system, CRM, or contract tracking tool.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "wedding",
+        "vendors",
+        "directory",
+        "quotes"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track vendor aliases, categories, quote estimates, contact methods, and priorities",
+        "Filter by vendor or category",
+        "Status workflow: Researching → Contacted → Quoted → Booked → Declined",
+        "Header metrics: total vendors, total quoted, booked count, researching count"
+      ],
+      "useCases": [
+        "Couples researching wedding vendors without a CRM",
+        "Wedding planners maintaining local vendor directories offline",
+        "Event coordinators tracking vendor quotes locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/wedding-vendor-directory.html",
+      "height": 510,
+      "minHeight": 380,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Vendor Directory"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7f6bb5"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "wedding-countdown",
+      "name": "Wedding Countdown",
+      "emoji": "⏰",
+      "tagline": "Countdown to the wedding date with task progress.",
+      "description": "A browser-local wedding countdown that stores the wedding date and task aliases only. It holds no guest lists, vendor contracts, or event details and is not an event planning platform, countdown service, or wedding management tool.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "wedding",
+        "countdown",
+        "tasks",
+        "planning"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track task aliases, categories, due dates, priorities, and completion status",
+        "Filter by task or category",
+        "Status workflow: To do → In progress → Done → Cancelled",
+        "Header metrics: total tasks, done count, to do count, progress percentage"
+      ],
+      "useCases": [
+        "Couples tracking wedding tasks without an event platform",
+        "Wedding planners maintaining local countdown checklists offline",
+        "Event coordinators monitoring task progress locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/wedding-countdown.html",
+      "height": 480,
+      "minHeight": 350,
+      "maxHeight": 660,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Wedding Countdown"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "shoot-calendar",
+      "name": "Photography Shoot Calendar",
+      "emoji": "📅",
+      "tagline": "Shoot calendar with clients, locations, and notes.",
+      "description": "A browser-local shoot calendar that stores shoot aliases, client aliases, and location notes only. It holds no client contact, image files, or booking data and is not a booking platform, photo management system, or client management tool.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "photography",
+        "shoots",
+        "calendar",
+        "scheduling"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track shoot aliases, client aliases, shoot types, locations, and durations",
+        "Filter by shoot or client",
+        "Status workflow: Scheduled → Confirmed → Completed → Cancelled → Rescheduled",
+        "Header metrics: total shoots, total hours, confirmed count, completed count"
+      ],
+      "useCases": [
+        "Photographers scheduling shoots without a booking platform",
+        "Videographers maintaining local shoot calendars offline",
+        "Creative teams tracking shoot logistics locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/shoot-calendar.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Shoot Calendar"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#4f7fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "delivery-checklist",
+      "name": "Photography Delivery Checklist",
+      "emoji": "✅",
+      "tagline": "Delivery checklist with files, clients, and status.",
+      "description": "A browser-local delivery checklist that stores deliverable aliases, client aliases, and delivery notes only. It holds no image files, client contact, or financial data and is not a file management system, client portal, or delivery platform.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "photography",
+        "delivery",
+        "checklist",
+        "files"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track deliverable aliases, client aliases, formats, file counts, and priorities",
+        "Filter by deliverable or client",
+        "Status workflow: To prepare → In progress → Ready → Delivered → Revision",
+        "Header metrics: total deliverables, total files, delivered count, revision count"
+      ],
+      "useCases": [
+        "Photographers tracking deliverables without a client portal",
+        "Videographers maintaining local delivery checklists offline",
+        "Creative teams monitoring file delivery status locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/delivery-checklist.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Delivery Checklist"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#6b8cae"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "family-contacts-directory",
+      "name": "Family Contacts Directory",
+      "emoji": "👨‍👩‍👧‍👦",
+      "tagline": "Family contacts with aliases, relationships, and notes.",
+      "description": "A browser-local family contacts directory that stores contact aliases, relationships, and general notes only. It holds no personal data, contact details, or sensitive information and is not a contact management system, address book, or communication platform.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "family",
+        "contacts",
+        "directory",
+        "relationships"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track contact aliases, relationships, family branches, birth months, and favorites",
+        "Filter by contact or relationship",
+        "Status workflow: Active → Extended → In memoriam",
+        "Header metrics: total contacts, active count, extended count, memoriam count"
+      ],
+      "useCases": [
+        "Families maintaining a local contact directory without an address book",
+        "Roommates tracking family relationships offline",
+        "Individuals organizing family information locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/family-contacts-directory.html",
+      "height": 490,
+      "minHeight": 360,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Family Directory"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5a8fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "visa-country-checklist",
+      "name": "Visa and Country Checklist",
+      "emoji": "🛂",
+      "tagline": "Visa and country checklist with requirements and notes.",
+      "description": "A browser-local visa and country checklist that stores country aliases, visa requirements, and travel notes only. It holds no passport data, application details, or official travel documents and is not a visa application system, government service, or travel advisory tool.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "travel",
+        "visa",
+        "countries",
+        "checklist"
+      ],
+      "color": "orange",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Track country aliases, visa types, planned stay durations, entry types, and visa costs",
+        "Filter by country or visa type",
+        "Status workflow: Researching → Applied → Approved → Rejected → Visited",
+        "Header metrics: total countries, total days, total cost, approved count"
+      ],
+      "useCases": [
+        "Travelers planning visa requirements without a travel advisory tool",
+        "Digital nomads maintaining local visa checklists offline",
+        "Remote workers tracking country entry requirements locally"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/visa-country-checklist.html",
+      "height": 500,
+      "minHeight": 370,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Visa Checklist"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c1642f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
       "slug": "crm-pipeline",
       "name": "CRM Pipeline",
       "emoji": "💼",
@@ -13634,6 +18722,6 @@
       ]
     }
   },
-  "generatedAt": "2026-10-12T07:57:51.400Z",
-  "count": 143
+  "generatedAt": "2026-10-12T09:48:15.382Z",
+  "count": 203
 }

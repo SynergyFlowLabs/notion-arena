@@ -10,7 +10,7 @@
   <g transform="translate(50, 100)">
     <rect x="0" y="0" width="900" height="50" rx="8" fill="#1f1f1f"/>
     <text x="120" y="32" font-size="14" font-weight="700" fill="white" text-anchor="middle">Criteria</text>
-    <text x="350" y="32" font-size="14" font-weight="700" fill="white" text-anchor="middle">📱 Widgets (132)</text>
+    <text x="350" y="32" font-size="14" font-weight="700" fill="white" text-anchor="middle">📱 Widgets (180)</text>
     <text x="650" y="32" font-size="14" font-weight="700" fill="white" text-anchor="middle">⚙️ Native Recipes (11)</text>
   </g>
 

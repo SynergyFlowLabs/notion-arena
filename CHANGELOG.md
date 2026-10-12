@@ -10,6 +10,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- Added Purchase Request Tracker widget (business)
+- Added Equipment Inventory Log widget (business)
+- Added Approvals Request Log widget (business)
+- Added Helpdesk Intake Log widget (business)
+- Added Editorial and Publishing Calendar widget (business)
+- Added Podcast Show Notes Log widget (docs)
+- Added Listener Feedback Log widget (docs)
+- Added Construction Site Diary widget (business)
+- Added Restaurant Reservation Log widget (business)
+- Added Donor Relationship Log widget (business)
+- Added Event Guest List and RSVP Log widget (planning)
+- Added Photography Gear Database widget (trackers)
+
+- Added Student Course Dashboard widget (docs)
+- Added Dissertation Milestones Tracker widget (docs)
+- Added Impact and Outcomes Log widget (docs)
+- Added Board Meeting Notes widget (docs)
+- Added Travel Journal widget (docs)
+- Added Review and Rating Log widget (docs)
+- Added Wish List and Collector Log widget (trackers)
+- Added Property Listing Catalog widget (business)
+- Added Property Showing Schedule widget (business)
+- Added Tenant and Lease Log widget (business)
+- Added Manufacturing Work Order Tracker widget (business)
+- Added Shipment and Logistics Tracker widget (business)
+
+- Added Travel Itinerary Planner widget (planning)
+- Added Household Inventory Log widget (trackers)
+- Added Car Maintenance and Trip Log widget (trackers)
+- Added Warranty and Service Log widget (trackers)
+- Added Game Collection Catalog widget (trackers)
+- Added Recipe and Meal Library widget (docs)
+- Added Class Homepage widget (docs)
+- Added Parent Communication Log widget (docs)
+- Added Tutoring Session Log widget (docs)
+- Added Research Question Log widget (docs)
+- Added Lab Equipment and Sample Log widget (docs)
+- Added Discovery Call Pipeline widget (business)
+- Added Therapist Session Administration widget (docs)
+- Added Healthcare Supply Inventory widget (trackers)
+- Added Healthcare Staff Training Log widget (docs)
+- Added Seasonal Crop Calendar widget (planning)
+- Added Harvest Timeline and Yield Log widget (planning)
+- Added Wedding Budget Tracker widget (planning)
+- Added Wedding Vendor Directory widget (business)
+- Added Wedding Countdown widget (time)
+- Added Photography Shoot Calendar widget (planning)
+- Added Photography Delivery Checklist widget (planning)
+- Added Family Contacts Directory widget (trackers)
+- Added Visa and Country Checklist widget (planning)
+
+### Added
+- New widget: `milestone-tracker` — Dated project milestones with owners, phases, and exit criteria
+- New widget: `incident-log` — Severity, owner, and a postmortem checklist per incident
+- New widget: `test-run-log` — Manual pass, fail, and blocked results with a retest column
+- New widget: `invoice-tracker` — Invoice status list with outstanding and past-due totals
+- New widget: `leave-tracker` — Time-off requests with approved day totals
+- New widget: `renewal-tracker` — Account health and renewal dates with value at risk
+- New widget: `escalation-tracker` — Issue, severity, owner, and waiting-state queue
+- New widget: `usability-findings` — Findings by study, participant code, and severity
+- New widget: `scholarship-tracker` — Application deadlines, stages, and award values
+- New widget: `attendance-register` — Per-session head counts with no names
+- New widget: `collection-catalog` — Owned, wishlisted, lent, and sold collection index
+- New widget: `storyboard-planner` — Shot log with shot size and estimated runtime
 - New widget: `daily-planner` — Time-blocked daily planner with priority tracking
 - New widget: `debt-payoff-tracker` — Snowball/avalanche debt strategy planner
 - New widget: `legal-matter-tracker` — Private matter index with deadlines
@@ -29,6 +94,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved MCP server tool descriptions
 
 ### Fixed
+- **Storage keys**: twelve widgets from the previous batch (`daily-planner`, `debt-payoff-tracker`, `legal-matter-tracker`,
+  `wedding-seating-planner`, `sprint-retrospective`, `customer-feedback-log`, `changelog-builder`, `pricing-tier-calculator`,
+  `user-story-map`, `okr-weekly-checkin`, `employee-onboarding-tracker`, `content-repurposing-tracker`) all wrote to the
+  `vendor-register` localStorage key, so two of them on the same page could overwrite each other. Every widget now uses
+  `notion-arena.<slug>.v1`, and `scripts/check-widgets.mjs` fails on a key that does not match its file name or that a
+  second widget also claims
 - **pomodoro-timer**: the countdown, progress ring, phase label and page title now
   update every tick while the timer is running, instead of only when you pressed
   a button. Timing is wall-clock based (a fixed phase end timestamp, read back

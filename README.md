@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="public/assets/icons/widget-badge.svg" alt="132 Widgets" height="28"/>
+  <img src="public/assets/icons/widget-badge.svg" alt="192 Widgets" height="28"/>
   <img src="public/assets/icons/recipe-badge.svg" alt="11 Recipes" height="28"/>
   <img src="public/assets/icons/mcp-badge.svg" alt="MCP Ready" height="28" style="margin-left: 8px;"/>
   <img src="public/assets/icons/skill-badge.svg" alt="Skill Enabled" height="28" style="margin-left: 8px;"/>
@@ -38,9 +38,9 @@
 
 ## 🎯 What is Notion Arena?
 
-Notion Arena is a **machine-readable component registry** for Notion — 143 pre-built components you can drop into any Notion page:
+Notion Arena is a **machine-readable component registry** for Notion — 203 pre-built components you can drop into any Notion page:
 
-| | **132 Widgets** (Embed + HTML Block) | **11 Native Recipes** (Notion API) |
+| | **192 Widgets** (Embed + HTML Block) | **11 Native Recipes** (Notion API) |
 |---|---|---|
 | **What** | Self-contained HTML files that run inside Notion | Database schemas, views, formulas, automations installed via API |
 | **Delivery** | `<iframe>` embed or upload HTML file | `POST /api/install` with your token |
@@ -70,17 +70,17 @@ Notion Arena is a **machine-readable component registry** for Notion — 143 pre
 | **Goal Ring** | <img src="public/assets/badges/category-dashboards.svg" height="20"/> Dashboards | Single-metric hero with milestones & progress ring |
 
 <details>
-<summary><strong>📦 All 132 Widgets (click to expand)</strong></summary>
+<summary><strong>📦 All 192 Widgets (click to expand)</strong></summary>
 
 | Category | Count | Examples |
 |----------|-------|----------|
-| <img src="public/assets/icons/category-time.svg" height="18"/> **Time** | 18 | Pomodoro, Breathing, Stopwatch, Countdown, Month Calendar, Date Calculator, Flip Clock, World Clock, Count-Up, Interval Timer, White Noise, Sunrise/Sunset, Sleep Duration, Family Calendar, Study Session Log, Daily Planner, Routine Checklist, Workout Tracker |
-| <img src="public/assets/icons/category-dashboards.svg" height="18"/> **Dashboards** | 14 | KPI Strip, Goal Ring, Year Progress, Moon Phase, Flip Clock, World Clock, Weekly Status Report, Sunrise/Sunset, Count-Up, Countdown, Month Calendar, Date Calculator, Stopwatch, Breathing Timer |
-| <img src="public/assets/icons/category-trackers.svg" height="18"/> **Trackers** | 19 | Habit Grid, Water Tracker, Mood Tracker, Routine Checklist, Workout Tracker, Sleep Duration, Plant Care Log, Pet Care Checklist, Volunteer Hours Log, Media Watchlist, Reading Progress, Savings Goal, Net Worth Snapshot, Expense Tracker, Portfolio Tracker, Debt Payoff Tracker, Subscription Tracker, Billable Time Tracker, Invoice Generator |
-| <img src="public/assets/icons/category-planning.svg" height="18"/> **Planning** | 17 | Mini Kanban, Eisenhower Matrix, Gantt Timeline, Weekly Planner, Trip Itinerary, Meal Planner, Grocery List, Packing List, Chore Checklist, Home Maintenance Log, Product Roadmap, Sprint Retrospective, User Story Map, OKR Weekly Check-in, Daily Planner, Wedding Seating Planner, Event Run of Show |
-| <img src="public/assets/icons/category-business.svg" height="18"/> **Business** | 22 | ROI Calculator, Budget Planner, Inventory Tracker, Local Intake Form, Ticket Queue, Asset Checkout, Subscription Tracker, Bill Splitter, Currency Converter, Quote Builder, CRM Pipeline, Sprint Tracker, Invoice Generator, Client Onboarding Tracker, Sales Follow-up Queue, Campaign Planner, Interview Scorecard, Pricing Tier Calculator, Customer QBR Prep, Freelancer Proposal Tracker, Fundraising Outreach Tracker, Vendor Register, Access Review Log |
-| <img src="public/assets/icons/category-docs.svg" height="18"/> **Docs** | 18 | Citation Builder, Reading Tracker, Spaced Repetition, Flashcards, Vocabulary Trainer, Bookmark Library, Reading List, Assignment Tracker, Exam Planner, Research Log, Protocol Checklist, Idea Inbox, Manuscript Progress, Chapter Outliner, Character Bible, Submission Tracker, Podcast Episode Planner, Guest Prep Sheet, Episode Production Checklist, Lesson Plan Builder, Research Conference Planner, Changelog Builder, SEO Content Planner, Content Repurposing Tracker |
-| <img src="public/assets/icons/category-visuals.svg" height="18"/> **Visuals** | 6 | Org Chart, Whiteboard, Quote Card, Daily Quote Card, Film Shot List, Media Watchlist |
+| <img src="public/assets/icons/category-time.svg" height="18"/> **Time** | 12 | Pomodoro, Breathing, Stopwatch, Countdown, Month Calendar, Date Calculator, Flip Clock, World Clock, Count-Up, Interval Timer, White Noise, Sunrise/Sunset, Sleep Duration, Family Calendar, Study Session Log, Daily Planner, Routine Checklist, Workout Tracker |
+| <img src="public/assets/icons/category-dashboards.svg" height="18"/> **Dashboards** | 9 | KPI Strip, Goal Ring, Year Progress, Moon Phase, Flip Clock, World Clock, Weekly Status Report, Sunrise/Sunset, Count-Up, Countdown, Month Calendar, Date Calculator, Stopwatch, Breathing Timer |
+| <img src="public/assets/icons/category-trackers.svg" height="18"/> **Trackers** | 26 | Habit Grid, Water Tracker, Mood Tracker, Routine Checklist, Workout Tracker, Sleep Duration, Plant Care Log, Pet Care Checklist, Volunteer Hours Log, Media Watchlist, Reading Progress, Savings Goal, Net Worth Snapshot, Expense Tracker, Portfolio Tracker, Debt Payoff Tracker, Subscription Tracker, Billable Time Tracker, Attendance Register, Collection Catalog, Gear Database, Household Inventory Log, Car Maintenance and Trip Log, Warranty and Service Log, Game Collection Catalog, Wish List and Collector Log, Healthcare Supply Inventory, Family Contacts Directory |
+| <img src="public/assets/icons/category-planning.svg" height="18"/> **Planning** | 37 | Mini Kanban, Eisenhower Matrix, Gantt Timeline, Weekly Planner, Trip Itinerary, Meal Planner, Grocery List, Packing List, Chore Checklist, Home Maintenance Log, Product Roadmap, Sprint Retrospective, User Story Map, OKR Weekly Check-in, Daily Planner, Wedding Seating Planner, Event Run of Show, Milestone Tracker, Incident Log, QA Test Run Log, Event Guest List, Travel Itinerary Planner |
+| <img src="public/assets/icons/category-business.svg" height="18"/> **Business** | 53 | ROI Calculator, Budget Planner, Inventory Tracker, Local Intake Form, Ticket Queue, Asset Checkout, Subscription Tracker, Bill Splitter, Currency Converter, Quote Builder, CRM Pipeline, Sprint Tracker, Invoice Generator, Client Onboarding Tracker, Sales Follow-up Queue, Campaign Planner, Interview Scorecard, Pricing Tier Calculator, Customer QBR Prep, Freelancer Proposal Tracker, Fundraising Outreach Tracker, Vendor Register, Access Review Log, Invoice Status Tracker, Leave and Time-Off Log, Renewal Board, Escalation Tracker, Purchase Request Tracker, Equipment Inventory Log, Approvals Request Log, Helpdesk Intake Log, Editorial Calendar, Site Diary, Restaurant Reservation Log, Donor Relationship Log, Discovery Call Pipeline, Property Listing Catalog, Property Showing Schedule, Tenant and Lease Log, Manufacturing Work Order Tracker, Shipment and Logistics Tracker, Wedding Vendor Directory |
+| <img src="public/assets/icons/category-docs.svg" height="18"/> **Docs** | 50 | Citation Builder, Reading Tracker, Spaced Repetition, Flashcards, Vocabulary Trainer, Bookmark Library, Reading List, Assignment Tracker, Exam Planner, Research Log, Protocol Checklist, Idea Inbox, Manuscript Progress, Chapter Outliner, Character Bible, Submission Tracker, Podcast Episode Planner, Guest Prep Sheet, Episode Production Checklist, Lesson Plan Builder, Research Conference Planner, Changelog Builder, SEO Content Planner, Content Repurposing Tracker, Usability Findings Log, Scholarship Tracker, Podcast Show Notes Log, Listener Feedback Log, Recipe and Meal Library, Class Homepage, Parent Communication Log, Tutoring Session Log, Research Question Log, Lab Equipment and Sample Log, Student Course Dashboard, Dissertation Milestones Tracker, Impact and Outcomes Log, Board Meeting Notes, Therapist Session Administration, Healthcare Staff Training Log, Travel Journal, Review and Rating Log, Travel Journal, Review and Rating Log |
+| <img src="public/assets/icons/category-visuals.svg" height="18"/> **Visuals** | 5 | Org Chart, Whiteboard, Quote Card, Daily Quote Card, Film Shot List, Storyboard Shot Log |
 | <img src="public/assets/icons/category-automations.svg" height="18"/> **Automations** | 1 | Automation Starter Pack |
 
 </details>
@@ -114,7 +114,7 @@ Notion Arena is a **machine-readable component registry** for Notion — 143 pre
 Plug Notion Arena directly into your AI agent — **Claude Code, Cursor, Windsurf, Claude Desktop**.
 
 ### MCP Server
-Gives your agent tools to list/search/configure/plan-install all 143 components:
+Gives your agent tools to list/search/configure/plan-install all 203 components:
 
 ```bash
 # Claude Code (project scope)
@@ -242,8 +242,8 @@ Set `NEXT_PUBLIC_SITE_URL` in production to `https://notionarena.vercel.app` so 
 ## 📁 Project Layout
 
 ```
-public/widgets/*.html      the products: 132 self-contained HTML files
-lib/catalog.ts             source of truth for all 143 components
+public/widgets/*.html      the products: 192 self-contained HTML files
+lib/catalog.ts             source of truth for all 203 components
 lib/types.ts               component/param types + the 8 categories
 lib/widget.ts              config coercion, injection, HTML rendering  (server)
 lib/widget-url.ts          URL builders                                (browser-safe)

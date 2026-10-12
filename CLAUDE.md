@@ -4,10 +4,10 @@ This file helps Claude Code (and other AI agents) work effectively in this repo.
 
 ## What this is
 
-Notion Arena — the component registry for Notion. 143 components: 132 embeddable widgets (single-file HTML, zero deps, offline-safe) + 11 native database recipes (real Notion databases via API).
+Notion Arena — the component registry for Notion. 203 components: 192 embeddable widgets (single-file HTML, zero deps, offline-safe) + 11 native database recipes (real Notion databases via API).
 
-- **Source of truth**: `lib/catalog.ts` — all 143 components
-- **Products**: `public/widgets/*.html` — 132 self-contained HTML files
+- **Source of truth**: `lib/catalog.ts` — all 203 components
+- **Products**: `public/widgets/*.html` — 192 self-contained HTML files
 - **Registry**: `app/r/[name]/route.ts` — shadcn-compatible, `GET /r/index.json`, `GET /r/{name}.json`, `GET /r/schema.json`
 - **Install API**: `app/api/install/route.ts` — `plan` (dry-run, no token) | `embed` | `html-block` | `api`
 - **Widget logic**: `lib/widget.ts` (server), `lib/widget-url.ts` (browser-safe)
