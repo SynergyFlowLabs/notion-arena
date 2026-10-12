@@ -161,7 +161,7 @@ function FloatingWidgetCard({ widget }: { widget: FloatingWidget }) {
     <div
       style={style}
       className={cn(
-        "absolute transition-all duration-500 hover:scale-[1.02] hover:rotate-0",
+        "absolute transition-transform transition-shadow duration-500 hover:scale-[1.02] hover:rotate-0",
         "cursor-pointer group"
       )}
     >
