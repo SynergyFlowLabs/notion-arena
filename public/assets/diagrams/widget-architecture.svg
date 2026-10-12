@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Title -->
+  <text x="400" y="40" font-size="24" font-weight="700" fill="#1f1f1f" text-anchor="middle">Widget Architecture & Contract</text>
+  <text x="400" y="68" font-size="14" fill="#6b7280" text-anchor="middle">Every widget in <code>public/widgets/</code> implements the same four rules</text>
+
+  <!-- Rule 1 -->
+  <g transform="translate(40, 100)">
+    <rect x="0" y="0" width="340" height="160" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="340" height="50" rx="16" fill="#ef4444"/>
+    <text x="170" y="32" font-size="15" font-weight="700" fill="white" text-anchor="middle">1. Zero External Requests</text>
+    <g transform="translate(20, 70)" font-size="12" fill="#475569">
+      <text x="0" y="0">• No CDN, no webfonts, no <code>fetch()</code>, no <code>@import</code></text>
+      <text x="0" y="24">• Sandbox has no network → remote asset = blank block</text>
+      <text x="0" y="48">• All CSS/JS inlined in single HTML file</text>
+      <text x="0" y="72">• Icons via inline SVG or Unicode</text>
+      <text x="0" y="96">• Fonts: system-ui stack only</text>
+      <rect x="0" y="114" width="300" height="30" rx="6" fill="#fef2f2" stroke="#fecaca"/>
+      <text x="150" y="134" font-size="11" font-weight="600" fill="#dc2626" text-anchor="middle">Violation = broken widget in Notion</text>
+    </g>
+  </g>
+
+  <!-- Rule 2 -->
+  <g transform="translate(420, 100)">
+    <rect x="0" y="0" width="340" height="160" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="340" height="50" rx="16" fill="#f59e0b"/>
+    <text x="170" y="32" font-size="15" font-weight="700" fill="white" text-anchor="middle">2. Two Config Sources</text>
+    <g transform="translate(20, 70)" font-size="12" fill="#475569">
+      <text x="0" y="0">• Priority 1: <code><script id="bk-config"></code> (baked)</text>
+      <text x="0" y="24">• Priority 2: <code>URLSearchParams</code> (embed)</text>
+      <text x="0" y="48">• <code>buildConfig()</code> merges & validates</text>
+      <text x="0" y="72">• Unknown keys dropped automatically</text>
+      <text x="0" y="96">• Only declared <code>params[]</code> survive</text>
+      <rect x="0" y="114" width="300" height="30" rx="6" fill="#fffbeb" stroke="#fde68a"/>
+      <text x="150" y="134" font-size="11" font-weight="600" fill="#d97706" text-anchor="middle">Sandbox has no URL → baked config essential</text>
+    </g>
+  </g>
+
+  <!-- Rule 3 -->
+  <g transform="translate(40, 280)">
+    <rect x="0" y="0" width="340" height="180" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="340" height="50" rx="16" fill="#0f7b6c"/>
+    <text x="170" y="32" font-size="15" font-weight="700" fill="white" text-anchor="middle">3. Theme & Accent on Every Widget</text>
+    <g transform="translate(20, 70)" font-size="12" fill="#475569">
+      <text x="0" y="0">• <code>theme=auto|light|dark</code> → sets <code>data-theme</code> on <code><html></code></text>
+      <text x="0" y="24">• <code>auto</code> follows <code>prefers-color-scheme</code></text>
+      <text x="0" y="48">• <code>accent</code> writes CSS var <code>--accent</code></text>
+      <text x="0" y="72">• Derived shades via <code>color-mix(in oklab, ...)</code></text>
+      <text x="0" y="96">• Works in both embed & HTML block</text>
+      <rect x="0" y="114" width="300" height="50" rx="6" fill="#dcfce7" stroke="#86efac"/>
+      <text x="150" y="136" font-size="11" font-weight="600" fill="#166534" text-anchor="middle"><code>:root { --accent: #...; }</code><br/><code>@media (prefers-color-scheme: dark) { ... }</code></text>
+    </g>
+  </g>
+
+  <!-- Rule 4 -->
+  <g transform="translate(420, 280)">
+    <rect x="0" y="0" width="340" height="180" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="340" height="50" rx="16" fill="#8b5cf6"/>
+    <text x="170" y="32" font-size="15" font-weight="700" fill="white" text-anchor="middle">4. Namespaced State</text>
+    <g transform="translate(20, 70)" font-size="12" fill="#475569">
+      <text x="0" y="0">• Key format: <code>notion-arena.<slug>.v1</code></text>
+      <text x="0" y="24">• Wrapped in try/catch for Safari private mode</text>
+      <text x="0" y="48">• State stays in ONE browser, never syncs</text>
+      <text x="0" y="72">• Shared trackers → use Native recipes</text>
+      <text x="0" y="96">• Export/import via overflow menu</text>
+      <rect x="0" y="114" width="300" height="50" rx="6" fill="#f3e8ff" stroke="#d8b4fe"/>
+      <text x="150" y="136" font-size="11" font-weight="600" fill="#7c3aed" text-anchor="middle"><code>localStorage.getItem('notion-arena.pomodoro-timer.v1')</code><br/>State is per-browser, not per-user</text>
+    </g>
+  </g>
+
+  <!-- Bottom note -->
+  <g transform="translate(40, 475)">
+    <rect x="0" y="0" width="720" height="30" rx="8" fill="#f1f5f9"/>
+    <text x="360" y="20" font-size="12" font-weight="500" fill="#475569" text-anchor="middle">Plus: <code>overflow: hidden</code> on body, <code>.wrap</code> manages scroll, <code>prefers-reduced-motion</code> escape hatch, clipboard exports console.log fallback</text>
+  </g>
+</svg>

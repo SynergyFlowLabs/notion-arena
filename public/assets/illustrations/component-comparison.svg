@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" fill="none" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="1000" height="600" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="500" y="40" font-size="24" font-weight="700" fill="#1f1f1f" text-anchor="middle">Widgets vs Native Recipes — When to Use Which</text>
+  <text x="500" y="65" font-size="14" fill="#6b7280" text-anchor="middle">Choose the right tool for your Notion workflow</text>
+
+  <!-- Table Header -->
+  <g transform="translate(50, 100)">
+    <rect x="0" y="0" width="900" height="50" rx="8" fill="#1f1f1f"/>
+    <text x="120" y="32" font-size="14" font-weight="700" fill="white" text-anchor="middle">Criteria</text>
+    <text x="350" y="32" font-size="14" font-weight="700" fill="white" text-anchor="middle">📱 Widgets (132)</text>
+    <text x="650" y="32" font-size="14" font-weight="700" fill="white" text-anchor="middle">⚙️ Native Recipes (11)</text>
+  </g>
+
+  <!-- Table Rows -->
+  <g transform="translate(50, 160)">
+    <!-- Row 1: Data Storage -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="900" height="55" rx="0" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="55" rx="0" fill="#f9fafb"/>
+      <text x="120" y="33" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Data Storage</text>
+      <text x="350" y="33" font-size="12" fill="#4b5563" text-anchor="middle">Browser localStorage only</text>
+      <text x="650" y="33" font-size="12" fill="#4b5563" text-anchor="middle">Notion databases (team-shared)</text>
+    </g>
+
+    <!-- Row 2: Network at Render -->
+    <g transform="translate(0, 55)">
+      <rect x="0" y="0" width="900" height="55" rx="0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="55" rx="0" fill="#f3f4f6"/>
+      <text x="120" y="33" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Network at Render</text>
+      <text x="350" y="33" font-size="12" fill="#ef4444" text-anchor="middle">Required (Embed) / None (HTML)</text>
+      <text x="650" y="33" font-size="12" fill="#16a34a" text-anchor="middle">None (data lives in Notion)</text>
+    </g>
+
+    <!-- Row 3: Offline Support -->
+    <g transform="translate(0, 110)">
+      <rect x="0" y="0" width="900" height="55" rx="0" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="55" rx="0" fill="#f9fafb"/>
+      <text x="120" y="33" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Offline Support</text>
+      <text x="350" y="33" font-size="12" fill="#16a34a" text-anchor="middle">✅ Full (HTML Block mode)</text>
+      <text x="650" y="33" font-size="12" fill="#ef4444" text-anchor="middle">❌ Requires Notion connectivity</text>
+    </g>
+
+    <!-- Row 4: Team Collaboration -->
+    <g transform="translate(0, 165)">
+      <rect x="0" y="0" width="900" height="55" rx="0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="55" rx="0" fill="#f3f4f6"/>
+      <text x="120" y="33" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Team Collaboration</text>
+      <text x="350" y="33" font-size="12" fill="#ef4444" text-anchor="middle">❌ Per-browser only</text>
+      <text x="650" y="33" font-size="12" fill="#16a34a" text-anchor="middle">✅ Real-time, shared state</text>
+    </g>
+
+    <!-- Row 5: Auto-Updates -->
+    <g transform="translate(0, 220)">
+      <rect x="0" y="0" width="900" height="55" rx="0" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="55" rx="0" fill="#f9fafb"/>
+      <text x="120" y="33" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Auto-Updates</text>
+      <text x="350" y="33" font-size="12" fill="#16a34a" text-anchor="middle">✅ Embed URL only</text>
+      <text x="650" y="33" font-size="12" fill="#ef4444" text-anchor="middle">❌ Re-run install for changes</text>
+    </g>
+
+    <!-- Row 6: Notion Data Access -->
+    <g transform="translate(0, 275)">
+      <rect x="0" y="0" width="900" height="55" rx="0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="55" rx="0" fill="#f3f4f6"/>
+      <text x="120" y="33" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Reads/Writes Notion Data</text>
+      <text x="350" y="33" font-size="12" fill="#ef4444" text-anchor="middle">❌ Sandbox isolation</text>
+      <text x="650" y="33" font-size="12" fill="#16a34a" text-anchor="middle">✅ It IS the data</text>
+    </g>
+
+    <!-- Row 7: Installation -->
+    <g transform="translate(0, 330)">
+      <rect x="0" y="0" width="900" height="55" rx="0" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="55" rx="0" fill="#f9fafb"/>
+      <text x="120" y="33" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Installation</text>
+      <text x="350" y="33" font-size="12" fill="#4b5563" text-anchor="middle">Paste URL or upload HTML</text>
+      <text x="650" y="33" font-size="12" fill="#4b5563" text-anchor="middle">POST /api/install with token</text>
+    </g>
+
+    <!-- Row 8: Min Plan -->
+    <g transform="translate(0, 385)">
+      <rect x="0" y="0" width="900" height="55" rx="0" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="55" rx="0" fill="#f3f4f6"/>
+      <text x="120" y="33" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Min Notion Plan</text>
+      <text x="350" y="33" font-size="12" fill="#16a34a" text-anchor="middle">Free (all widgets)</text>
+      <text x="650" y="33" font-size="12" fill="#f59e0b" text-anchor="middle">Free / Plus / Business</text>
+    </g>
+
+    <!-- Row 9: Use Case -->
+    <g transform="translate(0, 440)">
+      <rect x="0" y="0" width="900" height="80" rx="0" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="240" height="80" rx="0" fill="#f9fafb"/>
+      <text x="120" y="30" font-size="13" font-weight="600" fill="#374151" text-anchor="middle">Best For</text>
+      <text x="350" y="25" font-size="11" fill="#4b5563" text-anchor="middle">Personal dashboards, calculators, timers,</text>
+      <text x="350" y="45" font-size="11" fill="#4b5563" text-anchor="middle">trackers, planners, offline tools</text>
+      <text x="650" y="25" font-size="11" fill="#4b5563" text-anchor="middle">Team CRMs, sprint trackers, OKRs,</text>
+      <text x="650" y="45" font-size="11" fill="#4b5563" text-anchor="middle">shared databases, audit trails</text>
+    </g>
+  </g>
+
+  <!-- Decision Guide -->
+  <g transform="translate(50, 540)">
+    <rect x="0" y="0" width="900" height="50" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="450" y="32" font-size="14" font-weight="600" fill="#92400e" text-anchor="middle">💡 Decision: Need team-shared data or audit trail? → Native Recipe. Personal/offline tool? → Widget.</text>
+  </g>
+</svg>

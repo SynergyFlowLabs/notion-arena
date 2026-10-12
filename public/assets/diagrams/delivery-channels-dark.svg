@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" fill="none" font-family="system-ui, -apple-system, sans-serif" style="background: #111827;">
+  <!-- Title -->
+  <text x="450" y="40" font-size="24" font-weight="700" fill="#f9fafb" text-anchor="middle">Three Delivery Channels</text>
+  <text x="450" y="68" font-size="14" fill="#9ca3af" text-anchor="middle">Every component supports one or more channels — widgets use Embed + HTML Block, recipes use Native API</text>
+
+  <!-- Column 1: Embed URL -->
+  <g transform="translate(40, 100)">
+    <rect x="0" y="0" width="260" height="280" rx="16" fill="#1f2937" stroke="#374151" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="60" rx="16" fill="#2383e2"/>
+    <text x="130" y="38" font-size="16" font-weight="700" fill="white" text-anchor="middle">📡 Embed URL</text>
+    <text x="130" y="90" font-size="12" fill="#9ca3af" text-anchor="middle">We host the widget, Notion iframes it</text>
+
+    <g transform="translate(20, 110)">
+      <circle cx="16" cy="16" r="16" fill="#1e3a5f"/>
+      <text x="16" y="20" font-size="14" fill="#93c5fd" text-anchor="middle">1</text>
+      <text x="50" y="20" font-size="13" font-weight="500" fill="#f9fafb">Paste <code>/embed</code></text>
+      <text x="16" y="45" font-size="12" fill="#9ca3af">URL into page</text>
+    </g>
+
+    <g transform="translate(20, 160)">
+      <rect x="0" y="0" width="220" height="100" rx="8" fill="#111827" stroke="#374151"/>
+      <text x="110" y="20" font-size="11" font-weight="600" fill="#9ca3af" text-anchor="middle">Characteristics</text>
+      <g font-size="11" fill="#d1d5db">
+        <text x="10" y="42">✓ Network required at render</text>
+        <text x="10" y="60">✓ Auto-updates from us</text>
+        <text x="10" y="78">✓ No Notion data access</text>
+        <text x="120" y="42">✗ No team state sharing</text>
+        <text x="120" y="60">✗ Free plan minimum</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Column 2: HTML Block -->
+  <g transform="translate(320, 100)">
+    <rect x="0" y="0" width="260" height="280" rx="16" fill="#1f2937" stroke="#374151" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="60" rx="16" fill="#0f7b6c"/>
+    <text x="130" y="38" font-size="16" font-weight="700" fill="white" text-anchor="middle">📄 HTML Block</text>
+    <text x="130" y="90" font-size="12" fill="#9ca3af" text-anchor="middle">Download HTML, upload to Notion storage</text>
+
+    <g transform="translate(20, 110)">
+      <circle cx="16" cy="16" r="16" fill="#14532d"/>
+      <text x="16" y="20" font-size="14" fill="#86efac" text-anchor="middle">1</text>
+      <text x="50" y="20" font-size="13" font-weight="500" fill="#f9fafb">Upload via <code>/html</code></text>
+    </g>
+    <g transform="translate(20, 140)">
+      <circle cx="16" cy="16" r="16" fill="#14532d"/>
+      <text x="16" y="20" font-size="14" fill="#86efac" text-anchor="middle">2</text>
+      <text x="50" y="20" font-size="13" font-weight="500" fill="#f9fafb">Or 3 API calls</text>
+    </g>
+
+    <g transform="translate(20, 180)">
+      <rect x="0" y="0" width="220" height="100" rx="8" fill="#111827" stroke="#374151"/>
+      <text x="110" y="20" font-size="11" font-weight="600" fill="#9ca3af" text-anchor="middle">Characteristics</text>
+      <g font-size="11" fill="#d1d5db">
+        <text x="10" y="42">✓ Zero network at render</text>
+        <text x="10" y="60">✓ Fully offline-capable</text>
+        <text x="10" y="78">✓ Frozen version you own</text>
+        <text x="120" y="42">✗ No auto-updates</text>
+        <text x="120" y="60">✗ No team state sharing</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Column 3: Native Recipe -->
+  <g transform="translate(600, 100)">
+    <rect x="0" y="0" width="260" height="280" rx="16" fill="#1f2937" stroke="#374151" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="60" rx="16" fill="#6940a5"/>
+    <text x="130" y="38" font-size="16" font-weight="700" fill="white" text-anchor="middle">⚙️ Native Recipe</text>
+    <text x="130" y="90" font-size="12" fill="#9ca3af" text-anchor="middle">We call Notion API to build databases</text>
+
+    <g transform="translate(20, 110)">
+      <circle cx="16" cy="16" r="16" fill="#3b0764"/>
+      <text x="16" y="20" font-size="14" fill="#d8b4fe" text-anchor="middle">1</text>
+      <text x="50" y="20" font-size="13" font-weight="500" fill="#f9fafb">POST <code>/api/install</code></text>
+    </g>
+    <g transform="translate(20, 140)">
+      <circle cx="16" cy="16" r="16" fill="#3b0764"/>
+      <text x="16" y="20" font-size="14" fill="#d8b4fe" text-anchor="middle">2</text>
+      <text x="50" y="20" font-size="13" font-weight="500" fill="#f9fafb">Creates DBs, views, formulas</text>
+    </g>
+    <g transform="translate(20, 170)">
+      <circle cx="16" cy="16" r="16" fill="#3b0764"/>
+      <text x="16" y="20" font-size="14" fill="#d8b4fe" text-anchor="middle">3</text>
+      <text x="50" y="20" font-size="13" font-weight="500" fill="#f9fafb">Seeds data, relations, rollups</text>
+    </g>
+
+    <g transform="translate(20, 210)">
+      <rect x="0" y="0" width="220" height="70" rx="8" fill="#111827" stroke="#374151"/>
+      <text x="110" y="20" font-size="11" font-weight="600" fill="#9ca3af" text-anchor="middle">Characteristics</text>
+      <g font-size="11" fill="#d1d5db">
+        <text x="10" y="42">✓ Data lives in Notion</text>
+        <text x="10" y="58">✓ Team-shared state</text>
+        <text x="120" y="42">✗ Requires token</text>
+        <text x="120" y="58">✗ Manual steps for gaps</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer note -->
+  <text x="450" y="395" font-size="12" fill="#6b7280" text-anchor="middle">One HTML file serves both widget channels — they cannot drift. Config from query string (embed) or baked-in script (HTML block).</text>
+</svg>

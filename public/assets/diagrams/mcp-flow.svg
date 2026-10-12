@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 350" fill="none" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Title -->
+  <text x="450" y="40" font-size="24" font-weight="700" fill="#1f1f1f" text-anchor="middle">MCP + Skill: AI Agent Integration</text>
+  <text x="450" y="68" font-size="14" fill="#6b7280" text-anchor="middle">Plug Notion Arena directly into your AI agent — Claude Code, Cursor, Windsurf, Claude Desktop</text>
+
+  <!-- Left: MCP Server -->
+  <g transform="translate(40, 100)">
+    <rect x="0" y="0" width="260" height="220" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="50" rx="16" fill="#6940a5"/>
+    <text x="130" y="32" font-size="15" font-weight="700" fill="white" text-anchor="middle">🔌 MCP Server</text>
+    <g transform="translate(20, 70)" font-size="12" fill="#475569">
+      <text x="0" y="0" font-weight="600">Tools exposed:</text>
+      <text x="10" y="28"><code>list_components</code></text>
+      <text x="10" y="48"><code>search_components</code></text>
+      <text x="10" y="68"><code>get_component</code></text>
+      <text x="10" y="88"><code>get_widget_schema</code></text>
+      <text x="10" y="108"><code>build_embed_url</code></text>
+      <text x="10" y="128"><code>plan_install</code></text>
+      <text x="10" y="148"><code>get_registry_item</code></text>
+      <text x="10" y="168"><code>get_install_guide</code></text>
+      <text x="10" y="188"><code>get_categories</code></text>
+      <text x="10" y="208"><code>get_site_info</code></text>
+    </g>
+  </g>
+
+  <!-- Center: Skill -->
+  <g transform="translate(320, 100)">
+    <rect x="0" y="0" width="260" height="220" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="50" rx="16" fill="#d9730d"/>
+    <text x="130" y="32" font-size="15" font-weight="700" fill="white" text-anchor="middle">🧠 Skill</text>
+    <g transform="translate(20, 70)" font-size="12" fill="#475569">
+      <text x="0" y="0" font-weight="600">Teaches agent:</text>
+      <text x="10" y="28">• Notion Arena workflow</text>
+      <text x="10" y="48">• Delivery channels</text>
+      <text x="10" y="68">• Widget contract</text>
+      <text x="10" y="88">• Parameter schemas</text>
+      <text x="10" y="108">• Recipe patterns</text>
+      <text x="10" y="138" font-weight="600">Install methods:</text>
+      <text x="10" y="160"><code>npx skills add ...</code></text>
+      <text x="10" y="180"><code>cp -r skills/...</code></text>
+      <text x="10" y="200"><code>.claude/skills/</code></text>
+    </g>
+  </g>
+
+  <!-- Right: Agent Clients -->
+  <g transform="translate(600, 100)">
+    <rect x="0" y="0" width="260" height="220" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="260" height="50" rx="16" fill="#0f7b6c"/>
+    <text x="130" y="32" font-size="15" font-weight="700" fill="white" text-anchor="middle">🤖 AI Agents</text>
+    <g transform="translate(20, 70)" font-size="12" fill="#475569">
+      <text x="0" y="0" font-weight="600">Supported clients:</text>
+      <g transform="translate(10, 28)">
+        <rect x="0" y="0" width="220" height="36" rx="8" fill="#fff" stroke="#e2e8f0"/>
+        <text x="110" y="22" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="middle">Claude Code</text>
+      </g>
+      <g transform="translate(10, 70)">
+        <rect x="0" y="0" width="220" height="36" rx="8" fill="#fff" stroke="#e2e8f0"/>
+        <text x="110" y="22" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="middle">Cursor</text>
+      </g>
+      <g transform="translate(10, 112)">
+        <rect x="0" y="0" width="220" height="36" rx="8" fill="#fff" stroke="#e2e8f0"/>
+        <text x="110" y="22" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="middle">Windsurf</text>
+      </g>
+      <g transform="translate(10, 154)">
+        <rect x="0" y="0" width="220" height="36" rx="8" fill="#fff" stroke="#e2e8f0"/>
+        <text x="110" y="22" font-size="12" font-weight="600" fill="#1f1f1f" text-anchor="middle">Claude Desktop</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Flow arrows -->
+  <path d="M300 200 Q360 200 360 150 Q420 150 420 200" stroke="#6940a5" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M580 200 Q640 200 640 150 Q700 150 700 200" stroke="#d9730d" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M300 240 Q360 240 360 280 Q420 280 420 240" stroke="#6940a5" stroke-width="2" fill="none" stroke-dasharray="8,4" marker-end="url(#arrow)"/>
+  <path d="M580 240 Q640 240 640 280 Q700 280 700 240" stroke="#d9730d" stroke-width="2" fill="none" stroke-dasharray="8,4" marker-end="url(#arrow)"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6940a5"/>
+    </marker>
+  </defs>
+
+  <!-- Example queries -->
+  <g transform="translate(40, 330)">
+    <text x="0" y="0" font-size="13" font-weight="600" fill="#374151">Once installed, just ask:</text>
+    <g transform="translate(0, 22)" font-size="12" fill="#6b7280">
+      <text x="10" y="0">"Find me a pomodoro timer for Notion"</text>
+      <text x="10" y="22">"Add a CRM pipeline to my Notion"</text>
+      <text x="10" y="44">"I need a habit tracker that works offline"</text>
+    </g>
+  </g>
+</svg>

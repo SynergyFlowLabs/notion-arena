@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" fill="none" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Title -->
+  <text x="500" y="40" font-size="24" font-weight="700" fill="#1f1f1f" text-anchor="middle">Widget Lifecycle: From Code to Notion Page</text>
+  <text x="500" y="65" font-size="14" fill="#6b7280" text-anchor="middle">Two paths from one HTML file — Embed URL (hosted) and HTML Block (downloaded)</text>
+
+  <!-- Source -->
+  <g transform="translate(50, 110)">
+    <rect x="0" y="0" width="200" height="180" rx="12" fill="#f3e8ff" stroke="#d8b4fe" stroke-width="2"/>
+    <rect x="0" y="0" width="200" height="40" rx="12" fill="#8b5cf6"/>
+    <text x="100" y="26" font-size="14" font-weight="700" fill="white" text-anchor="middle">📁 Source</text>
+    
+    <g transform="translate(20, 55)" font-size="12" fill="#4b5563">
+      <text x="0" y="0" font-weight="600">public/widgets/</text>
+      <text x="0" y="20"><code>pomodoro-timer.html</code></text>
+      <text x="0" y="45">Single self-contained file</text>
+      <text x="0" y="65">All CSS/JS inlined</text>
+      <text x="0" y="85">bk-config placeholder</text>
+      <text x="0" y="105"><code><script id="bk-config">{}</script></code></text>
+      <text x="0" y="130">Catalog entry in</text>
+      <text x="0" y="150"><code>lib/catalog.ts</code></text>
+    </g>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M270 180 L330 180" stroke="#9ca3af" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- Branch Point -->
+  <g transform="translate(350, 120)">
+    <circle cx="50" cy="50" r="50" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="50" y="55" font-size="24" text-anchor="middle">🔀</text>
+    <text x="50" y="120" font-size="13" font-weight="600" fill="#92400e" text-anchor="middle">Build & Deploy</text>
+  </g>
+
+  <!-- Path A: Embed URL -->
+  <g transform="translate(480, 110)">
+    <rect x="0" y="0" width="220" height="240" rx="12" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+    <rect x="0" y="0" width="220" height="40" rx="12" fill="#2383e2"/>
+    <text x="110" y="26" font-size="14" font-weight="700" fill="white" text-anchor="middle">📡 Path A: Embed URL</text>
+    
+    <g transform="translate(15, 55)" font-size="12" fill="#1e3a5f">
+      <g transform="translate(0, 0)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#fff" stroke="#93c5fd"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#2383e2" text-anchor="middle">1. Vercel deploys HTML</text>
+      </g>
+      <g transform="translate(0, 45)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#fff" stroke="#93c5fd"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#2383e2" text-anchor="middle">2. URL: /embed/slug</text>
+      </g>
+      <g transform="translate(0, 90)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#fff" stroke="#93c5fd"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#2383e2" text-anchor="middle">3. User pastes in Notion</text>
+      </g>
+      <g transform="translate(0, 135)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#fff" stroke="#93c5fd"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#2383e2" text-anchor="middle">4. Notion iframes it</text>
+      </g>
+      <g transform="translate(0, 180)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#dcfce7" stroke="#86efac"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#166534" text-anchor="middle">✅ Live! Auto-updates</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Path B: HTML Block -->
+  <g transform="translate(730, 110)">
+    <rect x="0" y="0" width="220" height="240" rx="12" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+    <rect x="0" y="0" width="220" height="40" rx="12" fill="#0f7b6c"/>
+    <text x="110" y="26" font-size="14" font-weight="700" fill="white" text-anchor="middle">📄 Path B: HTML Block</text>
+    
+    <g transform="translate(15, 55)" font-size="12" fill="#14532d">
+      <g transform="translate(0, 0)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#fff" stroke="#86efac"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#0f7b6c" text-anchor="middle">1. Server injects bk-config</text>
+      </g>
+      <g transform="translate(0, 45)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#fff" stroke="#86efac"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#0f7b6c" text-anchor="middle">2. User downloads .html</text>
+      </g>
+      <g transform="translate(0, 90)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#fff" stroke="#86efac"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#0f7b6c" text-anchor="middle">3. Uploads via /html</text>
+      </g>
+      <g transform="translate(0, 135)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#fff" stroke="#86efac"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#0f7b6c" text-anchor="middle">4. Notion stores file</text>
+      </g>
+      <g transform="translate(0, 180)">
+        <rect x="0" y="0" width="190" height="35" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+        <text x="95" y="22" font-size="11" font-weight="600" fill="#2383e2" text-anchor="middle">✅ Works offline! Frozen</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Runtime Comparison -->
+  <g transform="translate(50, 320)">
+    <rect x="0" y="0" width="900" height="60" rx="12" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+    <text x="450" y="22" font-size="14" font-weight="600" fill="#374151" text-anchor="middle">Runtime Comparison</text>
+    <g transform="translate(450, 45)" font-size="11" fill="#4b5563" text-anchor="middle">
+      <text x="-300" y="0">Embed URL: Network required • Auto-updates • No localStorage sync across devices</text>
+      <text x="300" y="0">HTML Block: Zero network • Frozen version • localStorage per-browser only</text>
+    </g>
+  </g>
+</svg>

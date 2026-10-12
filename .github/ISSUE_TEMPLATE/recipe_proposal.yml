@@ -1,0 +1,171 @@
+name: ⚙️ Native Recipe Proposal
+description: Propose a new Notion API recipe (databases, views, formulas, automations)
+title: "[Recipe Proposal]: "
+labels: ["recipe", "proposal", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a native recipe! 
+        
+        **Recipes** install real Notion databases, views, formulas, and automations via the API.
+        They create shared, collaborative data in the user's workspace.
+        
+        **Key differences from widgets:**
+        - Data lives in Notion (team-shared, persistent)
+        - Requires `POST /api/install` with user token
+        - Can have relations, rollups, formulas
+        - Manual steps documented for API gaps
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I've checked existing recipes for overlap
+          required: true
+        - label: I understand recipes need a `planInstall()` function
+          required: true
+        - label: I know about the two-pass relation pattern (data_source_id)
+          required: true
+  - type: input
+    id: name
+    attributes:
+      label: Recipe Name
+      placeholder: CRM Pipeline
+    validations:
+      required: true
+  - type: input
+    id: slug
+    attributes:
+      label: Proposed Slug
+      description: kebab-case, matches recipe file name
+      placeholder: crm-pipeline
+    validations:
+      required: true
+  - type: input
+    id: emoji
+    attributes:
+      label: Emoji
+      placeholder: 💼
+    validations:
+      required: true
+  - type: textarea
+    id: tagline
+    attributes:
+      label: Tagline (one line, <80 chars)
+      placeholder: Companies, people and deals: related databases with a board and a pipeline chart.
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What databases, views, formulas, automations does it create?
+      placeholder: Three related databases with the property schemas, status groups, rollups and formulas a working CRM needs, plus a board view grouped by deal stage, a chart view of weighted pipeline value, and a dashboard view that assembles both.
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - time
+        - dashboards
+        - trackers
+        - planning
+        - business
+        - docs
+        - visuals
+        - automations
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      options:
+        - free
+        - pro
+    validations:
+      required: true
+  - type: input
+    id: plan
+    attributes:
+      label: Minimum Notion Plan
+      description: Free, Plus, or Business
+      placeholder: Plus
+    validations:
+      required: true
+  - type: input
+    id: color
+    attributes:
+      label: Color
+      options:
+        - red
+        - orange
+        - yellow
+        - green
+        - blue
+        - purple
+        - pink
+        - brown
+        - gray
+    validations:
+      required: true
+  - type: textarea
+    id: creates
+    attributes:
+      label: What It Creates
+      description: List each artifact with icon, label, detail
+      placeholder: |
+        - 🗄️ 3 databases: Companies, People, Deals (related both ways)
+        - 🧮 6 formulas: Weighted value, days in stage, next-step-due, health score
+        - 📊 5 views: Board by stage, chart of weighted value, calendar, dashboard
+        - 📄 2 page templates: Call notes, deal-closed retro
+        - ⚡ 3 automations: Manual setup (API cannot create automations yet)
+    validations:
+      required: true
+  - type: textarea
+    id: features
+    attributes:
+      label: Key Features
+      placeholder: |
+        - Status property with Notion's native stage groups
+        - Rollups from Deals → Companies for lifetime value
+        - Formula-driven 'Days in stage' flags stale deals
+        - Dashboard view combining number widget, board, chart
+    validations:
+      required: true
+  - type: textarea
+    id: usecases
+    attributes:
+      label: Use Cases
+      placeholder: |
+        - Solo founders tracking inbound
+        - Agencies managing 10-100 client relationships
+        - Recruiters running a candidate pipeline
+    validations:
+      required: true
+  - type: textarea
+    id: manual-steps
+    attributes:
+      label: Manual Steps (API Gaps)
+      description: What can't the API do? Only real limitations, not "easier by hand"
+      placeholder: |
+        - Database automations: API cannot create them. Document exact click-path.
+        - Button blocks: API cannot create button blocks. Manual step.
+        - Recurring templates: API cannot create recurring templates. Manual step.
+        - Synced block duplicates: API cannot duplicate synced blocks. Manual step.
+    validations:
+      required: true
+  - type: checkboxes
+    id: compliance
+    attributes:
+      label: I will implement
+      options:
+        - label: Two-pass install for relations (create DBs → read data_source_id → patch relations)
+        - label: `planInstall()` returns `InstallPlan` with `steps[]` and `manual[]`
+        - label: Manual steps cite real API limitations with references
+        - label: Catalog entry with `kind: "native"` and `recipe: "<slug>"`
+        - label: MCP catalog regenerates (`npm run generate:mcp-catalog`)
+        - label: Tested with `mode: "plan"` (dry-run) then `mode: "api"` (execute)

@@ -1,0 +1,44 @@
+# Code Owners for Notion Arena
+# These users/teams will be automatically requested for review on PRs touching these files
+
+# Core maintainers
+* @SynergyFlowLabs/core-maintainers
+
+# Widget system
+/public/widgets/ @SynergyFlowLabs/widget-team
+/lib/widget.ts @SynergyFlowLabs/widget-team
+/lib/widget-url.ts @SynergyFlowLabs/widget-team
+/lib/types.ts @SynergyFlowLabs/widget-team
+/scripts/check-widgets.mjs @SynergyFlowLabs/widget-team
+/scripts/audit-contrast.mjs @SynergyFlowLabs/widget-team
+
+# Catalog & component definitions
+/lib/catalog.ts @SynergyFlowLabs/catalog-team
+
+# Native recipes
+/lib/recipes/ @SynergyFlowLabs/recipe-team
+/lib/notion/ @SynergyFlowLabs/recipe-team
+
+# MCP Server
+/mcp/ @SynergyFlowLabs/mcp-team
+
+# Skill
+/skills/notion-arena/ @SynergyFlowLabs/skill-team
+/.claude-plugin/ @SynergyFlowLabs/skill-team
+
+# Documentation
+/docs/ @SynergyFlowLabs/docs-team
+/README.md @SynergyFlowLabs/docs-team
+/CONTRIBUTING.md @SynergyFlowLabs/docs-team
+/CHANGELOG.md @SynergyFlowLabs/docs-team
+
+# CI/CD & Tooling
+/.github/ @SynergyFlowLabs/infra-team
+/next.config.ts @SynergyFlowLabs/infra-team
+/package.json @SynergyFlowLabs/infra-team
+/tsconfig.json @SynergyFlowLabs/infra-team
+
+# Site UI
+/components/ @SynergyFlowLabs/ui-team
+/app/ @SynergyFlowLabs/ui-team
+/lib/registry.ts @SynergyFlowLabs/ui-team
