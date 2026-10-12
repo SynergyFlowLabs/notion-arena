@@ -481,7 +481,7 @@ const bool = (k, d) => cfg[k] === undefined ? d : ["true","1"].includes(String(c
         {/* ===================== AGENTS ===================== */}
         <Section id="agents" label="channel: ai agents" title="AI Agents & Coding Assistants" accent="var(--notion-teal)">
           <p>
-            You can give Claude Code, Cursor, Windsurf, or Claude Desktop native access to all 143 components via the official MCP server and Agent Skill.
+            You can give Claude Code, Cursor, Windsurf, or Claude Desktop native access to all 155 components via the official MCP server and Agent Skill.
           </p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             <div className="rounded-xl border border-border bg-card p-4">

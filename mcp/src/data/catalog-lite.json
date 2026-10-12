@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T07:57:51.400Z",
-  "count": 143,
+  "generatedAt": "2026-10-12T08:42:07.036Z",
+  "count": 155,
   "components": [
     {
       "slug": "pomodoro-timer",
@@ -3934,6 +3934,366 @@
         "repurposing",
         "marketing",
         "creator",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "milestone-tracker",
+      "name": "Project Milestone Tracker",
+      "emoji": "🚩",
+      "tagline": "Target dates, owners, and exit criteria for the milestones that matter.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "milestones",
+        "project",
+        "dates",
+        "planning",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "incident-log",
+      "name": "Incident Log",
+      "emoji": "🚨",
+      "tagline": "Severity, owner, and a postmortem checklist for each incident.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "incident",
+        "postmortem",
+        "engineering",
+        "on-call",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "test-run-log",
+      "name": "QA Test Run Log",
+      "emoji": "🧪",
+      "tagline": "Manual pass, fail, and blocked results with a retest column.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "qa",
+        "testing",
+        "release",
+        "engineering",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "invoice-tracker",
+      "name": "Invoice Status Tracker",
+      "emoji": "🧾",
+      "tagline": "Draft, sent, paid: a local ledger of what is still outstanding.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "invoice",
+        "finance",
+        "freelance",
+        "receivables",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "leave-tracker",
+      "name": "Leave and Time-Off Log",
+      "emoji": "🌴",
+      "tagline": "Requested, approved, taken: days away in one local view.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "leave",
+        "pto",
+        "hr",
+        "people",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "renewal-tracker",
+      "name": "Renewal and Account Health Board",
+      "emoji": "🔄",
+      "tagline": "Health, owner, and renewal date for every account on the list.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "renewal",
+        "customer-success",
+        "accounts",
+        "retention",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "escalation-tracker",
+      "name": "Escalation Tracker",
+      "emoji": "⏫",
+      "tagline": "Who owns each escalation, how severe it is, and where it stands.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "escalation",
+        "support",
+        "customer-success",
+        "queue",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "usability-findings",
+      "name": "Usability Findings Log",
+      "emoji": "🔍",
+      "tagline": "Findings by study, coded participant, severity, and screen.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "usability",
+        "design",
+        "findings",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "scholarship-tracker",
+      "name": "Scholarship and Application Tracker",
+      "emoji": "🎓",
+      "tagline": "Deadlines, award values, and stages for every application.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "scholarship",
+        "applications",
+        "students",
+        "career",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "attendance-register",
+      "name": "Attendance Register",
+      "emoji": "📋",
+      "tagline": "Present, absent, and late counts per session, with no names.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "attendance",
+        "teaching",
+        "education",
+        "counts",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "collection-catalog",
+      "name": "Collection Catalog",
+      "emoji": "🏺",
+      "tagline": "Owned, wishlisted, lent, or sold: a local index of a collection.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "collection",
+        "hobby",
+        "catalog",
+        "collectors",
+        "offline"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "storyboard-planner",
+      "name": "Storyboard Shot Log",
+      "emoji": "🎞️",
+      "tagline": "Panels in order, with shot size, estimated seconds, and notes.",
+      "category": "visuals",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "storyboard",
+        "film",
+        "video",
+        "shot-list",
         "offline"
       ],
       "plan": "Free",

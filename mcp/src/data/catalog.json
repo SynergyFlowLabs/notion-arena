@@ -11954,6 +11954,1026 @@
       "creates": []
     },
     {
+      "slug": "milestone-tracker",
+      "name": "Project Milestone Tracker",
+      "emoji": "🚩",
+      "tagline": "Target dates, owners, and exit criteria for the milestones that matter.",
+      "description": "A browser-local milestone list for project alias, owner alias, target date, and phase. It is a private planning aid: it sends no reminders, notifies nobody, and is not a commitment or approval record.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "milestones",
+        "project",
+        "dates",
+        "planning",
+        "offline"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Due-soon window, overdue count, and at-risk total in the header",
+        "Phase select: Discovery, Design, Build, Launch, Review",
+        "At-risk milestones sort to the top, then by nearest target date",
+        "Exit criteria and state stay in browser-local storage only"
+      ],
+      "useCases": [
+        "A project page that needs dated milestones above a task board",
+        "A launch plan summary where everyone needs the same target dates",
+        "A personal study or relocation plan with fixed checkpoints"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/milestone-tracker.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Milestones"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5a8fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "incident-log",
+      "name": "Incident Log",
+      "emoji": "🚨",
+      "tagline": "Severity, owner, and a postmortem checklist for each incident.",
+      "description": "A browser-local incident log for system alias, severity, owner alias, detection date, and a five-step postmortem checklist. It is not a ticket system, status page, pager, or incident review record.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "incident",
+        "postmortem",
+        "engineering",
+        "on-call",
+        "offline"
+      ],
+      "color": "orange",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Sev1 to Sev4 priority chips sorted worst-first",
+        "Postmortem checklist per incident with a completion bar",
+        "Live totals for open incidents and open Sev1s",
+        "States: Detected, Mitigating, Monitoring, Resolved, Postmortem done"
+      ],
+      "useCases": [
+        "An on-call page that keeps a running private timeline",
+        "A retrospective aid: which incidents still owe a review",
+        "A small team that wants severity triage without another tool"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/incident-log.html",
+      "height": 530,
+      "minHeight": 390,
+      "maxHeight": 700,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Incidents"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c1642f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "test-run-log",
+      "name": "QA Test Run Log",
+      "emoji": "🧪",
+      "tagline": "Manual pass, fail, and blocked results with a retest column.",
+      "description": "A browser-local test run sheet for case alias, area, environment, tester alias, and the result a person observed. It is not a CI result, a test management system, or a release gate.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "qa",
+        "testing",
+        "release",
+        "engineering",
+        "offline"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Result select: Pass, Fail, Blocked, Skipped, sorted failures-first",
+        "Environment field for Local, Staging, Production, or Device lab",
+        "Live fail, blocked, and pass-rate counts",
+        "Retest and Verified states keep the sheet usable after a fix"
+      ],
+      "useCases": [
+        "A release checklist page that needs today's manual run",
+        "A device-lab smoke test log for a web or mobile build",
+        "A solo developer tracking which cases still fail"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/test-run-log.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Test run"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f7f4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "invoice-tracker",
+      "name": "Invoice Status Tracker",
+      "emoji": "🧾",
+      "tagline": "Draft, sent, paid: a local ledger of what is still outstanding.",
+      "description": "A browser-local invoice status list for client alias, manual USD amount, issue date, and due date. It does not send invoices, take payment, reconcile bank records, or calculate tax.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "invoice",
+        "finance",
+        "freelance",
+        "receivables",
+        "offline"
+      ],
+      "color": "yellow",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Outstanding and paid USD totals from manually entered amounts",
+        "Past-due count from the due date, separate from the state select",
+        "Overdue invoices sort to the top, then by nearest due date",
+        "Client aliases only: no bank details, tax IDs, or payment links"
+      ],
+      "useCases": [
+        "A freelancer's page for chasing unpaid invoices",
+        "A small studio tracking which retainers are still open",
+        "A bookkeeping aid before entering figures into real accounting software"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/invoice-tracker.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Invoices"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b08248"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "leave-tracker",
+      "name": "Leave and Time-Off Log",
+      "emoji": "🌴",
+      "tagline": "Requested, approved, taken: days away in one local view.",
+      "description": "A browser-local leave log for person alias, leave type, start and end dates, and working-day counts. It stores aliases only and is not an HR system, approval workflow, payroll record, or entitlement calculator.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "leave",
+        "pto",
+        "hr",
+        "people",
+        "offline"
+      ],
+      "color": "pink",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Approved day totals plus a count of requests starting in 14 days",
+        "Leave type select: Vacation, Sick, Personal, Unpaid, Other",
+        "Aliases only: initials or role, no medical or personal details",
+        "States: Requested, Approved, Declined, Taken, Cancelled"
+      ],
+      "useCases": [
+        "A team page that needs a rough view of who is away",
+        "A manager planning coverage before approving time off",
+        "A freelance parent logging school-holiday breaks"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/leave-tracker.html",
+      "height": 500,
+      "minHeight": 360,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Time off"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#b06aa0"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "renewal-tracker",
+      "name": "Renewal and Account Health Board",
+      "emoji": "🔄",
+      "tagline": "Health, owner, and renewal date for every account on the list.",
+      "description": "A browser-local renewal list for account alias, owner alias, health rating, annual value, and renewal date. It is not a CRM, contract system, revenue forecast, or customer-health score.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "renewal",
+        "customer-success",
+        "accounts",
+        "retention",
+        "offline"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Red and amber accounts sort first, so risk leads the list",
+        "Renewals inside 30 days, at-risk count, and manual value at risk",
+        "Annual values are entered USD estimates, never synced from billing",
+        "States: Not started, In review, Proposed, Renewed, Churned"
+      ],
+      "useCases": [
+        "A customer-success page for the next quarter's renewals",
+        "A founder rating account health before a board update",
+        "An agency tracking retainer renewal dates"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/renewal-tracker.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Renewals"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#4f8f8f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "escalation-tracker",
+      "name": "Escalation Tracker",
+      "emoji": "⏫",
+      "tagline": "Who owns each escalation, how severe it is, and where it stands.",
+      "description": "A browser-local escalation list for issue alias, account alias, severity, owner alias, and open date. It is not a ticket system, SLA clock, customer record, or notification service.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "escalation",
+        "support",
+        "customer-success",
+        "queue",
+        "offline"
+      ],
+      "color": "red",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Critical escalations sort first, then High, then Normal",
+        "Open, critical, waiting, and new-this-week totals",
+        "Waiting-on-customer state keeps blocked items visible",
+        "Account aliases and next steps only: no customer contact details"
+      ],
+      "useCases": [
+        "A support lead's standup view of what is on fire",
+        "An account manager tracking escalated renewals",
+        "A small team without a ticketing system"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/escalation-tracker.html",
+      "height": 500,
+      "minHeight": 360,
+      "maxHeight": 680,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Escalations"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#c26a58"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "usability-findings",
+      "name": "Usability Findings Log",
+      "emoji": "🔍",
+      "tagline": "Findings by study, coded participant, severity, and screen.",
+      "description": "A browser-local findings log for study alias, participant code, severity, screen, and a short evidence note. It stores codes rather than names, and it is not a research repository, ticketing system, or accessibility certification.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "usability",
+        "design",
+        "findings",
+        "offline"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Severity select: Blocker, Major, Minor, Observation, ranking blockers first",
+        "Participant codes (P04) instead of names, ready for a study readout",
+        "Open blockers, fixed count, and an addressed rate in the header",
+        "States: New, Triaged, Fixing, Fixed, Won't fix"
+      ],
+      "useCases": [
+        "A designer triaging findings straight after a test session",
+        "A researcher logging evidence per screen during analysis",
+        "A product team tracking fixes without a research tool subscription"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/usability-findings.html",
+      "height": 520,
+      "minHeight": 380,
+      "maxHeight": 700,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Usability findings"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#7f6bb5"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "scholarship-tracker",
+      "name": "Scholarship and Application Tracker",
+      "emoji": "🎓",
+      "tagline": "Deadlines, award values, and stages for every application.",
+      "description": "A browser-local application list for programme, provider alias, deadline, manual award value, and stage. It does not submit applications, check eligibility, verify providers, or send reminders.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "scholarship",
+        "applications",
+        "students",
+        "career",
+        "offline"
+      ],
+      "color": "blue",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Deadlines inside 30 days, submitted count, and awarded count",
+        "Stages sort interview and submitted applications to the top",
+        "Programme types: Scholarship, University, Grant, Fellowship, Other",
+        "Documents-required notes stay local; never paste ID numbers"
+      ],
+      "useCases": [
+        "A student managing several scholarship deadlines in one term",
+        "A mentor helping someone organise programme applications",
+        "A career-changer tracking fellowships and grant calls"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/scholarship-tracker.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Applications"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#4f7fbf"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "attendance-register",
+      "name": "Attendance Register",
+      "emoji": "📋",
+      "tagline": "Present, absent, and late counts per session, with no names.",
+      "description": "A browser-local attendance register that stores session labels and aggregate counts only. It holds no student names or records, and it is not an official register, absence policy, safeguarding log, or reporting system.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "attendance",
+        "teaching",
+        "education",
+        "counts",
+        "offline"
+      ],
+      "color": "green",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Aggregate head counts only: no names, contact details, or reasons",
+        "Session totals for present, absent, and late, plus an attendance rate",
+        "Class aliases keep several cohorts on one page",
+        "States: Draft, Logged, Reviewed, Archived"
+      ],
+      "useCases": [
+        "A tutor logging how many learners joined each session",
+        "A workshop host tracking no-show rates across a series",
+        "A coach keeping counts separate from any student records"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/attendance-register.html",
+      "height": 490,
+      "minHeight": 350,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Attendance"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#5f8f6f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "collection-catalog",
+      "name": "Collection Catalog",
+      "emoji": "🏺",
+      "tagline": "Owned, wishlisted, lent, or sold: a local index of a collection.",
+      "description": "A browser-local catalog for item, category, condition, acquisition date, and a manually entered value. It does not look up market prices, appraise items, or produce provenance or insurance records.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "collection",
+        "hobby",
+        "catalog",
+        "collectors",
+        "offline"
+      ],
+      "color": "brown",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Owned, wishlist, on-loan, sold, and lost states in one list",
+        "Shelved value from manual figures, kept separate from appraisals",
+        "Category, condition, and acquisition date fields per item",
+        "Storage-spot notes help find the item again"
+      ],
+      "useCases": [
+        "A record collector cataloguing a shelf before a swap meet",
+        "A game or card collector tracking what is lent out",
+        "A wishlist that runs alongside the owned items"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/collection-catalog.html",
+      "height": 510,
+      "minHeight": 370,
+      "maxHeight": 690,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Collection"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#9a7b4f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
+      "slug": "storyboard-planner",
+      "name": "Storyboard Shot Log",
+      "emoji": "🎞️",
+      "tagline": "Panels in order, with shot size, estimated seconds, and notes.",
+      "description": "A browser-local shot log for panel, scene alias, shot size, estimated duration, lens note, and framing note. It is a planning list, not a drawing tool, editing timeline, or release record.",
+      "category": "visuals",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "storyboard",
+        "film",
+        "video",
+        "shot-list",
+        "offline"
+      ],
+      "color": "purple",
+      "plan": "Free",
+      "version": "1.0.0",
+      "updatedAt": "2026-10-12",
+      "badge": "new",
+      "features": [
+        "Estimated runtime from per-panel seconds, shown as m:ss",
+        "Shot size select: Wide, Medium, Close-up, Insert, B-roll, Transition",
+        "Progress rate across boarded, shot, edited, and approved panels",
+        "Pairs with Film Shot List for the production round itself"
+      ],
+      "useCases": [
+        "A videographer sequencing a short film before the shoot day",
+        "A creator planning a product video panel by panel",
+        "A student animator estimating total runtime"
+      ],
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "file": "/widgets/storyboard-planner.html",
+      "height": 490,
+      "minHeight": 350,
+      "maxHeight": 670,
+      "params": [
+        {
+          "key": "label",
+          "label": "Widget title",
+          "type": "text",
+          "default": "Storyboard"
+        },
+        {
+          "key": "accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#9a5f7f"
+        },
+        {
+          "key": "theme",
+          "label": "Theme",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Match Notion"
+            },
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ],
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ],
+      "recipe": null,
+      "creates": []
+    },
+    {
       "slug": "crm-pipeline",
       "name": "CRM Pipeline",
       "emoji": "💼",
@@ -13634,6 +14654,6 @@
       ]
     }
   },
-  "generatedAt": "2026-10-12T07:57:51.400Z",
-  "count": 143
+  "generatedAt": "2026-10-12T08:42:07.036Z",
+  "count": 155
 }

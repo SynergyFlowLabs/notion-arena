@@ -11,7 +11,7 @@ export default function OpengraphImage() {
     title: ["Notion gives you a page", "and a database."],
     titleAccent: "This is the rest.",
     subhead:
-      "143 components, installable as embed URLs, HTML blocks, or API recipes.",
-    chip: "components/143",
+      "155 components, installable as embed URLs, HTML blocks, or API recipes.",
+    chip: "components/155",
   });
 }

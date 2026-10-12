@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- New widget: `milestone-tracker` — Dated project milestones with owners, phases, and exit criteria
+- New widget: `incident-log` — Severity, owner, and a postmortem checklist per incident
+- New widget: `test-run-log` — Manual pass, fail, and blocked results with a retest column
+- New widget: `invoice-tracker` — Invoice status list with outstanding and past-due totals
+- New widget: `leave-tracker` — Time-off requests with approved day totals
+- New widget: `renewal-tracker` — Account health and renewal dates with value at risk
+- New widget: `escalation-tracker` — Issue, severity, owner, and waiting-state queue
+- New widget: `usability-findings` — Findings by study, participant code, and severity
+- New widget: `scholarship-tracker` — Application deadlines, stages, and award values
+- New widget: `attendance-register` — Per-session head counts with no names
+- New widget: `collection-catalog` — Owned, wishlisted, lent, and sold collection index
+- New widget: `storyboard-planner` — Shot log with shot size and estimated runtime
 - New widget: `daily-planner` — Time-blocked daily planner with priority tracking
 - New widget: `debt-payoff-tracker` — Snowball/avalanche debt strategy planner
 - New widget: `legal-matter-tracker` — Private matter index with deadlines
@@ -29,6 +41,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved MCP server tool descriptions
 
 ### Fixed
+- **Storage keys**: twelve widgets from the previous batch (`daily-planner`, `debt-payoff-tracker`, `legal-matter-tracker`,
+  `wedding-seating-planner`, `sprint-retrospective`, `customer-feedback-log`, `changelog-builder`, `pricing-tier-calculator`,
+  `user-story-map`, `okr-weekly-checkin`, `employee-onboarding-tracker`, `content-repurposing-tracker`) all wrote to the
+  `vendor-register` localStorage key, so two of them on the same page could overwrite each other. Every widget now uses
+  `notion-arena.<slug>.v1`, and `scripts/check-widgets.mjs` fails on a key that does not match its file name or that a
+  second widget also claims
 - **pomodoro-timer**: the countdown, progress ring, phase label and page title now
   update every tick while the timer is running, instead of only when you pressed
   a button. Timing is wall-clock based (a fixed phase end timestamp, read back

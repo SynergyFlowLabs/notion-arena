@@ -1,6 +1,6 @@
 import { OgImage } from "@/lib/og";
 
-export const alt = "Browse 143 Notion components — widgets, dashboards, and native database recipes.";
+export const alt = "Browse 155 Notion components — widgets, dashboards, and native database recipes.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

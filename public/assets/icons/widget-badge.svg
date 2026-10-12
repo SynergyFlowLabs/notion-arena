@@ -6,5 +6,5 @@
     </linearGradient>
   </defs>
   <rect width="140" height="40" rx="20" fill="url(#widgetGrad)"/>
-  <text x="70" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">132 Widgets</text>
+  <text x="70" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">144 Widgets</text>
 </svg>

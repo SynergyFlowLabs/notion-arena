@@ -22,6 +22,23 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    version: "1.4.0",
+    date: "2026-10-12",
+    title: "Twelve offline widgets for projects, quality, service work, and research",
+    kind: "release",
+    body: [
+      "Projects and engineering: Project Milestone Tracker, Incident Log, and QA Test Run Log. Milestones are private planning notes, not reminders or commitments; the incident log carries a postmortem checklist but is not a ticket system, status page, or review record; and the test run log records what a person observed, not a CI result, test suite, or release gate.",
+      "Finance and people: Invoice Status Tracker and Leave and Time-Off Log. Invoice totals are manual USD estimates with no sending, payment, reconciliation, or tax handling; leave entries use aliases only and are not an HR system, approval, or payroll record.",
+      "Customer work: Renewal and Account Health Board and Escalation Tracker. Both store aliases, manual values, and ratings, with no CRM sync, forecast, notification, or SLA clock.",
+      "Research and career: Usability Findings Log and Scholarship and Application Tracker. Findings use participant codes rather than names and are not a research repository or an accessibility certification; applications are manual notes with no submission, eligibility check, provider lookup, or reminder.",
+      "Education and hobbies: Attendance Register and Collection Catalog. Attendance stores aggregate head counts only, with no student names or official register; the catalog uses manual values with no price lookups, appraisals, or provenance records.",
+      "Creative planning: Storyboard Shot Log, which estimates runtime from per-panel seconds as a planning list rather than a drawing tool or edit timeline.",
+      "Storage keys are now unique per widget. Twelve widgets from the previous batch shared a single localStorage key, so two of them on one page could overwrite each other's entries. Each now writes to notion-arena.<slug>.v1, and scripts/check-widgets.mjs fails on a key that does not match its file name or that another widget also claims.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 155 components: 144 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["milestone-tracker", "incident-log", "test-run-log", "invoice-tracker", "leave-tracker", "renewal-tracker", "escalation-tracker", "usability-findings", "scholarship-tracker", "attendance-register", "collection-catalog", "storyboard-planner"],
+  },
+  {
     version: "1.3.0",
     date: "2026-10-11",
     title: "Twelve offline widgets for daily planning, finance, legal, events, and team workflows",

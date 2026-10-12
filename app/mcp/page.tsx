@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "MCP Server",
   description:
-    "The Notion Arena MCP server lets Claude Code, Cursor, Windsurf and any MCP-compatible agent browse, configure and install 143 Notion components from inside the chat.",
+    "The Notion Arena MCP server lets Claude Code, Cursor, Windsurf and any MCP-compatible agent browse, configure and install 155 Notion components from inside the chat.",
 };
 
 const TOOLS = [
@@ -78,7 +78,7 @@ export default function McpPage() {
             An MCP server that knows every component in this registry.
           </h1>
           <p className="mt-5 max-w-2xl text-lede text-ink-soft">
-            Install once and your AI agent can browse 143 components, configure
+            Install once and your AI agent can browse 155 components, configure
             them with the right params, hand you a ready-to-paste embed URL, and
             plan a full API install — without leaving the conversation.
           </p>

@@ -220,7 +220,7 @@ export default function HomePage() {
               return (
                 <div
                   key={c.key}
-                  className="group flex flex-col rounded-2xl border border-border bg-background p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_12px_30px_-18px_rgba(0,0,0,0.2)] dark:bg-card/60"
+                  className="group flex flex-col rounded-2xl border border-border bg-background p-6 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_12px_30px_-18px_rgba(0,0,0,0.2)] dark:bg-card/60"
                 >
                   {/* B&W line art in the hero illustration language */}
                   <div className="-mx-2 mb-4 flex h-32 items-center justify-center overflow-hidden rounded-xl bg-[#faf9f7] dark:bg-black/30">

@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.imgul/notion-arena",
-  "description": "MCP server for Notion Arena — 143 Notion components: 132 widgets + 11 recipes",
+  "description": "MCP server for Notion Arena — 155 Notion components: 144 widgets + 11 recipes",
   "repository": {
     "url": "https://github.com/SynergyFlowLabs/notion-arena.git",
     "source": "github"
