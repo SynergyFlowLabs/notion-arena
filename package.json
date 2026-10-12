@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit",
     "check:widgets": "node scripts/check-widgets.mjs",
     "check:sync": "node scripts/check-sync.mjs && node scripts/check-bridge.mjs",
+    "diagrams": "node scripts/export-diagrams.mjs",
     "audit:contrast": "node scripts/audit-contrast.mjs",
     "generate:mcp-catalog": "node scripts/generate-mcp-catalog.mjs",
     "build:mcp": "npm run generate:mcp-catalog && cd mcp && npm install && npm run build",

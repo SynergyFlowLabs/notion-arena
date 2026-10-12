@@ -26,6 +26,7 @@ export const DOC_NAV: { group: string; items: { href: string; label: string }[] 
     items: [
       { href: "/docs/sandbox", label: "HTML block sandbox" },
       { href: "/docs/sync", label: "Two-way data sync" },
+      { href: "/docs/sync/diagrams", label: "The sync in figures" },
       { href: "/docs/api-limits", label: "API limits, cited" },
     ],
   },
@@ -47,6 +48,14 @@ const GROUP_ICONS = {
 
 export function DocsNav() {
   const pathname = usePathname();
+  // The deepest href that matches wins, so a page and its parent are never
+  // both marked current.
+  const matches = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
+  const current = DOC_NAV.flatMap((group) => group.items)
+    .map((item) => item.href)
+    .filter(matches)
+    .sort((a, b) => b.length - a.length)[0];
   return (
     <nav aria-label="Documentation" className="flex flex-col gap-6">
       {DOC_NAV.map((group) => {

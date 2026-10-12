@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table } from "@/components/docs/prose";
 import { DataPlanePlayground } from "@/components/sync/playground";
+import { FigureRef, SyncFigure } from "@/components/sync/figure";
 
 export const metadata: Metadata = {
   title: "Two-way data sync",
@@ -62,6 +63,13 @@ export default function SyncDocsPage() {
             (<code>records</code>) or one JSON cell (<code>kv-blob</code>).
           </LI>
         </UL>
+        <P>
+          Two drawings carry this section better than prose does:{" "}
+          <FigureRef id="01-where-state-lives" /> is the problem, three devices
+          and three separate copies with no channel between them, and{" "}
+          <FigureRef id="02-topology" /> is the shape that replaces it. Both are
+          in the gallery, with the rest of them.
+        </P>
         <Note title="The question that decides everything else">
           Can a widget inside Notion reach the network? In an HTML block, no. Its
           sandbox has no network, so there is no fetch, no SSE, and no
@@ -110,6 +118,7 @@ export default function SyncDocsPage() {
             ],
           ]}
         />
+        <SyncFigure id="02-topology" />
         <H3>The sync code</H3>
         <P>
           An offline renderer cannot reach Arena, but a person can carry text
@@ -174,6 +183,7 @@ export default function SyncDocsPage() {
           and a person editing the table by hand cannot break the link by
           touching a hidden column.
         </P>
+        <SyncFigure id="04-click-to-row" />
         <H3>Conflicts</H3>
         <P>
           Two writers can touch one field within the same minute, and the
@@ -185,6 +195,7 @@ export default function SyncDocsPage() {
           Event-shaped data is the exception, where the right answer is{" "}
           <code>keep-both</code> rather than last-writer-wins.
         </P>
+        <SyncFigure id="05-conflict-policy" />
       </section>
 
       <section className="flex flex-col gap-4">
@@ -308,6 +319,14 @@ export default function SyncDocsPage() {
             ["Does mobile render an HTML block where it refuses embeds?", "Open the same page on a phone"],
           ]}
         />
+        <P>
+          The whole loop, one write end to end, is{" "}
+          <FigureRef id="03-lifecycle" />; the identity that makes the same
+          instance render the same rows on a second device is{" "}
+          <FigureRef id="06-identity" />. All six are collected at{" "}
+          <a href="/docs/sync/diagrams">the sync in figures</a>, each with a PNG
+          to take away.
+        </P>
         <P>
           The deeper research, including the direct citations for every platform
           limit quoted above and the survey of what two-way-sync vendors do and

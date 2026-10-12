@@ -7,6 +7,11 @@ order, and how we know each step works.
 Status legend: **shipped** (in this repository, verified by a script),
 **next** (designed, not built), **later** (deliberately deferred).
 
+The same design, drawn: `app/docs/sync/diagrams` holds six figures generated
+from `lib/diagrams.ts` (and exported as PNGs by `scripts/export-diagrams.mjs`).
+Each figure is footed with the files it was measured against, so they are a
+reading aid for this document, not a second source of truth.
+
 ---
 
 ## 1. The claim

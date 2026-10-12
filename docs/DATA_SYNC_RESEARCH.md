@@ -19,6 +19,11 @@ deliberately left open:
 Everything here was gathered before the plan in `docs/SYNC_PLAN.md` was written,
 and each design decision in that plan cites a finding below.
 
+Six figures draw the conclusion rather than argue it: `app/docs/sync/diagrams`
+(the page), `lib/diagrams.ts` (the source) and `public/diagrams/*.png` (the
+export). Where a figure states a number, it is a number measured in this
+repository, and the figure's footer names the file it came from.
+
 ---
 
 ## 1. Five root causes, stated plainly
