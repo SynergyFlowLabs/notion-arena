@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import { COMPONENTS, STATS } from "@/lib/catalog";
 import { CATEGORIES } from "@/lib/types";
 import { CATEGORY_ICONS, IconArrowRight, IconCheck, IconCheckCircle, IconCode, IconLink, IconTerminal, IconWrench, IconXCircle } from "@/components/icons";
-import { ChannelBlockArt, ChannelEmbedArt, ChannelRecipeArt, DotGrid } from "@/components/illustrations";
+import { ChannelBlockArt, ChannelEmbedArt, ChannelRecipeArt } from "@/components/illustrations";
 import { ComponentCard } from "@/components/component-card";
 import { HeroDashboard } from "@/components/site/hero-dashboard";
 import { Faq } from "@/components/site/faq";
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/copy-button";
 import { NotionTag, notionInk } from "@/components/ui/notion-tag";
 import { PageTransition } from "@/components/page-transition";
 
@@ -17,15 +18,15 @@ export const metadata: Metadata = {
     "Feature-rich components Notion doesn't ship: interactive widgets that run as /embed URLs or native HTML blocks, and database systems that install through the Notion API. Browse, copy, install.",
 };
 
-/** The three channel cards, on the dark band. */
+/** The three ways to drop a component into Notion. */
 const CHANNELS = [
   {
     key: "embed",
     icon: IconLink,
     Art: ChannelEmbedArt,
-    name: "Embed URL",
-    lede: "Paste one URL into Notion's Embed block.",
-    body: "Every widget is served from /embed/<slug> with a frame-ancestors * policy, so it renders on any Notion plan. Configuration lives in the query string, which means a configured widget is a single shareable link.",
+    name: "Paste a link",
+    lede: "Copy one URL, paste it into Notion's Embed block.",
+    body: "No install, no upload, no account. Just paste the link on any Notion plan (even the free one) and the widget shows up, live and interactive. You can change colours and settings right in the URL.",
     mono: "/embed/pomodoro-timer?work=25&accent=%23e03e3e",
     tint: "var(--tint-sky)",
     ink: "var(--tint-sky-ink)",
@@ -34,10 +35,10 @@ const CHANNELS = [
     key: "html-block",
     icon: IconCode,
     Art: ChannelBlockArt,
-    name: "HTML block",
-    lede: "Upload the file and Notion renders it inline.",
-    body: "Each widget is one self-contained .html file: inline CSS and JS, no network calls. The File Upload API turns it into a native HTML block that loads instantly and keeps working if this site goes away.",
-    mono: "POST /v1/file_uploads → embed.file_upload",
+    name: "Drop a file",
+    lede: "Download one .html file and drag it onto a page.",
+    body: "The widget lives inside your Notion workspace forever — no loading from our server, no downtime if this site disappears. Everything is self-contained in that one file and works fully offline.",
+    mono: "one-file.html · drag & drop",
     tint: "var(--tint-mint)",
     ink: "var(--tint-mint-ink)",
   },
@@ -45,10 +46,10 @@ const CHANNELS = [
     key: "recipe",
     icon: IconTerminal,
     Art: ChannelRecipeArt,
-    name: "Native recipe",
-    lede: "Real databases, installed through the API.",
-    body: "A recipe is a deterministic sequence of Notion API calls plus the steps no API can do for you. Read the plan before you run it: exact request count, endpoints, payload shapes, and every manual step.",
-    mono: "POST /api/install { mode: \"plan\" }",
+    name: "Install a system",
+    lede: "For things that need real databases, like a CRM or a tracker.",
+    body: "We give you a step-by-step plan: what to click, what we create for you through the Notion API, and the one or two manual steps Notion doesn't let us do automatically. You approve each step before it runs.",
+    mono: "one-click install → ready-to-use database",
     tint: "var(--tint-lavender)",
     ink: "var(--tint-lavender-ink)",
   },
@@ -122,129 +123,147 @@ export default function HomePage() {
 
   return (
     <PageTransition>
- {/* HERO : paper canvas, left-aligned, one deep shadow */}
+ {/* HERO : paper canvas, left-aligned headline + hand-drawn illustration */}
       <section className="relative overflow-hidden bg-background">
-        <div className="mx-auto grid w-full max-w-[1240px] items-center gap-x-12 gap-y-12 px-4 pt-14 pb-20 sm:px-6 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:pt-20 lg:pb-24">
-          <div className="reveal max-w-[34rem]">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="label-mono rounded-[5px] bg-primary-wash px-2 py-1 text-primary-deep">
-                components/{STATS.total}
+        <div className="mx-auto flex w-full max-w-[1240px] flex-col items-center gap-y-10 px-4 pt-14 pb-20 sm:px-6 md:flex-row md:items-center md:gap-x-10 md:pt-20 md:pb-24 lg:gap-x-14 lg:pt-24 lg:pb-28">
+          <div className="reveal reveal-1 w-full max-w-[34rem] md:w-[45%] md:max-w-none md:shrink-0">
+            {/* Handwritten eyebrow badge — reads as a margin note, not a pill */}
+            <div className="flex items-start">
+              <span className="label-hand" aria-label={`${STATS.total} components in the registry`}>
+                components / {STATS.total}
               </span>
             </div>
 
-            <h1 className="font-display mt-5 text-[2.5rem] font-bold leading-[1.06] tracking-[-0.03em] text-foreground sm:text-[3.25rem] lg:text-display lg:leading-[1] lg:tracking-[-0.0332em]">
-              Notion gives you
-              <br className="hidden sm:block" /> a page and a database.
-              <br className="hidden sm:block" /> This is the rest.
+            <h1 className="font-display mt-7 text-[2.25rem] font-bold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[3.25rem] md:text-[2.6rem] lg:text-[3.75rem] lg:leading-[1.02] lg:tracking-[-0.035em]">
+              Notion gives you a page{" "}
+              <span className="whitespace-nowrap">and a database.</span>
+              <br className="hidden sm:block" />
+              <span className="text-foreground">This is the rest.</span>
             </h1>
 
-            <p className="mt-5 max-w-[30rem] text-lede text-ink-soft">
-              A registry of components Notion does not ship: {STATS.widgets}{" "}
-              interactive widgets that run inside a page, and {STATS.native}{" "}
-              database systems that install through the API.
+            <p className="mt-5 max-w-[32rem] text-[1.05rem] leading-[1.6] text-ink-soft sm:text-lede">
+              An open registry of {STATS.total} components Notion doesn&apos;t ship{" "}
+              — {STATS.widgets} interactive widgets that run inside any page, plus{" "}
+              {STATS.native} database systems that install straight through the API.
+              Browse, preview, copy, done.
             </p>
 
-            <div className="mt-7 flex flex-col gap-2.5 sm:flex-row sm:items-center">
-              <Button asChild size="lg" className="h-11 px-5 text-[15px] sm:w-auto">
-                <Link href="/components">Browse components</Link>
+            <div className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:items-center">
+              <Button asChild size="lg" className="h-12 px-6 text-[15px] font-semibold sm:w-auto">
+                <Link href="/components">
+                  Browse components
+                  <span className="ml-1.5" aria-hidden="true">→</span>
+                </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="h-11 px-5 text-[15px] sm:w-auto">
+              <Button asChild size="lg" variant="outline" className="h-12 px-6 text-[15px] font-medium sm:w-auto">
                 <Link href="/how-it-works">See how it works</Link>
               </Button>
             </div>
           </div>
 
-          <div className="reveal reveal-2">
+          <div className="reveal reveal-2 flex w-full flex-1 items-center justify-center md:min-w-0 md:justify-end">
             <HeroDashboard />
           </div>
         </div>
       </section>
 
-      {/* three honest facts. Kept out of the hero on purpose: the hero is one
-          moment, and these belong to the page below it. */}
-      <section className="border-b border-border bg-card">
-        <div className="mx-auto w-full max-w-[1240px] px-4 py-4 sm:px-6">
-          <ul className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-8">
-            {[
-              `${STATS.free} free, no account`,
-              "Runs offline in Notion",
-              "MIT unless marked Pro",
-            ].map((f) => (
-              <li key={f} className="flex items-center gap-2 text-[13.5px] text-ink-soft">
-                <IconCheck size={14} className="shrink-0 text-notion-green" />
-                {f}
-              </li>
-            ))}
-          </ul>
+      {/* trust rail: a quiet divider under the hero that reads like a
+          small-type promise bar, not a bulleted checklist. */}
+      <section className="border-y border-border bg-background">
+        <div className="mx-auto w-full max-w-[1240px] px-4 py-3.5 sm:px-6">
+          <div className="flex flex-col items-center justify-center gap-y-1.5 text-[12.5px] text-ink-faint sm:flex-row sm:flex-wrap sm:gap-x-6">
+            <span className="flex items-center gap-1.5">
+              <IconCheck size={13} className="shrink-0 text-notion-green" aria-hidden="true" />
+              <strong className="font-semibold text-ink-soft">{STATS.free} free</strong>
+              <span className="hidden sm:inline">· no account, no card</span>
+            </span>
+            <span className="hidden h-3 w-px bg-border-strong sm:inline-block" aria-hidden="true" />
+            <span className="flex items-center gap-1.5">
+              <IconCheck size={13} className="shrink-0 text-notion-green" aria-hidden="true" />
+              Runs offline inside Notion
+            </span>
+            <span className="hidden h-3 w-px bg-border-strong sm:inline-block" aria-hidden="true" />
+            <span className="flex items-center gap-1.5">
+              <IconCheck size={13} className="shrink-0 text-notion-green" aria-hidden="true" />
+              MIT licensed unless marked Pro
+            </span>
+            <span className="hidden h-3 w-px bg-border-strong sm:inline-block" aria-hidden="true" />
+            <span className="flex items-center gap-1.5">
+              <IconCheck size={13} className="shrink-0 text-notion-green" aria-hidden="true" />
+              Works with Claude Code, Cursor & any MCP client
+            </span>
+          </div>
         </div>
       </section>
 
- {/* CHANNELS : dark band interrupting the canvas */}
-      <section className="band relative overflow-hidden">
-        <DotGrid className="pointer-events-none absolute inset-0 h-full w-full text-band-foreground opacity-[0.05]" />
+ {/* CHANNELS : light paper, line-art cards in the hero's B&W language */}
+      <section className="relative overflow-hidden bg-card">
         <div className="relative mx-auto w-full max-w-[1240px] px-4 py-20 sm:px-6">
-          <div className="flex flex-col gap-4 border-b border-white/10 pb-8 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-4 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <p className="label-mono text-band-muted">three ways in</p>
-              <h2 className="font-display mt-3 text-h2 text-band-foreground">
-                One component, three delivery channels
+              <p className="label-mono text-ink-faint">three ways in</p>
+              <h2 className="font-display mt-3 text-h2 text-foreground">
+                One component, three ways to put it in Notion
               </h2>
             </div>
-            <p className="max-w-sm text-[14.5px] leading-relaxed text-band-muted">
-              Widgets ship as one self-contained file that serves both the embed
-              and the HTML block. Recipes are API calls plus documented
-              click-paths.
+            <p className="max-w-sm text-[14.5px] leading-relaxed text-ink-soft">
+              Pick whichever fits how you work. All three show up as a normal
+              block inside your page — no embed watermarks, no login required
+              for the free stuff.
             </p>
           </div>
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {CHANNELS.map((c) => {
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {CHANNELS.map((c, i) => {
               const Icon = c.icon;
               const Art = c.Art;
               return (
                 <div
                   key={c.key}
-                  className="group flex flex-col rounded-xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-white/25 hover:bg-white/[0.06]"
+                  className="group flex flex-col rounded-2xl border border-border bg-background p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[0_12px_30px_-18px_rgba(0,0,0,0.2)] dark:bg-card/60"
                 >
-                  {/* line art on the band: light pastels pinned, both themes */}
-                  <div className="band-art -mx-2 -mt-2 mb-4">
-                    <Art className="h-28 w-full text-band-foreground/85" />
+                  {/* B&W line art in the hero illustration language */}
+                  <div className="-mx-2 mb-4 flex h-32 items-center justify-center overflow-hidden rounded-xl bg-[#faf9f7] dark:bg-black/30">
+                    <Art className="h-full w-full text-foreground dark:text-band-foreground" />
                   </div>
-                  <span
-                    className="grid size-10 place-items-center rounded-lg"
-                    style={{ background: c.tint, color: c.ink }}
-                  >
-                    <Icon size={20} />
-                  </span>
 
-                  <h3 className="mt-4 text-[19px] font-semibold leading-snug tracking-[-0.014em] text-band-foreground">
+                  <div className="flex items-center gap-2.5">
+                    <span
+                      className="grid size-8 place-items-center rounded-lg"
+                      style={{ background: c.tint, color: c.ink }}
+                    >
+                      <Icon size={16} />
+                    </span>
+                    <span className="text-[11px] font-medium uppercase tracking-wider text-ink-faint">
+                      Step {i + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-3 text-[19px] font-semibold leading-snug tracking-[-0.014em] text-foreground">
                     {c.name}
                   </h3>
-                  <p className="mt-1.5 text-[14.5px] font-medium text-band-foreground/75">
+                  <p className="mt-1.5 text-[14.5px] font-medium text-foreground/80">
                     {c.lede}
                   </p>
-                  <p className="mt-3 flex-1 text-[13.5px] leading-[1.65] text-band-muted">
+                  <p className="mt-3 flex-1 text-[13.5px] leading-[1.65] text-ink-soft">
                     {c.body}
                   </p>
 
-                  <code
-                    translate="no"
-                    className="mt-5 block overflow-x-auto rounded-lg border border-white/10 bg-black/30 px-3 py-2 font-mono text-[11.5px] whitespace-nowrap text-band-foreground/85"
-                  >
+                  <div className="mt-5 rounded-lg border border-border bg-secondary/60 px-3 py-2 font-mono text-[11.5px] text-ink-soft">
                     {c.mono}
-                  </code>
+                  </div>
                 </div>
               );
             })}
           </div>
 
-          <p className="mt-8 text-[13.5px] text-band-muted">
+          <p className="mt-8 text-[13.5px] text-ink-faint">
             Not sure which one you need?{" "}
             <Link
               href="/how-it-works#choose"
-              className="font-medium text-band-foreground underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white/70"
+              className="font-medium text-foreground underline underline-offset-4 decoration-border-strong transition-colors hover:text-primary hover:decoration-primary"
             >
-              There is a decision guide for that
+              There&apos;s a short guide for that
             </Link>
             .
           </p>
@@ -433,14 +452,19 @@ export default function HomePage() {
               parameters, and pull raw file contents without scraping a page.
             </p>
 
-            <pre className="code-block mt-6" translate="no">
+            <div className="relative mt-6">
+              <pre className="code-block overflow-auto pr-12" translate="no">
 {`// components.json
 {
   "registries": {
     "@notion-arena": "https://notionarena.vercel.app/r/{name}.json"
   }
 }`}
-            </pre>
+              </pre>
+              <div className="absolute right-2 top-2">
+                <CopyButton compact value={`// components.json\n{\n  "registries": {\n    "@notion-arena": "https://notionarena.vercel.app/r/{name}.json"\n  }\n}`} />
+              </div>
+            </div>
 
             <div className="mt-6 flex flex-wrap gap-2">
               <Button asChild size="sm">
@@ -668,13 +692,14 @@ export default function HomePage() {
       </section>
 
  {/* CLOSING CTA : the one centred moment */}
-      <section className="band relative overflow-hidden">
-        <DotGrid className="pointer-events-none absolute inset-0 h-full w-full text-band-foreground opacity-[0.05]" />
+      <section className="relative overflow-hidden border-t border-border bg-background">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--foreground)_6%,transparent)_0%,transparent_70%)] blur-2xl" aria-hidden="true" />
         <div className="relative mx-auto w-full max-w-[760px] px-4 py-24 text-center sm:px-6">
-          <h2 className="font-display text-h1 text-band-foreground">
+          <h2 className="font-display text-h1 text-foreground">
             Put something in your Notion today
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-[16px] leading-relaxed text-band-muted">
+          <p className="mx-auto mt-4 max-w-lg text-[16px] leading-relaxed text-ink-soft">
             {STATS.free} components are free and need no account. Copy an embed
             URL, or download the file and own it outright.
           </p>
@@ -686,15 +711,15 @@ export default function HomePage() {
               asChild
               size="lg"
               variant="outline"
-              className="h-11 border-white/20 bg-transparent px-5 text-[15px] text-band-foreground hover:border-white/40 hover:bg-white/10 hover:text-band-foreground sm:w-auto"
+              className="h-11 px-5 text-[15px] sm:w-auto"
             >
               <Link href="/registry">Read the registry JSON</Link>
             </Button>
           </div>
           <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {["No account", "No card", `${STATS.total} components indexed`].map((f, i) => (
-              <li key={f} className="flex items-center gap-2 text-[13px] text-band-muted">
-                {i > 0 && <span aria-hidden className="h-3 w-px bg-white/20" />}
+              <li key={f} className="flex items-center gap-2 text-[13px] text-ink-faint">
+                {i > 0 && <span aria-hidden className="h-3 w-px bg-border-strong" />}
                 {f}
               </li>
             ))}

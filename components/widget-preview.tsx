@@ -61,7 +61,7 @@ export function WidgetPreview({
         title={title}
         height={height}
         loading={loading}
-        sandbox="allow-scripts allow-popups allow-forms allow-modals"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"
         className="bg-card"
       />
     </div>

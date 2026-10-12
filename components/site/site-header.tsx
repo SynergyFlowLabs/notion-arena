@@ -17,6 +17,8 @@ import { IconClose, IconGithub, IconMenu } from "@/components/icons";
 const NAV = [
   { href: "/components", label: "Components", key: "c" },
   { href: "/how-it-works", label: "How it works", key: "h" },
+  { href: "/mcp", label: "MCP", key: "m" },
+  { href: "/skills", label: "Skills", key: "k" },
   { href: "/registry", label: "Registry", key: "r" },
   { href: "/docs", label: "Docs", key: "d" },
   { href: "/pricing", label: "Pricing", key: "p" },
@@ -129,7 +131,7 @@ export function SiteHeader() {
 
           <Link
             href="/components"
-            className="ml-1 hidden h-8 items-center rounded-lg bg-primary px-3 text-[14px] font-semibold text-primary-foreground transition-colors hover:bg-primary-deep sm:inline-flex"
+            className="ml-1 hidden h-8 items-center rounded-lg bg-foreground px-3 text-[14px] font-semibold text-background transition-colors hover:bg-[color-mix(in_oklab,var(--foreground)_88%,transparent)] sm:inline-flex"
           >
             Browse components
           </Link>
@@ -176,7 +178,7 @@ export function SiteHeader() {
             <div className="mt-3 flex items-center gap-2 border-t border-border pt-4">
               <Link
                 href="/components"
-                className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-primary text-[15px] font-semibold text-primary-foreground"
+                className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-foreground text-[15px] font-semibold text-background transition-colors hover:bg-[color-mix(in_oklab,var(--foreground)_88%,transparent)]"
               >
                 Browse components
               </Link>

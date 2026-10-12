@@ -13,13 +13,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        /** The one filled CTA. Signal Blue, white label. */
+        /** The one filled CTA. Near-black ink, white label — classic Notion. */
         default:
-          "bg-primary text-primary-foreground hover:bg-primary-deep active:bg-primary-deep",
-        /** Alias kept for call sites that mean "the blue one" explicitly. */
+          "bg-foreground text-background hover:bg-[color-mix(in_oklab,var(--foreground)_88%,transparent)] active:bg-[color-mix(in_oklab,var(--foreground)_80%,transparent)]",
+        /** Alias for call sites that want the filled CTA explicitly. */
         primary:
+          "bg-foreground text-background hover:bg-[color-mix(in_oklab,var(--foreground)_88%,transparent)] active:bg-[color-mix(in_oklab,var(--foreground)_80%,transparent)]",
+        /** Legacy Signal Blue — kept for link-only accent surfaces like inline
+            <Button variant="link">, never for primary CTAs. */
+        blue:
           "bg-primary text-primary-foreground hover:bg-primary-deep active:bg-primary-deep",
- /** Notion's dark app-ink button : for surfaces that are already blue. */
+        /** Notion's dark app-ink button : for surfaces that need inversion. */
         notion:
           "bg-app-ink text-white hover:bg-app-ink/88 dark:bg-white dark:text-[#191919] dark:hover:bg-white/88",
         outline:
@@ -27,7 +31,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/70",
         ghost: "text-ink-soft hover:bg-secondary hover:text-foreground",
-        link: "text-primary underline-offset-4 hover:text-primary-deep hover:underline",
+        link: "text-foreground underline-offset-4 hover:text-foreground/70 hover:underline",
         /** For use on a dark campaign band. */
         inverted:
           "border border-white/20 bg-transparent text-band-foreground hover:border-white/40 hover:bg-white/10",

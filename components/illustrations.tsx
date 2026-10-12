@@ -46,62 +46,80 @@ function PageGlyph({ x, y, w = 56, h = 68 }: { x: number; y: number; w?: number;
   );
 }
 
-/** Embed URL: a browser bar, a link chain, one shareable address. */
+/** Embed URL: a hand holding a link chain popping out of a browser window. */
 export function ChannelEmbedArt(props: P) {
   return (
-    <Sheet {...props}>
-      <rect x="28" y="34" width="184" height="92" rx="10" />
-      <path d="M28 54h184" />
-      <circle cx="42" cy="44" r="2.4" fill="currentColor" stroke="none" opacity={0.5} />
-      <circle cx="52" cy="44" r="2.4" fill="currentColor" stroke="none" opacity={0.5} />
-      <circle cx="62" cy="44" r="2.4" fill="currentColor" stroke="none" opacity={0.5} />
-      <rect x="76" y="39" width="120" height="10" rx="5" opacity={0.35} />
-      {/* the address is the product: one configured link */}
-      <rect x="44" y="68" width="152" height="18" rx="9" style={{ fill: "var(--tint-sky)", stroke: "none" }} />
-      <path d="M56 77h10M72 77h52" style={{ stroke: "var(--tint-sky-ink)" }} />
-      <path d="M132 77h52" style={{ stroke: "var(--tint-sky-ink)" }} opacity={0.55} />
-      {/* link chain, centred as the hero of the card */}
-      <path d="M110 108h-8a10 10 0 0 1 0-20h8" />
-      <path d="M130 88h8a10 10 0 0 1 0 20h-8" />
-      <path d="M104 98h32" />
+    <Sheet {...props} viewBox="0 0 260 160" strokeWidth={2.6}>
+      {/* Cute chunky browser window */}
+      <rect x="46" y="34" width="152" height="96" rx="10" fill="currentColor" opacity="0" />
+      <rect x="46" y="34" width="152" height="96" rx="10" />
+      <path d="M46 56h152" />
+      <circle cx="60" cy="45" r="3" fill="currentColor" stroke="none" />
+      <circle cx="72" cy="45" r="3" fill="currentColor" stroke="none" opacity="0.6" />
+      <circle cx="84" cy="45" r="3" fill="currentColor" stroke="none" opacity="0.35" />
+      {/* Address bar with one link inside */}
+      <rect x="96" y="42" width="92" height="8" rx="4" opacity="0.2" />
+      {/* Link chain popping out */}
+      <path d="M100 98a14 14 0 0 1 0-20h10" strokeWidth={3.2} />
+      <path d="M150 78a14 14 0 0 1 0 20h-10" strokeWidth={3.2} />
+      <path d="M96 88h50" strokeWidth={3.2} />
+      {/* Sparkles around to match hero */}
+      <path d="M38 70l3 -5 3 5 -3 5z" fill="currentColor" stroke="none" opacity="0.5" />
+      <path d="M216 62l2 -4 2 4 -2 4z" fill="currentColor" stroke="none" opacity="0.5" />
+      <path d="M206 112l2 -3 2 3 -2 3z" fill="currentColor" stroke="none" opacity="0.35" />
     </Sheet>
   );
 }
 
-/** HTML block: one self-contained file, uploaded into a Notion page. */
+/** HTML block: a page with a file being dropped in, plus a little arrow + sparkle. */
 export function ChannelBlockArt(props: P) {
   return (
-    <Sheet {...props}>
-      <PageGlyph x={132} y={30} w={72} h={100} />
-      {/* the slot the file lands in */}
-      <rect x="144" y="86" width="48" height="30" rx="6" strokeDasharray="4 4" opacity={0.7} />
-      {/* the file itself */}
-      <path d="M40 52a6 6 0 0 1 6-6h30l14 14v52a6 6 0 0 1-6 6H46a6 6 0 0 1-6-6Z" style={{ fill: "var(--card)" }} />
-      <path d="M76 46v14h14" />
-      <path d="M52 76h26M52 86h20M52 96h24" opacity={0.55} />
-      {/* upload arrow, file to slot */}
-      <path d="M104 100h18m0 0-6-6m6 6-6 6" style={{ stroke: "var(--primary)" }} />
-      <path d="M65 64v-12m0 0-5 5m5-5 5 5" style={{ stroke: "var(--primary)" }} />
+    <Sheet {...props} viewBox="0 0 260 160" strokeWidth={2.6}>
+      {/* A friendly Notion-style page */}
+      <path d="M72 36h60l18 18v74a6 6 0 0 1-6 6h-72a6 6 0 0 1-6-6V42a6 6 0 0 1 6-6z" />
+      <path d="M132 36v18h18" />
+      {/* Title line */}
+      <path d="M84 66h36" strokeWidth={3} />
+      {/* Body lines */}
+      <path d="M84 80h54" opacity="0.5" />
+      <path d="M84 90h44" opacity="0.5" />
+      <path d="M84 100h50" opacity="0.5" />
+      {/* File being dropped into the page */}
+      <path d="M162 62c0-3 2-5 5-5h18l12 12v30c0 3-2 5-5 5h-25c-3 0-5-2-5-5z" fill="currentColor" opacity="0.08" />
+      <path d="M162 62c0-3 2-5 5-5h18l12 12v30c0 3-2 5-5 5h-25c-3 0-5-2-5-5z" />
+      <path d="M185 57v12h12" />
+      {/* Chevrons on the file */}
+      <path d="M172 84h6M172 92h14" opacity="0.5" />
+      {/* Arrow down, file -> page */}
+      <path d="M148 110l-10 10 -10 -10" strokeWidth={2.8} />
+      <path d="M138 120V84" strokeWidth={2.8} />
     </Sheet>
   );
 }
 
-/** Native recipe: a terminal issuing API calls that build a database. */
+/** Native recipe: terminal + database cylinder, connected with an arrow. */
 export function ChannelRecipeArt(props: P) {
   return (
-    <Sheet {...props}>
-      <rect x="26" y="36" width="104" height="72" rx="10" />
-      <path d="M26 54h104" />
-      <path d="M40 70l10 8-10 8M58 86h28" style={{ stroke: "var(--tint-mint-ink)" }} />
-      <path d="M40 98h56" opacity={0.45} />
-      {/* request arrows, terminal to database */}
-      <path d="M138 62h16m0 0-5-5m5 5-5 5" opacity={0.8} />
-      <path d="M138 80h16m0 0-5-5m5 5-5 5" opacity={0.6} />
-      <path d="M138 98h16m0 0-5-5m5 5-5 5" opacity={0.4} />
-      {/* database cylinder */}
-      <ellipse cx="182" cy="52" rx="26" ry="9" style={{ fill: "var(--tint-lavender)", stroke: "var(--tint-lavender-ink)" }} />
-      <path d="M156 52v44c0 5 11.6 9 26 9s26-4 26-9V52" style={{ stroke: "var(--tint-lavender-ink)" }} />
-      <path d="M156 74c0 5 11.6 9 26 9s26-4 26-9M156 92c0 5 11.6 9 26 9s26-4 26-9" style={{ stroke: "var(--tint-lavender-ink)" }} opacity={0.6} />
+    <Sheet {...props} viewBox="0 0 260 160" strokeWidth={2.6}>
+      {/* Chunky terminal window */}
+      <rect x="32" y="44" width="96" height="74" rx="10" />
+      <path d="M32 62h96" />
+      <circle cx="46" cy="53" r="3" fill="currentColor" stroke="none" />
+      <circle cx="58" cy="53" r="3" fill="currentColor" stroke="none" opacity="0.5" />
+      {/* Prompt + chevron */}
+      <path d="M48 82l8 7 -8 7" strokeWidth={3} />
+      <path d="M64 89h22" opacity="0.5" />
+      <path d="M48 102h36" opacity="0.35" />
+      {/* Arrow terminal -> database */}
+      <path d="M136 82h18" strokeWidth={2.8} />
+      <path d="M148 76l6 6 -6 6" strokeWidth={2.8} />
+      {/* Database cylinder, bold outline */}
+      <ellipse cx="196" cy="66" rx="30" ry="10" />
+      <path d="M166 66v40c0 5 13.4 10 30 10s30-5 30-10V66" />
+      <path d="M166 86c0 5 13.4 10 30 10s30-5 30-10" opacity="0.5" />
+      <path d="M166 98c0 5 13.4 10 30 10s30-5 30-10" opacity="0.3" />
+      {/* Little checkmark on the database */}
+      <path d="M188 66l6 6 12-12" strokeWidth={3} />
     </Sheet>
   );
 }

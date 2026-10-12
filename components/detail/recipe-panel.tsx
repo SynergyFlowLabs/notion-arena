@@ -366,7 +366,7 @@ function BlockPreview({ blocks, depth = 0 }: { blocks: any[]; depth?: number }) 
           case "to_do":
             return (
               <div key={i} className="flex items-start gap-2 text-[13px] leading-relaxed">
-                <span className={cn("mt-[3px] grid size-[13px] shrink-0 place-items-center rounded-[3px] border", body.checked ? "border-primary bg-primary text-white" : "border-border-strong")}>
+                <span className={cn("mt-[3px] grid size-[13px] shrink-0 place-items-center rounded-[3px] border", body.checked ? "border-foreground bg-foreground text-background" : "border-border-strong")}>
                   {body.checked && (
                     <IconCheck size={8} strokeWidth={4} />
                   )}

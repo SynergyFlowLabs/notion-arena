@@ -28,11 +28,7 @@ export const metadata: Metadata = {
     "model context protocol",
   ],
   openGraph: {
-    title: "Notion Arena: the component registry for Notion",
-    description:
-      "Feature-rich components Notion doesn't ship: interactive widgets, HTML blocks, and API-installable database systems.",
     type: "website",
-    url: "https://notionarena.vercel.app",
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },

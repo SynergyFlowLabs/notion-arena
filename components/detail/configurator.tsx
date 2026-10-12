@@ -5,8 +5,20 @@ import type { WidgetComponent, WidgetParam } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { WidgetFrame } from "@/components/widget-frame";
 import { CopyButton } from "@/components/copy-button";
-import { IconCheck, IconClose, IconDownload, IconExternal, IconRefresh } from "@/components/icons";
+import { IconCheck, IconClose, IconDownload, IconExternal, IconRefresh, IconTerminal } from "@/components/icons";
 import { ComponentPreviewTransition } from "@/components/page-transition";
+import { Button } from "@/components/ui/button";
+import {
+  ColorField,
+  Combobox,
+  Input,
+  Label,
+  SegmentedControl,
+  Slider,
+  Switch,
+  Textarea,
+} from "@/components/ui/form";
+import { TimezoneField } from "@/components/detail/timezone-field";
 
 type Config = Record<string, string | number | boolean>;
 
@@ -37,105 +49,155 @@ function Field({
   onChange: (v: string | number | boolean) => void;
 }) {
   const id = `f-${p.key}`;
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label
-        htmlFor={id}
-        className="flex items-baseline justify-between gap-2 text-[12px] font-medium text-foreground"
-      >
-        <span>{p.label}</span>
-        <code className="font-mono text-[10.5px] text-muted-foreground">?{p.key}=</code>
-      </label>
 
-      {p.type === "select" && p.options ? (
-        <select
-          id={id}
-          value={String(value)}
-          onChange={(e) => onChange(e.target.value)}
-          className="h-8 w-full rounded-lg border border-border bg-background px-2 text-[12.5px] focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/18"
-        >
-          {p.options.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-      ) : p.type === "boolean" ? (
-        <button
-          id={id}
-          type="button"
-          role="switch"
-          aria-checked={!!value}
-          onClick={() => onChange(!value)}
-          className={cn(
-            "relative h-[22px] w-[38px] rounded-full border transition-colors",
-            value ? "border-primary bg-primary" : "border-border-strong bg-secondary"
-          )}
-        >
-          <span
-            className={cn(
-              "absolute top-[2px] size-[16px] rounded-full bg-white shadow-sm transition-transform duration-150",
-              value ? "left-[19px]" : "left-[2px]"
-            )}
-          />
-        </button>
-      ) : p.type === "number" ? (
-        <div className="flex items-center gap-2">
-          <input
-            id={id}
-            type="range"
-            min={p.min ?? 0}
-            max={p.max ?? 100}
-            step={p.step ?? 1}
-            value={Number(value)}
-            onChange={(e) => onChange(Number(e.target.value))}
-            className="h-1 flex-1 cursor-pointer appearance-none rounded-full bg-border accent-[var(--color-primary)]"
-          />
-          <input
-            type="number"
-            min={p.min}
-            max={p.max}
-            step={p.step}
-            value={Number(value)}
-            onChange={(e) => onChange(e.target.value === "" ? (p.default as number) : Number(e.target.value))}
-            className="h-8 w-[68px] rounded-lg border border-border bg-background px-2 text-right font-mono text-[12px] tabular-nums focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/18"
-          />
+  // Timezone fields are detected via key name / help text (text field with IANA hint).
+  const isTimezone =
+    (p.key === "tz" || p.key === "timezone" || /IANA/i.test(p.help ?? "")) &&
+    p.type === "text";
+
+  // Boolean toggle: Switch
+  if (p.type === "boolean") {
+    return (
+      <div className="flex items-start justify-between gap-3 py-1">
+        <div className="min-w-0 flex-1">
+          <Label htmlFor={id}>{p.label}</Label>
+          {p.help && <p className="mt-1 text-[11.5px] leading-snug text-ink-soft">{p.help}</p>}
         </div>
-      ) : p.type === "color" ? (
-        <div className="flex items-center gap-2">
-          <input
-            id={id}
-            type="color"
-            value={/^#[0-9a-f]{6}$/i.test(String(value)) ? String(value) : "#2383e2"}
-            onChange={(e) => onChange(e.target.value)}
-            className="h-8 w-10 cursor-pointer rounded-md border border-border bg-background p-0.5"
-          />
-          <input
-            type="text"
+        <Switch id={id} checked={!!value} onCheckedChange={(v) => onChange(v)} />
+      </div>
+    );
+  }
+
+  // Number: custom range slider + numeric readout
+  if (p.type === "number") {
+    return (
+      <div className="flex flex-col gap-2 py-1">
+        <div className="flex items-baseline justify-between gap-2">
+          <Label htmlFor={id}>{p.label}</Label>
+          <code className="font-mono text-[10.5px] text-ink-faint">?{p.key}=</code>
+        </div>
+        <Slider
+          value={Number(value)}
+          min={p.min ?? 0}
+          max={p.max ?? 100}
+          step={p.step ?? 1}
+          onChange={(v) => onChange(v)}
+        />
+        {p.help && <p className="text-[11.5px] leading-snug text-ink-soft">{p.help}</p>}
+      </div>
+    );
+  }
+
+  // Color: swatch + hex input
+  if (p.type === "color") {
+    return (
+      <div className="flex flex-col gap-2 py-1">
+        <div className="flex items-baseline justify-between gap-2">
+          <Label htmlFor={id}>{p.label}</Label>
+          <code className="font-mono text-[10.5px] text-ink-faint">?{p.key}=</code>
+        </div>
+        <ColorField id={id} value={String(value)} onChange={(v) => onChange(v)} />
+        {p.help && <p className="text-[11.5px] leading-snug text-ink-soft">{p.help}</p>}
+      </div>
+    );
+  }
+
+  // Select: shadcn Combobox (searchable) when options count ≥ 5; otherwise SegmentedControl for 2-3 options; native-looking Select for the rest.
+  if (p.type === "select" && p.options) {
+    const opts = p.options;
+    return (
+      <div className="flex flex-col gap-2 py-1">
+        <div className="flex items-baseline justify-between gap-2">
+          <Label htmlFor={id}>{p.label}</Label>
+          <code className="font-mono text-[10.5px] text-ink-faint">?{p.key}=</code>
+        </div>
+        {opts.length <= 3 && (
+          <SegmentedControl
             value={String(value)}
-            onChange={(e) => onChange(e.target.value)}
-            className="h-8 flex-1 rounded-lg border border-border bg-background px-2 font-mono text-[12px] focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/18"
+            onChange={(v) => onChange(v)}
+            options={opts.map((o) => ({ value: o.value, label: o.label }))}
           />
+        )}
+        {opts.length > 3 && opts.length <= 8 && (
+          <div className="relative">
+            <select
+              id={id}
+              value={String(value)}
+              onChange={(e) => onChange(e.target.value)}
+              className="flex h-9 w-full appearance-none rounded-lg border border-border bg-background px-3 pr-9 text-[13px] text-foreground transition-colors focus:border-foreground/40 focus:outline-none focus:ring-4 focus:ring-foreground/5"
+            >
+              {opts.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <svg aria-hidden viewBox="0 0 20 20" className="pointer-events-none absolute right-2.5 top-1/2 size-4 -translate-y-1/2 text-ink-faint" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round"><path d="m6 8 4 4 4-4"/></svg>
+          </div>
+        )}
+        {opts.length > 8 && (
+          <Combobox
+            id={id}
+            value={String(value)}
+            onChange={(v) => onChange(v)}
+            options={opts.map((o) => ({ value: o.value, label: o.label }))}
+            placeholder={`Choose ${p.label.toLowerCase()}…`}
+          />
+        )}
+        {p.help && <p className="text-[11.5px] leading-snug text-ink-soft">{p.help}</p>}
+      </div>
+    );
+  }
+
+  // Date: native date picker (shadcn-styled)
+  if (p.type === "date") {
+    return (
+      <div className="flex flex-col gap-2 py-1">
+        <div className="flex items-baseline justify-between gap-2">
+          <Label htmlFor={id}>{p.label}</Label>
+          <code className="font-mono text-[10.5px] text-ink-faint">?{p.key}=</code>
         </div>
-      ) : p.type === "date" ? (
-        <input
+        <Input
           id={id}
           type="date"
           value={String(value)}
           onChange={(e) => onChange(e.target.value)}
-          className="h-8 w-full rounded-lg border border-border bg-background px-2 font-mono text-[12px] focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/18"
         />
-      ) : (
-        <textarea
+        {p.help && <p className="text-[11.5px] leading-snug text-ink-soft">{p.help}</p>}
+      </div>
+    );
+  }
+
+  // Text: long content gets Textarea; tz keys get the searchable TimezoneField; otherwise Input.
+  const isLong = String(value).length > 40 || (p.help?.length ?? 0) > 60;
+  return (
+    <div className="flex flex-col gap-2 py-1">
+      <div className="flex items-baseline justify-between gap-2">
+        <Label htmlFor={id}>{p.label}</Label>
+        <code className="font-mono text-[10.5px] text-ink-faint">?{p.key}=</code>
+      </div>
+      {isTimezone ? (
+        <TimezoneField id={id} value={String(value)} onChange={(v) => onChange(v)} />
+      ) : isLong ? (
+        <Textarea
           id={id}
           value={String(value)}
-          rows={String(value).length > 60 ? 3 : 1}
+          rows={Math.min(4, Math.max(2, Math.ceil(String(value).length / 40)))}
           onChange={(e) => onChange(e.target.value)}
           placeholder={p.help}
-          className="w-full resize-y rounded-lg border border-border bg-background px-2 py-1.5 font-mono text-[11.5px] leading-relaxed focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/18"
+          spellCheck={false}
+        />
+      ) : (
+        <Input
+          id={id}
+          type="text"
+          value={String(value)}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={p.help}
+          spellCheck={false}
         />
       )}
-      {p.help && <p className="text-[11px] leading-snug text-muted-foreground">{p.help}</p>}
+      {p.help && <p className="text-[11.5px] leading-snug text-ink-soft">{p.help}</p>}
     </div>
   );
 }
@@ -156,8 +218,10 @@ function Tab({
       aria-selected={active}
       onClick={onClick}
       className={cn(
-        "relative rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors",
-        active ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground"
+        "relative rounded-md px-3 py-1.5 text-[12.5px] font-medium transition-colors",
+        active
+          ? "bg-foreground text-background"
+          : "text-ink-soft hover:bg-secondary hover:text-foreground"
       )}
     >
       {children}
@@ -167,18 +231,16 @@ function Tab({
 
 function Code({ children, lang }: { children: string; lang?: string }) {
   return (
-    <div className="relative">
-      <pre className="code-block max-h-[320px] overflow-auto pr-12">
+    <div className="relative overflow-hidden rounded-lg border border-border bg-background">
+      <div className="flex items-center justify-between border-b border-border bg-card px-3 py-1.5">
+        <span className="font-mono text-[10.5px] uppercase tracking-wider text-ink-faint">
+          {lang ?? "code"}
+        </span>
+        <CopyButton value={children} compact label="Copy" />
+      </div>
+      <pre className="code-block max-h-[320px] overflow-auto px-4 py-3 text-[12.5px]">
         <code>{children}</code>
       </pre>
-      <div className="absolute right-2 top-2 flex items-center gap-1.5">
-        {lang && (
-          <span className="rounded border border-border bg-background px-1.5 py-px font-mono text-[10px] text-muted-foreground">
-            {lang}
-          </span>
-        )}
-        <CopyButton value={children} compact />
-      </div>
     </div>
   );
 }
@@ -201,6 +263,9 @@ export function Configurator({
   const [nonce, setNonce] = React.useState(0);
   const [height, setHeight] = React.useState(widget.height);
   const [showConfig, setShowConfig] = React.useState(true);
+  const [rawMode, setRawMode] = React.useState(false);
+  const [rawJson, setRawJson] = React.useState("");
+  const [jsonError, setJsonError] = React.useState<string | null>(null);
 
   const qs = queryString(widget, cfg);
   const previewSrc = `${origin}/embed/${widget.slug}${qs ? `?${qs}` : ""}${qs ? "&" : "?"}v=${nonce}`;
@@ -212,9 +277,35 @@ export function Configurator({
     setNonce((n) => n + 1);
   };
 
-  const notepad = `/embed → paste this URL → Embed link
+  const notepad = `/embed → paste this URL → Embed link\n\n${embedHref}`;
 
-${embedHref}`;
+  const configAsJson = React.useMemo(() => {
+    const obj: Record<string, string | number | boolean> = {};
+    widget.params.forEach((p) => { obj[p.key] = cfg[p.key]; });
+    return JSON.stringify(obj, null, 2);
+  }, [widget, cfg]);
+
+  React.useEffect(() => { if (!rawMode) setRawJson(configAsJson); }, [configAsJson, rawMode]);
+
+  function applyRawJson() {
+    try {
+      const parsed = JSON.parse(rawJson) as Record<string, unknown>;
+      const next: Config = { ...cfg };
+      widget.params.forEach((p) => {
+        if (parsed[p.key] !== undefined) {
+          const raw = parsed[p.key];
+          if (p.type === "boolean") next[p.key] = Boolean(raw);
+          else if (p.type === "number") next[p.key] = Number(raw);
+          else next[p.key] = String(raw);
+        }
+      });
+      setCfg(next);
+      setNonce((n) => n + 1);
+      setJsonError(null);
+    } catch (e) {
+      setJsonError((e as Error).message);
+    }
+  }
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -248,7 +339,7 @@ ${embedHref}`;
                 target="_blank"
                 rel="noreferrer noopener"
                 title="Open the widget on its own"
-                className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-background hover:text-foreground"
+                className="grid size-6 place-items-center rounded-[6px] text-ink-soft transition-colors duration-150 hover:bg-secondary hover:text-foreground"
               >
                 <IconExternal size={13} />
               </a>
@@ -259,25 +350,25 @@ ${embedHref}`;
             src={previewSrc}
             title={`${widget.name} live preview`}
             height={height}
-            sandbox="allow-scripts allow-popups allow-forms allow-modals"
+            loading="eager"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"
             className="bg-card"
           />
         </div>
         </ComponentPreviewTransition>
 
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-ink-soft">
-          <label className="flex items-center gap-2">
-            Block height
-            <input
-              type="range"
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-ink-soft">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
+            <span className="shrink-0 font-medium text-foreground">Block height</span>
+            <Slider
+              value={height}
               min={widget.minHeight}
               max={widget.maxHeight}
-              value={height}
-              onChange={(e) => setHeight(Number(e.target.value))}
-              className="h-1 w-28 cursor-pointer appearance-none rounded-full bg-border accent-[var(--color-primary)]"
+              onChange={setHeight}
+              suffix="px"
+              className="max-w-[200px]"
             />
-            <span className="w-11 font-mono tabular-nums">{height}px</span>
-          </label>
+          </div>
           <button
             type="button"
             onClick={() => setShowConfig((v) => !v)}
@@ -286,14 +377,14 @@ ${embedHref}`;
             {showConfig ? "Hide" : "Show"} configuration
           </button>
           <span className="ml-auto hidden items-center gap-1.5 sm:flex">
-            <span className="size-1.5 rounded-full bg-[var(--notion-green)]" />
+            <span className="size-1.5 rounded-full bg-notion-green" />
             runs sandboxed, no network
           </span>
         </div>
 
         {/* --------------- tabs --------------- */}
-        <div className="mt-6 rounded-xl border border-border bg-card">
-          <div className="flex items-center gap-1 border-b border-border p-1.5" role="tablist">
+        <div className="mt-6 overflow-hidden rounded-xl border border-border bg-card">
+          <div className="flex items-center gap-1 border-b border-border bg-raised p-1.5" role="tablist">
             <Tab active={tab === "embed"} onClick={() => setTab("embed")}>
               Embed URL
             </Tab>
@@ -314,7 +405,7 @@ ${embedHref}`;
                     <>Paste the URL below and click <strong className="font-semibold">Embed link</strong>.</>,
                     <>Drag the block's edge to resize. It updates live from now on.</>,
                   ].map((node, i) => (
-                    <li key={i} className="flex gap-2.5 text-[13px] leading-relaxed text-muted-foreground">
+                    <li key={i} className="flex gap-2.5 text-[13px] leading-relaxed text-ink-soft">
                       <span className="mt-px grid size-[18px] shrink-0 place-items-center rounded-full bg-secondary font-mono text-[10.5px] font-semibold text-foreground">
                         {i + 1}
                       </span>
@@ -338,7 +429,7 @@ ${embedHref}`;
                   <Code lang="notepad">{notepad}</Code>
                 </div>
 
-                <p className="rounded-lg border border-border bg-raised px-3 py-2.5 text-[12.5px] leading-relaxed text-muted-foreground">
+                <p className="rounded-lg border border-border bg-raised px-3 py-2.5 text-[12.5px] leading-relaxed text-ink-soft">
                   <strong className="font-semibold text-foreground">Works on every Notion plan.</strong>{" "}
                   No integration, no OAuth, no server. The trade-off: the widget
                   lives on our host, so it needs network access to render, and a
@@ -350,7 +441,7 @@ ${embedHref}`;
 
             {tab === "html" && (
               <div className="flex flex-col gap-4">
-                <p className="text-[13px] leading-relaxed text-muted-foreground">
+                <p className="text-[13px] leading-relaxed text-ink-soft">
                   Notion 3.6 added a native{" "}
                   <strong className="font-semibold text-foreground">HTML block</strong>. You
                   upload a <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">.html</code>{" "}
@@ -384,7 +475,7 @@ ${embedHref}`;
                     <>In Notion, type <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">/html</code> and choose <strong className="font-semibold">Upload</strong>.</>,
                     <>Pick the file. Notion renders it immediately, on any plan.</>,
                   ].map((node, i) => (
-                    <li key={i} className="flex gap-2.5 text-[13px] leading-relaxed text-muted-foreground">
+                    <li key={i} className="flex gap-2.5 text-[13px] leading-relaxed text-ink-soft">
                       <span className="mt-px grid size-[18px] shrink-0 place-items-center rounded-full bg-secondary font-mono text-[10.5px] font-semibold text-foreground">
                         {i + 1}
                       </span>
@@ -415,7 +506,7 @@ ${embedHref}`;
                               </span>
                             </td>
                             <td className="py-2 pr-2 align-top font-medium">{String(label)}</td>
-                            <td className="py-2 pr-3 align-top text-muted-foreground">{String(note)}</td>
+                            <td className="py-2 pr-3 align-top text-ink-soft">{String(note)}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -427,7 +518,7 @@ ${embedHref}`;
 
             {tab === "api" && (
               <div className="flex flex-col gap-4">
-                <p className="text-[13px] leading-relaxed text-muted-foreground">
+                <p className="text-[13px] leading-relaxed text-ink-soft">
                   Three requests: create a file upload, send the bytes, then
                   append an{" "}
                   <code className="rounded bg-secondary px-1 py-px font-mono text-[12px]">embed</code>{" "}
@@ -443,7 +534,7 @@ ${embedHref}`;
                   <Code lang="bash">{apiSnippet}</Code>
                 </div>
 
-                <p className="rounded-lg border border-border bg-raised px-3 py-2.5 text-[12.5px] leading-relaxed text-muted-foreground">
+                <p className="rounded-lg border border-border bg-raised px-3 py-2.5 text-[12.5px] leading-relaxed text-ink-soft">
                   Your integration must be connected to the target page first:
                   page <strong className="font-semibold text-foreground">••• → Connections</strong>{" "}
                   → add your integration. Without that, every write returns{" "}
@@ -457,34 +548,95 @@ ${embedHref}`;
 
       {/* ---------------- config sidebar ---------------- */}
       <aside className={cn("min-w-0", !showConfig && "hidden lg:block")}>
-        <div className="lg:sticky lg:top-20">
-          <div className="rounded-xl border border-border bg-card">
-            <div className="flex items-center justify-between gap-2 border-b border-border px-3.5 py-2.5">
-              <h2 className="text-h6 text-foreground">Configure</h2>
-              <button
-                type="button"
-                onClick={() => {
-                  setCfg(defaults(widget));
-                  setNonce((n) => n + 1);
-                }}
-                className="rounded-md px-1.5 py-0.5 text-[11.5px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              >
-                Reset
-              </button>
+        <div className="lg:sticky lg:top-20 space-y-3">
+          {/* ---- Configure card ---- */}
+          <div className="overflow-hidden rounded-xl border border-border bg-card">
+            <div className="flex items-center justify-between gap-2 border-b border-border bg-raised px-4 py-2.5">
+              <div className="flex items-center gap-2">
+                <h2 className="text-[13.5px] font-semibold text-foreground">Configure</h2>
+                <span className="rounded-full border border-border bg-background px-1.5 py-px font-mono text-[10px] font-medium text-ink-faint">
+                  {widget.params.length} {widget.params.length === 1 ? "param" : "params"}
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setRawMode((v) => !v)}
+                  className={cn(
+                    "inline-flex h-7 items-center gap-1 rounded-md border px-2 text-[11.5px] font-medium transition-colors",
+                    rawMode
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border text-ink-soft hover:border-border-strong hover:bg-secondary hover:text-foreground"
+                  )}
+                  title="Edit raw JSON"
+                >
+                  <IconTerminal size={11} />
+                  JSON
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCfg(defaults(widget));
+                    setNonce((n) => n + 1);
+                    setJsonError(null);
+                  }}
+                  className="inline-flex h-7 items-center rounded-md px-2 text-[11.5px] font-medium text-ink-soft transition-colors hover:bg-secondary hover:text-foreground"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
-            <div className="flex max-h-[560px] flex-col gap-3.5 overflow-auto p-3.5">
-              {widget.params.map((p) => (
-                <Field key={p.key} p={p} value={cfg[p.key]} onChange={set(p.key)} />
-              ))}
-            </div>
+
+            {rawMode ? (
+              <div className="flex flex-col gap-2 p-3">
+                <p className="text-[11.5px] leading-relaxed text-ink-soft">
+                  Edit parameters as JSON. Press <span className="font-mono">Apply</span> to update the preview.
+                </p>
+                <textarea
+                  spellCheck={false}
+                  value={rawJson}
+                  onChange={(e) => { setRawJson(e.target.value); setJsonError(null); }}
+                  className="min-h-[180px] w-full resize-y rounded-lg border border-border bg-background px-3 py-2 font-mono text-[11.5px] leading-relaxed text-foreground focus:border-foreground/40 focus:outline-none focus:ring-4 focus:ring-foreground/5"
+                />
+                {jsonError && (
+                  <p className="rounded-md border border-[var(--tag-ink-red)]/20 bg-[color:color-mix(in_oklab,var(--notion-red)_10%,transparent)] px-2.5 py-1.5 text-[11.5px] text-[var(--tag-ink-red)]">
+                    {jsonError}
+                  </p>
+                )}
+                <div className="flex items-center justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => { setRawJson(configAsJson); setJsonError(null); }}
+                    className="inline-flex h-8 items-center rounded-md px-2.5 text-[12px] font-medium text-ink-soft transition-colors hover:bg-secondary hover:text-foreground"
+                  >
+                    Revert
+                  </button>
+                  <Button size="sm" onClick={applyRawJson} className="h-8 px-3 text-[12px]">
+                    Apply
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex max-h-[520px] flex-col gap-1 overflow-auto p-3">
+                {widget.params.map((p) => (
+                  <Field key={p.key} p={p} value={cfg[p.key]} onChange={set(p.key)} />
+                ))}
+              </div>
+            )}
           </div>
 
-          <div className="mt-3 rounded-xl border border-border bg-raised p-3.5">
-            <h3 className="text-[12px] font-semibold text-foreground">What changes</h3>
-            <p className="mt-1.5 text-[12px] leading-relaxed text-muted-foreground">
+          {/* ---- Changed-params summary ---- */}
+          <div className="rounded-xl border border-border bg-card p-3.5">
+            <div className="flex items-baseline justify-between gap-2">
+              <h3 className="text-[12px] font-semibold text-foreground">What changes</h3>
+              <span className="font-mono text-[10.5px] text-ink-faint">
+                {qs ? `${qs.split("&").length} override${qs.split("&").length === 1 ? "" : "s"}` : "defaults"}
+              </span>
+            </div>
+            <p className="mt-1.5 text-[12px] leading-relaxed text-ink-soft">
               {qs
-                ? "Every control writes to the URL, so the same file can be configured differently on every page, and shared as a link."
-                : "You are on the defaults. Change anything and the URL, the download and the install payload all update."}
+                ? "Every control writes to the URL, so the same file can be configured differently on every page and shared as a link."
+                : "You are on the defaults. Change any control and the URL, download and install payload all update live."}
             </p>
             <div className="mt-2.5 flex flex-wrap gap-1">
               {widget.params.map((p) => {
@@ -493,12 +645,13 @@ ${embedHref}`;
                   <span
                     key={p.key}
                     className={cn(
-                      "rounded border px-1.5 py-px font-mono text-[10.5px]",
+                      "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[10.5px]",
                       changed
-                        ? "border-primary/40 bg-primary/10 text-primary"
-                        : "border-border bg-background text-muted-foreground/70"
+                        ? "border-foreground/25 bg-foreground/5 text-foreground"
+                        : "border-border bg-background text-ink-faint"
                     )}
                   >
+                    {changed && <span className="size-1 rounded-full bg-foreground" />}
                     {p.key}
                   </span>
                 );
