@@ -929,10 +929,10 @@ const F6 = (() => {
 
   /* right: the key at rest */
   rows += t(506, top + 28, "At rest", { size: 11, weight: 600, fill: C.soft });
-  rows += link({ id: "f6", d: `M504 ${cy + 84}h14`, tone: "ours", width: 1.6 });
+  rows += link({ id: "f6", d: `M492 ${cy + 84}h14`, tone: "ours", width: 1.6 });
   rows += chip(506, cy + 30, "SHA-256", { size: 9.5, fill: C.quietWash, ink: C.quiet, mono: true, h: 18 });
   rows += chip(506, cy + 54, "AES-256-GCM", { size: 9.5, fill: C.quietWash, ink: C.quiet, mono: true, h: 18 });
-  rows += block(506, cy + 96, "Hashed for lookup, sealed so it can be re-shown. A Notion token never reaches a browser.", 192, {
+  rows += block(514, cy + 96, "Hashed for lookup, sealed so it can be re-shown. A Notion token never reaches a browser.", 184, {
     size: 10,
     fill: C.soft,
   }).svg;
