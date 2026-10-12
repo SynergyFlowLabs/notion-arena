@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  */
 const VARIANTS = {
   default: "border-border-strong bg-secondary text-secondary-foreground",
-  primary: "border-transparent bg-primary-wash text-primary-deep",
+  primary: "border-transparent bg-foreground text-background",
   pro: "border-transparent bg-[color-mix(in_oklab,var(--notion-purple)_14%,transparent)] text-[color-mix(in_oklab,var(--notion-purple)_88%,var(--foreground))]",
   free: "border-transparent bg-[color-mix(in_oklab,var(--notion-green)_14%,transparent)] text-[color-mix(in_oklab,var(--notion-green)_90%,var(--foreground))]",
   new: "border-transparent bg-[color-mix(in_oklab,var(--notion-orange)_16%,transparent)] text-[color-mix(in_oklab,var(--notion-orange)_90%,var(--foreground))]",

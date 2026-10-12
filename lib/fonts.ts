@@ -53,5 +53,21 @@ export const mono = localFont({
   preload: true,
 });
 
+/**
+ * Handwritten accent font for the eyebrow badge and other small
+ * editorial flourishes. Caveat is an open-source (SIL OFL) brush-script
+ * face that reads friendly and hand-drawn without being cartoonish.
+ */
+export const hand = localFont({
+  src: [
+    { path: "../fonts/caveat-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/caveat-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
+  variable: "--font-notion-hand",
+  display: "swap",
+  fallback: ["Caveat", "Comic Sans MS", "Segoe Print", "Bradley Hand", "cursive"],
+  preload: false,
+});
+
 /** Applied on <html>; the CSS variables do the rest. */
-export const fontVariables = `${sans.variable} ${mono.variable}`;
+export const fontVariables = `${sans.variable} ${mono.variable} ${hand.variable}`;

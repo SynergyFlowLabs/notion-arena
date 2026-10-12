@@ -117,7 +117,7 @@ export function ComponentCard({
         aria-label={`${c.name}: ${c.tagline}`}
       />
 
-      <div className="relative border-b border-border bg-raised">
+      <div className="relative bg-background dark:bg-[#1e1e1c]">
         <ComponentPreviewTransition slug={c.slug}>
         {widget && live && src ? (
           <InView
@@ -131,17 +131,18 @@ export function ComponentCard({
               </div>
             }
           >
-            <div className="relative overflow-hidden" style={{ height: 168 }}>
+            <div className="relative overflow-hidden bg-background dark:bg-[#1e1e1c]" style={{ height: 168 }}>
               <WidgetFrame
                 src={src}
                 title={`${c.name} preview`}
                 loading="lazy"
                 tabIndex={-1}
-                className="pointer-events-none absolute top-1/2 left-1/2 border-0 bg-card"
+                className="pointer-events-none absolute left-0 top-0 border-0 bg-transparent"
                 style={{
-                  width: 520,
-                  height: Math.min(widget.height, 336),
-                  transform: "translate(-50%,-50%) scale(0.5)",
+                  width: "125%",
+                  height: "135%",
+                  transform: "scale(0.82)",
+                  transformOrigin: "top left",
                 }}
               />
             </div>

@@ -5,31 +5,27 @@ import { cn } from "@/lib/utils";
 import { useResolvedTheme } from "@/components/use-resolved-theme";
 
 export interface WidgetFrameProps {
-  /** Path to the embed route, with or without an existing query string. */
   src: string;
   title: string;
   height?: number | string;
   className?: string;
   loading?: "lazy" | "eager";
-  /** Extra sandbox permissions beyond the Notion-equivalent set. */
   sandbox?: string;
   tabIndex?: number;
-  /** Merged over the computed height, for positioned or scaled previews. */
   style?: React.CSSProperties;
 }
 
 /**
  * A widget iframe that always agrees with the visitor's theme.
  *
- * Widgets default to `theme=auto`, which follows the widget's own
- * `prefers-color-scheme`. Inside the site that is usually right, but a manual
- * theme override (light site on a dark system, or vice versa) would leave the
- * widget disagreeing with the surface around it. So the resolved site theme is
- * appended as an explicit parameter, and re-appended on every toggle.
+ * Renders as a plain same-origin iframe with `allow-scripts allow-same-origin`
+ * so the widget can run inline JS (timers, localStorage, WebAudio for chimes)
+ * but cannot navigate the top frame or trigger downloads/popups unless the
+ * caller grants those permissions.
  *
- * The sandbox is `allow-scripts` without `allow-same-origin`, exactly how
- * Notion renders an HTML block: the widget can run and can keep localStorage,
- * but cannot reach this page or carry credentials.
+ * Note: `scrolling="no"` and `referrerPolicy` are intentionally left off the
+ * default — different browsers disagree on how they interact with sandboxed
+ * iframes (some lock content to 0x0 or stall the document load).
  */
 export function WidgetFrame({
   src,
@@ -37,7 +33,7 @@ export function WidgetFrame({
   height = 260,
   className,
   loading = "lazy",
-  sandbox = "allow-scripts",
+  sandbox = "allow-scripts allow-same-origin",
   tabIndex,
   style,
 }: WidgetFrameProps) {
@@ -52,12 +48,23 @@ export function WidgetFrame({
       src={url}
       title={title}
       loading={loading}
+      // A relaxed, production-safe sandbox: scripts + same-origin (so localStorage
+      // works and the document has a real origin) but no top-navigation,
+      // pointer-lock, or downloads unless explicitly added at the call-site.
       sandbox={sandbox}
-      referrerPolicy="no-referrer"
-      scrolling="no"
       tabIndex={tabIndex}
-      style={{ height: typeof height === "number" ? `${height}px` : height, ...style }}
-      className={cn("block w-full border-0", className)}
+      // Allow the iframe to size to the given height naturally; the widget's
+      // own `overflow:hidden` on <body> clips anything that overflows.
+      allow=""
+      style={{
+        height: typeof height === "number" ? `${height}px` : height,
+        // iframes default to a built-in 2px inset border; override explicitly
+        // so the bg-color fills the entire rect (otherwise dark-mode inverts
+        // can leave a hairline and JS errors during load paint a white strip).
+        border: 0,
+        ...style,
+      }}
+      className={cn("block w-full", className)}
     />
   );
 }

@@ -72,8 +72,8 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
     // reconcile this same-route dynamic segment in place and animate nothing.
     <PageTransition key={c.slug}>
       {/* breadcrumb */}
-      <div className="border-b border-border bg-raised">
-        <div className="mx-auto flex w-full max-w-[1240px] items-center gap-1.5 px-4 py-2.5 text-[12.5px] text-muted-foreground sm:px-6">
+      <div className="border-b border-border bg-background">
+        <div className="mx-auto flex w-full max-w-[1240px] items-center gap-1.5 px-4 py-2.5 text-[12.5px] text-ink-faint sm:px-6">
           <Link href="/" transitionTypes={["nav-back"]} className="transition-colors duration-150 hover:text-foreground">
             Home
           </Link>
@@ -86,18 +86,21 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
             Components
           </Link>
           <span aria-hidden>/</span>
-          <Link href={`/categories/${cat.slug}`} className="hover:text-foreground">{cat.name}</Link>
+          <Link href={`/categories/${cat.slug}`} className="transition-colors hover:text-foreground">{cat.name}</Link>
           <span aria-hidden>/</span>
           <span className="truncate text-foreground">{c.name}</span>
         </div>
       </div>
 
       {/* header */}
-      <section className="border-b border-border bg-raised">
+      <section className="border-b border-border bg-background">
         <div className="mx-auto w-full max-w-[1240px] px-4 pb-9 pt-8 sm:px-6">
           <div className="flex flex-wrap items-start gap-4">
-            <span className="grid size-12 shrink-0 place-items-center rounded-xl border border-border bg-background text-[26px] shadow-xs">
-              {c.emoji}
+            <span
+              className="grid size-12 shrink-0 place-items-center rounded-xl"
+              style={{ background: cat.tint, color: `var(--tag-ink-${cat.color})` }}
+            >
+              <span className="text-[24px] leading-none">{c.emoji}</span>
             </span>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-1.5">
@@ -111,25 +114,25 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 {c.badge === "popular" && <Badge variant="primary">Popular</Badge>}
                 {c.badge === "staff-pick" && <Badge variant="pro">Staff pick</Badge>}
               </div>
-              <h1 className="font-display mt-2 text-h3 text-foreground sm:text-h2">
+              <h1 className="font-display mt-3 text-h3 text-foreground sm:text-h2">
                 {c.name}
               </h1>
-              <p className="mt-2.5 max-w-2xl text-lede text-ink-soft">
+              <p className="mt-2.5 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
                 {c.tagline}
               </p>
             </div>
-            <dl className="flex shrink-0 gap-4 text-[12px]">
-              <div>
-                <dt className="text-muted-foreground">Version</dt>
-                <dd className="font-mono font-medium">{c.version}</dd>
+            <dl className="grid shrink-0 grid-cols-3 gap-0 overflow-hidden rounded-lg border border-border bg-card text-[11.5px]">
+              <div className="flex flex-col gap-0.5 border-r border-border px-3 py-2">
+                <dt className="font-mono uppercase tracking-wider text-ink-faint">Version</dt>
+                <dd className="font-mono font-semibold text-foreground tabular-nums">v{c.version}</dd>
               </div>
-              <div>
-                <dt className="text-muted-foreground">Updated</dt>
-                <dd className="font-mono font-medium">{c.updatedAt}</dd>
+              <div className="flex flex-col gap-0.5 border-r border-border px-3 py-2">
+                <dt className="font-mono uppercase tracking-wider text-ink-faint">Updated</dt>
+                <dd className="font-mono font-medium text-foreground tabular-nums">{c.updatedAt}</dd>
               </div>
-              <div>
-                <dt className="text-muted-foreground">Min. plan</dt>
-                <dd className="font-medium">{c.plan}</dd>
+              <div className="flex flex-col gap-0.5 px-3 py-2">
+                <dt className="font-mono uppercase tracking-wider text-ink-faint">Plan</dt>
+                <dd className="font-medium text-foreground">{c.plan}</dd>
               </div>
             </dl>
           </div>
@@ -158,35 +161,35 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         ) : recipe ? (
           <RecipePanel recipe={recipe} origin={origin} />
         ) : (
-          <p className="text-sm text-muted-foreground">This component has no definition yet.</p>
+          <p className="text-sm text-ink-soft">This component has no definition yet.</p>
         )}
 
         {/* description + features */}
         <section className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="min-w-0">
-            <h2 className="text-h5 text-foreground">About this component</h2>
-            <p className="mt-2 max-w-2xl text-pretty text-[14.5px] leading-[1.7] text-muted-foreground">
+            <h2 className="text-h3 text-foreground">About this component</h2>
+            <p className="mt-3 max-w-2xl text-pretty text-[15px] leading-[1.7] text-ink-soft">
               {c.description}
             </p>
 
-            <h3 className="mt-7 text-[15px] font-semibold tracking-[-0.01em]">What it does</h3>
-            <ul className="mt-2.5 flex flex-col gap-2">
+            <h3 className="mt-8 text-[15px] font-semibold tracking-[-0.01em] text-foreground">What it does</h3>
+            <ul className="mt-3 flex flex-col gap-2.5">
               {c.features.map((f) => (
-                <li key={f} className="flex gap-2.5 text-[13.5px] leading-relaxed">
-                  <span className="mt-[3px] grid size-[15px] shrink-0 place-items-center rounded-full bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--tag-ink-green)]">
-                    <IconCheck size={8} strokeWidth={4} />
+                <li key={f} className="flex gap-3 text-[14px] leading-relaxed text-ink-soft">
+                  <span className="mt-[3px] grid size-[18px] shrink-0 place-items-center rounded-full bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--tag-ink-green)]">
+                    <IconCheck size={10} strokeWidth={3} />
                   </span>
-                  <span className="text-muted-foreground">{f}</span>
+                  <span>{f}</span>
                 </li>
               ))}
             </ul>
 
-            <h3 className="mt-7 text-[15px] font-semibold tracking-[-0.01em]">Where people put it</h3>
-            <div className="mt-2.5 flex flex-col gap-2">
+            <h3 className="mt-8 text-[15px] font-semibold tracking-[-0.01em] text-foreground">Where people put it</h3>
+            <div className="mt-3 flex flex-col gap-2">
               {c.useCases.map((u) => (
-                <div key={u} className="flex items-start gap-2.5 rounded-lg border border-border bg-card px-3 py-2.5">
-                  <span className="mt-0.5 text-[13px]">↳</span>
-                  <span className="text-[13.5px] leading-relaxed text-muted-foreground">{u}</span>
+                <div key={u} className="flex items-start gap-3 rounded-lg border border-border bg-card px-3.5 py-3">
+                  <span className="mt-0.5 text-ink-faint">↳</span>
+                  <span className="text-[13.5px] leading-relaxed text-ink-soft">{u}</span>
                 </div>
               ))}
             </div>
@@ -194,11 +197,11 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
           {/* capability card */}
           <aside className="min-w-0">
-            <div className="lg:sticky lg:top-20">
-              <div className="rounded-xl border border-border bg-card">
-                <div className="border-b border-border px-3.5 py-2.5">
-                  <h3 className="text-[13px] font-semibold">Capabilities</h3>
-                  <p className="mt-0.5 text-[11.5px] leading-snug text-muted-foreground">
+            <div className="lg:sticky lg:top-20 space-y-3">
+              <div className="overflow-hidden rounded-xl border border-border bg-card">
+                <div className="border-b border-border bg-raised px-3.5 py-2.5">
+                  <h3 className="text-[13px] font-semibold text-foreground">Capabilities</h3>
+                  <p className="mt-0.5 text-[11.5px] leading-snug text-ink-soft">
                     What this component can and cannot do inside Notion. No
                     marketing words.
                   </p>
@@ -213,7 +216,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                             "mt-px grid size-[16px] shrink-0 place-items-center rounded-full text-[10px] font-bold",
                             on
                               ? "bg-[color-mix(in_oklab,var(--notion-green)_16%,transparent)] text-[var(--tag-ink-green)]"
-                              : "bg-secondary text-muted-foreground"
+                              : "bg-secondary text-ink-faint"
                           )}
                         >
                           {on ? (
@@ -229,8 +232,8 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                           )}
                         </span>
                         <div className="min-w-0">
-                          <div className="text-[12.5px] font-medium">{row.label}</div>
-                          <div className="text-[11.5px] leading-snug text-muted-foreground">
+                          <div className="text-[12.5px] font-medium text-foreground">{row.label}</div>
+                          <div className="text-[11.5px] leading-snug text-ink-soft">
                             {on ? row.yes : row.no}
                           </div>
                         </div>
@@ -240,26 +243,26 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 </div>
               </div>
 
-              <div className="mt-3 rounded-xl border border-border bg-raised p-3.5">
-                <h3 className="text-[12px] font-semibold">Delivery channels</h3>
+              <div className="rounded-xl border border-border bg-card p-3.5">
+                <h3 className="text-[12px] font-semibold text-foreground">Delivery channels</h3>
                 <ul className="mt-2 flex flex-col gap-1.5">
                   {c.delivery.map((d) => (
-                    <li key={d} className="flex items-center gap-2 text-[12.5px] text-muted-foreground">
-                      <span className="size-1.5 rounded-full bg-primary" />
+                    <li key={d} className="flex items-center gap-2 text-[12.5px] text-ink-soft">
+                      <span className="size-1.5 rounded-full bg-foreground" />
                       <code className="font-mono text-[11.5px] text-foreground">{d}</code>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="mt-3 rounded-xl border border-border bg-raised p-3.5">
-                <h3 className="text-[12px] font-semibold">Tags</h3>
+              <div className="rounded-xl border border-border bg-card p-3.5">
+                <h3 className="text-[12px] font-semibold text-foreground">Tags</h3>
                 <div className="mt-2 flex flex-wrap gap-1">
                   {c.tags.map((t) => (
                     <Link
                       key={t}
                       href={`/components?q=${encodeURIComponent(t)}`}
-                      className="rounded border border-border bg-background px-1.5 py-px font-mono text-[10.5px] text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+                      className="rounded-md border border-border bg-background px-1.5 py-0.5 font-mono text-[10.5px] text-ink-faint transition-colors hover:border-border-strong hover:text-foreground"
                     >
                       {t}
                     </Link>
@@ -274,10 +277,10 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         {moreRelated.length > 0 && (
           <section className="mt-14">
             <div className="flex items-end justify-between gap-3">
-              <h2 className="text-h5 text-foreground">Pairs well with</h2>
+              <h2 className="text-h3 text-foreground">Pairs well with</h2>
               <Link
                 href={`/categories/${cat.slug}`}
-                className="group inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-primary transition-colors hover:text-primary-deep"
+                className="group inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-foreground underline-offset-4 transition-colors hover:underline"
               >
                 All in {cat.name}
                 <IconArrowRight

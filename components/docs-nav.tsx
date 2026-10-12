@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { IconCompass, IconDatabase, IconWrench } from "@/components/icons";
+import { IconCompass, IconDatabase, IconTerminal, IconWrench } from "@/components/icons";
 
 export const DOC_NAV: { group: string; items: { href: string; label: string }[] }[] = [
   {
@@ -12,6 +12,13 @@ export const DOC_NAV: { group: string; items: { href: string; label: string }[] 
       { href: "/docs", label: "Overview" },
       { href: "/how-it-works", label: "How it works" },
       { href: "/registry", label: "Registry" },
+    ],
+  },
+  {
+    group: "AI agents",
+    items: [
+      { href: "/docs/mcp", label: "MCP server" },
+      { href: "/docs/skills", label: "Agent skill" },
     ],
   },
   {
@@ -32,6 +39,7 @@ export const DOC_NAV: { group: string; items: { href: string; label: string }[] 
 
 const GROUP_ICONS = {
   "Start here": IconCompass,
+  "AI agents": IconTerminal,
   "Notion platform": IconDatabase,
   Building: IconWrench,
 } as const;

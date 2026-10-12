@@ -29,14 +29,15 @@ const COLS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: "Developers",
     links: [
+      { href: "/mcp", label: "MCP server" },
+      { href: "/skills", label: "Agent skill" },
       { href: "/registry", label: "Registry API" },
       { href: "/docs", label: "Documentation" },
       { href: "/docs/sandbox", label: "HTML block sandbox" },
       { href: "/docs/api-limits", label: "Notion API limits" },
       { href: "/docs/authoring", label: "Authoring a widget" },
       { href: "/docs/recipes", label: "Authoring a recipe" },
-      { href: "https://www.npmjs.com/package/notion-arena-mcp", label: "npm notion-arena-mcp" },
-      { href: "https://registry.modelcontextprotocol.io", label: "MCP Registry" },
+      { href: "https://www.npmjs.com/package/notion-arena-mcp", label: "npm: notion-arena-mcp" },
     ],
   },
   {
@@ -52,31 +53,30 @@ const COLS: { title: string; links: { href: string; label: string }[] }[] = [
 
 export function SiteFooter() {
   return (
-    <footer className="band mt-auto" style={{ viewTransitionName: "site-footer" }}>
-      {/* hairline top edge, not a shadow */}
-      <div className="border-t border-white/10">
+    <footer className="mt-auto bg-card" style={{ viewTransitionName: "site-footer" }}>
+      <div className="border-t border-border">
         <div className="mx-auto w-full max-w-[1240px] px-4 py-14 sm:px-6">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_repeat(4,minmax(0,1fr))]">
             {/* brand column */}
             <div className="max-w-sm">
               <Link href="/" aria-label="Notion Arena home" className="inline-flex rounded-lg focus-visible:outline-offset-4">
-                <Logo inverted />
+                <Logo />
               </Link>
-              <p className="mt-4 text-[14px] leading-[1.65] text-band-muted">
+              <p className="mt-4 text-[14px] leading-[1.65] text-ink-soft">
                 The component registry for Notion. {STATS.widgets} widgets that run
                 inside a page, and {STATS.native} database systems that install
                 through the API.
               </p>
 
-              <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-white/10 pt-5">
+              <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-border pt-5">
                 {[
                   ["Components", STATS.total],
                   ["Free", STATS.free],
                   ["Categories", CATEGORIES.length],
                 ].map(([label, value]) => (
                   <div key={String(label)}>
-                    <dt className="label-mono text-band-muted">{String(label)}</dt>
-                    <dd className="mt-1 text-[20px] font-semibold leading-none tnum text-band-foreground">
+                    <dt className="label-mono text-ink-faint">{String(label)}</dt>
+                    <dd className="mt-1 text-[20px] font-semibold leading-none tnum text-foreground">
                       {String(value)}
                     </dd>
                   </div>
@@ -88,7 +88,7 @@ export function SiteFooter() {
                   href="https://github.com/SynergyFlowLabs/notion-arena"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex h-9 items-center gap-2 rounded-lg border border-white/15 px-3 text-[13.5px] font-medium text-band-foreground transition-colors hover:border-white/30 hover:bg-white/5"
+                  className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-background px-3 text-[13.5px] font-medium text-foreground transition-colors hover:border-border-strong hover:bg-secondary"
                 >
                   <IconGithub size={16} />
                   GitHub
@@ -97,7 +97,7 @@ export function SiteFooter() {
                   href="https://www.npmjs.com/package/notion-arena-mcp"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-white/15 px-3 text-[13.5px] font-medium text-band-foreground transition-colors hover:border-white/30 hover:bg-white/5"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-background px-3 text-[13.5px] font-medium text-foreground transition-colors hover:border-border-strong hover:bg-secondary"
                 >
                   npm
                 </a>
@@ -105,7 +105,7 @@ export function SiteFooter() {
                   href="https://registry.modelcontextprotocol.io"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-white/15 px-3 text-[13.5px] font-medium text-band-foreground transition-colors hover:border-white/30 hover:bg-white/5"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-background px-3 text-[13.5px] font-medium text-foreground transition-colors hover:border-border-strong hover:bg-secondary"
                 >
                   MCP Registry
                 </a>
@@ -115,7 +115,7 @@ export function SiteFooter() {
             {/* link columns */}
             {COLS.map((col) => (
               <nav key={col.title} aria-label={col.title}>
-                <h2 className="label-mono text-band-muted">{col.title}</h2>
+                <h2 className="label-mono text-ink-faint">{col.title}</h2>
                 <ul className="mt-3.5 flex flex-col gap-2.5">
                   {col.links.map((l) => (
                     <li key={l.href + l.label}>
@@ -124,14 +124,14 @@ export function SiteFooter() {
                           href={l.href}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="text-[13.5px] leading-snug text-band-foreground/80 transition-colors hover:text-band-foreground"
+                          className="text-[13.5px] leading-snug text-ink-soft transition-colors hover:text-foreground"
                         >
                           {l.label}
                         </a>
                       ) : (
                         <Link
                           href={l.href}
-                          className="text-[13.5px] leading-snug text-band-foreground/80 transition-colors hover:text-band-foreground"
+                          className="text-[13.5px] leading-snug text-ink-soft transition-colors hover:text-foreground"
                         >
                           {l.label}
                         </Link>
@@ -144,14 +144,14 @@ export function SiteFooter() {
           </div>
 
           {/* categories: every one, not a curated four */}
-          <nav aria-label="Categories" className="mt-12 border-t border-white/10 pt-6">
-            <h2 className="label-mono text-band-muted">Categories</h2>
+          <nav aria-label="Categories" className="mt-12 border-t border-border pt-6">
+            <h2 className="label-mono text-ink-faint">Categories</h2>
             <ul className="mt-3.5 flex flex-wrap gap-x-5 gap-y-2.5">
               {CATEGORIES.map((c) => (
                 <li key={c.slug}>
                   <Link
                     href={`/categories/${c.slug}`}
-                    className="text-[13.5px] text-band-foreground/80 transition-colors hover:text-band-foreground"
+                    className="text-[13.5px] text-ink-soft transition-colors hover:text-foreground"
                   >
                     {c.name}
                   </Link>
@@ -160,13 +160,47 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-[12.5px] leading-relaxed text-band-muted sm:flex-row sm:items-start sm:justify-between">
-            <p className="max-w-xl">
-              © {new Date().getFullYear()} Notion Arena. Components ship under MIT
-              unless marked Pro. Not affiliated with Notion Labs, Inc. Notion is
-              a trademark of Notion Labs, Inc.
+          {/* credits: open source + maintainers */}
+          <div className="mt-10 border-t border-border pt-6 text-[12.5px] leading-relaxed text-ink-soft">
+            <p className="max-w-3xl">
+              <span className="font-semibold text-foreground">Notion Arena is open source.</span>{" "}
+              The code is developed and maintained by{" "}
+              <a
+                href="https://synergyflowlabs.com"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-foreground underline underline-offset-2 decoration-border-strong transition-colors hover:text-foreground/80"
+              >
+                SynergyFlow Labs
+              </a>
+              {" "}and{" "}
+              <a
+                href="https://gulzaib.dev"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-foreground underline underline-offset-2 decoration-border-strong transition-colors hover:text-foreground/80"
+              >
+                Gul Zaib
+              </a>
+              , with help from{" "}
+              <a
+                href="https://github.com/SynergyFlowLabs/notion-arena/graphs/contributors"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-foreground underline underline-offset-2 decoration-border-strong transition-colors hover:text-foreground/80"
+              >
+                other contributors
+              </a>
+              . Released under MIT. Not affiliated with Notion Labs, Inc.
             </p>
-            <p className="shrink-0 font-mono text-[11.5px] text-band-muted/80">
+          </div>
+
+          <div className="mt-6 flex flex-col gap-4 border-t border-border pt-5 text-[12px] leading-relaxed text-ink-faint sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              © {new Date().getFullYear()} Notion Arena. Components ship under
+              MIT unless marked Pro. Notion is a trademark of Notion Labs, Inc.
+            </p>
+            <p className="shrink-0 font-mono text-[11px] text-ink-faint/80">
               Notion-Version 2026-03-11
             </p>
           </div>
