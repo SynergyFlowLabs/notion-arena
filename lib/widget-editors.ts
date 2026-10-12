@@ -29,6 +29,8 @@ export interface JsonArraySpec {
   emptyItem: Record<string, unknown>;
   /** Optional subtitle displayed above the editor (what the array does). */
   description?: string;
+  /** Optional sample array to seed the editor ("Load sample" button). */
+  sample?: Record<string, unknown>[];
 }
 
 /**
@@ -60,6 +62,12 @@ const SPECS: Record<string, JsonArraySpec> = {
       },
     ],
     emptyItem: { label: "", value: 0, unit: "", delta: "", target: 0, series: "" },
+    sample: [
+      { label: "MRR", value: 48200, unit: "$", delta: "+8.4%", target: 60000, series: [31, 33, 34, 36, 38, 37, 40, 42, 43, 45, 46, 48.2] },
+      { label: "Active users", value: 3184, unit: "", delta: "+3.1%", target: 4000, series: [2400, 2500, 2560, 2650, 2700, 2810, 2880, 2950, 3010, 3090, 3140, 3184] },
+      { label: "Churn", value: 2.4, unit: "%", delta: "-0.6", target: 2, series: [3.6, 3.5, 3.4, 3.2, 3.3, 3.1, 2.9, 2.8, 2.7, 2.6, 2.5, 2.4] },
+      { label: "NPS", value: 61, unit: "", delta: "+4", target: 70, series: [44, 46, 47, 49, 50, 52, 53, 55, 56, 58, 59, 61] },
+    ],
   },
   // Gantt
   "gantt-timeline:data": {

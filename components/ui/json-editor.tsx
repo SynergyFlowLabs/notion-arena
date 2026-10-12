@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
   IconChevronUp, IconChevronDown, IconPlus, IconTrash, IconDragDots,
@@ -114,6 +115,11 @@ export function JsonArrayEditor({
     onChange(serializeJsonArray(next));
   };
 
+  const loadSample = () => {
+    if (!spec.sample) return;
+    onChange(serializeJsonArray(spec.sample.map((r) => ({ ...r }))));
+  };
+
   const removeRow = (idx: number) => {
     const next = rows.filter((_, i) => i !== idx);
     onChange(serializeJsonArray(next));
@@ -136,72 +142,78 @@ export function JsonArrayEditor({
 
       {rows.length === 0 ? (
         <div className="rounded-lg border border-dashed border-border bg-card/40 p-5 text-center text-[13px] text-ink-soft">
-          No {spec.itemLabel}s yet.
-          <button
-            type="button"
-            onClick={addRow}
-            className="ml-1.5 inline-flex items-center gap-1 rounded-md bg-foreground px-2 py-1 text-[12px] font-medium text-background hover:opacity-90"
-          >
-            <IconPlus className="h-3.5 w-3.5" /> Add first {spec.itemLabel}
-          </button>
+          <p className="mb-3">No {spec.itemLabel}s yet.</p>
+          <div className="flex items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={addRow}
+              className="inline-flex items-center gap-1 rounded-md bg-foreground px-2.5 py-1 text-[12px] font-medium text-background hover:opacity-90"
+            >
+              <IconPlus className="h-3.5 w-3.5" /> Add first {spec.itemLabel}
+            </button>
+            {spec.sample && spec.sample.length > 0 ? (
+              <button
+                type="button"
+                onClick={loadSample}
+                className="inline-flex items-center gap-1 rounded-md border border-border px-2.5 py-1 text-[12px] font-medium text-ink-soft hover:bg-subtle hover:text-ink"
+              >
+                Load sample data
+              </button>
+            ) : null}
+          </div>
         </div>
       ) : (
         <div className="space-y-2">
-          <div className="overflow-hidden rounded-lg border border-border">
-            <div className="flex items-center gap-2 bg-card px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-              <span className="w-7 shrink-0" />
-              {spec.fields.map((f) => (
-                <span key={f.key} className="min-w-0 flex-1 truncate">
-                  {f.label}
+          {rows.map((row, idx) => (
+            <div
+              key={idx}
+              className="group/row rounded-lg border border-border bg-background p-2.5"
+            >
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <span className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
+                  <IconDragDots className="h-3.5 w-3.5" />
+                  {spec.itemLabel} {idx + 1}
                 </span>
-              ))}
-              <span className="w-16 shrink-0 text-right">Actions</span>
-            </div>
-            <div className="divide-y divide-border bg-background">
-              {rows.map((row, idx) => (
-                <div
-                  key={idx}
-                  className="group/row flex items-start gap-2 px-3 py-2 hover:bg-subtle"
-                >
-                  <div className="flex h-9 w-7 shrink-0 items-center justify-center">
-                    <IconDragDots className="h-4 w-4 text-ink-soft/60" />
-                  </div>
-                  {spec.fields.map((f) => (
-                    <div key={f.key} className="min-w-0 flex-1">
-                      <FieldCell
-                        field={f}
-                        value={row[f.key] ?? ""}
-                        onChange={(v) => setField(idx, f.key, v)}
-                      />
-                      {f.hint ? (
-                        <p className="mt-0.5 text-[11px] leading-tight text-ink-soft/80">{f.hint}</p>
-                      ) : null}
-                    </div>
-                  ))}
-                  <div className="flex w-16 shrink-0 items-start justify-end gap-0.5 pt-1">
-                    <RowBtn
-                      icon={<IconChevronUp className="h-3.5 w-3.5" />}
-                      title={`Move ${spec.itemLabel} up`}
-                      disabled={idx === 0}
-                      onClick={() => move(idx, -1)}
-                    />
-                    <RowBtn
-                      icon={<IconChevronDown className="h-3.5 w-3.5" />}
-                      title={`Move ${spec.itemLabel} down`}
-                      disabled={idx === rows.length - 1}
-                      onClick={() => move(idx, 1)}
-                    />
-                    <RowBtn
-                      icon={<IconTrash className="h-3.5 w-3.5" />}
-                      title={`Remove ${spec.itemLabel}`}
-                      className="hover:bg-red-500/10 hover:text-red-500"
-                      onClick={() => removeRow(idx)}
-                    />
-                  </div>
+                <div className="flex gap-0.5">
+                  <RowBtn
+                    icon={<IconChevronUp className="h-3.5 w-3.5" />}
+                    title={`Move ${spec.itemLabel} up`}
+                    disabled={idx === 0}
+                    onClick={() => move(idx, -1)}
+                  />
+                  <RowBtn
+                    icon={<IconChevronDown className="h-3.5 w-3.5" />}
+                    title={`Move ${spec.itemLabel} down`}
+                    disabled={idx === rows.length - 1}
+                    onClick={() => move(idx, 1)}
+                  />
+                  <RowBtn
+                    icon={<IconTrash className="h-3.5 w-3.5" />}
+                    title={`Remove ${spec.itemLabel}`}
+                    className="hover:bg-red-500/10 hover:text-red-500"
+                    onClick={() => removeRow(idx)}
+                  />
                 </div>
-              ))}
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {spec.fields.map((f) => (
+                  <div key={f.key} className={cn(f.multiline ? "col-span-2" : "")}>
+                    <label className="mb-1 block text-[11px] font-medium text-ink-soft">
+                      {f.label}
+                    </label>
+                    <FieldCell
+                      field={f}
+                      value={row[f.key] ?? ""}
+                      onChange={(v) => setField(idx, f.key, v)}
+                    />
+                    {f.hint ? (
+                      <p className="mt-0.5 text-[11px] leading-tight text-ink-soft/80">{f.hint}</p>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       )}
 
@@ -235,7 +247,7 @@ export function JsonParamEditor({
   const [err, setErr] = useState<string | null>(null);
 
   // If the outside value changed (e.g. reset), sync localRaw
-  if (localRaw !== value && !rawMode) setLocalRaw(value);
+  React.useEffect(() => { if (!rawMode) setLocalRaw(value); }, [value, rawMode]);
 
   const applyRaw = () => {
     if (!localRaw.trim()) {

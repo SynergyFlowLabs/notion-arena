@@ -319,12 +319,16 @@ export function Configurator({
       const parsed = JSON.parse(rawJson) as Record<string, unknown>;
       const next: Config = { ...cfg };
       widget.params.forEach((p) => {
-        if (parsed[p.key] !== undefined) {
-          const raw = parsed[p.key];
-          if (p.type === "boolean") next[p.key] = Boolean(raw);
-          else if (p.type === "number") next[p.key] = Number(raw);
-          else next[p.key] = String(raw);
-        }
+        if (parsed[p.key] === undefined) return;
+        const raw = parsed[p.key];
+        if (p.type === "boolean") next[p.key] = Boolean(raw);
+        else if (p.type === "number") next[p.key] = Number(raw);
+        else if (raw === null || raw === undefined) next[p.key] = "";
+        else if (typeof raw === "string") next[p.key] = raw;
+        // Arrays / objects (e.g. KPI data array) stay JSON-stringified so
+        // they round-trip through the URL the same way the per-field editor
+        // serializes them.
+        else next[p.key] = JSON.stringify(raw);
       });
       setCfg(next);
       setNonce((n) => n + 1);
