@@ -8,6 +8,8 @@ import { CopyButton } from "@/components/copy-button";
 import { IconCheck, IconClose, IconDownload, IconExternal, IconRefresh, IconTerminal } from "@/components/icons";
 import { ComponentPreviewTransition } from "@/components/page-transition";
 import { Button } from "@/components/ui/button";
+import { JsonParamEditor } from "@/components/ui/json-editor";
+import { specFor } from "@/lib/widget-editors";
 import {
   ColorField,
   Combobox,
@@ -43,10 +45,12 @@ function Field({
   p,
   value,
   onChange,
+  widgetSlug,
 }: {
   p: WidgetParam;
   value: string | number | boolean;
   onChange: (v: string | number | boolean) => void;
+  widgetSlug: string;
 }) {
   const id = `f-${p.key}`;
 
@@ -54,6 +58,9 @@ function Field({
   const isTimezone =
     (p.key === "tz" || p.key === "timezone" || /IANA/i.test(p.help ?? "")) &&
     p.type === "text";
+
+  // JSON array-of-objects fields (e.g. KPI Strip metrics) get the structured editor.
+  const jsonSpec = p.type === "text" ? specFor(widgetSlug, p) : null;
 
   // Boolean toggle: Switch
   if (p.type === "boolean") {
@@ -164,6 +171,26 @@ function Field({
           onChange={(e) => onChange(e.target.value)}
         />
         {p.help && <p className="text-[11.5px] leading-snug text-ink-soft">{p.help}</p>}
+      </div>
+    );
+  }
+
+  // JSON array-of-objects params get the structured row editor with a Raw-JSON toggle.
+  if (jsonSpec) {
+    return (
+      <div className="flex flex-col gap-2 py-1">
+        <div className="flex items-baseline justify-between gap-2">
+          <Label htmlFor={id}>{p.label}</Label>
+          <code className="font-mono text-[10.5px] text-ink-faint">?{p.key}=</code>
+        </div>
+        <JsonParamEditor
+          spec={jsonSpec}
+          value={String(value)}
+          onChange={(v) => onChange(v)}
+        />
+        {p.help && !jsonSpec.description && (
+          <p className="text-[11.5px] leading-snug text-ink-soft">{p.help}</p>
+        )}
       </div>
     );
   }
@@ -619,7 +646,7 @@ export function Configurator({
             ) : (
               <div className="flex max-h-[520px] flex-col gap-1 overflow-auto p-3">
                 {widget.params.map((p) => (
-                  <Field key={p.key} p={p} value={cfg[p.key]} onChange={set(p.key)} />
+                  <Field key={p.key} p={p} value={cfg[p.key]} onChange={set(p.key)} widgetSlug={widget.slug} />
                 ))}
               </div>
             )}

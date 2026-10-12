@@ -385,3 +385,35 @@ export const CATEGORY_ICONS = {
   docs: CatDocs,
   automations: CatAutomations,
 } as const;
+
+export const IconChevronUp = (p: P) => (
+  <Base {...p}>
+    <path d="M6 14l6-6 6 6" />
+  </Base>
+);
+
+export const IconChevronDown = (p: P) => (
+  <Base {...p}>
+    <path d="M6 10l6 6 6-6" />
+  </Base>
+);
+
+export const IconTrash = (p: P) => (
+  <Base {...p}>
+    <path d="M4 7h16" />
+    <path d="M9 7V4h6v3" />
+    <path d="M6 7l1 13h10l1-13" />
+    <path d="M10 11v6M14 11v6" />
+  </Base>
+);
+
+export const IconDragDots = (p: P) => (
+  <Base {...p}>
+    <circle cx="9" cy="6" r="1.2" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="6" r="1.2" fill="currentColor" stroke="none" />
+    <circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none" />
+    <circle cx="9" cy="18" r="1.2" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="18" r="1.2" fill="currentColor" stroke="none" />
+  </Base>
+);
