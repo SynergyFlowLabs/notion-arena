@@ -288,6 +288,7 @@ export default function AuthoringPage() {
             ["Survives 240px wide", "Labels truncate or wrap rather than pushing layout out."],
             ["State persists and recovers", "Reload keeps it. Corrupt localStorage manually; it must not throw."],
             ["Reduced motion respected", "prefers-reduced-motion: reduce stops all animation."],
+            ["Live timers tick on their own", "A countdown or clock repaints from inside its interval, and reads what is left from Date.now() against a fixed end timestamp. A counter that only decrements drifts, and a UI that only repaints on click looks frozen: Notion throttles a background iframe."],
             ["Escape-safe config", "A label containing </script> and a quote must not break the page."],
             ["Export has a console fallback", "Block the clipboard and confirm the payload is logged."],
             ["Catalog entry matches source", "Every param the file reads is declared; every declared param is read."],

@@ -17,8 +17,8 @@
       ],
       "color": "red",
       "plan": "Free",
-      "version": "1.2.0",
-      "updatedAt": "2026-09-28",
+      "version": "1.2.1",
+      "updatedAt": "2026-10-12",
       "badge": "popular",
       "features": [
         "Circular SVG progress ring that drains as the session runs",
@@ -13634,6 +13634,6 @@
       ]
     }
   },
-  "generatedAt": "2026-10-11T21:49:27.246Z",
+  "generatedAt": "2026-10-12T07:57:51.400Z",
   "count": 143
 }

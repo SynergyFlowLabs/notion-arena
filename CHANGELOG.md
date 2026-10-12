@@ -29,6 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved MCP server tool descriptions
 
 ### Fixed
+- **pomodoro-timer**: the countdown, progress ring, phase label and page title now
+  update every tick while the timer is running, instead of only when you pressed
+  a button. Timing is wall-clock based (a fixed phase end timestamp, read back
+  with `Date.now()`), so it stays accurate in a background Notion tab and
+  resyncs the moment the block is visible again. The ring also now drains from
+  full as the phase runs, matching the documented behaviour, the session dots
+  reset with each long break, and `+1m` extends a phase that is already running
 - Contrast issues in several widgets (audit:contrast passes)
 - TypeScript strict mode compliance across codebase
 

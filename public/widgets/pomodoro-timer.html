@@ -92,34 +92,52 @@ button.primary:hover{filter:brightness(1.06)}
   var todayKey=new Date().toDateString();
   if(store.day!==todayKey){store={day:todayKey,sessions:0,minutes:0};}
 
-  var phase='work', round=0, remaining=WORK, total=WORK, running=false, tick=null;
-  var CIRC=2*Math.PI*52;
+  // Timing is wall-clock based: while running, the current phase has a fixed
+  // end timestamp and every frame derives what is left from Date.now(). A
+  // counter that merely decrements would drift, and it would freeze outright
+  // whenever the browser throttles the interval, which is exactly what Notion's
+  // iframe does when the tab is in the background.
+  var TICK=250, CIRC=2*Math.PI*52;
+  var phase='work', round=0, longBreak=false, running=false;
+  var total=WORK, remaining=WORK, endsAt=0, tick=null;
   var elTime=document.getElementById('time'),elPhase=document.getElementById('phase'),
       elRing=document.getElementById('ring'),elToggle=document.getElementById('toggle'),
       elDots=document.getElementById('dots'),elToday=document.getElementById('today'),
       elFocused=document.getElementById('focused');
+  elRing.setAttribute('stroke-dasharray',String(CIRC));
 
   function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
   function fmt(s){s=Math.max(0,Math.round(s));var m=Math.floor(s/60),x=s%60;return (m<10?'0':'')+m+':'+(x<10?'0':'')+x;}
+  function left(){return running?Math.max(0,(endsAt-Date.now())/1000):remaining;}
+  function phaseLabel(){return phase==='work'?'Focus':(longBreak?'Long break':'Break');}
   function dots(){
-    elDots.innerHTML='';
-    for(var i=0;i<ROUNDS;i++){
-      var d=document.createElement('span');
-      d.className='dot'+(i<round?' on':'');
-      if(i===round&&phase==='work')d.style.background='color-mix(in oklab,'+ACCENT+' 45%, var(--track))';
-      elDots.appendChild(d);
+    if(elDots.children.length!==ROUNDS){
+      elDots.innerHTML='';
+      for(var i=0;i<ROUNDS;i++)elDots.appendChild(document.createElement('span'));
+    }
+    for(var j=0;j<ROUNDS;j++){
+      var d=elDots.children[j],cls='dot'+(j<round?' on':'');
+      if(d.className!==cls)d.className=cls;
+      var bg=(j===round&&phase==='work')?'color-mix(in oklab,'+ACCENT+' 45%, var(--track))':'';
+      if(d.style.background!==bg)d.style.background=bg;
     }
   }
   function paint(){
-    elTime.textContent=fmt(remaining);
-    elPhase.textContent=phase==='work'?'Focus':(remaining===LONG?'Long break':'Break');
-    var p=total>0?(total-remaining)/total:0;
-    elRing.setAttribute('stroke-dashoffset',String(CIRC*(1-p)));
-    elRing.style.stroke=phase==='work'?ACCENT:'color-mix(in oklab,'+ACCENT+' 55%, var(--muted))';
-    elToggle.textContent=running?'Pause':'Start';
-    elToday.textContent=String(store.sessions||0);
-    elFocused.textContent=(store.minutes||0)+'m';
-    document.title=fmt(remaining)+' · '+(phase==='work'?'Focus':'Break');
+    var rem=Math.max(0,left()),secs=Math.max(0,Math.ceil(rem));
+    var time=fmt(secs),label=phaseLabel(),title=time+' · '+(phase==='work'?'Focus':'Break');
+    if(elTime.textContent!==time)elTime.textContent=time;
+    if(elPhase.textContent!==label)elPhase.textContent=label;
+    // The ring holds the whole phase and drains to empty, so what is left is
+    // readable at a glance.
+    var gone=total>0?Math.min(1,Math.max(0,(total-rem)/total)):0;
+    elRing.setAttribute('stroke-dashoffset',(CIRC*gone).toFixed(2));
+    var stroke=phase==='work'?ACCENT:'color-mix(in oklab,'+ACCENT+' 55%, var(--muted))';
+    if(elRing.style.stroke!==stroke)elRing.style.stroke=stroke;
+    var btn=running?'Pause':'Start';
+    if(elToggle.textContent!==btn)elToggle.textContent=btn;
+    if(elToday.textContent!==String(store.sessions||0))elToday.textContent=String(store.sessions||0);
+    if(elFocused.textContent!==(store.minutes||0)+'m')elFocused.textContent=(store.minutes||0)+'m';
+    if(document.title!==title)document.title=title;
     dots();
   }
   function beep(){
@@ -136,31 +154,71 @@ button.primary:hover{filter:brightness(1.06)}
       setTimeout(function(){try{ctx.close();}catch(e){}},900);
     }catch(e){}
   }
-  function setPhase(next){
-    phase=next;
-    if(next==='work'){total=remaining=WORK;}
-    else{var isLong=(round%ROUNDS===0);total=remaining=isLong?LONG:SHORT;}
+  function setPhase(next,isLong,at){
+    phase=next;longBreak=!!isLong;
+    total=phase==='work'?WORK:(longBreak?LONG:SHORT);
+    remaining=total;
+    if(running)endsAt=(at||Date.now())+remaining*1000;
     paint();
   }
-  function advance(){
-    beep();
-    if(phase==='work'){round++;store.sessions=(store.sessions||0)+1;store.minutes=(store.minutes||0)+Math.round(WORK/60);save();setPhase('break');}
-    else{setPhase('work');}
+  // `at` is the moment the previous phase actually ended, so a block that was
+  // asleep for a while lands on the phase it should really be in, not one that
+  // starts over from now.
+  function advance(at){
+    var from=at||Date.now();
+    if(phase==='work'){
+      round++;store.sessions=(store.sessions||0)+1;store.minutes=(store.minutes||0)+Math.round(WORK/60);save();
+      setPhase('break',round%ROUNDS===0,from);
+    }else{
+      if(longBreak)round=0; // a long break closes the cycle, so the dots restart
+      setPhase('work',false,from);
+    }
   }
-  function start(){if(running)return;running=true;tick=setInterval(function(){remaining--;if(remaining<=0){advance();}},1000);paint();}
-  function pause(){running=false;clearInterval(tick);tick=null;paint();}
+  function step(){
+    if(!running)return;
+    var now=Date.now();
+    if(now<endsAt){paint();return;}
+    // Catch up in one pass if the block was throttled or asleep. Bounded so a
+    // very short phase can never spin forever.
+    var guard=0;
+    while(running&&now>=endsAt&&guard<100){
+      var end=endsAt;
+      if(!guard)beep();
+      advance(end);guard++;
+    }
+    paint();
+  }
+  function start(){
+    if(running)return;
+    running=true;endsAt=Date.now()+remaining*1000;
+    if(tick)clearInterval(tick);
+    tick=setInterval(step,TICK);
+    paint();
+  }
+  function pause(){
+    if(!running)return;
+    remaining=Math.max(0,(endsAt-Date.now())/1000);
+    running=false;
+    if(tick){clearInterval(tick);tick=null;}
+    paint();
+  }
   function toggle(){running?pause():start();}
+  function addMinute(){total+=60;remaining+=60;if(running)endsAt+=60000;paint();}
 
   elToggle.addEventListener('click',toggle);
-  document.getElementById('reset').addEventListener('click',function(){pause();setPhase(phase);});
+  document.getElementById('reset').addEventListener('click',function(){pause();setPhase(phase,longBreak);});
   document.getElementById('skip').addEventListener('click',function(){advance();});
-  document.getElementById('add').addEventListener('click',function(){remaining+=60;total+=60;paint();});
+  document.getElementById('add').addEventListener('click',addMinute);
   document.addEventListener('keydown',function(e){
     if(e.target&&/INPUT|TEXTAREA/.test(e.target.tagName))return;
     if(e.code==='Space'){e.preventDefault();toggle();}
-    else if(e.key==='r'||e.key==='R'){pause();setPhase(phase);}
-    else if(e.key==='+'||e.key==='='){remaining+=60;total+=60;paint();}
+    else if(e.key==='r'||e.key==='R'){pause();setPhase(phase,longBreak);}
+    else if(e.key==='+'||e.key==='='){addMinute();}
   });
+  // A background tab leaves the block on a throttled clock, and a throttled
+  // interval can still be a minute away from its next fire. Run the same
+  // catch-up a tick would, the moment the block is visible again.
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)step();});
   paint();
 })();
 </script>
