@@ -26,8 +26,8 @@ Notion Arena is a Next.js 16 app (App Router, API routes, Turbopack). It needs *
    ```
    Use the URL Vercel will give you, or your custom domain. This makes registry manifests emit absolute URLs for the right host. Without it, URLs are derived from `x-forwarded-host`, fallback `http://localhost:3000` (see `lib/utils.ts`).
 6. Click **Deploy**
-7. Wait ~1-2 min. Vercel runs `npm install && npm run build` (215 static pages with 167 components)
-8. Open `https://your-project.vercel.app/r/index.json` — should return JSON with 167 items
+7. Wait ~1-2 min. Vercel runs `npm install && npm run build` (227 static pages with 179 components)
+8. Open `https://your-project.vercel.app/r/index.json` — should return JSON with 179 items
 9. Test:
    - `https://your-project.vercel.app/embed/pomodoro-timer?work=25`
    - `https://your-project.vercel.app/api/widget/pomodoro-timer`
@@ -145,13 +145,13 @@ npm login
 
 3. **Prepare package** (from repo root):
 ```bash
-node scripts/generate-mcp-catalog.mjs   # 167 components → mcp/src/data/catalog.json
+node scripts/generate-mcp-catalog.mjs   # 179 components → mcp/src/data/catalog.json
 cd mcp
 npm install
 npm run build                           # tsc + copy data to dist/data/
 # Verify:
 ls dist/ dist/data/
-node dist/index.js  # should start and say 167 components loaded, then wait for stdio (Ctrl+C)
+node dist/index.js  # should start and say 179 components loaded, then wait for stdio (Ctrl+C)
 ```
 
 4. **Update version** (semver):
@@ -253,7 +253,7 @@ sudo mv mcp-publisher /usr/local/bin/
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.imgul/notion-arena",
-  "description": "MCP server for Notion Arena — 167 Notion components: 156 widgets + 11 recipes",
+  "description": "MCP server for Notion Arena — 179 Notion components: 168 widgets + 11 recipes",
   "repository": { "url": "https://github.com/SynergyFlowLabs/notion-arena.git", "source": "github" },
   "version": "0.2.2",
   "packages": [{
@@ -304,7 +304,7 @@ skills.sh is open marketplace by Vercel, ~600k skills indexed, `npx skills add` 
 
 ```bash
 git add skills/notion-arena/SKILL.md .claude/skills/notion-arena/SKILL.md
-git commit -m "feat: notion-arena skill 167 components"
+git commit -m "feat: notion-arena skill 179 components"
 git push origin main
 ```
 
@@ -425,7 +425,7 @@ Or via skills.sh + claude mcp add separately (two commands, works cross-agent).
 
 ```bash
 # 1. Generate new catalog for MCP
-node scripts/generate-mcp-catalog.mjs  # 167 → 167 etc.
+node scripts/generate-mcp-catalog.mjs  # 179 → 179 etc.
 
 # 2. Build MCP
 cd mcp && npm run build && cd ..
@@ -441,7 +441,7 @@ npm run build  # check 171 → 183 pages
 
 # 5. Commit & push (site auto-deploys on Vercel if GitHub connected)
 git add -A
-git commit -m "feat: add 12 widgets, 167 total"
+git commit -m "feat: add 12 widgets, 179 total"
 git push origin main
 
 # 6. Publish MCP to npm (if version bumped)
@@ -485,7 +485,7 @@ Public repos get 2000 free Action minutes/month.
 
 - [ ] Push repo to GitHub public
 - [ ] Deploy site to Vercel free (import GitHub, set `NEXT_PUBLIC_SITE_URL`, deploy)
-- [ ] Test `/r/index.json` returns 167, `/embed/pomodoro-timer` works, `/api/install` plan works
+- [ ] Test `/r/index.json` returns 179, `/embed/pomodoro-timer` works, `/api/install` plan works
 - [ ] (Optional) Add custom domain in Vercel → update env var
 - [ ] Publish MCP to npm: `cd mcp && npm publish --access public`
 - [ ] Test `npx -y notion-arena-mcp` + MCP inspector

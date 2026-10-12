@@ -24,6 +24,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Event Guest List and RSVP Log widget (planning)
 - Added Photography Gear Database widget (trackers)
 
+- Added Travel Itinerary Planner widget (planning)
+- Added Household Inventory Log widget (trackers)
+- Added Car Maintenance and Trip Log widget (trackers)
+- Added Warranty and Service Log widget (trackers)
+- Added Game Collection Catalog widget (trackers)
+- Added Recipe and Meal Library widget (docs)
+- Added Class Homepage widget (docs)
+- Added Parent Communication Log widget (docs)
+- Added Tutoring Session Log widget (docs)
+- Added Research Question Log widget (docs)
+- Added Lab Equipment and Sample Log widget (docs)
+- Added Discovery Call Pipeline widget (business)
+
 ### Added
 - New widget: `milestone-tracker` — Dated project milestones with owners, phases, and exit criteria
 - New widget: `incident-log` — Severity, owner, and a postmortem checklist per incident

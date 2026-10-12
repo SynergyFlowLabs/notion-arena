@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T09:05:05.274Z",
-  "count": 167,
+  "generatedAt": "2026-10-12T09:17:05.624Z",
+  "count": 179,
   "components": [
     {
       "slug": "pomodoro-timer",
@@ -4653,6 +4653,366 @@
         "trackers",
         "photography",
         "gear",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "travel-itinerary-planner",
+      "name": "Travel Itinerary Planner",
+      "emoji": "🧳",
+      "tagline": "Trip stops, dates, and reservation links.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "travel",
+        "itinerary",
+        "planning",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "household-inventory",
+      "name": "Household Inventory Log",
+      "emoji": "🏠",
+      "tagline": "Home items with locations, quantities, and notes.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "household",
+        "inventory",
+        "trackers",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "car-log",
+      "name": "Car Maintenance and Trip Log",
+      "emoji": "🚗",
+      "tagline": "Maintenance records and trip summaries.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "vehicle",
+        "car",
+        "maintenance",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "warranty-tracker",
+      "name": "Warranty and Service Log",
+      "emoji": "🛡️",
+      "tagline": "Item warranties with purchase dates and expiry.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "warranty",
+        "household",
+        "trackers",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "game-catalog",
+      "name": "Game Collection Catalog",
+      "emoji": "🎮",
+      "tagline": "Game collection with play status and notes.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "gaming",
+        "collection",
+        "trackers",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "recipe-library",
+      "name": "Recipe and Meal Library",
+      "emoji": "🍳",
+      "tagline": "Recipe aliases with servings, prep time, and notes.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "recipes",
+        "cooking",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "class-homepage",
+      "name": "Class Homepage",
+      "emoji": "📚",
+      "tagline": "Class info with schedule, topics, and resources.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "education",
+        "teaching",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "parent-communication-log",
+      "name": "Parent Communication Log",
+      "emoji": "💌",
+      "tagline": "Parent communication with method, topic, and notes.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "education",
+        "communication",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "tutoring-session-log",
+      "name": "Tutoring Session Log",
+      "emoji": "🎓",
+      "tagline": "Tutoring sessions with student aliases and topics.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "education",
+        "tutoring",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "research-question-log",
+      "name": "Research Question Log",
+      "emoji": "🔬",
+      "tagline": "Research questions with status, sources, and notes.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "academia",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "sample-log",
+      "name": "Lab Equipment and Sample Log",
+      "emoji": "🧪",
+      "tagline": "Lab samples with equipment aliases and notes.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "research",
+        "lab",
+        "docs",
+        "offline",
+        "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "discovery-call-pipeline",
+      "name": "Discovery Call Pipeline",
+      "emoji": "📞",
+      "tagline": "Discovery calls with prospect aliases and notes.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "coaching",
+        "sales",
+        "business",
         "offline",
         "local-storage"
       ],

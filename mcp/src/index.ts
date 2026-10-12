@@ -5,7 +5,7 @@
  * The component registry for Notion — exposed as MCP tools.
  * 
  * Tools:
- * - list_components: browse all 167 components
+ * - list_components: browse all 179 components
  * - search_components: keyword search
  * - get_component: full detail for a slug
  * - get_widget_schema: param schema for a widget
@@ -115,7 +115,7 @@ server.registerTool(
   "list_components",
   {
     title: "List Notion Arena components",
-    description: "List all 167 Notion Arena components (156 widgets + 11 native recipes). Filter by category, kind (widget/native), tier (free/pro), or delivery channel. Returns slug, name, tagline, category, capabilities.",
+    description: "List all 179 Notion Arena components (168 widgets + 11 native recipes). Filter by category, kind (widget/native), tier (free/pro), or delivery channel. Returns slug, name, tagline, category, capabilities.",
     inputSchema: {
       category: z.string().optional().describe("Filter by category: dashboards, time, trackers, planning, business, visuals, docs, automations"),
       kind: z.enum(["widget", "native"]).optional().describe("Filter by kind: widget (HTML embed) or native (Notion API recipe)"),
@@ -758,7 +758,7 @@ server.registerTool(
         text: JSON.stringify({
           name: "Notion Arena",
           tagline: "The component registry for Notion",
-          description: "167 components: 156 embeddable widgets that run inside a Notion page, and 11 native database recipes that install through the Notion API. 156 free, 11 Pro.",
+          description: "179 components: 168 embeddable widgets that run inside a Notion page, and 11 native database recipes that install through the Notion API. 168 free, 11 Pro.",
           stats: {
             total: COMPONENTS.length,
             widgets: COMPONENTS.filter((c: any) => c.kind === 'widget').length,

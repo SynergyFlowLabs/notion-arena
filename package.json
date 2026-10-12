@@ -2,7 +2,7 @@
   "name": "notion-arena",
   "version": "0.2.0",
   "private": true,
-  "description": "Notion Arena — a component registry for Notion. 167 pre-built, embeddable widgets and native database recipes for Notion dashboards.",
+  "description": "Notion Arena — a component registry for Notion. 179 pre-built, embeddable widgets and native database recipes for Notion dashboards.",
   "homepage": "https://notionarena.vercel.app",
   "repository": {
     "type": "git",

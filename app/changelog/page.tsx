@@ -22,6 +22,21 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    version: "1.6.0",
+    date: "2026-10-12",
+    title: "Twelve offline widgets for travel, household, gaming, education, and research",
+    kind: "release",
+    body: [
+      "Travel and household: Travel Itinerary Planner, Household Inventory Log, Car Maintenance and Trip Log, and Warranty and Service Log. Travel itineraries use destination aliases and manual costs with no booking platforms or flight trackers. Household inventories store item aliases and locations only, with no values or insurance data. Car logs use maintenance aliases and mileage only, with no vehicle identification or financial data. Warranty logs store item aliases and dates only, with no serial numbers or claims.",
+      "Gaming and fitness: Game Collection Catalog and Recipe and Meal Library. Game catalogs use game aliases and play status only, with no game keys or achievements, and are not a game library or achievement tracker. Recipe libraries store recipe aliases and prep notes only, with no meal plans or nutritional data, and are not a meal planning system or nutrition tracker.",
+      "Education: Class Homepage, Parent Communication Log, and Tutoring Session Log. All three use class and student aliases only, with no student records or grades, and are not a learning management system, gradebook, or school administration tool.",
+      "Research: Research Question Log and Lab Equipment and Sample Log. Research question logs store question aliases and source notes only, with no research data or findings. Lab sample logs store sample aliases and equipment aliases only, with no sample data or measurements, and neither is a research management system or findings repository.",
+      "Coaching: Discovery Call Pipeline, which stores prospect aliases and call notes only, with no client contact or payment data, and is not a CRM, booking system, or client management platform.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 179 components: 168 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["travel-itinerary-planner", "household-inventory", "car-log", "warranty-tracker", "game-catalog", "recipe-library", "class-homepage", "parent-communication-log", "tutoring-session-log", "research-question-log", "sample-log", "discovery-call-pipeline"],
+  },
+  {
     version: "1.5.0",
     date: "2026-10-12",
     title: "Twelve offline widgets for operations, logistics, service, and creative work",
@@ -32,7 +47,7 @@ const ENTRIES: Entry[] = [
       "Construction and restaurants: Construction Site Diary and Restaurant Reservation Log. Site diary entries are manual daily logs with no safety records or compliance data. Restaurant reservations use party sizes and times with no guest names, contact info, or payment data.",
       "Nonprofits and events: Donor Relationship Log and Event Guest List and RSVP Log. Donor logs store donor aliases and manual pledge amounts only, with no donor contact, payment records, or tax receipts, and are not a CRM or fundraising platform. Event guest lists use guest aliases and plus-one counts with no guest contact, addresses, or dietary info, and are not an invitation system or catering tool.",
       "Photography: Photography Gear Database, which stores gear aliases, categories, and condition only, with no serial numbers, purchase records, or values, and is not an inventory system, insurance catalog, or rental platform.",
-      "All twelve additions are free, offline, and browser-local, bringing the catalog to 167 components: 156 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 155 components: 144 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
     ],
     components: ["purchase-tracker", "equipment-inventory", "approvals-log", "helpdesk-intake", "editorial-calendar", "show-notes", "listener-feedback-log", "site-diary", "reservation-notes", "donor-crm", "guest-list-rsvp", "gear-database"],
   },
