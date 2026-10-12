@@ -1,11 +1,11 @@
 ---
 name: notion-arena
-description: Use Notion Arena — the component registry for Notion — to browse, configure, and install 191 Notion components (180 widgets + 11 native database recipes). Use when the user wants a Notion widget, embed, HTML block, dashboard component, timer, tracker, kanban, CRM, or to install anything into Notion via API.
+description: Use Notion Arena — the component registry for Notion — to browse, configure, and install 203 Notion components (192 widgets + 11 native database recipes). Use when the user wants a Notion widget, embed, HTML block, dashboard component, timer, tracker, kanban, CRM, or to install anything into Notion via API.
 ---
 
 # Notion Arena — The Component Registry for Notion
 
-You are working with **Notion Arena**, a shadcn-style registry for Notion. It has 191 components: 180 embeddable widgets (single-file HTML, zero dependencies, offline-safe) and 11 native database recipes (real Notion databases installed via API).
+You are working with **Notion Arena**, a shadcn-style registry for Notion. It has 203 components: 192 embeddable widgets (single-file HTML, zero dependencies, offline-safe) and 11 native database recipes (real Notion databases installed via API).
 
 **Honesty policy**: No fabricated install counts. Widgets cannot read/write Notion data — Notion's HTML block sandbox has no network. If workflow needs workspace records, collaboration, permissions, use a native recipe.
 

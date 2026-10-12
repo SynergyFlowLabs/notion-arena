@@ -49,6 +49,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Research Question Log widget (docs)
 - Added Lab Equipment and Sample Log widget (docs)
 - Added Discovery Call Pipeline widget (business)
+- Added Therapist Session Administration widget (docs)
+- Added Healthcare Supply Inventory widget (trackers)
+- Added Healthcare Staff Training Log widget (docs)
+- Added Seasonal Crop Calendar widget (planning)
+- Added Harvest Timeline and Yield Log widget (planning)
+- Added Wedding Budget Tracker widget (planning)
+- Added Wedding Vendor Directory widget (business)
+- Added Wedding Countdown widget (time)
+- Added Photography Shoot Calendar widget (planning)
+- Added Photography Delivery Checklist widget (planning)
+- Added Family Contacts Directory widget (trackers)
+- Added Visa and Country Checklist widget (planning)
 
 ### Added
 - New widget: `milestone-tracker` — Dated project milestones with owners, phases, and exit criteria

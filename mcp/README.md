@@ -2,13 +2,13 @@
 
 **The component registry for Notion, for your AI agent.**
 
-191 components: 180 embeddable widgets that run inside a Notion page, and 11 native database recipes that install through the Notion API.
+203 components: 192 embeddable widgets that run inside a Notion page, and 11 native database recipes that install through the Notion API.
 
 This MCP server lets AI coding agents (Claude Code, Cursor, Windsurf, etc.) browse, configure, and install Notion Arena components without leaving the conversation.
 
 ## What it does
 
-- **List & search** 191 components by category, kind, tier, capability
+- **List & search** 203 components by category, kind, tier, capability
 - **Get full detail** for any component: params, features, use cases, capabilities, delivery channels
 - **Build configured URLs**: embed URL (`/embed/slug?config`) and download URL (`/api/widget/slug?config`)
 - **Plan installs** (dry-run, no token): shows exact Notion API calls a component will make
@@ -127,7 +127,7 @@ npm run dev               # runs with tsx, stdio transport
 
 ## How it works
 
-- Catalog is baked in at build time from `lib/catalog.ts` (191 components)
+- Catalog is baked in at build time from `lib/catalog.ts` (203 components)
 - No network needed for list/search/get — all data is local
 - For live file contents (full HTML), tools return URLs to fetch from `/r/{slug}.json` or `/api/widget/{slug}`
 - `plan_install` with mode `plan` is a dry-run that matches `POST /api/install { mode: "plan" }` — safe, no credentials

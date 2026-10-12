@@ -26,7 +26,7 @@ Notion Arena is a Next.js 16 app (App Router, API routes, Turbopack). It needs *
    ```
    Use the URL Vercel will give you, or your custom domain. This makes registry manifests emit absolute URLs for the right host. Without it, URLs are derived from `x-forwarded-host`, fallback `http://localhost:3000` (see `lib/utils.ts`).
 6. Click **Deploy**
-7. Wait ~1-2 min. Vercel runs `npm install && npm run build` (239 static pages with 191 components)
+7. Wait ~1-2 min. Vercel runs `npm install && npm run build` (251 static pages with 203 components)
 8. Open `https://your-project.vercel.app/r/index.json` — should return JSON with 191 items
 9. Test:
    - `https://your-project.vercel.app/embed/pomodoro-timer?work=25`

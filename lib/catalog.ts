@@ -8717,6 +8717,582 @@ export const COMPONENTS: CatalogComponent[] = [
       needsNetwork: false,
     },
   },
+  {
+    kind: "widget",
+    slug: "therapist-session-admin",
+    name: "Therapist Session Administration",
+    emoji: "🧠",
+    tagline: "Session administration with notes, resources, and supervision prompts.",
+    description: "A browser-local session admin log that stores session aliases, supervision prompts, and resource notes only. It holds no client contact, protected health information, or treatment records and is not a clinical system, electronic health record, or compliance tool. Do not use for protected health information without appropriate jurisdictional configuration.",
+    category: "docs",
+    color: "purple",
+    tier: "free",
+    tags: ["therapy", "sessions", "administration", "notes"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/therapist-session-admin.html",
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Session Admin" },
+      { key: "accent", label: "Accent", type: "color", default: "#7a6b9e" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track session aliases, client aliases, duration, and modality",
+      "Filter by session or client alias",
+      "Status workflow: Scheduled → Completed → Cancelled → No-show",
+      "Header metrics: total sessions, total minutes, completed count, cancelled count"
+    ],
+    useCases: [
+      "Therapists managing session administration without an EHR system",
+      "Mental health practitioners tracking supervision prompts locally",
+      "Counselors maintaining private session notes offline"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "healthcare-supply-inventory",
+    name: "Healthcare Supply Inventory",
+    emoji: "🏥",
+    tagline: "Supply inventory with categories, quantities, and restock alerts.",
+    description: "A browser-local supply inventory that stores supply aliases, categories, and quantities only. It holds no patient data, medication details, or financial records and is not an inventory management system, pharmacy tool, or medical record system.",
+    category: "trackers",
+    color: "green",
+    tier: "free",
+    tags: ["healthcare", "inventory", "supplies", "tracking"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/healthcare-supply-inventory.html",
+    height: 490,
+    minHeight: 360,
+    maxHeight: 670,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Supply Inventory" },
+      { key: "accent", label: "Accent", type: "color", default: "#5f7f4f" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track supply aliases, categories, quantities, minimum stock, and units",
+      "Filter by supply or category",
+      "Status workflow: In stock → Low stock → Out of stock → On order",
+      "Header metrics: total supplies, total on hand, low stock count, out of stock count"
+    ],
+    useCases: [
+      "Healthcare administrators tracking supply inventory without an IMS",
+      "Clinic managers maintaining local supply logs offline",
+      "Medical staff monitoring restock needs locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "healthcare-training-log",
+    name: "Healthcare Staff Training Log",
+    emoji: "📚",
+    tagline: "Staff training with modules, completion dates, and renewal tracking.",
+    description: "A browser-local training log that stores staff aliases, training modules, and completion dates only. It holds no personnel records, certifications, or compliance data and is not a learning management system, HR system, or compliance certification tool.",
+    category: "docs",
+    color: "blue",
+    tier: "free",
+    tags: ["healthcare", "training", "staff", "compliance"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/healthcare-training-log.html",
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Training Log" },
+      { key: "accent", label: "Accent", type: "color", default: "#6b8cae" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track training modules, staff aliases, categories, duration, and renewal periods",
+      "Filter by training or staff alias",
+      "Status workflow: Completed → Due for renewal → Overdue → Exempt",
+      "Header metrics: total trainings, total hours, completed count, overdue count"
+    ],
+    useCases: [
+      "Healthcare administrators tracking staff training without an LMS",
+      "Compliance officers maintaining local training logs offline",
+      "Department heads monitoring renewal schedules locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "seasonal-crop-calendar",
+    name: "Seasonal Crop Calendar",
+    emoji: "🌱",
+    tagline: "Seasonal crop calendar with planting windows and notes.",
+    description: "A browser-local seasonal calendar that stores crop aliases, planting windows, and season notes only. It holds no agronomic data, weather forecasts, or yield records and is not a farming platform, agronomy tool, or weather service.",
+    category: "planning",
+    color: "green",
+    tier: "free",
+    tags: ["farming", "crops", "seasonal", "planning"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/seasonal-crop-calendar.html",
+    height: 490,
+    minHeight: 360,
+    maxHeight: 670,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Crop Calendar" },
+      { key: "accent", label: "Accent", type: "color", default: "#5f8f6f" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track crop aliases, seasons, planting windows, and field areas",
+      "Filter by crop or season",
+      "Status workflow: Planned → Planting → Growing → Harvested → Fallow",
+      "Header metrics: total crops, planting count, growing count, harvested count"
+    ],
+    useCases: [
+      "Farmers planning seasonal crops without a farming platform",
+      "Agricultural teams maintaining local planting calendars offline",
+      "Gardeners tracking crop cycles locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "harvest-timeline",
+    name: "Harvest Timeline and Yield Log",
+    emoji: "🌾",
+    tagline: "Harvest timeline with crop yields and cost notes.",
+    description: "A browser-local harvest log that stores crop aliases, harvest dates, and manual yield estimates only. It holds no agronomic data, financial records, or yield forecasts and is not a farming platform, accounting tool, or yield prediction system.",
+    category: "planning",
+    color: "brown",
+    tier: "free",
+    tags: ["farming", "harvest", "yields", "tracking"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/harvest-timeline.html",
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Harvest Log" },
+      { key: "accent", label: "Accent", type: "color", default: "#9a7b4f" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track crop aliases, field aliases, yield estimates, units, and harvest costs",
+      "Filter by harvest or field",
+      "Status workflow: In progress → Completed → Delayed → Lost",
+      "Header metrics: total harvests, total yield, total cost, completed count"
+    ],
+    useCases: [
+      "Farmers logging harvest yields without a farming platform",
+      "Agricultural teams maintaining local yield records offline",
+      "Gardeners tracking harvest outcomes locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "wedding-budget",
+    name: "Wedding Budget Tracker",
+    emoji: "💰",
+    tagline: "Wedding budget categories with estimated and actual costs.",
+    description: "A browser-local wedding budget tracker that stores category aliases, estimated costs, and actual costs only. It holds no vendor contracts, payment records, or financial data and is not a budgeting system, accounting tool, or financial planning service.",
+    category: "planning",
+    color: "pink",
+    tier: "free",
+    tags: ["wedding", "budget", "costs", "tracking"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/wedding-budget.html",
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Wedding Budget" },
+      { key: "accent", label: "Accent", type: "color", default: "#b06aa0" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track budget categories, estimated costs, actual costs, and payment status",
+      "Filter by category or type",
+      "Status workflow: Planned → Booked → Paid → Cancelled",
+      "Header metrics: total categories, total estimated, total actual, paid count"
+    ],
+    useCases: [
+      "Couples planning wedding budgets without an accounting tool",
+      "Wedding planners maintaining local budget trackers offline",
+      "Event coordinators tracking category costs locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "wedding-vendor-directory",
+    name: "Wedding Vendor Directory",
+    emoji: "📇",
+    tagline: "Wedding vendors with categories, quotes, and notes.",
+    description: "A browser-local vendor directory that stores vendor aliases, categories, and manual quote estimates only. It holds no vendor contracts, payment records, or contact information and is not a vendor management system, CRM, or contract tracking tool.",
+    category: "business",
+    color: "purple",
+    tier: "free",
+    tags: ["wedding", "vendors", "directory", "quotes"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/wedding-vendor-directory.html",
+    height: 510,
+    minHeight: 380,
+    maxHeight: 690,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Vendor Directory" },
+      { key: "accent", label: "Accent", type: "color", default: "#7f6bb5" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track vendor aliases, categories, quote estimates, contact methods, and priorities",
+      "Filter by vendor or category",
+      "Status workflow: Researching → Contacted → Quoted → Booked → Declined",
+      "Header metrics: total vendors, total quoted, booked count, researching count"
+    ],
+    useCases: [
+      "Couples researching wedding vendors without a CRM",
+      "Wedding planners maintaining local vendor directories offline",
+      "Event coordinators tracking vendor quotes locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "wedding-countdown",
+    name: "Wedding Countdown",
+    emoji: "⏰",
+    tagline: "Countdown to the wedding date with task progress.",
+    description: "A browser-local wedding countdown that stores the wedding date and task aliases only. It holds no guest lists, vendor contracts, or event details and is not an event planning platform, countdown service, or wedding management tool.",
+    category: "time",
+    color: "pink",
+    tier: "free",
+    tags: ["wedding", "countdown", "tasks", "planning"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/wedding-countdown.html",
+    height: 480,
+    minHeight: 350,
+    maxHeight: 660,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Wedding Countdown" },
+      { key: "accent", label: "Accent", type: "color", default: "#b06aa0" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track task aliases, categories, due dates, priorities, and completion status",
+      "Filter by task or category",
+      "Status workflow: To do → In progress → Done → Cancelled",
+      "Header metrics: total tasks, done count, to do count, progress percentage"
+    ],
+    useCases: [
+      "Couples tracking wedding tasks without an event platform",
+      "Wedding planners maintaining local countdown checklists offline",
+      "Event coordinators monitoring task progress locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "shoot-calendar",
+    name: "Photography Shoot Calendar",
+    emoji: "📅",
+    tagline: "Shoot calendar with clients, locations, and notes.",
+    description: "A browser-local shoot calendar that stores shoot aliases, client aliases, and location notes only. It holds no client contact, image files, or booking data and is not a booking platform, photo management system, or client management tool.",
+    category: "planning",
+    color: "blue",
+    tier: "free",
+    tags: ["photography", "shoots", "calendar", "scheduling"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/shoot-calendar.html",
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Shoot Calendar" },
+      { key: "accent", label: "Accent", type: "color", default: "#4f7fbf" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track shoot aliases, client aliases, shoot types, locations, and durations",
+      "Filter by shoot or client",
+      "Status workflow: Scheduled → Confirmed → Completed → Cancelled → Rescheduled",
+      "Header metrics: total shoots, total hours, confirmed count, completed count"
+    ],
+    useCases: [
+      "Photographers scheduling shoots without a booking platform",
+      "Videographers maintaining local shoot calendars offline",
+      "Creative teams tracking shoot logistics locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "delivery-checklist",
+    name: "Photography Delivery Checklist",
+    emoji: "✅",
+    tagline: "Delivery checklist with files, clients, and status.",
+    description: "A browser-local delivery checklist that stores deliverable aliases, client aliases, and delivery notes only. It holds no image files, client contact, or financial data and is not a file management system, client portal, or delivery platform.",
+    category: "planning",
+    color: "blue",
+    tier: "free",
+    tags: ["photography", "delivery", "checklist", "files"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/delivery-checklist.html",
+    height: 490,
+    minHeight: 360,
+    maxHeight: 670,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Delivery Checklist" },
+      { key: "accent", label: "Accent", type: "color", default: "#6b8cae" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track deliverable aliases, client aliases, formats, file counts, and priorities",
+      "Filter by deliverable or client",
+      "Status workflow: To prepare → In progress → Ready → Delivered → Revision",
+      "Header metrics: total deliverables, total files, delivered count, revision count"
+    ],
+    useCases: [
+      "Photographers tracking deliverables without a client portal",
+      "Videographers maintaining local delivery checklists offline",
+      "Creative teams monitoring file delivery status locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "family-contacts-directory",
+    name: "Family Contacts Directory",
+    emoji: "👨‍👩‍👧‍👦",
+    tagline: "Family contacts with aliases, relationships, and notes.",
+    description: "A browser-local family contacts directory that stores contact aliases, relationships, and general notes only. It holds no personal data, contact details, or sensitive information and is not a contact management system, address book, or communication platform.",
+    category: "trackers",
+    color: "blue",
+    tier: "free",
+    tags: ["family", "contacts", "directory", "relationships"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/family-contacts-directory.html",
+    height: 490,
+    minHeight: 360,
+    maxHeight: 670,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Family Directory" },
+      { key: "accent", label: "Accent", type: "color", default: "#5a8fbf" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track contact aliases, relationships, family branches, birth months, and favorites",
+      "Filter by contact or relationship",
+      "Status workflow: Active → Extended → In memoriam",
+      "Header metrics: total contacts, active count, extended count, memoriam count"
+    ],
+    useCases: [
+      "Families maintaining a local contact directory without an address book",
+      "Roommates tracking family relationships offline",
+      "Individuals organizing family information locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
+  {
+    kind: "widget",
+    slug: "visa-country-checklist",
+    name: "Visa and Country Checklist",
+    emoji: "🛂",
+    tagline: "Visa and country checklist with requirements and notes.",
+    description: "A browser-local visa and country checklist that stores country aliases, visa requirements, and travel notes only. It holds no passport data, application details, or official travel documents and is not a visa application system, government service, or travel advisory tool.",
+    category: "planning",
+    color: "orange",
+    tier: "free",
+    tags: ["travel", "visa", "countries", "checklist"],
+    plan: "Free",
+    version: "1.0.0",
+    updatedAt: "2026-10-12",
+    badge: "new",
+    file: "/widgets/visa-country-checklist.html",
+    height: 500,
+    minHeight: 370,
+    maxHeight: 680,
+    delivery: ["embed", "html-block", "download"],
+    params: [
+      { key: "label", label: "Widget title", type: "text", default: "Visa Checklist" },
+      { key: "accent", label: "Accent", type: "color", default: "#c1642f" },
+      { key: "theme", label: "Theme", type: "select", default: "auto", options: [
+        { value: "auto", label: "Match Notion" },
+        { value: "light", label: "Light" },
+        { value: "dark", label: "Dark" }
+      ]}
+    ],
+    features: [
+      "Track country aliases, visa types, planned stay durations, entry types, and visa costs",
+      "Filter by country or visa type",
+      "Status workflow: Researching → Applied → Approved → Rejected → Visited",
+      "Header metrics: total countries, total days, total cost, approved count"
+    ],
+    useCases: [
+      "Travelers planning visa requirements without a travel advisory tool",
+      "Digital nomads maintaining local visa checklists offline",
+      "Remote workers tracking country entry requirements locally"
+    ],
+    capabilities: {
+      interactive: true,
+      offlineSafe: true,
+      persistsLocally: true,
+      writesToNotion: false,
+      needsNetwork: false
+    }
+  },
   /* NATIVE RECIPES                                                      */
   /* ------------------------------------------------------------------ */
   {

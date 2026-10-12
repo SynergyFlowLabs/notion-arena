@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-12T09:27:29.421Z",
-  "count": 191,
+  "generatedAt": "2026-10-12T09:48:15.382Z",
+  "count": 203,
   "components": [
     {
       "slug": "pomodoro-timer",
@@ -5375,6 +5375,354 @@
         "business",
         "offline",
         "local-storage"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "therapist-session-admin",
+      "name": "Therapist Session Administration",
+      "emoji": "🧠",
+      "tagline": "Session administration with notes, resources, and supervision prompts.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "therapy",
+        "sessions",
+        "administration",
+        "notes"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "healthcare-supply-inventory",
+      "name": "Healthcare Supply Inventory",
+      "emoji": "🏥",
+      "tagline": "Supply inventory with categories, quantities, and restock alerts.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "healthcare",
+        "inventory",
+        "supplies",
+        "tracking"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "healthcare-training-log",
+      "name": "Healthcare Staff Training Log",
+      "emoji": "📚",
+      "tagline": "Staff training with modules, completion dates, and renewal tracking.",
+      "category": "docs",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "healthcare",
+        "training",
+        "staff",
+        "compliance"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "seasonal-crop-calendar",
+      "name": "Seasonal Crop Calendar",
+      "emoji": "🌱",
+      "tagline": "Seasonal crop calendar with planting windows and notes.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "farming",
+        "crops",
+        "seasonal",
+        "planning"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "harvest-timeline",
+      "name": "Harvest Timeline and Yield Log",
+      "emoji": "🌾",
+      "tagline": "Harvest timeline with crop yields and cost notes.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "farming",
+        "harvest",
+        "yields",
+        "tracking"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "wedding-budget",
+      "name": "Wedding Budget Tracker",
+      "emoji": "💰",
+      "tagline": "Wedding budget categories with estimated and actual costs.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "wedding",
+        "budget",
+        "costs",
+        "tracking"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "wedding-vendor-directory",
+      "name": "Wedding Vendor Directory",
+      "emoji": "📇",
+      "tagline": "Wedding vendors with categories, quotes, and notes.",
+      "category": "business",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "wedding",
+        "vendors",
+        "directory",
+        "quotes"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "wedding-countdown",
+      "name": "Wedding Countdown",
+      "emoji": "⏰",
+      "tagline": "Countdown to the wedding date with task progress.",
+      "category": "time",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "wedding",
+        "countdown",
+        "tasks",
+        "planning"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "shoot-calendar",
+      "name": "Photography Shoot Calendar",
+      "emoji": "📅",
+      "tagline": "Shoot calendar with clients, locations, and notes.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "photography",
+        "shoots",
+        "calendar",
+        "scheduling"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "delivery-checklist",
+      "name": "Photography Delivery Checklist",
+      "emoji": "✅",
+      "tagline": "Delivery checklist with files, clients, and status.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "photography",
+        "delivery",
+        "checklist",
+        "files"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "family-contacts-directory",
+      "name": "Family Contacts Directory",
+      "emoji": "👨‍👩‍👧‍👦",
+      "tagline": "Family contacts with aliases, relationships, and notes.",
+      "category": "trackers",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "family",
+        "contacts",
+        "directory",
+        "relationships"
+      ],
+      "plan": "Free",
+      "badge": "new",
+      "capabilities": {
+        "interactive": true,
+        "offlineSafe": true,
+        "persistsLocally": true,
+        "writesToNotion": false,
+        "needsNetwork": false
+      },
+      "delivery": [
+        "embed",
+        "html-block",
+        "download"
+      ]
+    },
+    {
+      "slug": "visa-country-checklist",
+      "name": "Visa and Country Checklist",
+      "emoji": "🛂",
+      "tagline": "Visa and country checklist with requirements and notes.",
+      "category": "planning",
+      "kind": "widget",
+      "tier": "free",
+      "tags": [
+        "travel",
+        "visa",
+        "countries",
+        "checklist"
       ],
       "plan": "Free",
       "badge": "new",

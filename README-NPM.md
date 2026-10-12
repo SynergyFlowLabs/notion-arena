@@ -1,6 +1,6 @@
 # Notion Arena MCP Server
 
-> **Notion Arena** — A component registry for Notion. 191 pre-built components (180 widgets + 11 native recipes) for Notion dashboards.
+> **Notion Arena** — A component registry for Notion. 203 pre-built components (192 widgets + 11 native recipes) for Notion dashboards.
 
 [![npm version](https://img.shields.io/npm/v/notion-arena-mcp.svg)](https://www.npmjs.com/package/notion-arena-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/SynergyFlowLabs/notion-arena/blob/main/LICENSE)
@@ -8,10 +8,10 @@
 
 ## Overview
 
-This package provides the **Model Context Protocol (MCP) server** for Notion Arena, giving AI agents (Claude Code, Cursor, Windsurf, Claude Desktop) tools to discover, configure, and install 191 Notion components.
+This package provides the **Model Context Protocol (MCP) server** for Notion Arena, giving AI agents (Claude Code, Cursor, Windsurf, Claude Desktop) tools to discover, configure, and install 203 Notion components.
 
 **Components:**
-- **180 Widgets** — Self-contained HTML components that run in Notion via Embed URL or HTML Block
+- **192 Widgets** — Self-contained HTML components that run in Notion via Embed URL or HTML Block
 - **11 Native Recipes** — Notion API installations (databases, views, formulas, automations)
 
 ## Installation
@@ -71,7 +71,7 @@ Add to `~/.windsurf/mcp_config.json`:
 
 | Tool | Description |
 |------|-------------|
-| `list_components` | List all 191 components with basic metadata |
+| `list_components` | List all 203 components with basic metadata |
 | `search_components` | Search by query, category, tag, tier, capability |
 | `get_component` | Get full component spec by slug |
 | `get_widget_schema` | Get JSON Schema for widget parameters |

@@ -22,6 +22,21 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    version: "1.8.0",
+    date: "2026-10-12",
+    title: "Twelve offline widgets for healthcare, farming, weddings, photography, families, and travel",
+    kind: "release",
+    body: [
+      "Healthcare: Therapist Session Administration, Healthcare Supply Inventory, and Healthcare Staff Training Log. Therapist session admin stores session aliases and supervision prompts only, with no client contact or protected health information, and is not a clinical system or electronic health record (do not use for protected health information without appropriate jurisdictional configuration). Healthcare supply inventory stores supply aliases and quantities only, with no patient data or medication details, and is not an inventory management system or pharmacy tool. Healthcare training logs store staff aliases and completion dates only, with no personnel records or certifications, and are not learning management systems or HR systems.",
+      "Farming: Seasonal Crop Calendar and Harvest Timeline and Yield Log. Seasonal crop calendars and harvest timelines use crop aliases and planting windows only, with no agronomic data or weather forecasts, and are not farming platforms or agronomy tools.",
+      "Weddings: Wedding Budget Tracker, Wedding Vendor Directory, and Wedding Countdown. Wedding budget trackers, vendor directories, and countdowns use category aliases and manual estimates only, with no vendor contracts or payment records, and are not budgeting systems or financial planning services.",
+      "Photography: Photography Shoot Calendar and Photography Delivery Checklist. Photography shoot calendars and delivery checklists store shoot aliases and deliverable notes only, with no client contact or image files, and are not booking platforms or photo management systems.",
+      "Families and travel: Family Contacts Directory and Visa and Country Checklist. Family contacts directories use contact aliases and relationships only, with no personal data or contact details, and are not contact management systems or address books. Visa and country checklists use country aliases and visa requirements only, with no passport data or application details, and are not visa application systems or government services.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 203 components: 192 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["therapist-session-admin", "healthcare-supply-inventory", "healthcare-training-log", "seasonal-crop-calendar", "harvest-timeline", "wedding-budget", "wedding-vendor-directory", "wedding-countdown", "shoot-calendar", "delivery-checklist", "family-contacts-directory", "visa-country-checklist"],
+  },
+  {
     version: "1.7.0",
     date: "2026-10-12",
     title: "Twelve offline widgets for students, nonprofits, travelers, and operations",
@@ -32,7 +47,7 @@ const ENTRIES: Entry[] = [
       "Travelers and hobbyists: Travel Journal, Review and Rating Log, and Wish List and Collector Log. Travel journals use location aliases and reflection notes only, with no photos or itineraries, and are not travel blogs. Review logs store media aliases and ratings only, with no media content or purchase records, and are not review platforms. Wish lists use item aliases and priorities only, with no purchase records or price data, and are not shopping platforms.",
       "Real estate: Property Listing Catalog, Property Showing Schedule, and Tenant and Lease Log. All three use property and tenant aliases only, with no addresses, financial data, or ownership records, and are not real estate platforms or property management systems.",
       "Manufacturing and logistics: Manufacturing Work Order Tracker and Shipment and Logistics Tracker. Work order trackers store product aliases and quantities only, with no production data or inventory records, and are not manufacturing execution systems. Shipment trackers use shipment and carrier aliases only, with no tracking numbers or financial data, and are not logistics platforms.",
-      "All twelve additions are free, offline, and browser-local, bringing the catalog to 191 components: 180 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 203 components: 192 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
     ],
     components: ["student-course-dashboard", "dissertation-milestones", "impact-log", "board-meeting-notes", "travel-journal", "review-log", "wishlist", "listing-catalog", "showing-schedule", "tenant-lease-log", "work-order-tracker", "shipment-tracker"],
   },
