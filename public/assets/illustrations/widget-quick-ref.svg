@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 850" fill="none" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="600" height="850" fill="#fafafa"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="600" height="70" rx="0" fill="#1f1f1f"/>
+  <text x="300" y="44" font-size="24" font-weight="700" fill="white" text-anchor="middle">Widget Authoring Quick Reference</text>
+  <text x="300" y="62" font-size="12" fill="#9ca3af" text-anchor="middle">Notion Arena — 4 Rules, 1 Contract, Zero Excuses</text>
+
+  <!-- Rule Cards -->
+  <g transform="translate(20, 90)">
+    <!-- Rule 1 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="560" height="160" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="560" height="44" rx="12" fill="#ef4444"/>
+      <text x="280" y="28" font-size="16" font-weight="700" fill="white" text-anchor="middle">🚫 RULE 1: Zero External Requests</text>
+      
+      <g transform="translate(20, 55)" font-size="12" fill="#374151">
+        <text x="0" y="0" font-weight="600">❌ FORBIDDEN:</text>
+        <text x="0" y="20"><code><link href="https://fonts.googleapis.com/..."></code></text>
+        <text x="0" y="40"><code><script src="https://cdn.jsdelivr.net/..."></code></text>
+        <text x="0" y="60"><code>@import url('...')</code> in CSS</text>
+        <text x="0" y="80"><code>fetch('/api/data')</code> or any network call</text>
+        <text x="0" y="100"><code><img src="https://..."></code> external images</text>
+        
+        <text x="0" y="125" font-weight="600">✅ REQUIRED:</text>
+        <text x="0" y="145">All CSS/JS/SVG inlined in single HTML file</text>
+      </g>
+    </g>
+
+    <!-- Rule 2 -->
+    <g transform="translate(0, 180)">
+      <rect x="0" y="0" width="560" height="160" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="560" height="44" rx="12" fill="#f59e0b"/>
+      <text x="280" y="28" font-size="16" font-weight="700" fill="white" text-anchor="middle">⚙️ RULE 2: Two Config Sources</text>
+      
+      <g transform="translate(20, 55)" font-size="12" fill="#374151">
+        <text x="0" y="0" font-weight="600">Priority 1 (HTML Block):</text>
+        <text x="0" y="20"><code><script id="bk-config" type="application/json">{...}</script></code></text>
+        <text x="0" y="40">Injected by server at download time</text>
+        
+        <text x="0" y="65" font-weight="600">Priority 2 (Embed URL):</text>
+        <text x="0" y="85"><code>new URLSearchParams(location.search)</code></text>
+        <text x="0" y="105">e.g. <code>/embed/pomodoro?work=30&theme=dark</code></text>
+        
+        <text x="0" y="130" font-weight="600">Merge:</text>
+        <text x="0" y="150"><code>buildConfig(schema, bkConfig, urlParams)</code> — unknown keys dropped</text>
+      </g>
+    </g>
+
+    <!-- Rule 3 -->
+    <g transform="translate(0, 360)">
+      <rect x="0" y="0" width="560" height="180" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="560" height="44" rx="12" fill="#0f7b6c"/>
+      <text x="280" y="28" font-size="16" font-weight="700" fill="white" text-anchor="middle">🎨 RULE 3: Theme & Accent on Every Widget</text>
+      
+      <g transform="translate(20, 55)" font-size="12" fill="#374151">
+        <text x="0" y="0" font-weight="600">Catalog params (required):</text>
+        <text x="0" y="20"><code>{ key: "theme", type: "select", default: "auto", options: [...] }</code></text>
+        <text x="0" y="40"><code>{ key: "accent", type: "color", default: "#2383e2" }</code></text>
+        
+        <text x="0" y="65" font-weight="600">CSS Implementation:</text>
+        <text x="0" y="85"><code>:root { --accent: #2383e2; --accent-weak: color-mix(in oklab, var(--accent) 15%, transparent); }</code></text>
+        <text x="0" y="110"><code>[data-theme="light"] { --bg: #fff; --fg: #111; }</code></text>
+        <text x="0" y="130"><code>[data-theme="dark"] { --bg: #111; --fg: #fff; }</code></text>
+        <text x="0" y="150"><code>@media (prefers-color-scheme: dark) { [data-theme="auto"] { ... } }</code></text>
+      </g>
+    </g>
+
+    <!-- Rule 4 -->
+    <g transform="translate(0, 560)">
+      <rect x="0" y="0" width="560" height="180" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="0" y="0" width="560" height="44" rx="12" fill="#8b5cf6"/>
+      <text x="280" y="28" font-size="16" font-weight="700" fill="white" text-anchor="middle">💾 RULE 4: Namespaced State</text>
+      
+      <g transform="translate(20, 55)" font-size="12" fill="#374151">
+        <text x="0" y="0" font-weight="600">If persistsLocally: true, use this pattern:</text>
+        <text x="0" y="25"><code>const KEY = 'notion-arena.my-widget.v1';</code></text>
+        <text x="0" y="45"><code>function load() {</code></text>
+        <text x="20" y="65"><code>try { return JSON.parse(localStorage.getItem(KEY)) || defaults; }</code></text>
+        <text x="20" y="85"><code>catch { return defaults; } // Safari private mode, quota</code></text>
+        <text x="0" y="105"><code>}</code></text>
+        <text x="0" y="125"><code>function save(state) {</code></text>
+        <text x="20" y="145"><code>try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {}</code></text>
+        <text x="0" y="165"><code>}</code></text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Mandatory Patterns -->
+  <g transform="translate(20, 760)">
+    <rect x="0" y="0" width="560" height="80" rx="12" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="1"/>
+    <text x="280" y="22" font-size="14" font-weight="700" fill="#1f1f1f" text-anchor="middle">🔧 Mandatory Patterns (Every Widget)</text>
+    <g transform="translate(20, 35)" font-size="11" fill="#4b5563">
+      <text x="0" y="0">✅ <code>body { overflow: hidden }</code> + <code>.wrap { height: 100vh; overflow: auto; }</code> (single scrollbar)</text>
+      <text x="0" y="20">✅ <code>@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }</code></text>
+      <text x="0" y="40">✅ Clipboard: <code>navigator.clipboard.writeText(t).catch(() => console.log(t))</code></text>
+      <text x="0" y="60">✅ Fonts: <code>font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif</code></text>
+    </g>
+  </g>
+</svg>

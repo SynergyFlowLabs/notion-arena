@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 40" fill="none">
+  <defs>
+    <linearGradient id="recipeGrad" x1="0" y1="0" x2="140" y2="0">
+      <stop offset="0%" stop-color="#6940a5"/>
+      <stop offset="100%" stop-color="#9065b0"/>
+    </linearGradient>
+  </defs>
+  <rect width="140" height="40" rx="20" fill="url(#recipeGrad)"/>
+  <text x="70" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">11 Recipes</text>
+</svg>

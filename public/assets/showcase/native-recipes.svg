@@ -1,0 +1,264 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="600" y="50" font-size="28" font-weight="700" fill="#1f1f1f" text-anchor="middle">Native Recipes — Notion Databases Installed via API</text>
+  <text x="600" y="80" font-size="16" fill="#6b7280" text-anchor="middle">Real Notion databases, views, formulas, and automations created programmatically</text>
+
+  <!-- Recipe 1: CRM Pipeline -->
+  <g transform="translate(50, 110)">
+    <rect x="0" y="0" width="530" height="320" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <rect x="0" y="0" width="530" height="45" rx="12" fill="#9a6a4f" opacity="0.1"/>
+    <text x="265" y="30" font-size="18" font-weight="700" fill="#9a6a4f" text-anchor="middle">💼 CRM Pipeline <tspan font-size="12" fill="#6b7280"> (Pro • Plus plan)</tspan></text>
+    <text x="265" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Companies, People & Deals — related databases with board, pipeline chart & dashboard</text>
+    
+    <!-- Creates badges -->
+    <g transform="translate(20, 75)" font-size="11">
+      <rect x="0" y="0" width="100" height="24" rx="12" fill="#9a6a4f" opacity="0.15"/>
+      <text x="50" y="16" fill="#9a6a4f" text-anchor="middle">3 Databases</text>
+      <rect x="110" y="0" width="100" height="24" rx="12" fill="#9a6a4f" opacity="0.15"/>
+      <text x="160" y="16" fill="#9a6a4f" text-anchor="middle">6 Formulas</text>
+      <rect x="220" y="0" width="100" height="24" rx="12" fill="#9a6a4f" opacity="0.15"/>
+      <text x="270" y="16" fill="#9a6a4f" text-anchor="middle">5 Views</text>
+      <rect x="330" y="0" width="100" height="24" rx="12" fill="#9a6a4f" opacity="0.15"/>
+      <text x="380" y="16" fill="#9a6a4f" text-anchor="middle">2 Templates</text>
+      <rect x="430" y="0" width="100" height="24" rx="12" fill="#f59e0b" opacity="0.15"/>
+      <text x="480" y="16" fill="#f59e0b" text-anchor="middle">3 Manual</text>
+    </g>
+    
+    <!-- Visual: Kanban board -->
+    <g transform="translate(20, 115)">
+      <text x="0" y="15" font-size="12" font-weight="600" fill="#374151">Board View — Deals by Stage</text>
+      <g transform="translate(0, 25)">
+        <g transform="translate(0, 0)">
+          <rect x="0" y="0" width="120" height="25" rx="4" fill="#fef3c7"/>
+          <text x="60" y="17" font-size="11" font-weight="600" fill="#92400e" text-anchor="middle">Lead (3)</text>
+          <rect x="0" y="30" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="52" font-size="10" fill="#374151" text-anchor="middle">Acme Corp — $15k</text>
+          <rect x="0" y="80" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="102" font-size="10" fill="#374151" text-anchor="middle">Globex — $8k</text>
+          <rect x="0" y="130" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="152" font-size="10" fill="#374151" text-anchor="middle">Initech — $22k</text>
+        </g>
+        <g transform="translate(130, 0)">
+          <rect x="0" y="0" width="120" height="25" rx="4" fill="#dbeafe"/>
+          <text x="60" y="17" font-size="11" font-weight="600" fill="#1d4ed8" text-anchor="middle">Qualified (2)</text>
+          <rect x="0" y="30" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="52" font-size="10" fill="#374151" text-anchor="middle">Wayne Ent — $50k</text>
+          <rect x="0" y="80" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="102" font-size="10" fill="#374151" text-anchor="middle">Stark Ind — $35k</text>
+        </g>
+        <g transform="translate(260, 0)">
+          <rect x="0" y="0" width="120" height="25" rx="4" fill="#fce7f3"/>
+          <text x="60" y="17" font-size="11" font-weight="600" fill="#be185d" text-anchor="middle">Proposal (2)</text>
+          <rect x="0" y="30" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="52" font-size="10" fill="#374151" text-anchor="middle">Umbrella — $75k</text>
+          <rect x="0" y="80" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="102" font-size="10" fill="#374151" text-anchor="middle">Oscorp — $120k</text>
+        </g>
+        <g transform="translate(390, 0)">
+          <rect x="0" y="0" width="120" height="25" rx="4" fill="#dcfce7"/>
+          <text x="60" y="17" font-size="11" font-weight="600" fill="#166534" text-anchor="middle">Closed Won (4)</text>
+          <rect x="0" y="30" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="52" font-size="10" fill="#374151" text-anchor="middle">Cyberdyne — $200k</text>
+          <rect x="0" y="80" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="102" font-size="10" fill="#374151" text-anchor="middle">Massive Dyn — $150k</text>
+          <rect x="0" y="130" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="152" font-size="10" fill="#374151" text-anchor="middle">Tyrell — $90k</text>
+          <rect x="0" y="180" width="120" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="60" y="202" font-size="10" fill="#374151" text-anchor="middle">Weyland — $300k</text>
+        </g>
+      </g>
+    </g>
+    
+    <!-- Features -->
+    <g transform="translate(20, 260)" font-size="11" fill="#4b5563">
+      <text x="0" y="0">• Status property with native stage groups (To begin / In progress / Done / Blocked)</text>
+      <text x="0" y="18">• Rollups from Deals → Companies for lifetime value & open pipeline</text>
+      <text x="0" y="36">• Formula-driven "Days in stage" flags stale deals in red</text>
+      <text x="0" y="54">• Dashboard view: number widget + board + chart combined</text>
+    </g>
+  </g>
+
+  <!-- Recipe 2: Sprint Tracker -->
+  <g transform="translate(620, 110)">
+    <rect x="0" y="0" width="530" height="320" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <rect x="0" y="0" width="530" height="45" rx="12" fill="#2383e2" opacity="0.1"/>
+    <text x="265" y="30" font-size="18" font-weight="700" fill="#2383e2" text-anchor="middle">🏃 Sprint Tracker <tspan font-size="12" fill="#6b7280"> (Pro • Plus plan)</tspan></text>
+    <text x="265" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Epics & Stories with velocity chart, burndown-ready schema & subtask board</text>
+    
+    <g transform="translate(20, 75)" font-size="11">
+      <rect x="0" y="0" width="100" height="24" rx="12" fill="#2383e2" opacity="0.15"/>
+      <text x="50" y="16" fill="#2383e2" text-anchor="middle">2 Databases</text>
+      <rect x="110" y="0" width="100" height="24" rx="12" fill="#2383e2" opacity="0.15"/>
+      <text x="160" y="16" fill="#2383e2" text-anchor="middle">4 Formulas</text>
+      <rect x="220" y="0" width="100" height="24" rx="12" fill="#2383e2" opacity="0.15"/>
+      <text x="270" y="16" fill="#2383e2" text-anchor="middle">4 Views</text>
+      <rect x="330" y="0" width="100" height="24" rx="12" fill="#2383e2" opacity="0.15"/>
+      <text x="380" y="16" fill="#2383e2" text-anchor="middle">1 Template</text>
+    </g>
+    
+    <!-- Visual: Sprint board with subtasks -->
+    <g transform="translate(20, 115)">
+      <text x="0" y="15" font-size="12" font-weight="600" fill="#374151">Sprint Board with Subtask Toggle</text>
+      <g transform="translate(0, 25)">
+        <g transform="translate(0, 0)">
+          <rect x="0" y="0" width="165" height="25" rx="4" fill="#fef3c7"/>
+          <text x="82.5" y="17" font-size="11" font-weight="600" fill="#92400e" text-anchor="middle">To Begin (5 pts)</text>
+          <rect x="0" y="30" width="165" height="50" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="82.5" y="55" font-size="10" fill="#374151" text-anchor="middle">📝 FEAT-123: Add dark mode</text>
+          <text x="82.5" y="70" font-size="9" fill="#6b7280" text-anchor="middle">▸ Subtask: Tailwind config</text>
+          <text x="82.5" y="82" font-size="9" fill="#16a34a" text-anchor="middle">✓ Subtask: CSS variables</text>
+        </g>
+        <g transform="translate(175, 0)">
+          <rect x="0" y="0" width="165" height="25" rx="4" fill="#dbeafe"/>
+          <text x="82.5" y="17" font-size="11" font-weight="600" fill="#1d4ed8" text-anchor="middle">In Progress (8 pts)</text>
+          <rect x="0" y="30" width="165" height="50" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="82.5" y="55" font-size="10" fill="#374151" text-anchor="middle">🐛 FIX-456: Mobile layout</text>
+          <text x="82.5" y="70" font-size="9" fill="#e03e3e" text-anchor="middle">○ Subtask: iOS Safari fix</text>
+          <text x="82.5" y="82" font-size="9" fill="#16a34a" text-anchor="middle">✓ Subtask: Android</text>
+        </g>
+        <g transform="translate(350, 0)">
+          <rect x="0" y="0" width="165" height="25" rx="4" fill="#dcfce7"/>
+          <text x="82.5" y="17" font-size="11" font-weight="600" fill="#166534" text-anchor="middle">Done (13 pts)</text>
+          <rect x="0" y="30" width="165" height="45" rx="4" fill="#fff" stroke="#e5e7eb"/>
+          <text x="82.5" y="55" font-size="10" fill="#374151" text-anchor="middle">✨ FEAT-789: KPI strip</text>
+          <text x="82.5" y="70" font-size="9" fill="#16a34a" text-anchor="middle">✓ All subtasks complete</text>
+        </g>
+      </g>
+    </g>
+    
+    <!-- Velocity chart preview -->
+    <g transform="translate(20, 245)">
+      <text x="0" y="15" font-size="12" font-weight="600" fill="#374151">Velocity Chart</text>
+      <polyline points="0,80 40,65 80,70 120,55 160,60 200,45 240,40 280,35 320,30 360,25 400,20 440,18 480,15 520,12" stroke="#2383e2" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="520" y="8" font-size="10" fill="#2383e2">Sprint 12</text>
+    </g>
+  </g>
+
+  <!-- Recipe 3: OKR System -->
+  <g transform="translate(50, 460)">
+    <rect x="0" y="0" width="530" height="320" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <rect x="0" y="0" width="530" height="45" rx="12" fill="#6940a5" opacity="0.1"/>
+    <text x="265" y="30" font-size="18" font-weight="700" fill="#6940a5" text-anchor="middle">🎯 OKR System <tspan font-size="12" fill="#6b7280"> (Free • Plus plan)</tspan></text>
+    <text x="265" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Objectives & Key Results with progress formulas, confidence scoring & quarterly chart</text>
+    
+    <g transform="translate(20, 75)" font-size="11">
+      <rect x="0" y="0" width="100" height="24" rx="12" fill="#6940a5" opacity="0.15"/>
+      <text x="50" y="16" fill="#6940a5" text-anchor="middle">2 Databases</text>
+      <rect x="110" y="0" width="100" height="24" rx="12" fill="#6940a5" opacity="0.15"/>
+      <text x="160" y="16" fill="#6940a5" text-anchor="middle">5 Formulas</text>
+      <rect x="220" y="0" width="100" height="24" rx="12" fill="#6940a5" opacity="0.15"/>
+      <text x="270" y="16" fill="#6940a5" text-anchor="middle">3 Views</text>
+      <rect x="330" y="0" width="100" height="24" rx="12" fill="#6940a5" opacity="0.15"/>
+      <text x="380" y="16" fill="#6940a5" text-anchor="middle">1 Template</text>
+    </g>
+    
+    <g transform="translate(20, 115)">
+      <text x="0" y="15" font-size="12" font-weight="600" fill="#374151">Quarterly OKR Board</text>
+      <g transform="translate(0, 25)">
+        <rect x="0" y="0" width="490" height="30" rx="4" fill="#f3e8ff"/>
+        <text x="245" y="20" font-size="12" font-weight="600" fill="#6940a5" text-anchor="middle">O1: Launch Notion Arena v1.0 (Q4 2026) — 78% • Confidence: 8/10</text>
+        
+        <g transform="translate(20, 45)">
+          <text x="0" y="0" font-size="11" fill="#4b5563">KR1: 100 widgets published</text>
+          <rect x="0" y="10" width="200" height="8" rx="4" fill="#e5e7eb"/>
+          <rect x="0" y="10" width="156" height="8" rx="4" fill="#6940a5"/>
+          <text x="210" y="17" font-size="11" fill="#6940a5">78%</text>
+        </g>
+        <g transform="translate(270, 45)">
+          <text x="0" y="0" font-size="11" fill="#4b5563">KR2: 500 MCP installs</text>
+          <rect x="0" y="10" width="200" height="8" rx="4" fill="#e5e7eb"/>
+          <rect x="0" y="10" width="90" height="8" rx="4" fill="#d9730d"/>
+          <text x="210" y="17" font-size="11" fill="#d9730d">45%</text>
+        </g>
+        <g transform="translate(20, 80)">
+          <text x="0" y="0" font-size="11" fill="#4b5563">KR3: < 5% widget error rate</text>
+          <rect x="0" y="10" width="200" height="8" rx="4" fill="#e5e7eb"/>
+          <rect x="0" y="10" width="190" height="8" rx="4" fill="#16a34a"/>
+          <text x="210" y="17" font-size="11" fill="#16a34a">95%</text>
+        </g>
+        <g transform="translate(270, 80)">
+          <text x="0" y="0" font-size="11" fill="#4b5563">KR4: Docs for 100% components</text>
+          <rect x="0" y="10" width="200" height="8" rx="4" fill="#e5e7eb"/>
+          <rect x="0" y="10" width="180" height="8" rx="4" fill="#6940a5"/>
+          <text x="210" y="17" font-size="11" fill="#6940a5">90%</text>
+        </g>
+      </g>
+    </g>
+    
+    <g transform="translate(20, 240)" font-size="11" fill="#4b5563">
+      <text x="0" y="0">• Progress from start/target/current, clamped 0-100%</text>
+      <text x="0" y="18">• Confidence as 1-10 number with color-coded formula label</text>
+      <text x="0" y="36">• Quarter select property drives every filtered view</text>
+      <text x="0" y="54">• Chart view of objective scores grouped by team</text>
+    </g>
+  </g>
+
+  <!-- Recipe 4: Meeting Notes OS -->
+  <g transform="translate(620, 460)">
+    <rect x="0" y="0" width="530" height="320" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <rect x="0" y="0" width="530" height="45" rx="12" fill="#eab308" opacity="0.1"/>
+    <text x="265" y="30" font-size="18" font-weight="700" fill="#eab308" text-anchor="middle">📝 Meeting Notes OS <tspan font-size="12" fill="#6b7280"> (Free • Free plan) <tspan fill="#22c55e">★ Staff Pick</tspan></tspan></text>
+    <text x="265" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Highest-leverage recipe: meetings DB, action items, template with real blocks, buttons</text>
+    
+    <g transform="translate(20, 75)" font-size="11">
+      <rect x="0" y="0" width="100" height="24" rx="12" fill="#eab308" opacity="0.15"/>
+      <text x="50" y="16" fill="#eab308" text-anchor="middle">2 Databases</text>
+      <rect x="110" y="0" width="100" height="24" rx="12" fill="#eab308" opacity="0.15"/>
+      <text x="160" y="16" fill="#eab308" text-anchor="middle">1 Template</text>
+      <rect x="220" y="0" width="100" height="24" rx="12" fill="#eab308" opacity="0.15"/>
+      <text x="270" y="16" fill="#eab308" text-anchor="middle">2 Buttons</text>
+      <rect x="330" y="0" width="100" height="24" rx="12" fill="#eab308" opacity="0.15"/>
+      <text x="380" y="16" fill="#eab308" text-anchor="middle">4 Views</text>
+      <rect x="430" y="0" width="100" height="24" rx="12" fill="#f59e0b" opacity="0.15"/>
+      <text x="480" y="16" fill="#f59e0b" text-anchor="middle">2 Manual</text>
+    </g>
+    
+    <g transform="translate(20, 115)">
+      <text x="0" y="15" font-size="12" font-weight="600" fill="#374151">Meeting Template — Real Blocks</text>
+      <g transform="translate(0, 25)">
+        <rect x="0" y="0" width="490" height="180" rx="4" fill="#fafafa" stroke="#e5e7eb"/>
+        <text x="20" y="25" font-size="14" font-weight="700" fill="#1f1f1f">📋 Weekly Team Sync — Oct 12, 2026</text>
+        <text x="20" y="50" font-size="12" fill="#374151">Attendees: @alice @bob @carol</text>
+        
+        <g transform="translate(20, 70)">
+          <text x="0" y="0" font-size="12" font-weight="600" fill="#6940a5">🎯 Agenda</text>
+          <text x="20" y="20" font-size="11" fill="#4b5563">• Sprint review (15 min)</text>
+          <text x="20" y="38" font-size="11" fill="#4b5563">• Blocker round-robin (10 min)</text>
+          <text x="20" y="56" font-size="11" fill="#4b5563">• Q4 planning kickoff (20 min)</text>
+        </g>
+        
+        <g transform="translate(20, 120)">
+          <text x="0" y="0" font-size="12" font-weight="600" fill="#e03e3e">✅ Decisions</text>
+          <text x="20" y="20" font-size="11" fill="#4b5563">• Adopt Tailwind v4 for all widgets</text>
+          <text x="20" y="38" font-size="11" fill="#4b5563">• Ship MCP server this sprint</text>
+        </g>
+        
+        <g transform="translate(280, 70)">
+          <text x="0" y="0" font-size="12" font-weight="600" fill="#0f7b6c">⚡ Action Items</text>
+          <rect x="0" y="15" width="200" height="30" rx="4" fill="#dcfce7" stroke="#86efac"/>
+          <text x="100" y="33" font-size="10" font-weight="600" fill="#166534" text-anchor="middle">@alice — Draft Q4 plan</text>
+          <rect x="0" y="50" width="200" height="30" rx="4" fill="#fef3c7" stroke="#fde68a"/>
+          <text x="100" y="68" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">@bob — MCP server deploy</text>
+          <rect x="0" y="85" width="200" height="30" rx="4" fill="#fce7f3" stroke="#f9a8d4"/>
+          <text x="100" y="103" font-size="10" font-weight="600" fill="#be185d" text-anchor="middle">@carol — Widget audit</text>
+        </g>
+      </g>
+    </g>
+    
+    <g transform="translate(20, 240)" font-size="11" fill="#4b5563">
+      <text x="0" y="0">• Template creates real blocks: headings, toggles, to-dos, callouts</text>
+      <text x="0" y="18">• Action items get due date & owner, roll up to meeting</text>
+      <text x="0" y="36">• Formula renders "Overdue" / "Due today" / "Scheduled"</text>
+      <text x="0" y="54">• Buttons: "New meeting" & "Reset this week" (manual setup)</text>
+    </g>
+  </g>
+
+  <!-- Footer note -->
+  <g transform="translate(50, 770)">
+    <rect x="0" y="0" width="1100" height="40" rx="8" fill="#f3e8ff" stroke="#d8b4fe"/>
+    <text x="550" y="26" font-size="12" font-weight="500" fill="#6940a5" text-anchor="middle">All recipes install via POST /api/install with mode: "plan" (dry-run) → mode: "api" (execute) • Manual steps documented for API gaps</text>
+  </g>
+</svg>

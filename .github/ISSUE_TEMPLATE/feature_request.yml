@@ -1,0 +1,67 @@
+name: ✨ Feature Request
+description: Suggest an improvement or new feature for the platform
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Please describe what you'd like to see.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Widget (specific or general)
+        - Native Recipe (specific or general)
+        - MCP Server (tools, performance)
+        - Skill (workflow knowledge)
+        - Registry/REST API
+        - Website/UI (catalog, configurator)
+        - Documentation
+        - Build/Tooling/CI
+        - Developer Experience
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this solve? What's the pain point?
+      placeholder: Currently, widgets don't have a way to...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like it to work?
+      placeholder: Add a new parameter type "date-range" that...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Other approaches you've thought about
+      placeholder: Could also use two separate date params...
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Mockups, links, related issues, etc.
+      placeholder: |
+        Related to #123
+        Mockup: https://figma.com/...
+    validations:
+      required: false
+  - type: checkboxes
+    id: willingness
+    attributes:
+      label: Willingness to Contribute
+      options:
+        - label: I can implement this myself
+        - label: I can help test/review
+        - label: I can only propose the idea

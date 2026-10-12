@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 600" fill="none" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Title -->
+  <text x="350" y="40" font-size="24" font-weight="700" fill="#1f1f1f" text-anchor="middle">Widget Authoring Checklist</text>
+  <text x="350" y="68" font-size="14" fill="#6b7280" text-anchor="middle">Every widget must pass all checks before merge — see <code>scripts/check-widgets.mjs</code></text>
+
+  <!-- Checklist items -->
+  <g transform="translate(40, 100)">
+    <!-- Category: Structure -->
+    <text x="0" y="0" font-size="16" font-weight="700" fill="#1f1f1f">📁 Structure</text>
+    <g transform="translate(0, 30)">
+      <g class="check-item" transform="translate(0, 0)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f">Single HTML file in <code>public/widgets/<slug>.html</code></text>
+      </g>
+      <g class="check-item" transform="translate(0, 40)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f">Valid HTML5 with <code><!DOCTYPE html></code></text>
+      </g>
+      <g class="check-item" transform="translate(0, 80)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f">Meta tags: charset, viewport, title, description</text>
+      </g>
+    </g>
+
+    <!-- Category: Contract Rules -->
+    <text x="0" y="150" font-size="16" font-weight="700" fill="#1f1f1f">📋 Contract Rules (4)</text>
+    <g transform="translate(0, 180)">
+      <g class="check-item" transform="translate(0, 0)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#ef4444" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#ef4444" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f"><strong>Rule 1:</strong> Zero external requests — no CDN, webfont, fetch, @import</text>
+      </g>
+      <g class="check-item" transform="translate(0, 40)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#f59e0b" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#f59e0b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f"><strong>Rule 2:</strong> Two config sources — bk-config script + URLSearchParams</text>
+      </g>
+      <g class="check-item" transform="translate(0, 80)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#0f7b6c" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#0f7b6c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f"><strong>Rule 3:</strong> theme & accent params on every widget</text>
+      </g>
+      <g class="check-item" transform="translate(0, 120)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#8b5cf6" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f"><strong>Rule 4:</strong> Namespaced state <code>notion-arena.<slug>.v1</code> with try/catch</text>
+      </g>
+    </g>
+
+    <!-- Category: Parameters -->
+    <text x="0" y="340" font-size="16" font-weight="700" fill="#1f1f1f">🔧 Parameters & Config</text>
+    <g transform="translate(0, 370)">
+      <g class="check-item" transform="translate(0, 0)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f">All params declared in <code>catalog.ts</code> with type, default, min/max</text>
+      </g>
+      <g class="check-item" transform="translate(0, 40)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f"><code>buildConfig()</code> used — unknown keys dropped</text>
+      </g>
+      <g class="check-item" transform="translate(0, 80)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f">Color params use <code>type: "color"</code> with hex default</text>
+      </g>
+      <g class="check-item" transform="translate(0, 120)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f">Select params have <code>options[]</code> with value/label</text>
+      </g>
+    </g>
+
+    <!-- Category: Styling -->
+    <text x="0" y="510" font-size="16" font-weight="700" fill="#1f1f1f">🎨 Styling & Accessibility</text>
+    <g transform="translate(0, 540)">
+      <g class="check-item" transform="translate(0, 0)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f"><code>body { overflow: hidden }</code> + <code>.wrap</code> manages scroll</text>
+      </g>
+      <g class="check-item" transform="translate(0, 40)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f"><code>prefers-reduced-motion</code> disables animations</text>
+      </g>
+      <g class="check-item" transform="translate(0, 80)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f">Contrast audit passes (<code>npm run audit:contrast</code>)</text>
+      </g>
+      <g class="check-item" transform="translate(0, 120)">
+        <circle cx="12" cy="12" r="12" fill="none" stroke="#22c55e" stroke-width="2"/>
+        <path d="M6 12 L10 16 L18 8" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="35" y="20" font-size="13" fill="#1f1f1f">Clipboard export + <code>console.log</code> fallback</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right side: Catalog Entry -->
+  <g transform="translate(400, 100)">
+    <rect x="0" y="0" width="260" height="480" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="130" y="40" font-size="16" font-weight="700" fill="#1f1f1f" text-anchor="middle">Catalog Entry Template</text>
+    <rect x="20" y="50" width="220" height="410" rx="8" fill="#1e1e1e"/>
+    <text x="30" y="80" font-size="11" font-family="monospace" fill="#a5f3fc" text-anchor="start">{</text>
+    <text x="30" y="100" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  slug: "my-widget",</text>
+    <text x="30" y="120" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  name: "My Widget",</text>
+    <text x="30" y="140" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  emoji: "🎯",</text>
+    <text x="30" y="160" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  tagline: "One-line hook",</text>
+    <text x="30" y="180" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  description: "Full paragraph...",</text>
+    <text x="30" y="200" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  category: "time",</text>
+    <text x="30" y="220" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  kind: "widget",</text>
+    <text x="30" y="240" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  tier: "free",</text>
+    <text x="30" y="260" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  tags: ["tag1", "tag2"],</text>
+    <text x="30" y="280" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  color: "blue",</text>
+    <text x="30" y="300" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  params: [...],</text>
+    <text x="30" y="320" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  features: [...],</text>
+    <text x="30" y="340" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  useCases: [...],</text>
+    <text x="30" y="360" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">  capabilities: {</text>
+    <text x="30" y="380" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">    interactive: true,</text>
+    <text x="30" y="400" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">    offlineSafe: true,</text>
+    <text x="30" y="420" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">    persistsLocally: false,</text>
+    <text x="30" y="440" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">    writesToNotion: false,</text>
+    <text x="30" y="460" font-size="11" font-family="monospace" fill="#fca5a5" text-anchor="start">    needsNetwork: false</text>
+    <text x="30" y="480" font-size="11" font-family="monospace" fill="#a5f3fc" text-anchor="start">  }</text>
+    <text x="30" y="500" font-size="11" font-family="monospace" fill="#a5f3fc" text-anchor="start">}</text>
+  </g>
+</svg>

@@ -1,0 +1,176 @@
+name: 🧩 New Widget Proposal
+description: Propose a new embeddable widget for Notion Arena
+title: "[Widget Proposal]: "
+labels: ["widget", "proposal", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a new widget! Please fill out the sections below.
+        
+        **Reminder**: Widgets are self-contained HTML files that run inside Notion via:
+        - **Embed URL** — We host, Notion iframes it
+        - **HTML Block** — You download & upload to Notion storage
+        
+        Both share the same HTML file. Widgets cannot read/write Notion data (sandbox limitation).
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      options:
+        - label: I've checked the catalog for similar widgets
+          required: true
+        - label: I understand widgets are offline-first (no network at render for HTML block)
+          required: true
+        - label: I've read the Widget Contract (4 rules)
+          required: true
+  - type: input
+    id: name
+    attributes:
+      label: Widget Name
+      placeholder: Pomodoro Focus Timer
+    validations:
+      required: true
+  - type: input
+    id: slug
+    attributes:
+      label: Proposed Slug
+      description: kebab-case, unique, used in URL and storage key
+      placeholder: pomodoro-timer
+    validations:
+      required: true
+  - type: input
+    id: emoji
+    attributes:
+      label: Emoji
+      placeholder: 🍅
+    validations:
+      required: true
+  - type: textarea
+    id: tagline
+    attributes:
+      label: Tagline (one line, <80 chars)
+      description: Shown in catalog cards
+      placeholder: Work/break cycles with a progress ring, session counter and chime.
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: 2-4 sentences. What does it do? Why is it useful? Any limitations?
+      placeholder: A focus timer that runs entirely inside the block. Configure work and break lengths from the URL, auto-cycle sessions, and keep a daily session tally. No account, no server, no network calls.
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - time
+        - dashboards
+        - trackers
+        - planning
+        - business
+        - docs
+        - visuals
+        - automations
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      options:
+        - free
+        - pro
+    validations:
+      required: true
+  - type: input
+    id: color
+    attributes:
+      label: Color
+      description: Used for catalog badge
+      options:
+        - red
+        - orange
+        - yellow
+        - green
+        - blue
+        - purple
+        - pink
+        - brown
+        - gray
+    validations:
+      required: true
+  - type: textarea
+    id: params
+    attributes:
+      label: Parameters
+      description: List each param with key, label, type, default, min/max (for numbers), options (for select)
+      placeholder: |
+        - work: Work minutes (number, default: 25, min: 1, max: 120)
+        - short: Short break (number, default: 5, min: 1, max: 30)
+        - long: Long break (number, default: 15, min: 1, max: 60)
+        - rounds: Rounds before long break (number, default: 4, min: 2, max: 12)
+        - label: Session label (text, default: "Deep work")
+        - theme: Theme (select: auto|light|dark, default: auto)
+        - accent: Accent (color, default: "#e03e3e")
+        - chime: Play chime (boolean, default: true)
+    validations:
+      required: true
+  - type: textarea
+    id: features
+    attributes:
+      label: Features
+      description: Bullet points of specific features
+      placeholder: |
+        - Circular SVG progress ring that drains as the session runs
+        - Auto-advances work → break → work, with long break every N rounds
+        - Daily session tally kept in localStorage (per browser, not synced)
+        - Keyboard: Space start/pause, R reset, +1 min
+        - Respects prefers-reduced-motion and dark mode
+    validations:
+      required: true
+  - type: textarea
+    id: usecases
+    attributes:
+      label: Use Cases
+      description: Realistic scenarios where this widget shines
+      placeholder: |
+        - Top of a study dashboard next to a task list
+        - Writing sprints inside a content calendar page
+        - Standup boxes: run a 15-minute timer during the meeting
+    validations:
+      required: true
+  - type: checkboxes
+    id: capabilities
+    attributes:
+      label: Capabilities (be honest!)
+      options:
+        - label: interactive — User can click/type/interact
+        - label: offlineSafe — Works without network (HTML block mode)
+        - label: persistsLocally — Saves to localStorage (namespaced)
+        - label: writesToNotion — Modifies Notion data (widgets: always false)
+        - label: needsNetwork — Requires network at render (embed mode only)
+  - type: textarea
+    id: mockup
+    attributes:
+      label: Mockup/Sketch (optional)
+      description: Link to Figma, Excalidraw, or describe the UI
+      placeholder: https://excalidraw.com/...
+    validations:
+      required: false
+  - type: checkboxes
+    id: contract-compliance
+    attributes:
+      label: I will ensure the widget follows all 4 contract rules
+      options:
+        - label: Rule 1: Zero external requests (inline all CSS/JS/SVG)
+        - label: Rule 2: Two config sources (bk-config script + URLSearchParams)
+        - label: Rule 3: theme & accent params on every widget
+        - label: Rule 4: Namespaced state (notion-arena.<slug>.v1) with try/catch
+        - label: Single scrollbar pattern
+        - label: Reduced motion escape hatch
+        - label: Clipboard export + console.log fallback
+        - label: System fonts only

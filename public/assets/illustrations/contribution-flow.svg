@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" fill="none" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Title -->
+  <text x="450" y="40" font-size="24" font-weight="700" fill="#1f1f1f" text-anchor="middle">How to Contribute</text>
+  <text x="450" y="68" font-size="14" fill="#6b7280" text-anchor="middle">We welcome widgets, recipes, fixes, docs, and ideas — here's the path</text>
+
+  <!-- Step 1: Idea -->
+  <g transform="translate(40, 100)">
+    <circle cx="120" cy="60" r="55" fill="#f3e8ff" stroke="#d8b4fe" stroke-width="2"/>
+    <text x="120" y="50" font-size="32" text-anchor="middle">💡</text>
+    <text x="120" y="130" font-size="16" font-weight="700" fill="#1f1f1f" text-anchor="middle">1. Idea</text>
+    <g transform="translate(20, 150)" font-size="12" fill="#64748b" text-anchor="middle">
+      <text x="100" y="0">Open a GitHub Issue</text>
+      <text x="100" y="20">Discuss the concept</text>
+      <text x="100" y="40">Check for duplicates</text>
+      <text x="100" y="60">Get maintainer feedback</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -->
+  <path d="M240 160 L310 160" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow1)"/>
+  <defs>
+    <marker id="arrow1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Step 2: Develop -->
+  <g transform="translate(330, 100)">
+    <circle cx="120" cy="60" r="55" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+    <text x="120" y="50" font-size="32" text-anchor="middle">⚙️</text>
+    <text x="120" y="130" font-size="16" font-weight="700" fill="#1f1f1f" text-anchor="middle">2. Develop</text>
+    <g transform="translate(20, 150)" font-size="12" fill="#64748b" text-anchor="middle">
+      <text x="100" y="0">Fork & clone repo</text>
+      <text x="100" y="20">Create widget/recipe</text>
+      <text x="100" y="40">Follow widget contract</text>
+      <text x="100" y="60">Add to catalog.ts</text>
+      <text x="100" y="80">Run widget checks</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -->
+  <path d="M570 160 L640 160" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow2)"/>
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Step 3: Test -->
+  <g transform="translate(660, 100)">
+    <circle cx="120" cy="60" r="55" fill="#fef9c3" stroke="#fde047" stroke-width="2"/>
+    <text x="120" y="50" font-size="32" text-anchor="middle">✅</text>
+    <text x="120" y="130" font-size="16" font-weight="700" fill="#1f1f1f" text-anchor="middle">3. Test</text>
+    <g transform="translate(20, 150)" font-size="12" fill="#64748b" text-anchor="middle">
+      <text x="100" y="0"><code>npm run check:widgets</code></text>
+      <text x="100" y="20"><code>npm run typecheck</code></text>
+      <text x="100" y="40"><code>npm run audit:contrast</code></text>
+      <text x="100" y="60">Test in Notion</text>
+      <text x="100" y="80">Verify all 4 rules</text>
+    </g>
+  </g>
+
+  <!-- Step 4: PR -->
+  <g transform="translate(40, 320)">
+    <circle cx="120" cy="60" r="55" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+    <text x="120" y="50" font-size="32" text-anchor="middle">📝</text>
+    <text x="120" y="130" font-size="16" font-weight="700" fill="#1f1f1f" text-anchor="middle">4. Pull Request</text>
+    <g transform="translate(20, 150)" font-size="12" fill="#64748b" text-anchor="middle">
+      <text x="100" y="0">Clear title & description</text>
+      <text x="100" y="20">Link related issue</text>
+      <text x="100" y="40">Screenshots/GIFs</text>
+      <text x="100" y="60">Update CHANGELOG</text>
+    </g>
+  </g>
+
+  <!-- Arrow 3 -->
+  <path d="M240 380 L310 380" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow3)"/>
+  <defs>
+    <marker id="arrow3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Step 5: Review -->
+  <g transform="translate(330, 320)">
+    <circle cx="120" cy="60" r="55" fill="#fff1f2" stroke="#fecdd3" stroke-width="2"/>
+    <text x="120" y="50" font-size="32" text-anchor="middle">👀</text>
+    <text x="120" y="130" font-size="16" font-weight="700" fill="#1f1f1f" text-anchor="middle">5. Review</text>
+    <g transform="translate(20, 150)" font-size="12" fill="#64748b" text-anchor="middle">
+      <text x="100" y="0">Maintainer review</text>
+      <text x="100" y="20">CI checks pass</text>
+      <text x="100" y="40">Widget contract audit</text>
+      <text x="100" y="60">Accessibility check</text>
+    </g>
+  </g>
+
+  <!-- Arrow 4 -->
+  <path d="M570 380 L640 380" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow4)"/>
+  <defs>
+    <marker id="arrow4" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Step 6: Merge -->
+  <g transform="translate(660, 320)">
+    <circle cx="120" cy="60" r="55" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="2"/>
+    <text x="120" y="50" font-size="32" text-anchor="middle">🚀</text>
+    <text x="120" y="130" font-size="16" font-weight="700" fill="#1f1f1f" text-anchor="middle">6. Merge</text>
+    <g transform="translate(20, 150)" font-size="12" fill="#64748b" text-anchor="middle">
+      <text x="100" y="0">Auto-deploy to Vercel</text>
+      <text x="100" y="20">MCP catalog regenerates</text>
+      <text x="100" y="40">Registry updates</text>
+      <text x="100" y="60">Available immediately</text>
+    </g>
+  </g>
+</svg>

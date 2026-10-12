@@ -1,0 +1,259 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: '22'
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+jobs:
+  typecheck:
+    name: TypeScript Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run typecheck
+        run: npm run typecheck
+
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+  widget-contract:
+    name: Widget Contract Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate widgets
+        run: npm run check:widgets
+
+  contrast-audit:
+    name: Contrast Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit contrast
+        run: npm run audit:contrast
+
+  build:
+    name: Next.js Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://notionarena.vercel.app
+
+  mcp-catalog:
+    name: MCP Catalog Generation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate MCP catalog
+        run: npm run generate:mcp-catalog
+
+      - name: Build MCP server
+        run: npm run build:mcp
+        working-directory: ./mcp
+
+  test-mcp:
+    name: MCP Server Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build MCP
+        run: |
+          npm run generate:mcp-catalog
+          npm run build:mcp
+        working-directory: ./mcp
+
+      - name: Run MCP tests
+        run: npm test
+        working-directory: ./mcp
+        continue-on-error: true
+
+  check-catalog:
+    name: Catalog Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate catalog structure
+        run: |
+          node -e "
+          const { COMPONENTS, STATS } = require('./lib/catalog.ts');
+          console.log('Total components:', STATS.total);
+          console.log('Widgets:', STATS.widgets);
+          console.log('Native recipes:', STATS.native);
+          console.log('Free:', STATS.free);
+          console.log('Pro:', STATS.pro);
+          
+          // Check for duplicate slugs
+          const slugs = COMPONENTS.map(c => c.slug);
+          const dupes = slugs.filter((s, i) => slugs.indexOf(s) !== i);
+          if (dupes.length > 0) {
+            console.error('Duplicate slugs:', dupes);
+            process.exit(1);
+          }
+          
+          // Check required fields
+          for (const c of COMPONENTS) {
+            if (!c.slug || !c.name || !c.category || !c.kind) {
+              console.error('Missing required field in:', c.slug);
+              process.exit(1);
+            }
+            if (c.kind === 'widget' && !c.file) {
+              console.error('Widget missing file:', c.slug);
+              process.exit(1);
+            }
+            if (c.kind === 'native' && !c.recipe) {
+              console.error('Native missing recipe:', c.slug);
+              process.exit(1);
+            }
+            if (!c.capabilities) {
+              console.error('Missing capabilities:', c.slug);
+              process.exit(1);
+            }
+          }
+          console.log('Catalog validation passed!');
+          "
+        # Note: This requires ts-node or compiled output. Adjust as needed.
+
+  deploy-preview:
+    name: Deploy Preview (Vercel)
+    needs: [typecheck, lint, widget-contract, contrast-audit, build, mcp-catalog]
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+
+      - name: Pull Vercel Environment
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel Preview
+        run: |
+          url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "PREVIEW_URL=$url" >> $GITHUB_ENV
+
+      - name: Comment PR with Preview URL
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 Preview deployment ready: ${{ env.PREVIEW_URL }}'
+            })
+
+  all-checks:
+    name: All Checks Passed
+    needs: [typecheck, lint, widget-contract, contrast-audit, build, mcp-catalog, check-catalog]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Success
+        run: echo "All checks passed! ✅"

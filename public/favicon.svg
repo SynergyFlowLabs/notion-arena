@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="arenaGrad" x1="0" y1="0" x2="64" y2="64">
+      <stop offset="0%" stop-color="#6940a5"/>
+      <stop offset="50%" stop-color="#0f7b6c"/>
+      <stop offset="100%" stop-color="#2383e2"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer arena shape -->
+  <path d="M32 4C16.5 4 4 16.5 4 32s12.5 28 28 28 28-12.5 28-28S47.5 4 32 4z" fill="url(#arenaGrad)" opacity="0.15"/>
+  <path d="M32 4C16.5 4 4 16.5 4 32s12.5 28 28 28 28-12.5 28-28S47.5 4 32 4z" fill="none" stroke="url(#arenaGrad)" stroke-width="2.5"/>
+  <!-- Inner hexagon/arena -->
+  <polygon points="32,14 46,22 46,38 32,46 18,38 18,22" fill="none" stroke="url(#arenaGrad)" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Central node -->
+  <circle cx="32" cy="32" r="6" fill="url(#arenaGrad)"/>
+  <!-- Four connecting nodes -->
+  <circle cx="32" cy="18" r="3" fill="#0f7b6c"/>
+  <circle cx="46" cy="32" r="3" fill="#2383e2"/>
+  <circle cx="32" cy="46" r="3" fill="#d9730d"/>
+  <circle cx="18" cy="32" r="3" fill="#ad1a72"/>
+  <!-- Connection lines -->
+  <path d="M32 18V26M32 38V46M26 32H38M18 32H26" stroke="url(#arenaGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+</svg>
