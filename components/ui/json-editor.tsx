@@ -242,7 +242,8 @@ export function JsonParamEditor({
   onChange: (json: string) => void;
 }) {
   // If a spec exists the structured editor is the default; raw is a toggle.
-  const [rawMode, setRawMode] = useState(false);
+  // Otherwise (unknown JSON shape) we fall straight to the raw textarea.
+  const [rawMode, setRawMode] = useState(() => !spec);
   const [localRaw, setLocalRaw] = useState(value);
   const [err, setErr] = useState<string | null>(null);
 
