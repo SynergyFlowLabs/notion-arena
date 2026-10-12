@@ -22,6 +22,21 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
+    version: "1.7.0",
+    date: "2026-10-12",
+    title: "Twelve offline widgets for students, nonprofits, travelers, and operations",
+    kind: "release",
+    body: [
+      "Students and researchers: Student Course Dashboard and Dissertation Milestones Tracker. Student course dashboards use course aliases and grades only, with no student records or transcripts, and are not learning management systems. Dissertation milestones store milestone aliases and deadlines only, with no dissertation content or submissions, and are not dissertation management systems.",
+      "Nonprofits: Impact and Outcomes Log and Board Meeting Notes. Impact logs use program aliases and beneficiary counts only, with no beneficiary data or financial records, and are not impact measurement systems. Board meeting notes store meeting aliases and agenda items only, with no confidential information or official records, and are not governance systems.",
+      "Travelers and hobbyists: Travel Journal, Review and Rating Log, and Wish List and Collector Log. Travel journals use location aliases and reflection notes only, with no photos or itineraries, and are not travel blogs. Review logs store media aliases and ratings only, with no media content or purchase records, and are not review platforms. Wish lists use item aliases and priorities only, with no purchase records or price data, and are not shopping platforms.",
+      "Real estate: Property Listing Catalog, Property Showing Schedule, and Tenant and Lease Log. All three use property and tenant aliases only, with no addresses, financial data, or ownership records, and are not real estate platforms or property management systems.",
+      "Manufacturing and logistics: Manufacturing Work Order Tracker and Shipment and Logistics Tracker. Work order trackers store product aliases and quantities only, with no production data or inventory records, and are not manufacturing execution systems. Shipment trackers use shipment and carrier aliases only, with no tracking numbers or financial data, and are not logistics platforms.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 191 components: 180 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+    ],
+    components: ["student-course-dashboard", "dissertation-milestones", "impact-log", "board-meeting-notes", "travel-journal", "review-log", "wishlist", "listing-catalog", "showing-schedule", "tenant-lease-log", "work-order-tracker", "shipment-tracker"],
+  },
+  {
     version: "1.6.0",
     date: "2026-10-12",
     title: "Twelve offline widgets for travel, household, gaming, education, and research",
@@ -32,7 +47,7 @@ const ENTRIES: Entry[] = [
       "Education: Class Homepage, Parent Communication Log, and Tutoring Session Log. All three use class and student aliases only, with no student records or grades, and are not a learning management system, gradebook, or school administration tool.",
       "Research: Research Question Log and Lab Equipment and Sample Log. Research question logs store question aliases and source notes only, with no research data or findings. Lab sample logs store sample aliases and equipment aliases only, with no sample data or measurements, and neither is a research management system or findings repository.",
       "Coaching: Discovery Call Pipeline, which stores prospect aliases and call notes only, with no client contact or payment data, and is not a CRM, booking system, or client management platform.",
-      "All twelve additions are free, offline, and browser-local, bringing the catalog to 179 components: 168 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
+      "All twelve additions are free, offline, and browser-local, bringing the catalog to 167 components: 156 widgets and 11 native recipes. Local storage is not encrypted; use approved shared systems for sensitive data, permissions, audit history, or official records.",
     ],
     components: ["travel-itinerary-planner", "household-inventory", "car-log", "warranty-tracker", "game-catalog", "recipe-library", "class-homepage", "parent-communication-log", "tutoring-session-log", "research-question-log", "sample-log", "discovery-call-pipeline"],
   },

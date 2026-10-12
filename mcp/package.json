@@ -2,7 +2,7 @@
   "name": "notion-arena-mcp",
   "version": "0.2.2",
   "mcpName": "io.github.imgul/notion-arena",
-  "description": "MCP server for Notion Arena — 179 Notion components: 168 widgets + 11 recipes",
+  "description": "MCP server for Notion Arena — 191 Notion components: 180 widgets + 11 recipes",
   "type": "module",
   "bin": {
     "notion-arena-mcp": "./dist/index.js",
