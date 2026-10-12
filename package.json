@@ -2,7 +2,7 @@
   "name": "notion-arena",
   "version": "0.2.0",
   "private": true,
-  "description": "Notion Arena \u2014 a component registry for Notion. 203 pre-built, embeddable widgets and native database recipes for Notion dashboards.",
+  "description": "Notion Arena — a component registry for Notion. 203 pre-built, embeddable widgets and native database recipes for Notion dashboards.",
   "homepage": "https://notionarena.vercel.app",
   "repository": {
     "type": "git",
@@ -20,7 +20,8 @@
     "audit:contrast": "node scripts/audit-contrast.mjs",
     "generate:mcp-catalog": "node scripts/generate-mcp-catalog.mjs",
     "build:mcp": "npm run generate:mcp-catalog && cd mcp && npm install && npm run build",
-    "dev:mcp": "cd mcp && npm run dev"
+    "dev:mcp": "cd mcp && npm run dev",
+    "check:components": "node scripts/check-components.mjs"
   },
   "dependencies": {
     "@fontsource/caveat": "^5.3.0",

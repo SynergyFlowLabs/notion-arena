@@ -47,6 +47,8 @@ export interface FieldMap {
   type: NotionPropertyType;
   /** number format hint, applied when we provision a database for the user */
   format?: string;
+  /** select/multi_select vocabulary, so a provisioned table matches the widget */
+  options?: string[];
   /** true when the value is part of the business key used for upserts */
   keyPart?: boolean;
   /** read-only properties (formula, rollup, created_*) may be displayed, never written */

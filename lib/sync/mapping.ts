@@ -1,3 +1,4 @@
+import type { RecordSchema } from "./schemas";
 import type { Binding, FieldMap, NotionPropertyType } from "./types";
 import type { PropertySchema } from "./transport";
 
@@ -17,240 +18,37 @@ import type { PropertySchema } from "./transport";
  * grocery-list's `{lists: {...}}`), which is a few lines each.
  */
 
-export interface RecordSchema {
-  slug: string;
-  /** what one item is called in the UI: "habit tick", "expense", "chore" */
-  itemLabel: string;
-  shape: "array" | "map" | "nested-map";
-  /** items out of the widget's state document */
-  read: (state: unknown) => Record<string, unknown>[];
-  /** widget's state document back from items */
-  write: (state: unknown, items: Record<string, unknown>[]) => unknown;
-  fields: FieldMap[];
-  /** what a new item looks like, used when the widget adds one in Notion */
-  empty: Record<string, unknown>;
-  /** true when the schema was inferred rather than declared */
-  inferred: boolean;
-}
-
-/* ------------------------------------------------------------------ */
-/* Declared schemas (nested shapes only)                                */
-/* ------------------------------------------------------------------ */
-
-const DECLARED: Record<string, Omit<RecordSchema, "slug" | "inferred">> = {
-  /**
-   * habit-grid persists `{ [habit]: { "YYYY-MM-DD": level } }`.
-   * As records that is one row per habit per day, which is what makes the
-   * heatmap queryable: filter by habit, group by month, sum, rollup.
-   */
-  "habit-grid": {
-    itemLabel: "habit tick",
-    shape: "nested-map",
-    read: (state) => {
-      const out: Record<string, unknown>[] = [];
-      const root = (state ?? {}) as Record<string, Record<string, number>>;
-      for (const [habit, days] of Object.entries(root)) {
-        if (!days || typeof days !== "object") continue;
-        for (const [date, level] of Object.entries(days)) {
-          out.push({ habit, date, level: Number(level) || 0 });
-        }
-      }
-      return out;
-    },
-    write: (_state, items) => {
-      const root: Record<string, Record<string, number>> = {};
-      for (const item of items) {
-        const habit = String(item.habit ?? "").trim();
-        const date = String(item.date ?? "");
-        if (!habit || !date) continue;
-        root[habit] = root[habit] ?? {};
-        root[habit][date] = Number(item.level ?? 1) || 1;
-      }
-      return root;
-    },
-    fields: [
-      { key: "habit", prop: "Habit", type: "title", keyPart: true },
-      { key: "date", prop: "Date", type: "date", keyPart: true },
-      { key: "level", prop: "Level", type: "number", format: "number" },
-    ],
-    empty: { habit: "", date: "", level: 1 },
-  },
-};
-
-/* ------------------------------------------------------------------ */
-/* Inference                                                           */
-/* ------------------------------------------------------------------ */
-
-const KEY_HINTS = [
-  /^id$/i,
-  /^key$/i,
-  /^slug$/i,
-  /^name$/i,
-  /^title$/i,
-  /^label$/i,
-  /^description$/i,
-  /^date$/i,
-  /^day$/i,
-];
-
-function titleCase(input: string): string {
-  return input
-    .replace(/[_-]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (m) => m.toUpperCase());
-}
-
-function inferType(samples: unknown[]): NotionPropertyType {
-  const values = samples.filter((v) => v !== undefined && v !== null && v !== "");
-  if (!values.length) return "rich_text";
-  if (values.every((v) => typeof v === "boolean")) return "checkbox";
-  if (values.every((v) => typeof v === "number" || /^-?\d+(\.\d+)?$/.test(String(v)))) return "number";
-  if (values.every((v) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v))) return "date";
-  if (values.every((v) => typeof v === "string" && /^https?:\/\//.test(v))) return "url";
-  return "rich_text";
-}
-
-function inferFieldsFromItems(items: Record<string, unknown>[]): FieldMap[] {
-  const samples = new Map<string, unknown[]>();
-  for (const item of items.slice(0, 25)) {
-    for (const [k, v] of Object.entries(item ?? {})) {
-      if (v !== null && typeof v === "object") continue; // nested objects are not properties
-      const list = samples.get(k) ?? [];
-      list.push(v);
-      samples.set(k, list);
-    }
-  }
-  const keys = [...samples.keys()];
-  if (!keys.length) return [{ key: "value", prop: "Value", type: "title", keyPart: true }];
-
-  const typed = keys.map((k, idx) => ({
-    key: k,
-    prop: titleCase(k),
-    type: (idx === 0 ? "title" : inferType(samples.get(k) ?? [])) as NotionPropertyType,
-  }));
-
-  /**
-   * What identifies a record.
-   *
-   * The first field, plus the first time-like field. That is two fields and it
-   * has to be: "Coffee" alone collides the second time someone buys coffee on
-   * another day, and a widget whose records silently merge is a data-loss bug
-   * wearing a sync badge. A declared schema can override this; this is only the
-   * guess for the majority of the catalog, whose state is an array of flat
-   * records.
-   */
-  const timeLike = typed.findIndex(
-    (f, idx) =>
-      idx > 0 &&
-      (f.type === "date" ||
-        /(^|[_-])(date|day|due|when|on|at|time)([_-]|$)/i.test(f.key) ||
-        KEY_HINTS.some((re) => re.test(f.key) && /date|day/i.test(f.key)))
-  );
-
-  return typed.map((f, idx) => ({
-    ...f,
-    ...(idx === 0 || idx === timeLike ? { keyPart: true } : {}),
-  }));
-}
-
-/** Detect "array of flat records" and "record map of records". */
-function detectShape(state: unknown): { shape: RecordSchema["shape"]; items: Record<string, unknown>[] } {
-  if (Array.isArray(state)) {
-    const items = state.filter((x) => x && typeof x === "object" && !Array.isArray(x)) as Record<
-      string,
-      unknown
-    >[];
-    return { shape: "array", items };
-  }
-  if (state && typeof state === "object") {
-    const values = Object.values(state as Record<string, unknown>);
-    if (values.length && values.every((v) => v && typeof v === "object" && !Array.isArray(v))) {
-      // { key: {...} } -> items carry their key under `id`
-      const items = Object.entries(state as Record<string, unknown>).map(([k, v]) => ({
-        id: k,
-        ...(v as Record<string, unknown>),
-      }));
-      return { shape: "map", items };
-    }
-    // A flat object is treated as a single record (useful for dashboards and
-    // single-value widgets: a KPI strip is one row, not a table).
-    const flat = Object.entries(state as Record<string, unknown>).filter(
-      ([, v]) => v === null || typeof v !== "object"
-    );
-    if (flat.length) {
-      return { shape: "array", items: [Object.fromEntries(flat)] };
-    }
-  }
-  return { shape: "array", items: [] };
-}
-
-export function schemaFor(slug: string, state: unknown, sampleForInference?: unknown): RecordSchema {
-  const declared = DECLARED[slug];
-  if (declared) return { slug, inferred: false, ...declared };
-
-  const source = sampleForInference ?? state;
-  const { shape, items } = detectShape(source);
-  const fields = inferFieldsFromItems(items);
-  const empty: Record<string, unknown> = {};
-  for (const f of fields) {
-    empty[f.key] = f.type === "number" ? 0 : f.type === "checkbox" ? false : "";
-  }
-
-  return {
-    slug,
-    itemLabel: shape === "map" ? "entry" : "row",
-    shape,
-    inferred: true,
-    fields,
-    empty,
-    read: (s) => {
-      if (Array.isArray(s)) {
-        return s.filter((x) => x && typeof x === "object") as Record<string, unknown>[];
-      }
-      if (s && typeof s === "object") {
-        const values = Object.values(s as Record<string, unknown>);
-        if (values.length && values.every((v) => v && typeof v === "object")) {
-          return Object.entries(s as Record<string, unknown>).map(([k, v]) => ({
-            id: k,
-            ...(v as Record<string, unknown>),
-          }));
-        }
-        const flat = Object.entries(s as Record<string, unknown>).filter(
-          ([, v]) => v === null || typeof v !== "object"
-        );
-        if (flat.length) return [Object.fromEntries(flat)];
-      }
-      return [];
-    },
-    write: (_s, list) => {
-      if (shape === "map") {
-        const out: Record<string, unknown> = {};
-        for (const item of list) {
-          const { id, ...rest } = item as { id?: string } & Record<string, unknown>;
-          if (id) out[id] = rest;
-        }
-        return out;
-      }
-      if (shape === "array" && list.length === 1 && detectShape(source).shape === "array") {
-        // A single flat record: keep the object shape the widget expects when
-        // its original state was an object rather than an array.
-        if (!Array.isArray(source) && source && typeof source === "object") {
-          const values = Object.values(source as Record<string, unknown>);
-          if (!values.every((v) => v && typeof v === "object")) {
-            const { id: _drop, ...rest } = list[0] as Record<string, unknown>;
-            return rest;
-          }
-        }
-      }
-      return list;
-    },
-  };
-}
-
+/**
+ * The schema layer moved to `lib/sync/schemas.ts` when the number of bound
+ * components grew past one: there are three sources now (declared here-adjacent
+ * shapes, the fields a widget's own SPEC declares, and inference for the long
+ * tail) and they belong together. This module keeps the value conversions and
+ * re-exports what the engine already imports, so nothing downstream moves.
+ */
+export { schemaFor } from "./schemas";
+export type { RecordSchema } from "./schemas";
 /* ------------------------------------------------------------------ */
 /* Value conversions                                                   */
 /* ------------------------------------------------------------------ */
+
+/**
+ * Notion's limit is per rich text object, not per property: a property value is
+ * an array of them, and every one of them may hold 2,000 characters. Slicing
+ * the value at the limit instead of chunking it silently truncated long text
+ * (a 3,000-character journal entry lost a third of itself), which is the exact
+ * class of bug the whole design is meant to remove. `readProperty` joins the
+ * chunks back, so the round trip is exact.
+ */
+const RICH_TEXT_CHUNK = 2000;
+
+function chunkRichText(text: string): { type: "text"; text: { content: string } }[] {
+  if (!text) return [];
+  const out: { type: "text"; text: { content: string } }[] = [];
+  for (let i = 0; i < text.length; i += RICH_TEXT_CHUNK) {
+    out.push({ type: "text", text: { content: text.slice(i, i + RICH_TEXT_CHUNK) } });
+  }
+  return out;
+}
 
 export function coerceForNotion(type: NotionPropertyType, value: unknown): unknown {
   const empty = (payload: unknown) => (value === undefined || value === null || value === "" ? null : payload);
@@ -259,7 +57,7 @@ export function coerceForNotion(type: NotionPropertyType, value: unknown): unkno
     case "rich_text": {
       if (value === undefined || value === null) return { [type]: [] };
       const text = typeof value === "string" ? value : JSON.stringify(value);
-      return { [type]: text ? [{ type: "text", text: { content: text.slice(0, 1900) } }] : [] };
+      return { [type]: chunkRichText(text) };
     }
     case "number": {
       const n = typeof value === "number" ? value : Number(value);
@@ -391,7 +189,22 @@ export function fromPropertyPayload(
 ): Record<string, unknown> {
   const item: Record<string, unknown> = {};
   for (const f of binding.fields) {
-    if (f.prop === binding.keyProp) continue;
+    if (f.prop === binding.keyProp) {
+      /**
+       * A field mapped onto the key column still gets its value back.
+       *
+       * The key column holds the business key, and the business key of a widget
+       * that mints its own ids *is* that id. Skipping it here would return rows
+       * with no `id` to a widget whose own code filters on
+       * `typeof x.id === "string"`, so every row it just pulled would be
+       * dropped on the floor.
+       */
+      if (f.keyPart) {
+        const key = raw?.[f.prop];
+        item[f.key] = key === undefined ? undefined : readProperty(f.type, key);
+      }
+      continue;
+    }
     const value = raw?.[f.prop];
     item[f.key] = value === undefined ? undefined : readProperty(f.type, value);
   }
@@ -445,6 +258,10 @@ export function propertySchemasFor(binding: Binding): Record<string, PropertySch
     out[f.prop] = {
       type: f.type,
       ...(f.format ? { format: f.format } : {}),
+      // Select vocabularies come from the widget's own SPEC, so a provisioned
+      // table offers the same options the widget does instead of inventing
+      // them one write at a time.
+      ...(f.options?.length ? { options: f.options.map((name) => ({ name })) } : {}),
     };
   }
   // The key column is rich_text unless the key *is* the title property, which is

@@ -361,6 +361,23 @@ async function materialise(input: {
       });
     out.created = row ? 0 : 1;
     out.updated = row ? 1 : 0;
+    /**
+     * A state-blob write is logged like a record write, so the revision
+     * advances and every renderer of this instance hears about it.
+     *
+     * Without this the revision stayed at zero for the life of a blob binding:
+     * the row's own `Rev` cell never climbed, a second open tab was never
+     * woken, and "something changed" was unanswerable for the one mode that
+     * works for all 192 widgets.
+     */
+    out.changes.push({
+      key: "__state",
+      value: input.after,
+      path: "__doc",
+      rev: input.rev,
+      at: input.at,
+      source: "widget",
+    });
     return out;
   }
 
@@ -519,9 +536,24 @@ async function pullFromNotion(
   if (binding.mode === "kv-blob") {
     const row = await findStateRow(adapter, instance);
     if (!row || row.lastEditedTime <= since) return null;
-    const remoteRev = Number(readProperty("number", (row.raw as any)?.[binding.revProp ?? "Rev"]) ?? 0);
-    if (remoteRev >= rev) return null; // our own write, already known
     const doc = parseState(row, binding);
+    /**
+     * Is this somebody else's edit, or our own write read back?
+     *
+     * The old test compared the row's `Rev` counter against the revision about
+     * to be produced, which only worked while the instance revision never
+     * moved. Now that a blob write advances it, the honest test is the one the
+     * records path already uses: compare the value against the last change we
+     * logged for this key. A blob that is byte-identical is not news, whoever
+     * touched it.
+     */
+    const fresh = await isNewValue(instance, "__state", doc);
+    await Store.updateInstance(instance.id, {
+      // Advance the watermark even when the value is not new: it is the row's
+      // clock, and leaving it behind would re-read the same row every round.
+      stats: { ...instance.stats, lastPulledAt: row.lastEditedTime, reads: instance.stats.reads + 1 },
+    });
+    if (!fresh) return null;
     collectInto.push({ key: "__state", value: doc, rev, at: row.lastEditedTime, source: "notion" });
     return {
       id: newId("evt", 6),
@@ -883,6 +915,10 @@ export async function fanoutNotionChange(input: {
       if (instance.binding.mode === "kv-blob") {
         const row = await findStateRow(adapter, instance);
         if (!row || row.id !== input.entityId) continue;
+        // A webhook fires for our own writes too. A blob that matches the last
+        // change we logged is our own write coming back, and reporting it as a
+        // Notion change would wake every renderer to re-apply what it sent.
+        if (!(await isNewValue(instance, "__state", parseState(row, instance.binding)))) continue;
         await Store.commit(
           instance.id,
           [

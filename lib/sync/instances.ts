@@ -3,6 +3,7 @@ import { hashSyncKey, mintSyncKey, newId, syncKeyMatches } from "./ids";
 import { open, seal } from "./crypto";
 import { adapterFor, adapterForInstance, syncInstance } from "./engine";
 import { propertySchemasFor, schemaFor } from "./mapping";
+import { widgetStorageKey } from "./widget-meta";
 import { absoluteUrl } from "@/lib/utils";
 import type {
   Binding,
@@ -115,9 +116,18 @@ export async function createInstance(input: CreateInstanceInput): Promise<Create
     syncKeyPrefix: minted.prefix,
     keyRotatedAt: now,
     publish: { channel: "none" },
-    // The adoption key is the widget's own persistence key: that is how an
-    // unmodified widget becomes data-driven (see lib/bridge/client.js).
-    adoptKey: `notion-arena.${input.slug}.v1`,
+    /**
+     * The adoption key is the widget's own persistence key: that is how an
+     * unmodified widget becomes data-driven (see lib/bridge/client.js).
+     *
+     * It is read out of the widget rather than assumed, because ten of the 192
+     * do not follow the `notion-arena.<slug>.v1` convention (habit-grid writes
+     * `notion-arena.habits.v1`). Adopting the wrong key is silent: the server's
+     * snapshot lands in a key nobody reads, and inside an HTML block, where
+     * there is no storage to fall back on, the widget renders empty while its
+     * rows sit in Notion.
+     */
+    adoptKey: widgetStorageKey(input.slug) ?? `notion-arena.${input.slug}.v1`,
     stats: { reads: 0, writes: 0, conflicts: 0 },
   };
 

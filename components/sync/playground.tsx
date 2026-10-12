@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { BOUND_COMPONENTS } from "@/lib/sync/components";
 
 /**
  * The data plane, made clickable.
@@ -47,44 +48,42 @@ type TimelineEvent = {
   kind: string;
   detail: string;
 };
+type RegistryComponent = {
+  slug: string;
+  label: string;
+  mode: string;
+  itemLabel: string;
+  source: string;
+  columns: { prop: string; key: string; type: string; keyPart: boolean; options: number }[];
+  keyColumns: string[];
+  tryThis: string;
+};
 type BridgeStatus = {
   id: string;
   state: { status: string; pending: number; rev: number; transport: string; error?: string | null };
   capabilities?: { storage: string; origin: string; network: boolean; transport: string };
 };
 
-const COMPONENTS = [
-  {
-    slug: "habit-grid",
-    label: "Habit Heatmap",
-    mode: "records" as const,
-    blurb: "State is {habit: {date: level}}. One row per habit per day, so the heatmap becomes a queryable table.",
-    sampleDoc: null,
-  },
-  {
-    slug: "expense-tracker",
-    label: "Expense Tracker",
-    mode: "records" as const,
-    blurb: "State is an array of flat records. Fields are inferred from the sample and mapped to typed columns.",
-    sampleDoc: [
-      { description: "Coffee", amount: 4.5, category: "Food", date: "2026-10-06" },
-      { description: "Train", amount: 2.9, category: "Travel", date: "2026-10-07" },
-    ],
-  },
-  {
-    slug: "grocery-list",
-    label: "Grocery List",
-    mode: "kv-blob" as const,
-    blurb: "Nested state ({lists: {...}}) with no declared schema: the whole document goes into one row as JSON.",
-    sampleDoc: { lists: { Groceries: [{ name: "Milk", done: false }] } },
-  },
-];
+/**
+ * The palette is `lib/sync/components.ts`, not a copy of it.
+ *
+ * Ten components, each one chosen to exercise a different state shape or
+ * property type, and each one bound through a schema that `check:components`
+ * drives end to end. A list that lived here instead would be the one thing on
+ * this page nobody tests.
+ */
+const COMPONENTS = BOUND_COMPONENTS;
 
-export function DataPlanePlayground() {
+export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = {}) {
   const [connections, setConnections] = React.useState<Connection[]>([]);
   const [connectionId, setConnectionId] = React.useState<string>("");
   const [dataSources, setDataSources] = React.useState<DataSource[]>([]);
-  const [componentIndex, setComponentIndex] = React.useState(0);
+  const [componentIndex, setComponentIndex] = React.useState(() => {
+    // Resolved on the server from `?component=`, so a shared link renders the
+    // right component in the first paint instead of flashing the first one.
+    const index = COMPONENTS.findIndex((c) => c.slug === initialSlug);
+    return index >= 0 ? index : 0;
+  });
   const [target, setTarget] = React.useState<"provision" | string>("provision");
   const [instance, setInstance] = React.useState<InstanceView | null>(null);
   const [urls, setUrls] = React.useState<{ embedUrl: string; standaloneUrl: string; bundleUrl: string; offlineBundleUrl: string } | null>(null);
@@ -99,10 +98,39 @@ export function DataPlanePlayground() {
   const [busy, setBusy] = React.useState<string | null>(null);
   const [message, setMessage] = React.useState<{ tone: "ok" | "warn" | "bad"; text: string } | null>(null);
   const [token, setToken] = React.useState("");
+  const [registry, setRegistry] = React.useState<RegistryComponent[]>([]);
+  const booted = React.useRef(false);
 
   const liveRef = React.useRef<HTMLIFrameElement | null>(null);
   const offlineRef = React.useRef<HTMLIFrameElement | null>(null);
   const component = COMPONENTS[componentIndex];
+
+  /* --- boot: the deep link when the page could not see it server-side --- */
+  React.useEffect(() => {
+    if (booted.current) return;
+    booted.current = true;
+    if (initialSlug) return;
+    const slug = new URLSearchParams(window.location.search).get("component");
+    const index = COMPONENTS.findIndex((c) => c.slug === slug);
+    if (index >= 0) setComponentIndex(index);
+  }, [initialSlug]);
+
+  /* --- keep the address shareable: one URL per component ----------- */
+  React.useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("component") === component.slug) return;
+    url.searchParams.set("component", component.slug);
+    window.history.replaceState(null, "", url);
+  }, [component.slug]);
+
+  /* --- what columns this component will actually get --------------- */
+  React.useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/sync/components", { cache: "no-store" });
+      const data = await res.json();
+      if (data.ok) setRegistry(data.components ?? []);
+    })();
+  }, []);
 
   /* --- boot: connections ------------------------------------------- */
   React.useEffect(() => {
@@ -231,7 +259,7 @@ export function DataPlanePlayground() {
           target === "provision"
             ? { mode: component.mode, provisionTitle: `${component.label} log` }
             : { mode: component.mode, dataSourceId: target },
-        sampleDoc: component.sampleDoc ?? undefined,
+        sampleDoc: component.seed ?? undefined,
       }),
     });
     const data = await res.json();
@@ -326,6 +354,7 @@ export function DataPlanePlayground() {
   }
 
   const liveStatus = instance ? statuses[instance.id] : undefined;
+  const spec = registry.find((c) => c.slug === component.slug);
 
   return (
     <div className="flex flex-col gap-6">
@@ -403,7 +432,7 @@ export function DataPlanePlayground() {
       {/* 2. component + bind */}
       <Section step="2" title="Bind a component" tone="primary">
         <div className="flex flex-col gap-3">
-          <div className="grid gap-2 sm:grid-cols-3">
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {COMPONENTS.map((c, i) => (
               <button
                 key={c.slug}
@@ -424,13 +453,54 @@ export function DataPlanePlayground() {
               >
                 <span className="text-[12.5px] font-medium">{c.label}</span>
                 <span className="text-[11.5px] leading-snug text-ink-soft">{c.blurb}</span>
-                <span className="mt-1 font-mono text-[10.5px] text-ink-faint">{c.mode}</span>
+                <span className="mt-1 font-mono text-[10.5px] text-ink-faint">
+                  {c.mode} · one row per {c.itemLabel}
+                </span>
               </button>
             ))}
           </div>
+
+          <div className="rounded-lg border border-border bg-card p-3">
+            <p className="text-[12.5px] font-medium text-foreground">{component.label}</p>
+            <p className="mt-1 text-[12px] leading-snug text-ink-soft">{component.tryThis}</p>
+            {spec && (
+              <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                <span className="label-mono text-ink-faint">Columns</span>
+                {spec.columns.map((col) => (
+                  <span
+                    key={col.prop}
+                    className={cn(
+                      "rounded-full border px-2 py-0.5 font-mono text-[10.5px]",
+                      col.keyPart
+                        ? "border-primary/40 bg-primary-wash text-primary-deep"
+                        : "border-border text-ink-soft"
+                    )}
+                    title={`${col.type}${col.keyPart ? " · part of the key" : ""}${col.options ? ` · ${col.options} options` : ""}`}
+                  >
+                    {col.prop}
+                    <span className="text-ink-faint"> {col.type}</span>
+                  </span>
+                ))}
+              </div>
+            )}
+            {spec && (
+              <p className="mt-2 text-[11.5px] leading-snug text-ink-faint">
+                {spec.mode === "kv-blob"
+                  ? "One row holds the whole document, with a revision and an updated stamp."
+                  : `A row is identified by ${spec.keyColumns.join(" + ")}. ${
+                      spec.source === "spec"
+                        ? "The columns come from the component's own field list."
+                        : spec.source === "declared"
+                          ? "This shape is declared: it is not a guess from a sample."
+                          : "The shape is inferred from the sample until a schema is declared for it."
+                    }`}
+              </p>
+            )}
+          </div>
+
           <div>
             <Button onClick={create} disabled={!connectionId || busy === "create"}>
-              {busy === "create" ? "Binding…" : "Create the instance"}
+              {busy === "create" ? "Binding…" : `Bind ${component.label} and open both renderers`}
             </Button>
           </div>
         </div>

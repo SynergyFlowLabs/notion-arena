@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table } from "@/components/docs/prose";
 import { DataPlanePlayground } from "@/components/sync/playground";
 import { FigureRef, SyncFigure } from "@/components/sync/figure";
+import { BOUND_COMPONENTS } from "@/lib/sync/components";
+import { schemaFor, schemaSource } from "@/lib/sync/schemas";
 
 export const metadata: Metadata = {
   title: "Two-way data sync",
@@ -9,7 +11,32 @@ export const metadata: Metadata = {
     "How a Notion Arena component binds to a database or page and syncs both ways, why the HTML block and the embed need different transports, and the live harness to try it without a Notion token.",
 };
 
-export default function SyncDocsPage() {
+/**
+ * The ten, resolved through the same schema the engine binds them through.
+ *
+ * Computed here rather than written out, because a hand-written column list is
+ * exactly the kind of table that stays pretty while the columns it describes
+ * change underneath it.
+ */
+function boundRows() {
+  return BOUND_COMPONENTS.map((component) => {
+    const schema = schemaFor(component.slug, component.seed, component.seed);
+    const source = schemaSource(component.slug);
+    const columns =
+      component.mode === "kv-blob"
+        ? ["Arena key", "State", "Rev", "Updated"]
+        : schema.fields.map((f) => (f.keyPart ? `${f.prop}*` : f.prop));
+    return { component, schema, source, columns };
+  });
+}
+
+export default async function SyncDocsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ component?: string }>;
+}) {
+  const { component } = await searchParams;
+  const bound = boundRows();
   return (
     <DocPage
       eyebrow="Notion platform"
@@ -35,7 +62,70 @@ export default function SyncDocsPage() {
           Notion runs an HTML block, in a sandbox with an opaque origin and no
           network at all.
         </P>
-        <DataPlanePlayground />
+        <DataPlanePlayground initialSlug={component} />
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <H2 id="ten">Ten components, bound for real</H2>
+        <P>
+          Ten components are wired, not illustrated: the playground above binds
+          any of them in one click, and each one carries a schema that has been
+          driven through the whole loop by <code>npm run check:components</code>{" "}
+          (138 assertions, one component at a time: bind, write, find the row,
+          edit the row in Notion, find the value in what a device renders,
+          trash the row, find the tombstone). They were picked the way a test
+          suite is picked, so between them they cover every state shape the
+          other 182 widgets use and every property type the mapping layer can
+          write.
+        </P>
+        <Table
+          head={["Component", "What it proves", "Columns"]}
+          widths={["24%", "38%", undefined]}
+          rows={bound.map(({ component, source, columns }) => [
+            <span key="c">
+              <strong className="text-foreground">{component.label}</strong>
+              <br />
+              <a href={`/docs/sync?component=${component.slug}`}>try it</a>
+              <br />
+              <span className="font-mono text-[11.5px] text-ink-faint">{component.mode}</span>
+              {source === "inferred" ? (
+                <>
+                  <br />
+                  <span className="text-[11.5px] text-ink-faint">inferred</span>
+                </>
+              ) : null}
+            </span>,
+            component.blurb,
+            <span key="cols" className="font-mono text-[11.5px] text-ink-soft">
+              {columns.join(" · ")}
+            </span>,
+          ])}
+        />
+        <P>
+          <strong className="text-foreground">The star marks a key field.</strong>{" "}
+          A row is identified by its key columns and nothing else, which is why
+          those columns matter more than they look: a widget that mints its own
+          id (the SPEC family, so the three on the bottom row) gives every record
+          an identity, so two invoices that happen to look identical are two
+          rows. A widget that does not gives its records a key built from their
+          own fields, so two identical expenses on the same day are one row.
+          Each component says which of the two it is, above and in the
+          playground, instead of leaving a user to find out by losing a row.
+        </P>
+        <P>
+          The same machinery reaches further than the ten.{" "}
+          <strong className="text-foreground">
+            84 of the 192 widgets are generated from a field list the widget
+            already carries
+          </strong>
+          , and all 84 map through it with nothing left out: bind one and its
+          columns come from the widget&apos;s own SPEC rather than a guess. Of
+          the 166 widgets that persist state, ten do not use the{" "}
+          <code>notion-arena.&lt;slug&gt;.v1</code> key they look like they
+          should, and the bind reads the key out of the file rather than
+          assuming it, because adopting the wrong key is invisible until a
+          device renders empty.
+        </P>
       </section>
 
       <section className="flex flex-col gap-4">
