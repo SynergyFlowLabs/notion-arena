@@ -73,6 +73,17 @@ export interface Binding {
   /** page-body mode: page id + optional section anchor */
   pageId?: string;
   anchor?: string;
+  /**
+   * The shape of the widget's first document, one record deep.
+   *
+   * A binding used to be rebuilt from its rows alone, which is fine for an
+   * array of records and wrong for everything else: a widget whose document is
+   * `{meeting, date, items: […]}` read back as a bare array, and a widget keyed
+   * by an id read back as a list. The device that receives that document is the
+   * widget whose storage it lands in, so it has to be the shape the widget
+   * wrote. This is that shape, kept as evidence rather than re-guessed.
+   */
+  docHint?: unknown;
   /** how to resolve a key written on both sides before either was observed */
   conflict: "last-write-wins" | "keep-both" | "manual";
   /** only sync rows matching this filter (authoring convenience, server-side) */

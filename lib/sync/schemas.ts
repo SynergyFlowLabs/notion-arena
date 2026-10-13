@@ -44,6 +44,17 @@ export interface RecordSchema {
   /** true when the schema was inferred rather than declared */
   inferred: boolean;
   /**
+   * Inferred, and it would drop something.
+   *
+   * A record with a nested object or an array inside it cannot be a row: Notion
+   * has no property that holds either. Inference used to skip those fields
+   * silently, which is how `flashcards` — a document of `{decks: {id: {known:
+   * […], order: […]}}}` — bound to a table whose only column was `version`, and
+   * whose round trip lost the decks. A caller that sees this should keep the
+   * document whole (state-blob mode) or ask for a declared schema.
+   */
+  lossy?: boolean;
+  /**
    * What identifies a row, for the one thing a user can see go wrong:
    *
    *   - `id`      the item carries a stable id minted by the widget, so two
@@ -383,7 +394,11 @@ function inferType(samples: unknown[]): NotionPropertyType {
   return "rich_text";
 }
 
-function inferFieldsFromItems(items: Record<string, unknown>[]): FieldMap[] {
+function inferFieldsFromItems(
+  items: Record<string, unknown>[],
+  /** columns that repeat on every row, so they cannot identify anything */
+  repeated: string[] = []
+): FieldMap[] {
   const samples = new Map<string, unknown[]>();
   for (const item of items.slice(0, 25)) {
     for (const [k, v] of Object.entries(item ?? {})) {
@@ -403,6 +418,21 @@ function inferFieldsFromItems(items: Record<string, unknown>[]): FieldMap[] {
   }));
 
   /**
+   * A widget that mints its own id is identified by that id and nothing else:
+   * two identical records are two records, which is what the widget itself
+   * believes. Only when there is no id does the first field plus the first
+   * time-like field have to stand in for one.
+   */
+  const idLike = typed.find((f) => /^(id|key|slug|uuid)$/i.test(f.key));
+  if (idLike) {
+    return typed.map((f) => ({
+      ...f,
+      ...(f.key === idLike.key ? { keyPart: true } : {}),
+      ...(f.key === idLike.key && f.type === "rich_text" ? {} : {}),
+    }));
+  }
+
+  /**
    * What identifies a record.
    *
    * The first field, plus the first time-like field. That is two fields and it
@@ -419,14 +449,72 @@ function inferFieldsFromItems(items: Record<string, unknown>[]): FieldMap[] {
         KEY_HINTS.some((re) => re.test(f.key) && /date|day/i.test(f.key)))
   );
 
+  /**
+   * The first field that is the *record's* own.
+   *
+   * In a container document the first column is often a scalar repeated on every
+   * row (`{day, items: […]}`), and a value that is the same on every row cannot
+   * identify one: keying on it collapsed a four-item checklist into a single
+   * row. So the key falls to the first field the record actually carries.
+   */
+  const firstOwn = typed.findIndex((f) => !repeated.includes(f.key));
+
   return typed.map((f, idx) => ({
     ...f,
-    ...(idx === 0 || idx === timeLike ? { keyPart: true } : {}),
+    ...((idx === firstOwn || idx === timeLike) && !repeated.includes(f.key) ? { keyPart: true } : {}),
   }));
 }
 
+/**
+ * A list that lives *inside* a document.
+ *
+ * `{items: [{…}], date: "2026-10-12", title: "Meeting"}` is the commonest shape
+ * in the hand-written half of the catalog: a document with one array of records
+ * and a few scalars beside it. Reading only the scalars produced a table of one
+ * row called `value`, and reading only the array lost the document — both are
+ * wrong, and both looked like success.
+ *
+ * The rule here: the array becomes the rows, the primitives beside it become
+ * columns repeated on every row (so they still filter and group), and anything
+ * else beside it is carried verbatim. The scalar keys never take part in a row's
+ * identity, because a value repeated on every row identifies nothing.
+ *
+ * Found by `npm run check:coverage`: twenty widgets in the catalog have exactly
+ * this shape and the inference was flattening them.
+ */
+function detectContainer(state: unknown): {
+  key: string;
+  items: Record<string, unknown>[];
+  scalars: Record<string, unknown>;
+  fixed: Record<string, unknown>;
+} | null {
+  if (!state || typeof state !== "object" || Array.isArray(state)) return null;
+  const entries = Object.entries(state as Record<string, unknown>);
+  const lists = entries.filter(
+    ([, v]) => Array.isArray(v) && (v as unknown[]).some((x) => x && typeof x === "object" && !Array.isArray(x))
+  );
+  if (lists.length !== 1) return null;
+  const [key, list] = lists[0] as [string, unknown[]];
+  const items = list.filter((x) => x && typeof x === "object" && !Array.isArray(x)) as Record<
+    string,
+    unknown
+  >[];
+  const scalars: Record<string, unknown> = {};
+  const fixed: Record<string, unknown> = {};
+  for (const [k, v] of entries) {
+    if (k === key) continue;
+    if (v === null || typeof v !== "object") scalars[k] = v;
+    else fixed[k] = v;
+  }
+  return { key, items, scalars, fixed };
+}
+
 /** Detect "array of flat records" and "record map of records". */
-function detectShape(state: unknown): { shape: RecordSchema["shape"]; items: Record<string, unknown>[] } {
+function detectShape(state: unknown): {
+  shape: RecordSchema["shape"];
+  items: Record<string, unknown>[];
+  container?: { key: string; scalarKeys: string[]; fixed: Record<string, unknown> };
+} {
   if (Array.isArray(state)) {
     const items = state.filter((x) => x && typeof x === "object" && !Array.isArray(x)) as Record<
       string,
@@ -444,6 +532,20 @@ function detectShape(state: unknown): { shape: RecordSchema["shape"]; items: Rec
       }));
       return { shape: "map", items };
     }
+    // A document with a list inside it: rows come from the list, and the
+    // primitives beside it ride along on every row.
+    const container = detectContainer(state);
+    if (container && container.items.length) {
+      const scalarKeys = Object.keys(container.scalars).filter(
+        (k) => !(k in container.items[0]) && !k.startsWith("__")
+      );
+      const items = container.items.map((item) => {
+        const merged: Record<string, unknown> = {};
+        for (const k of scalarKeys) merged[k] = container.scalars[k];
+        return { ...merged, ...item };
+      });
+      return { shape: "array", items, container: { key: container.key, scalarKeys, fixed: container.fixed } };
+    }
     // A flat object is treated as a single record (useful for dashboards and
     // single-value widgets: a KPI strip is one row, not a table).
     const flat = Object.entries(state as Record<string, unknown>).filter(
@@ -457,8 +559,39 @@ function detectShape(state: unknown): { shape: RecordSchema["shape"]; items: Rec
 }
 
 function inferredSchema(slug: string, source: unknown): RecordSchema {
-  const { shape, items } = detectShape(source);
-  const fields = inferFieldsFromItems(items);
+  const { shape, items, container } = detectShape(source);
+  const fields = inferFieldsFromItems(items, container?.scalarKeys ?? []);
+  /**
+   * Fields inference had to walk past. They are the reason a binding can look
+   * healthy and still lose data, so they are counted rather than forgotten.
+   */
+  const fieldKeys = new Set(fields.map((f) => f.key));
+  const droppedFields = [
+    ...new Set(
+      items.flatMap((item) =>
+        Object.entries(item ?? {})
+          .filter(([k, v]) => v !== null && typeof v === "object" && !fieldKeys.has(k))
+          .map(([k]) => k)
+      )
+    ),
+  ].filter((k) => !(container?.scalarKeys ?? []).includes(k));
+
+  /**
+   * A document can also lose data without any record being nested: a document
+   * that is `{version: 1, decks: {…}}` reads as one row holding `version`, and
+   * the decks — the actual content — are simply not in the table. Anything at
+   * the document's own level that the rows do not represent is counted here, and
+   * the only shape that represents those values is a container, which carries
+   * them back verbatim.
+   */
+  const unrepresented = container
+    ? []
+    : source && typeof source === "object" && !Array.isArray(source)
+      ? Object.entries(source as Record<string, unknown>)
+          .filter(([, v]) => v !== null && typeof v === "object")
+          .map(([k]) => k)
+      : [];
+
   const empty: Record<string, unknown> = {};
   for (const f of fields) {
     empty[f.key] = f.type === "number" ? 0 : f.type === "checkbox" ? false : "";
@@ -472,7 +605,23 @@ function inferredSchema(slug: string, source: unknown): RecordSchema {
     identity: fields.some((f) => f.key === "id" && f.keyPart) ? "id" : "content",
     fields,
     empty,
+    lossy: droppedFields.length + unrepresented.length > 0,
     read: (s) => {
+      // The same document read again, possibly after a row changed in Notion:
+      // the list is re-read from the document rather than from the sample.
+      if (container) {
+        const live = detectContainer(s);
+        if (live) {
+          return live.items.map((item) => {
+            const merged: Record<string, unknown> = {};
+            for (const k of container.scalarKeys) {
+              const v = k in live.scalars ? live.scalars[k] : undefined;
+              if (v !== undefined) merged[k] = v;
+            }
+            return { ...merged, ...item };
+          });
+        }
+      }
       if (Array.isArray(s)) {
         return s.filter((x) => x && typeof x === "object") as Record<string, unknown>[];
       }
@@ -492,6 +641,26 @@ function inferredSchema(slug: string, source: unknown): RecordSchema {
       return [];
     },
     write: (_s, list) => {
+      if (container) {
+        // Back into the document: the repeated columns come from the first row
+        // that carries them, the verbatim parts go back untouched, and the rows
+        // lose the columns that were only ever repeats.
+        const out: Record<string, unknown> = {};
+        for (const k of container.scalarKeys) {
+          const hit = list.find((row) => row[k] !== undefined && row[k] !== "");
+          out[k] = hit ? hit[k] : "";
+        }
+        for (const [k, v] of Object.entries(container.fixed)) out[k] = v;
+        out[container.key] = list.map((row) => {
+          const item: Record<string, unknown> = {};
+          for (const [k, v] of Object.entries(row)) {
+            if (container.scalarKeys.includes(k)) continue;
+            item[k] = v;
+          }
+          return item;
+        });
+        return out;
+      }
       if (shape === "map") {
         const out: Record<string, unknown> = {};
         for (const item of list) {

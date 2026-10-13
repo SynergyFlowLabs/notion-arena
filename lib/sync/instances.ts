@@ -68,6 +68,17 @@ export async function createInstance(input: CreateInstanceInput): Promise<Create
   const warnings: string[] = [];
   const schema = schemaFor(input.slug, input.sampleDoc ?? [], input.sampleDoc);
 
+  /**
+   * A records binding over a document with nested values would lose them, and
+   * losing them quietly is the failure this whole design exists to avoid, so the
+   * caller is told at bind time instead.
+   */
+  if (input.binding.mode !== "kv-blob" && schema.lossy) {
+    warnings.push(
+      "This component's records hold nested values (objects or lists), which Notion properties cannot represent: bind it as a state blob, or declare a schema that maps them onto columns."
+    );
+  }
+
   let binding: Binding;
 
   if (input.binding.mode === "kv-blob") {
@@ -95,6 +106,8 @@ export async function createInstance(input: CreateInstanceInput): Promise<Create
     );
   } else {
     binding = await bindRecords(adapter, input, schema.fields, warnings);
+    const hint = docHint(input.sampleDoc);
+    if (hint !== undefined) binding.docHint = hint;
   }
 
   const minted = mintSyncKey();
@@ -189,6 +202,34 @@ function hasContent(doc: unknown): boolean {
 /* ------------------------------------------------------------------ */
 /* Binding construction                                                */
 /* ------------------------------------------------------------------ */
+
+/**
+ * A one-record skeleton of a document, for the reader.
+ *
+ * The whole document would be a second copy of the user's data on the binding;
+ * one record is enough for the schema to see the shape — the container key, the
+ * scalars beside it, the fields inside a record. A document that is already a
+ * list keeps its first record for the same reason.
+ */
+function docHint(sample: unknown): unknown {
+  if (!sample || typeof sample !== "object") return undefined;
+  if (Array.isArray(sample)) return sample.slice(0, 1);
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(sample as Record<string, unknown>)) {
+    if (Array.isArray(v)) {
+      out[k] = v.filter((x) => x && typeof x === "object").slice(0, 1);
+      if (!(out[k] as unknown[]).length) out[k] = v.slice(0, 1);
+    } else if (v && typeof v === "object") {
+      // A nested object keeps one entry of its own, so a map of maps still
+      // reads back as a map.
+      const inner = Object.entries(v as Record<string, unknown>).slice(0, 1);
+      out[k] = Object.fromEntries(inner);
+    } else {
+      out[k] = v;
+    }
+  }
+  return out;
+}
 
 async function bindRecords(
   adapter: WorkspaceAdapter,

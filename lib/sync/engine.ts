@@ -227,7 +227,18 @@ export async function readDocument(
   const rows = await fetchAllRows(adapter, binding);
   const types = await propertyTypes(adapter, binding);
   const items = rows.map((r) => strip(itemFromRow(binding, r)));
-  const schema = schemaFor(instance.slug, items);
+  /**
+   * The schema is resolved from the shape the widget's own first document had,
+   * not from the rows.
+   *
+   * Rows cannot describe a document: a widget whose document is
+   * `{meeting, date, items: […]}` and one whose document is `[…]` produce rows
+   * that look identical, and only one of the two can be rebuilt from them. The
+   * binding carries that shape (`docHint`), and inference is asked about it
+   * instead of about the rows. Without this, a freshly bound device received a
+   * bare array where the widget expected its own document, and rendered empty.
+   */
+  const schema = schemaFor(instance.slug, items, binding.docHint ?? items);
   const doc = schema.write(undefined, items);
   return { doc, hash: hashJson(doc), rows, keyType: await keyPropertyType(adapter, binding, types), types };
 }
@@ -382,7 +393,25 @@ async function materialise(input: {
   }
 
   /* --- records: diff the materialised item set --------------------- */
-  const schema = schemaFor(instance.slug, input.before);
+  /**
+   * Which document the schema is inferred from.
+   *
+   * On the first push there is nothing before: `before` is `{}` and `after` is
+   * the widget's whole document. Inferring from the empty side produced a schema
+   * with one column called `value` — and then read the pushed document through
+   * it, so every row arrived with its title and date filled in and nothing else.
+   * The rule is therefore: the binding's own record of the shape first, then
+   * whichever of the two documents actually has one.
+   */
+  const shape = (doc: unknown) =>
+    Array.isArray(doc)
+      ? doc.length > 0
+      : Boolean(doc && typeof doc === "object" && Object.keys(doc as Record<string, unknown>).length);
+  const schema = schemaFor(
+    instance.slug,
+    input.before,
+    binding.docHint ?? (shape(input.before) ? input.before : input.after)
+  );
   const itemsBefore = schema.read(input.before);
   const itemsAfter = schema.read(input.after);
   const beforeByKey = new Map(itemsBefore.map((i) => [businessKey(binding, i), i]));
