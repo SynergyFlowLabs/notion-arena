@@ -85,6 +85,58 @@ type Spec = {
   seed: { items: number; unmapped: string[]; longestText: number; from: string; doc?: unknown };
   write?: { exact: boolean; keys: string[]; duplicates: number; sample: string[] };
 };
+/** A binding the browser made earlier in this session, or in a previous one. */
+type InstanceRow = {
+  id: string;
+  slug: string;
+  name: string;
+  rev: number;
+  revokedAt?: string;
+  binding: { mode: string; dataSourceId: string; databaseTitle: string };
+};
+
+/**
+ * The sync key, kept where the user's URLs actually live.
+ *
+ * The server shows a key once, on purpose: it stores a hash, and sealing the
+ * plaintext is only for re-rendering a bundle, not for re-showing the user their
+ * own URL. So the browser keeps the keys it was given — exactly as a person
+ * keeps the URL they pasted into Notion — and an instance opened without one
+ * offers a rotate, which is the documented way to get a working URL back.
+ */
+const KEYSTORE = "arena.playground.keys";
+
+function keyFor(id: string): string | null {
+  try {
+    const all = JSON.parse(localStorage.getItem(KEYSTORE) ?? "{}") as Record<string, string>;
+    return all[id] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function rememberKey(id: string, key: string) {
+  try {
+    const all = JSON.parse(localStorage.getItem(KEYSTORE) ?? "{}") as Record<string, string>;
+    all[id] = key;
+    localStorage.setItem(KEYSTORE, JSON.stringify(all));
+  } catch {
+    /* private mode: the key stays in this tab's memory instead */
+  }
+}
+
+/** The two renderers' URLs, built the same way the server builds them. */
+function urlsFor(slug: string, id: string, key: string) {
+  const qs = new URLSearchParams({ i: id, k: key });
+  const suffix = `?k=${encodeURIComponent(key)}`;
+  return {
+    embedUrl: `${location.origin}/embed/${slug}?${qs.toString()}`,
+    standaloneUrl: `${location.origin}/c/${slug}/${id}${suffix}`,
+    bundleUrl: `${location.origin}/api/sync/instances/${id}/bundle${suffix}&download=1`,
+    offlineBundleUrl: `${location.origin}/api/sync/instances/${id}/bundle${suffix}&offline=1&download=1`,
+  };
+}
+
 type BridgeStatus = {
   id: string;
   state: { status: string; pending: number; rev: number; transport: string; error?: string | null };
@@ -125,6 +177,7 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
   const [message, setMessage] = React.useState<{ tone: "ok" | "warn" | "bad"; text: string } | null>(null);
   const [token, setToken] = React.useState("");
   const [palette, setPalette] = React.useState<ComponentRow[]>([]);
+  const [instances, setInstances] = React.useState<InstanceRow[]>([]);
   const [paletteQuery, setPaletteQuery] = React.useState("");
   const [spec, setSpec] = React.useState<Spec | null>(null);
   const booted = React.useRef(false);
@@ -170,6 +223,90 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
       if (data.ok) setPalette(data.components ?? []);
     })();
   }, []);
+
+  /* --- bindings already made, so a reload does not lose the test ---- */
+  const loadInstances = React.useCallback(async () => {
+    const data = await fetch("/api/sync/instances", { cache: "no-store" }).then((r) => r.json());
+    if (data.ok) setInstances(data.instances ?? []);
+  }, []);
+
+  React.useEffect(() => {
+    void loadInstances();
+  }, [loadInstances]);
+
+  /**
+   * Reopen a binding made earlier: the instance, its table, its log, and — when
+   * this browser still has the key it was given — both renderers, live.
+   */
+  async function openInstance(row: InstanceRow) {
+    setBusy(`open:${row.id}`);
+    const data = await fetch(`/api/sync/instances/${row.id}`, { cache: "no-store" }).then((r) => r.json());
+    setBusy(null);
+    if (!data.ok) return setMessage({ tone: "bad", text: "That binding is gone. It was revoked." });
+    setSlug(data.instance.slug);
+    setInstance(data.instance);
+    setEvents((data.events ?? []).slice(0, 14));
+    setLog((data.log ?? []).slice(0, 8));
+    setPendingCode(null);
+    const key = keyFor(row.id);
+    setSyncKey(key);
+    if (key) {
+      setUrls(urlsFor(data.instance.slug, row.id, key));
+      const bundle = await fetch(
+        `/api/sync/instances/${row.id}/bundle?k=${encodeURIComponent(key)}&offline=1&host=1&download=0`,
+        { cache: "no-store" }
+      ).then((r) => r.text());
+      setOfflineHtml(bundle);
+      setMessage({ tone: "ok", text: "Reopened. Both panes are live again." });
+    } else {
+      setUrls(null);
+      setOfflineHtml(null);
+      setMessage({
+        tone: "warn",
+        text: "Reopened, but this browser does not have the sync key for it — rotate to mint a new one and get a working pair of URLs.",
+      });
+    }
+    await refresh(row.id, row.binding.dataSourceId);
+  }
+
+  async function rotate() {
+    if (!instance) return;
+    setBusy("rotate");
+    const data = await fetch(`/api/sync/instances/${instance.id}`, {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ action: "rotate" }),
+    }).then((r) => r.json());
+    setBusy(null);
+    if (!data.ok) return setMessage({ tone: "bad", text: data.error ?? "Could not rotate." });
+    rememberKey(instance.id, data.syncKey);
+    setSyncKey(data.syncKey);
+    setUrls(urlsFor(instance.slug, instance.id, data.syncKey));
+    const bundle = await fetch(
+      `/api/sync/instances/${instance.id}/bundle?k=${encodeURIComponent(data.syncKey)}&offline=1&host=1&download=0`,
+      { cache: "no-store" }
+    ).then((r) => r.text());
+    setOfflineHtml(bundle);
+    setMessage({ tone: "warn", text: data.warning ?? "New key minted. Old URLs stop working." });
+  }
+
+  async function revoke(row: InstanceRow) {
+    setBusy(`revoke:${row.id}`);
+    await fetch(`/api/sync/instances/${row.id}`, {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ action: "revoke" }),
+    });
+    setBusy(null);
+    if (instance?.id === row.id) {
+      setInstance(null);
+      setUrls(null);
+      setOfflineHtml(null);
+      setTable(null);
+    }
+    await loadInstances();
+    setMessage({ tone: "warn", text: "Revoked. The URLs for that binding stop working immediately." });
+  }
 
   /* --- what binding this component would create, from the engine ---- */
   React.useEffect(() => {
@@ -325,6 +462,8 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
     setInstance(data.instance);
     setUrls(data.urls);
     setSyncKey(data.syncKey);
+    rememberKey(data.instance.id, data.syncKey);
+    void loadInstances();
     setPendingCode(null);
     setStatuses({});
     await refresh(data.instance.id, data.instance.binding.dataSourceId);
@@ -503,6 +642,53 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
         )}
       </Section>
 
+      {instances.length > 0 && (
+        <Section step="1b" title="Bindings in this workspace">
+          <div className="flex flex-col gap-2">
+            <p className="text-[12.5px] text-ink-soft">
+              Every instance this cache knows about, so a reload — or a second tab — does not lose the
+              thing you were testing. Opening one brings back its table, its log and both renderers.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {instances.slice(0, 24).map((row) => (
+                <span
+                  key={row.id}
+                  className={cn(
+                    "group flex items-center gap-2 rounded-lg border px-2.5 py-1.5",
+                    instance?.id === row.id ? "border-primary bg-primary-wash" : "border-border bg-card",
+                    row.revokedAt && "opacity-50"
+                  )}
+                >
+                  <button
+                    onClick={() => openInstance(row)}
+                    disabled={Boolean(row.revokedAt)}
+                    className="text-left disabled:cursor-not-allowed"
+                  >
+                    <span className="block text-[12px] font-medium text-foreground">
+                      {palette.find((p) => p.slug === row.slug)?.label ?? row.slug}
+                    </span>
+                    <span className="block font-mono text-[10.5px] text-ink-faint">
+                      {row.revokedAt
+                        ? "revoked"
+                        : `${row.binding.mode} · rev ${row.rev} · ${row.binding.databaseTitle}`}
+                    </span>
+                  </button>
+                  {!row.revokedAt && (
+                    <button
+                      onClick={() => revoke(row)}
+                      title="Revoke this binding"
+                      className="text-[11px] text-ink-faint transition hover:text-destructive"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Section>
+      )}
+
       {/* 2. component + bind */}
       <Section step="2" title="Bind a component" tone="primary">
         <div className="flex flex-col gap-3">
@@ -585,8 +771,13 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
                 </span>
               )}
             </div>
-            {spec?.tryThis ? (
-              <p className="mt-1 text-[12px] leading-snug text-ink-soft">{spec.tryThis}</p>
+            {spec ? (
+              <p className="mt-1 text-[12px] leading-snug text-ink-soft">
+                {spec.tryThis ??
+                  (spec.mode === "kv-blob"
+                    ? "Change something in the right-hand pane (it is the offline channel: no network, storage baked in), take the sync code it offers and hand it to the left pane. The State cell changes on the next round."
+                    : `Click a cell in the right-hand pane, take its sync code and push it through the left pane: one ${spec.itemLabel} becomes one row. Then edit that row in the table below — the widget updates on the next pull, without a reload.`)}
+              </p>
             ) : null}
             {spec && (
               <div className="mt-2 flex flex-wrap items-center gap-1.5">
@@ -655,6 +846,23 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
       )}
 
       {/* 3. the two renderers */}
+      {instance && !urls && (
+        <Section step="3" title="One instance, two renderers" tone="primary">
+          <div className="flex flex-col gap-3">
+            <p className="text-[12.5px] text-ink-soft">
+              This binding is open, but this browser does not hold its sync key — the server shows a key
+              once and keeps only its hash. Rotating mints a fresh one; every URL already pasted from
+              the old one stops working, which is exactly what rotation is for.
+            </p>
+            <div>
+              <Button onClick={rotate} disabled={busy === "rotate"}>
+                {busy === "rotate" ? "Rotating…" : "Rotate the sync key and open both renderers"}
+              </Button>
+            </div>
+          </div>
+        </Section>
+      )}
+
       {instance && urls && (
         <Section step="3" title="One instance, two renderers" tone="primary">
           <div className="flex flex-col gap-4">
