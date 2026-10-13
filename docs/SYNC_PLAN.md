@@ -47,22 +47,30 @@ Three parts, and each one has a test:
 | `lib/sync/crypto.ts` | AES-256-GCM seal and open for stored tokens and keys |
 | `lib/sync/store.ts` | the workspace cache: one JSON document, one mutex, four bounded rings |
 | `lib/sync/transport.ts` | `WorkspaceAdapter`, the 15 methods both backends implement, and `AdapterError` |
-| `lib/sync/mapping.ts` | widget JSON to Notion properties: inference, declared schemas, business keys, path translation |
+| `lib/sync/mapping.ts` | widget JSON to Notion properties: business keys, path translation, property payloads |
+| `lib/sync/schemas.ts` | how a widget's state becomes rows: declared schemas, the SPEC family, inference, and what inference refuses |
 | `lib/sync/adapters/mock.ts` | a Notion-shaped workspace in our own store, so the loop is testable without credentials |
 | `lib/sync/adapters/notion.ts` | the real API: data sources, query, rows, uploads, blocks, page markdown |
 | `lib/sync/budget.ts` | one token bucket per connection, matching Notion's documented request limits |
 | `lib/sync/engine.ts` | the sync round: pull, push, materialise, reconcile, fan out, publish |
 | `lib/sync/instances.ts` | create, bind, authorise, rotate, revoke, summarise |
+| `lib/sync/components.ts` | the ten curated components: labels, blurbs, seeds, and what to try on each |
+| `lib/sync/samples.ts` | the first document for any widget: a seed, its own SPEC, or a harvested one |
+| `lib/sync/samples.harvested.ts` | generated: widget state measured by running the widget (`scripts/harvest-samples.mjs`) |
 | `lib/sync/http.ts` | route plumbing: present a key, authorise, fail |
 | `lib/bridge/index.ts` | the envelope and the injection point; one render path for both channels |
 | `lib/bridge/client.js` | the injected runtime: storage adoption, diffing, outbox, SSE, sync codes |
 | `app/api/sync/**` | connections, datasources, instances, sync, stream, bundle, publish, table, probe |
+| `app/api/sync/components/route.ts` | what a binding would create: columns, keys, the first document, and the round trip |
 | `app/api/webhooks/notion/route.ts` | signature-verified fanout into the change log |
 | `app/api/dev/notion/route.ts` | the development simulator, because a webhook cannot reach localhost |
 | `app/embed/[slug]/route.ts` | both shapes of the embed: configured by URL, or bound to an instance |
 | `app/docs/sync/page.tsx` | the playground and the explanation, on one page |
-| `scripts/check-sync.mjs` | 58 protocol checks, including the two-renderer path |
+| `scripts/check-sync.mjs` | 62 protocol checks, including the two-renderer path |
 | `scripts/check-bridge.mjs` | 28 runtime checks, executing the injected bridge in a sandbox |
+| `scripts/check-components.mjs` | 138 checks over the ten curated components, both directions |
+| `scripts/check-coverage.mjs` | 585 checks, binding every widget that can produce a first document |
+| `scripts/harvest-samples.mjs` | runs a widget headlessly to find out what it actually persists |
 
 ### 2.2 The model, in one table
 
@@ -122,8 +130,11 @@ template for the rest.
 ### 2.5 How it is verified
 
 ```
-npm run dev            # one terminal
-npm run check:sync     # another: 58 protocol checks, 28 runtime checks
+npm run dev                # one terminal
+npm run check:sync         # another: 62 protocol checks, 28 runtime checks
+npm run check:components   # the ten curated components, end to end: 138 checks
+npm run check:coverage     # every widget that can be bound: 585 checks
+npm run check:widgets      # the catalog itself: 192 files, 0 with issues
 ```
 
 The protocol half asserts the properties a sync design lives or dies on:
@@ -246,12 +257,37 @@ anyone editing a file by hand.
 
 ### 4.4 Catalog coverage
 
-The work is per widget, and it is small: a declared schema is about ten lines.
-The order should follow the catalog's own popularity, and the heuristic in
-`mapping.ts` should be treated as a starting point a human confirms, not as
-truth. `npm run check:widgets` should grow one check: every widget whose state is
-not a flat array must have a declared schema, so the default binding for it is
-not a guess.
+Status: measured, and the gap is named rather than implied.
+
+192 widgets, 166 of them persist state, and a binding needs a first document
+before it can promise anything. Three sources produce one, and
+`npm run check:coverage` reports which widget used which:
+
+| source | widgets | where it comes from |
+|---|---|---|
+| seed | 10 | hand-written, in `lib/sync/components.ts` |
+| spec | 81 | the widget's own field list, read out of its `SPEC` |
+| harvested | 56 | the widget run headlessly until it persisted something |
+| none | 45 | it persists nothing a table could hold |
+
+The 147 with a document are bound for real before the run ends: table
+provisioned, document uploaded, read back, compared, and pushed a second time to
+prove that a redundant push adds no row.
+
+The 45 are the honest remainder. They are widgets whose state only appears after
+an interaction the harvester cannot perform (a drag, a canvas, a settings save),
+or widgets that genuinely persist nothing. The registry marks them, the palette
+shows them greyed with the reason, and neither offers a bind button — a binding
+over an empty document is a table that will never have a row.
+
+Still to do, in order:
+
+1. A declared schema for the hand-written widgets whose records hold nested
+   values (`flashcards` is the shape: `{decks: {id: {known: [], order: []}}}`).
+   Inference refuses those rather than dropping fields, so they bind as state
+   blobs today.
+2. The same for the 45 unsampled: either teach the harvester the interaction, or
+   declare the document, and delete the row from the table above when it lands.
 
 ---
 
@@ -339,6 +375,11 @@ The slice is done when all of these are true, and each one is a check in
       becomes a row through a reachable renderer.
 - [x] A missing, wrong or rotated key is refused, as a page, with an explanation.
 - [x] The rate limit budget is per connection and a limited round loses nothing.
+- [x] Every widget that can produce a first document binds, and its document comes
+      back out of the table unchanged: 147 widgets, 585 checks
+      (`npm run check:coverage`), with the 45 that cannot named and explained.
+- [x] Inference that would drop a field says so instead: a document whose records
+      hold nested values binds as a state blob, and the registry gives the reason.
 - [ ] A real workspace, through OAuth, with a signature-verified webhook. Phase 1.
 - [ ] The probe answers Q1 to Q4 from inside a real HTML block and embed. Needs a
       workspace and a phone, not code.

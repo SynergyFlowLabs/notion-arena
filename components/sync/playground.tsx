@@ -3,7 +3,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { BOUND_COMPONENTS } from "@/lib/sync/components";
 
 /**
  * The data plane, made clickable.
@@ -48,15 +47,43 @@ type TimelineEvent = {
   kind: string;
   detail: string;
 };
-type RegistryComponent = {
+/** One row of the palette: every widget in the catalog, as the registry sees it. */
+type ComponentRow = {
   slug: string;
   label: string;
-  mode: string;
-  itemLabel: string;
+  category?: string;
+  mode: "records" | "kv-blob";
   source: string;
+  shape: string;
+  itemLabel: string;
+  itemColumns: number;
+  adoptKey: string | null;
+  /** which of the three sources produced the first document, `null` when none did */
+  sample: "seed" | "spec" | "harvested" | null;
+  sampleItems: number;
+  bound: boolean;
+};
+
+/** What binding this component would actually create, from the same resolver the engine uses. */
+type Spec = {
+  slug: string;
+  label: string;
+  category?: string;
+  mode: "records" | "kv-blob";
+  itemLabel: string;
+  blurb?: string;
+  tryThis?: string;
+  source: string;
+  shape: string;
+  identity: string;
+  inferred: boolean;
+  lossy: boolean;
+  modeWhy: string;
+  adoptKey: string | null;
   columns: { prop: string; key: string; type: string; keyPart: boolean; options: number }[];
   keyColumns: string[];
-  tryThis: string;
+  seed: { items: number; unmapped: string[]; longestText: number; from: string; doc?: unknown };
+  write?: { exact: boolean; keys: string[]; duplicates: number; sample: string[] };
 };
 type BridgeStatus = {
   id: string;
@@ -65,25 +92,24 @@ type BridgeStatus = {
 };
 
 /**
- * The palette is `lib/sync/components.ts`, not a copy of it.
+ * The palette is the catalog itself, not a list kept here.
  *
- * Ten components, each one chosen to exercise a different state shape or
- * property type, and each one bound through a schema that `check:components`
- * drives end to end. A list that lived here instead would be the one thing on
- * this page nobody tests.
+ * `/api/sync/components?all=1` answers for all 192 widgets: which of them can
+ * produce a first document (a hand-written seed, the widget's own SPEC, or a
+ * document the harvester measured by running the widget), and for the ones that
+ * cannot, that fact — rather than a button that would bind an empty table.
+ *
+ * The ten curated components are marked, because a curated one has a blurb and
+ * something to try; they are not the only ones that work.
  */
-const COMPONENTS = BOUND_COMPONENTS;
+const DEFAULT_SLUG = "habit-grid";
 
 export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = {}) {
   const [connections, setConnections] = React.useState<Connection[]>([]);
   const [connectionId, setConnectionId] = React.useState<string>("");
   const [dataSources, setDataSources] = React.useState<DataSource[]>([]);
-  const [componentIndex, setComponentIndex] = React.useState(() => {
-    // Resolved on the server from `?component=`, so a shared link renders the
-    // right component in the first paint instead of flashing the first one.
-    const index = COMPONENTS.findIndex((c) => c.slug === initialSlug);
-    return index >= 0 ? index : 0;
-  });
+  /** Resolved on the server from `?component=`, so a shared link opens the right one. */
+  const [slug, setSlug] = React.useState(initialSlug || DEFAULT_SLUG);
   const [target, setTarget] = React.useState<"provision" | string>("provision");
   const [instance, setInstance] = React.useState<InstanceView | null>(null);
   const [urls, setUrls] = React.useState<{ embedUrl: string; standaloneUrl: string; bundleUrl: string; offlineBundleUrl: string } | null>(null);
@@ -98,39 +124,67 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
   const [busy, setBusy] = React.useState<string | null>(null);
   const [message, setMessage] = React.useState<{ tone: "ok" | "warn" | "bad"; text: string } | null>(null);
   const [token, setToken] = React.useState("");
-  const [registry, setRegistry] = React.useState<RegistryComponent[]>([]);
+  const [palette, setPalette] = React.useState<ComponentRow[]>([]);
+  const [paletteQuery, setPaletteQuery] = React.useState("");
+  const [spec, setSpec] = React.useState<Spec | null>(null);
   const booted = React.useRef(false);
 
   const liveRef = React.useRef<HTMLIFrameElement | null>(null);
   const offlineRef = React.useRef<HTMLIFrameElement | null>(null);
-  const component = COMPONENTS[componentIndex];
+
+  function choose(next: string) {
+    setSlug(next);
+    setInstance(null);
+    setUrls(null);
+    setOfflineHtml(null);
+    setTable(null);
+    setEvents([]);
+    setLog([]);
+    setPendingCode(null);
+    setStatuses({});
+    setMessage(null);
+  }
 
   /* --- boot: the deep link when the page could not see it server-side --- */
   React.useEffect(() => {
     if (booted.current) return;
     booted.current = true;
     if (initialSlug) return;
-    const slug = new URLSearchParams(window.location.search).get("component");
-    const index = COMPONENTS.findIndex((c) => c.slug === slug);
-    if (index >= 0) setComponentIndex(index);
+    const wanted = new URLSearchParams(window.location.search).get("component");
+    if (wanted) setSlug(wanted);
   }, [initialSlug]);
 
   /* --- keep the address shareable: one URL per component ----------- */
   React.useEffect(() => {
     const url = new URL(window.location.href);
-    if (url.searchParams.get("component") === component.slug) return;
-    url.searchParams.set("component", component.slug);
+    if (url.searchParams.get("component") === slug) return;
+    url.searchParams.set("component", slug);
     window.history.replaceState(null, "", url);
-  }, [component.slug]);
+  }, [slug]);
 
-  /* --- what columns this component will actually get --------------- */
+  /* --- the palette: every widget, and whether it can be bound ------ */
   React.useEffect(() => {
     (async () => {
-      const res = await fetch("/api/sync/components", { cache: "no-store" });
+      const res = await fetch("/api/sync/components?all=1", { cache: "no-store" });
       const data = await res.json();
-      if (data.ok) setRegistry(data.components ?? []);
+      if (data.ok) setPalette(data.components ?? []);
     })();
   }, []);
+
+  /* --- what binding this component would create, from the engine ---- */
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const res = await fetch(`/api/sync/components?slug=${encodeURIComponent(slug)}&sample=1&write=1`, {
+        cache: "no-store",
+      });
+      const data = await res.json();
+      if (!cancelled) setSpec(data.components?.[0] ?? null);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
 
   /* --- boot: connections ------------------------------------------- */
   React.useEffect(() => {
@@ -253,13 +307,16 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        component: component.slug,
+        component: slug,
         connectionId,
         binding:
           target === "provision"
-            ? { mode: component.mode, provisionTitle: `${component.label} log` }
-            : { mode: component.mode, dataSourceId: target },
-        sampleDoc: component.seed ?? undefined,
+            ? { mode: spec?.mode ?? "records", provisionTitle: `${spec?.label ?? slug} log` }
+            : { mode: spec?.mode ?? "records", dataSourceId: target },
+        // The document the widget would have: a hand-written seed, its own SPEC
+        // fields, or what the harvester measured by running it. Binding uploads
+        // it through the ordinary push path, so seeding cannot bypass the rules.
+        sampleDoc: spec?.seed.doc,
       }),
     });
     const data = await res.json();
@@ -271,7 +328,7 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
     setPendingCode(null);
     setStatuses({});
     await refresh(data.instance.id, data.instance.binding.dataSourceId);
-    if (component.mode === "records" || true) {
+    {
       const bundle = await fetch(
         `/api/sync/instances/${data.instance.id}/bundle?k=${encodeURIComponent(data.syncKey)}&offline=1&host=1&download=0`,
         { cache: "no-store" }
@@ -292,7 +349,7 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
     const res = await fetch(`/api/sync/instances/${instance.id}/publish`, {
       method: "POST",
       headers: { "content-type": "application/json", "x-arena-key": syncKey ?? "" },
-      body: JSON.stringify({ parentPageId: "page_demo_workspace", caption: `${component.label} (Arena)` }),
+      body: JSON.stringify({ parentPageId: "page_demo_workspace", caption: `${spec?.label ?? slug} (Arena)` }),
     });
     const data = await res.json();
     setBusy(null);
@@ -354,7 +411,24 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
   }
 
   const liveStatus = instance ? statuses[instance.id] : undefined;
-  const spec = registry.find((c) => c.slug === component.slug);
+  /**
+   * The palette, filtered and ordered: everything that can be bound first, then
+   * the widgets that persist nothing, which are listed rather than hidden. A
+   * catalog where a third of the widgets silently do not work is a catalog
+   * nobody can trust, and `npm run check:coverage` reports the same split.
+   */
+  const shown = React.useMemo(() => {
+    const q = paletteQuery.trim().toLowerCase();
+    const rows = q
+      ? palette.filter(
+          (r) =>
+            r.slug.includes(q) ||
+            r.label.toLowerCase().includes(q) ||
+            (r.category ?? "").includes(q)
+        )
+      : palette;
+    return [...rows].sort((a, b) => Number(Boolean(b.sample)) - Number(Boolean(a.sample)));
+  }, [palette, paletteQuery]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -432,37 +506,88 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
       {/* 2. component + bind */}
       <Section step="2" title="Bind a component" tone="primary">
         <div className="flex flex-col gap-3">
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {COMPONENTS.map((c, i) => (
-              <button
-                key={c.slug}
-                onClick={() => {
-                  setComponentIndex(i);
-                  setInstance(null);
-                  setUrls(null);
-                  setOfflineHtml(null);
-                  setTable(null);
-                  setEvents([]);
-                  setLog([]);
-                  setPendingCode(null);
-                }}
-                className={cn(
-                  "flex flex-col gap-1 rounded-lg border p-3 text-left transition",
-                  i === componentIndex ? "border-primary bg-primary-wash" : "border-border hover:border-border-strong"
-                )}
-              >
-                <span className="text-[12.5px] font-medium">{c.label}</span>
-                <span className="text-[11.5px] leading-snug text-ink-soft">{c.blurb}</span>
-                <span className="mt-1 font-mono text-[10.5px] text-ink-faint">
-                  {c.mode} · one row per {c.itemLabel}
-                </span>
-              </button>
-            ))}
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <input
+              value={paletteQuery}
+              onChange={(e) => setPaletteQuery(e.target.value)}
+              placeholder="Search the catalog — habit, invoice, journal, kanban…"
+              className="w-full rounded-md border border-border bg-card px-2 py-1.5 text-[12.5px] sm:max-w-sm"
+            />
+            <span className="label-mono text-ink-faint">
+              {palette.filter((r) => r.sample).length} of {palette.length || "…"} widgets have a first
+              document
+            </span>
+          </div>
+
+          <div className="grid max-h-[24rem] gap-2 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-3">
+            {shown.map((row) => {
+              const selectable = Boolean(row.sample);
+              return (
+                <button
+                  key={row.slug}
+                  disabled={!selectable}
+                  onClick={() => choose(row.slug)}
+                  title={selectable ? row.slug : `${row.slug}: nothing persisted to bind`}
+                  className={cn(
+                    "flex flex-col gap-1 rounded-lg border p-3 text-left transition",
+                    row.slug === slug
+                      ? "border-primary bg-primary-wash"
+                      : "border-border hover:border-border-strong",
+                    !selectable && "cursor-not-allowed opacity-45 hover:border-border"
+                  )}
+                >
+                  <span className="flex items-center gap-1.5 text-[12.5px] font-medium">
+                    {row.label}
+                    {row.bound && (
+                      <span className="rounded-full border border-primary/40 px-1.5 py-px font-mono text-[9.5px] text-primary-deep">
+                        curated
+                      </span>
+                    )}
+                  </span>
+                  <span className="font-mono text-[10.5px] text-ink-faint">
+                    {selectable
+                      ? `${row.mode} · ${row.itemColumns} column${row.itemColumns === 1 ? "" : "s"} · ${row.source}`
+                      : "no first document"}
+                  </span>
+                  {selectable ? (
+                    <span className="text-[11px] leading-snug text-ink-soft">
+                      {row.mode === "kv-blob"
+                        ? "one row holds the whole document"
+                        : `${row.sampleItems} row${row.sampleItems === 1 ? "" : "s"} to start from`}
+                    </span>
+                  ) : (
+                    <span className="text-[11px] leading-snug text-ink-faint">
+                      persists nothing until you interact with it
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+            {!shown.length && (
+              <p className="text-[12px] text-ink-soft">
+                Nothing matches “{paletteQuery}”. The catalog has {palette.length} widgets.
+              </p>
+            )}
           </div>
 
           <div className="rounded-lg border border-border bg-card p-3">
-            <p className="text-[12.5px] font-medium text-foreground">{component.label}</p>
-            <p className="mt-1 text-[12px] leading-snug text-ink-soft">{component.tryThis}</p>
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-[12.5px] font-medium text-foreground">{spec?.label ?? slug}</p>
+              <span className="font-mono text-[10.5px] text-ink-faint">{slug}</span>
+              {spec && (
+                <span className="rounded-full border border-border px-2 py-0.5 font-mono text-[10.5px] text-ink-soft">
+                  {spec.mode}
+                </span>
+              )}
+              {spec?.lossy && (
+                <span className="rounded-full border border-tint-butter-ink/30 bg-tint-butter px-2 py-0.5 font-mono text-[10.5px] text-tint-butter-ink">
+                  nested values · bound as a state blob
+                </span>
+              )}
+            </div>
+            {spec?.tryThis ? (
+              <p className="mt-1 text-[12px] leading-snug text-ink-soft">{spec.tryThis}</p>
+            ) : null}
             {spec && (
               <div className="mt-2 flex flex-wrap items-center gap-1.5">
                 <span className="label-mono text-ink-faint">Columns</span>
@@ -475,7 +600,9 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
                         ? "border-primary/40 bg-primary-wash text-primary-deep"
                         : "border-border text-ink-soft"
                     )}
-                    title={`${col.type}${col.keyPart ? " · part of the key" : ""}${col.options ? ` · ${col.options} options` : ""}`}
+                    title={`${col.type}${col.keyPart ? " · part of the key" : ""}${
+                      col.options ? ` · ${col.options} options` : ""
+                    }`}
                   >
                     {col.prop}
                     <span className="text-ink-faint"> {col.type}</span>
@@ -486,21 +613,29 @@ export function DataPlanePlayground({ initialSlug }: { initialSlug?: string } = 
             {spec && (
               <p className="mt-2 text-[11.5px] leading-snug text-ink-faint">
                 {spec.mode === "kv-blob"
-                  ? "One row holds the whole document, with a revision and an updated stamp."
+                  ? `One row holds the whole document, with a revision and an updated stamp — ${spec.modeWhy}.`
                   : `A row is identified by ${spec.keyColumns.join(" + ")}. ${
                       spec.source === "spec"
                         ? "The columns come from the component's own field list."
                         : spec.source === "declared"
                           ? "This shape is declared: it is not a guess from a sample."
-                          : "The shape is inferred from the sample until a schema is declared for it."
+                          : "The shape is inferred from the document the widget itself wrote."
                     }`}
+                {spec.seed.from !== "none" ? ` First document: ${spec.seed.from}.` : ""}
+                {spec.write ? ` Round trip: ${spec.write.exact ? "exact" : "lossy"}.` : ""}
+              </p>
+            )}
+            {spec && spec.seed.unmapped.length > 0 && (
+              <p className="mt-1 text-[11.5px] leading-snug text-tint-butter-ink">
+                Fields with no column: {spec.seed.unmapped.join(", ")} — they stay in the widget's own
+                document but are not queryable in Notion.
               </p>
             )}
           </div>
 
           <div>
-            <Button onClick={create} disabled={!connectionId || busy === "create"}>
-              {busy === "create" ? "Binding…" : `Bind ${component.label} and open both renderers`}
+            <Button onClick={create} disabled={!connectionId || busy === "create" || !spec}>
+              {busy === "create" ? "Binding…" : `Bind ${spec?.label ?? slug} and open both renderers`}
             </Button>
           </div>
         </div>

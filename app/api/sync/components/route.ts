@@ -42,6 +42,10 @@ export interface ComponentDescription {
   shape: string;
   identity: string;
   inferred: boolean;
+  /** why this mode, in a sentence the UI can show */
+  modeWhy: string;
+  /** inference would drop nested values: records mode is not offered */
+  lossy: boolean;
   /** the storage key the widget actually writes, `null` when it persists nothing */
   adoptKey: string | null;
   columns: { prop: string; key: string; type: string; keyPart: boolean; options: number }[];
@@ -91,7 +95,7 @@ function describe(slug: string, withWrite: boolean, withSample = false): Compone
   const bound = boundComponent(slug);
   const state = sample?.state ?? null;
   const schema = schemaFor(slug, state ?? [], state);
-  const { mode } = modeFor(slug, sample, schema);
+  const { mode, why } = modeFor(slug, sample, schema);
 
   const items = mode === "records" && state !== null ? schema.read(state) : [];
   const fieldKeys = new Set(schema.fields.map((f) => f.key));
@@ -133,6 +137,8 @@ function describe(slug: string, withWrite: boolean, withSample = false): Compone
     shape: schema.shape,
     identity: schema.identity,
     inferred: schema.inferred,
+    modeWhy: why,
+    lossy: Boolean(schema.lossy),
     adoptKey: widgetStorageKey(slug),
     columns:
       mode === "kv-blob"
@@ -199,15 +205,19 @@ export async function GET(req: NextRequest) {
       const sample = sampleStateFor(slug);
       const catalog = getComponent(slug);
       const schema = schemaFor(slug, sample?.state ?? [], sample?.state);
+      const mode = modeFor(slug, sample, schema).mode;
       return {
         slug,
         label: boundComponent(slug)?.label ?? catalog?.name ?? slug,
         category: catalog?.category,
-        mode: modeFor(slug, sample, schema).mode,
+        mode,
         source: schemaSource(slug),
         shape: schema.shape,
         itemLabel: schema.itemLabel,
-        itemColumns: schema.fields.length,
+        // A state blob has four columns whatever its document holds: the key, the
+        // document, a revision and a stamp. Counting the schema's fields there
+        // says "0 columns", which is the opposite of what the table looks like.
+        itemColumns: mode === "kv-blob" ? 4 : schema.fields.length,
         adoptKey: widgetStorageKey(slug),
         sample: sample?.source ?? null,
         sampleItems: sample?.items ?? 0,

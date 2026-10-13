@@ -4,6 +4,10 @@ import { DataPlanePlayground } from "@/components/sync/playground";
 import { FigureRef, SyncFigure } from "@/components/sync/figure";
 import { BOUND_COMPONENTS } from "@/lib/sync/components";
 import { schemaFor, schemaSource } from "@/lib/sync/schemas";
+import { sampleStateFor } from "@/lib/sync/samples";
+import { widgetSpec, widgetStorageKey } from "@/lib/sync/widget-meta";
+import { readdirSync } from "node:fs";
+import path from "node:path";
 
 export const metadata: Metadata = {
   title: "Two-way data sync",
@@ -30,6 +34,30 @@ function boundRows() {
   });
 }
 
+/**
+ * The same three numbers `npm run check:coverage` reports, computed the same
+ * way: how much of the catalog can be bound at all, and why the rest cannot.
+ */
+function catalogCoverage() {
+  const slugs = readdirSync(path.join(process.cwd(), "public", "widgets"))
+    .filter((f) => f.endsWith(".html"))
+    .map((f) => f.replace(/\.html$/, ""));
+  const samples = slugs.map((slug) => ({ slug, sample: sampleStateFor(slug) }));
+  const withSample = samples.filter((s) => s.sample);
+  return {
+    widgets: slugs.length,
+    stateful: slugs.filter((s) => widgetStorageKey(s)).length,
+    spec: slugs.filter((s) => widgetSpec(s)?.fields?.length).length,
+    sampleable: withSample.length,
+    unsampled: samples.length - withSample.length,
+    bySource: {
+      seed: withSample.filter((s) => s.sample?.source === "seed").length,
+      spec: withSample.filter((s) => s.sample?.source === "spec").length,
+      harvested: withSample.filter((s) => s.sample?.source === "harvested").length,
+    },
+  };
+}
+
 export default async function SyncDocsPage({
   searchParams,
 }: {
@@ -37,6 +65,7 @@ export default async function SyncDocsPage({
 }) {
   const { component } = await searchParams;
   const bound = boundRows();
+  const coverage = catalogCoverage();
   return (
     <DocPage
       eyebrow="Notion platform"
@@ -113,15 +142,42 @@ export default async function SyncDocsPage({
           playground, instead of leaving a user to find out by losing a row.
         </P>
         <P>
-          The same machinery reaches further than the ten.{" "}
+          The ten are curated, not the limit. The palette above lists{" "}
           <strong className="text-foreground">
-            84 of the 192 widgets are generated from a field list the widget
-            already carries
+            all {coverage.widgets} widgets, and {coverage.sampleable} of them can
+            be bound right now
           </strong>
-          , and all 84 map through it with nothing left out: bind one and its
-          columns come from the widget&apos;s own SPEC rather than a guess. Of
-          the 166 widgets that persist state, ten do not use the{" "}
-          <code>notion-arena.&lt;slug&gt;.v1</code> key they look like they
+          : {coverage.bySource.seed} carry a hand-written first document,{" "}
+          {coverage.bySource.spec} are generated from a field list the widget
+          itself carries, and {coverage.bySource.harvested} were measured by
+          running the widget headlessly and asking it what it persists —
+          <code>{coverage.widgets - coverage.sampleable}</code> persist nothing a
+          table could hold, and the palette says so on the card instead of
+          offering a button that would create an empty table.
+        </P>
+        <P>
+          Two commands keep that number honest, and both need{" "}
+          <code>npm run dev</code>:
+        </P>
+        <UL>
+          <LI>
+            <code>npm run check:coverage</code> — binds every widget that can
+            produce a first document (147 of them), provisions its table,
+            uploads the document, reads it back and compares, then pushes the
+            same document again to prove the second push adds no row. 585
+            assertions, and the {coverage.unsampled} widgets it cannot bind are
+            listed by name rather than skipped in silence.
+          </LI>
+          <LI>
+            <code>npm run check:components</code> — the ten above, driven the
+            long way: write from the widget, find the row, edit the row in
+            Notion, find the value in what a device renders, trash the row, find
+            the tombstone. 138 assertions.
+          </LI>
+        </UL>
+        <P>
+          Of the {coverage.stateful} widgets that persist state, ten do not use
+          the <code>notion-arena.&lt;slug&gt;.v1</code> key they look like they
           should, and the bind reads the key out of the file rather than
           assuming it, because adopting the wrong key is invisible until a
           device renders empty.
