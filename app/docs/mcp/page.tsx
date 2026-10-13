@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import { DocPage, H2, H3, P, Note, UL, LI, Code } from "@/components/docs/prose";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs/mcp", {
   title: "MCP Server",
   description:
     "Reference for the notion-arena-mcp MCP server: tools, parameters, install commands for Claude Code / Desktop / Cursor / Windsurf, env variables, and how to pin versions.",
-};
+});
 
 export default function McpDocsPage() {
   return (

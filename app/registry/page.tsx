@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { COMPONENTS, STATS } from "@/lib/catalog";
@@ -8,11 +9,11 @@ import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
 import { RegistryFlowArt } from "@/components/illustrations";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/registry", {
   title: "Registry",
   description:
     "A shadcn/ui-compatible component registry for Notion. Machine-readable manifests at /r/index.json, per-item JSON with inlined HTML, and a JSON Schema of every widget's configuration.",
-};
+});
 
 const ENDPOINTS = [
   {

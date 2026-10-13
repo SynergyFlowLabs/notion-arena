@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import Link from "next/link";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table } from "@/components/docs/prose";
 import { RECIPES, planInstall } from "@/lib/recipes";
@@ -10,11 +11,11 @@ import {
 } from "@/lib/recipes/types";
 import { COMPONENTS } from "@/lib/catalog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs/recipes", {
   title: "Authoring a recipe",
   description:
     "How a Notion Arena native recipe is declared (databases, property refs, relation resolution, views, seed rows, page bodies and manual steps) and how planInstall turns it into an ordered request list.",
-};
+});
 
 const recipeList = Object.values(RECIPES);
 

@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import Link from "next/link";
 import { COMPONENTS } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 import { PageTransition } from "@/components/page-transition";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/changelog", {
   title: "Changelog",
   description:
     "What changed in Notion Arena, and which Notion API version it targets. Every entry says what shipped and what it depends on.",
-};
+});
 
 type Entry = {
   version: string;

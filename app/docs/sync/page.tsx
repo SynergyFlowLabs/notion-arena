@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table } from "@/components/docs/prose";
 import { DataPlanePlayground } from "@/components/sync/playground";
 import { FigureRef, SyncFigure } from "@/components/sync/figure";
@@ -9,11 +10,11 @@ import { widgetSpec, widgetStorageKey } from "@/lib/sync/widget-meta";
 import { readdirSync } from "node:fs";
 import path from "node:path";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs/sync", {
   title: "Two-way data sync",
   description:
     "How a Notion Arena component binds to a database or page and syncs both ways, why the HTML block and the embed need different transports, and the live harness to try it without a Notion token.",
-};
+});
 
 /**
  * The ten, resolved through the same schema the engine binds them through.

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { PageTransition } from "@/components/page-transition";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/legal/privacy", {
   title: "Privacy policy",
   description:
     "What Notion Arena collects: no accounts for browsing, no analytics on widget pages, no storage of Notion integration tokens.",
-};
+});
 
 export default function PrivacyPage() {
   return (

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table, YesNo, Cite } from "@/components/docs/prose";
 import { SandboxFlowArt } from "@/components/illustrations";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs/sandbox", {
   title: "The HTML block sandbox",
   description:
     "What Notion's native HTML block can and cannot do: JavaScript, localStorage, network access, parent-page access, editing, plan availability. Verified against the Notion changelog and the File Upload API reference.",
-};
+});
 
 export default function SandboxPage() {
   return (

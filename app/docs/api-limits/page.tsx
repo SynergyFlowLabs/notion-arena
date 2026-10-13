@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table, YesNo, Cite } from "@/components/docs/prose";
 import { RECIPES, planInstall } from "@/lib/recipes";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs/api-limits", {
   title: "Notion API limits, cited",
   description:
     "Every Notion API constraint that shapes a Notion Arena recipe: block nesting depth, children per request, rate limits, the missing button type, automations, recurring templates, dashboard layouts, and the two-pass data-source problem.",
-};
+});
 
 const recipeCount = Object.keys(RECIPES).length;
 /** Derived, so this page can never quote a request count the plan disagrees with. */

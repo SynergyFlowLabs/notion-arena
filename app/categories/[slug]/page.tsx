@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { COMPONENTS, componentsByCategory } from "@/lib/catalog";
 import { CATEGORIES, type CategorySlug } from "@/lib/types";
+import { withCanonical } from "@/lib/seo";
 import { ComponentCard } from "@/components/component-card";
 import { ThemedIllustration } from "@/components/illustrations";
 import { PageTransition } from "@/components/page-transition";
@@ -19,10 +20,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const cat = CATEGORIES.find((c) => c.slug === slug);
   if (!cat) return { title: "Category not found" };
-  return {
+  return withCanonical(`/categories/${slug}`, {
     title: `${cat.name} components`,
     description: cat.blurb,
-  };
+  });
 }
 
 /** What a category actually needs from Notion: the honest framing per group. */

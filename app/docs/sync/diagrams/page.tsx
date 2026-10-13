@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import { DocPage, H2, P, Note } from "@/components/docs/prose";
 import { DIAGRAMS } from "@/lib/diagrams";
 import { SyncFigure } from "@/components/sync/figure";
 import { FigureDownload } from "@/components/sync/figure-download";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs/sync/diagrams", {
   title: "The sync, in six figures",
   description:
     "Where a component's state lives today, what two-way sync costs, and how one click becomes one row: six diagrams drawn from the same source as the code they describe.",
-};
+});
 
 const READ = [
   { kind: "solid" as const, label: "happens on every sync, no condition" },

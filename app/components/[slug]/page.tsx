@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
+import { withCanonical } from "@/lib/seo";
 import { COMPONENTS, getComponent } from "@/lib/catalog";
 import { CATEGORIES, categoryOf, isWidget } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
@@ -27,11 +28,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const c = getComponent(slug);
   if (!c) return { title: "Component not found" };
-  return {
+  return withCanonical(`/components/${slug}`, {
     title: c.name,
     description: `${c.tagline} ${c.description.slice(0, 120)}`,
     openGraph: { title: `${c.name} · Notion Arena`, description: c.tagline, type: "article" },
-  };
+  });
 }
 
 const CAPABILITY_ROWS: {

@@ -26,7 +26,18 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/embed/:path*",
-        headers: [{ key: "Access-Control-Allow-Origin", value: "*" }],
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          // Iframe target, not a destination page: keep it out of the index.
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
+      },
+      {
+        source: "/c/:path*",
+        headers: [
+          // Same: a sandbox/preview transport, not a page to search for.
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
       },
       {
         // shadcn-style registry endpoints
@@ -34,6 +45,8 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "Access-Control-Allow-Origin", value: "*" },
           { key: "Content-Type", value: "application/json" },
+          // Raw JSON for agents; the HTML pages are the indexable surface.
+          { key: "X-Robots-Tag", value: "noindex" },
         ],
       },
     ];

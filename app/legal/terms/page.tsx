@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { PageTransition } from "@/components/page-transition";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/legal/terms", {
   title: "Terms of service",
   description: "The terms covering use of Notion Arena components, embed URLs, downloadable HTML and the install API.",
-};
+});
 
 export default function TermsPage() {
   return (
