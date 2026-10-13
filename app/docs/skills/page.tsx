@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import { DocPage, H2, H3, P, Note, UL, LI, Code } from "@/components/docs/prose";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs/skills", {
   title: "Agent Skill",
   description:
     "Reference for the notion-arena SKILL.md: where to install it for Claude Code, Cursor, Windsurf and other agents; what the skill encodes; and how to customise it.",
-};
+});
 
 export default function SkillsDocsPage() {
   return (

@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import Link from "next/link";
 import { PageTransition } from "@/components/page-transition";
 import { Button } from "@/components/ui/button";
 import { Snippet } from "@/components/ui/snippet";
 import { IconArrowRight, IconCheck, IconCode } from "@/components/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/skills", {
   title: "Agent Skill",
   description:
     "Teach your coding agent everything it needs to know about Notion Arena — the honesty policy, three-channel decision table, widget contract, and install flows — in one SKILL.md file.",
-};
+});
 
 const STEPS = [
   {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { CopyButton } from "@/components/copy-button";
@@ -7,11 +8,11 @@ import { PageTransition } from "@/components/page-transition";
 import { ThemedIllustration } from "@/components/illustrations";
 import { IconAlert, IconArrowRight, IconCheck, IconClose, IconPlus } from "@/components/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/how-it-works", {
   title: "How it works",
   description:
     "The three ways a Notion Arena component gets into a Notion page: hosted embed URLs, native HTML blocks via the File Upload API, and database recipes via the Notion API, including exactly where each one breaks.",
-};
+});
 
 const DECISION_ROWS = [
   ["I want it on a page in 30 seconds", "Embed URL", "Type /embed, paste, resize. No account, no integration, works on Free."],

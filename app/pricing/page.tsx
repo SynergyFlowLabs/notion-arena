@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import Link from "next/link";
 import { STATS, COMPONENTS } from "@/lib/catalog";
 import { Faq } from "@/components/site/faq";
@@ -7,11 +8,11 @@ import { PageTransition } from "@/components/page-transition";
 import { ThemedIllustration } from "@/components/illustrations";
 import { IconArrowRight, IconCheck, IconClose } from "@/components/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/pricing", {
   title: "Pricing",
   description:
     "Notion Arena pricing. Free components with no account, Pro for the full catalog and API installs. Pro is free during the beta.",
-};
+});
 
 const FREE_LIST = COMPONENTS.filter((c) => c.tier === "free");
 const PRO_LIST = COMPONENTS.filter((c) => c.tier === "pro");

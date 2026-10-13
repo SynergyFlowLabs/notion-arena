@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import { Suspense, ViewTransition } from "react";
 import { CatalogBrowser } from "@/components/catalog-browser";
 import { PageTransition } from "@/components/page-transition";
 import { STATS } from "@/lib/catalog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/components", {
   title: "Components",
   description:
     "Browse every Notion Arena component: interactive widgets that run inside a Notion page, and native database recipes that install through the Notion API.",
-};
+});
 
 export default function ComponentsPage() {
   return (

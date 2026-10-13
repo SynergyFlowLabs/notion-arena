@@ -2,20 +2,78 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { COMPONENTS, STATS } from "@/lib/catalog";
 import { CATEGORIES } from "@/lib/types";
+import { FAQS, faqAnswerText } from "@/lib/faqs";
+import { SITE_URL, withCanonical } from "@/lib/seo";
 import { CATEGORY_ICONS, IconArrowRight, IconCheck, IconCheckCircle, IconCode, IconLink, IconTerminal, IconWrench, IconXCircle } from "@/components/icons";
 import { ChannelBlockArt, ChannelEmbedArt, ChannelRecipeArt } from "@/components/illustrations";
 import { ComponentCard } from "@/components/component-card";
 import { HeroDashboard } from "@/components/site/hero-dashboard";
 import { Faq } from "@/components/site/faq";
+import { JsonLd } from "@/components/site/json-ld";
 import { Button } from "@/components/ui/button";
 import { CopyButton } from "@/components/copy-button";
 import { NotionTag, notionInk } from "@/components/ui/notion-tag";
 import { PageTransition } from "@/components/page-transition";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/", {
   title: "Notion Arena: the component registry for Notion",
   description:
-    "Feature-rich components Notion doesn't ship: interactive widgets that run as /embed URLs or native HTML blocks, and database systems that install through the Notion API. Browse, copy, install.",
+    "Feature-rich components Notion doesn't ship: widgets that run as /embed URLs or HTML blocks, and database systems that install through the Notion API.",
+});
+
+/** The six components with live previews on this page. */
+const FEATURED_SLUGS = [
+  "kpi-strip",
+  "habit-grid",
+  "crm-pipeline",
+  "gantt-timeline",
+  "pomodoro-timer",
+  "roi-calculator",
+];
+
+/** Structured data: what this page is, its FAQ, and its featured components. */
+const pageJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${SITE_URL}/`,
+      url: `${SITE_URL}/`,
+      name: "Notion Arena: the component registry for Notion",
+      description:
+        "Feature-rich components Notion doesn't ship: widgets that run as /embed URLs or HTML blocks, and database systems that install through the Notion API.",
+      inLanguage: "en",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: "Components, widgets and database recipes for Notion",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/#faq`,
+      mainEntity: FAQS.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faqAnswerText(f.a),
+        },
+      })),
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${SITE_URL}/#featured`,
+      name: "Featured components",
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      itemListElement: FEATURED_SLUGS.map((slug, i) => {
+        const c = COMPONENTS.find((x) => x.slug === slug);
+        return {
+          "@type": "ListItem",
+          position: i + 1,
+          name: c?.name ?? slug,
+          url: `${SITE_URL}/components/${slug}`,
+        };
+      }),
+    },
+  ],
 };
 
 /** The three ways to drop a component into Notion. */
@@ -110,19 +168,13 @@ const REGISTRY_ROWS = [
 ];
 
 export default function HomePage() {
-  const featured = [
-    "kpi-strip",
-    "habit-grid",
-    "crm-pipeline",
-    "gantt-timeline",
-    "pomodoro-timer",
-    "roi-calculator",
-  ]
+  const featured = FEATURED_SLUGS
     .map((s) => COMPONENTS.find((c) => c.slug === s))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
   return (
     <PageTransition>
+      <JsonLd data={pageJsonLd} />
  {/* HERO : paper canvas, left-aligned headline + hand-drawn illustration */}
       <section className="relative overflow-hidden bg-background">
         <div className="mx-auto flex w-full max-w-[1240px] flex-col items-center gap-y-10 px-4 pt-14 pb-20 sm:px-6 md:flex-row md:items-center md:gap-x-10 md:pt-20 md:pb-24 lg:gap-x-14 lg:pt-24 lg:pb-28">

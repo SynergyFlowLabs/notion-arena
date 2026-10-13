@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import { DocPage, H2, H3, P, Note, UL, LI, Code, Table } from "@/components/docs/prose";
 import { IconCheck } from "@/components/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs/authoring", {
   title: "Authoring a widget",
   description:
     "The four contracts every Notion Arena widget implements (configuration, theming, persistence and export) plus the checklist for adding one to the catalog.",
-};
+});
 
 export default function AuthoringPage() {
   return (

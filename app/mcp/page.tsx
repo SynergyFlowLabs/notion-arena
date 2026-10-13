@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import Link from "next/link";
 import { PageTransition } from "@/components/page-transition";
 import { Button } from "@/components/ui/button";
@@ -9,11 +10,11 @@ import {
   IconTerminal,
 } from "@/components/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/mcp", {
   title: "MCP Server",
   description:
     "The Notion Arena MCP server lets Claude Code, Cursor, Windsurf and any MCP-compatible agent browse, configure and install 203 Notion components from inside the chat.",
-};
+});
 
 const TOOLS = [
   { name: "list_components", d: "Browse every component with category, tier and capability filters." },

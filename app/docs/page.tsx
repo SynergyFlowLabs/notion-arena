@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { withCanonical } from "@/lib/seo";
 import Link from "next/link";
 import { DocPage, H2, P, Note, UL, LI } from "@/components/docs/prose";
 import { ThemedIllustration } from "@/components/illustrations";
 import { STATS } from "@/lib/catalog";
 import { IconArrowRight } from "@/components/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical("/docs", {
   title: "Documentation",
   description:
     "How Notion Arena components get into Notion, what the HTML block sandbox allows, and every Notion API limit that shapes a recipe, with citations.",
-};
+});
 
 const PAGES = [
   {

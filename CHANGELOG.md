@@ -92,6 +92,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated all category badges with new SVG icons
 - Enhanced widget checklist documentation
 - Improved MCP server tool descriptions
+- **SEO / head metadata**: added `og:url`, `og:site_name`, `og:locale`, `twitter:site`, a per-page
+  canonical URL on every route (`withCanonical` in `lib/seo.ts`), a `.ico` + PNG favicon set
+  (`scripts/generate-favicons.mjs`, run `npm run generate:favicons` to regenerate), a web app
+  manifest at `/site.webmanifest`, and JSON-LD structured data (Organization, WebSite,
+  CollectionPage, FAQPage, ItemList). The default meta description was tightened to 149 characters
+  and the home description to 150. `/embed/*`, `/c/*` and `/r/*` now send `X-Robots-Tag: noindex`
+  since they are iframe transports and raw JSON, not indexable pages
 
 ### Fixed
 - **Storage keys**: twelve widgets from the previous batch (`daily-planner`, `debt-payoff-tracker`, `legal-matter-tracker`,
